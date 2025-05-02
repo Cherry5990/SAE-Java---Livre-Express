@@ -3,7 +3,7 @@ public class Vendeur extends Compte{
 
 
     public Vendeur(int id, String nom,String prenom, String mdp,Reseau reseau, Magasin librairie){
-        super(id,nom,prenom,reseau);
+        super(id,nom,prenom,mdp,reseau);
         this.librairie = librairie;
     }
 

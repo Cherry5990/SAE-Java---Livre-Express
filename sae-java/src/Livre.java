@@ -8,6 +8,8 @@ public class Livre {
     private String datePubli;
     private double prix;
     private List<Theme> themes;
+    private List<Auteur> auteurs;
+    private List<Editeur> editeurs;
 
     public Livre(int isbn, String titre, int nbPages, String datePubli, double prix) {
         this.isbn = isbn;
@@ -15,6 +17,9 @@ public class Livre {
         this.nbPages = nbPages;
         this.datePubli = datePubli;
         this.prix = prix;
+        this.themes = new ArrayList<>();
+        this.auteurs = new ArrayList<>();
+        this.editeurs = new ArrayList<>();
     }
 
     public int getIsbn(){return this.isbn;}
