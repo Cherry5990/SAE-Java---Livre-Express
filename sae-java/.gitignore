@@ -1,1 +1,2 @@
-*.class
+sae-java/bin/*.class
+sae-java/.vscode
