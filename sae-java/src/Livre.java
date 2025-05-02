@@ -1,15 +1,19 @@
+import java.util.List;
+import java.util.ArrayList;
+
 public class Livre {
     private int isbn;
     private String titre;
-    private int nbpages;
-    private String datepubli;
+    private int nbPages;
+    private String datePubli;
     private double prix;
+    private List<Theme> themes;
 
-    public Livre(int isbn, String titre, int nbpages, String datepubli, double prix) {
+    public Livre(int isbn, String titre, int nbPages, String datePubli, double prix) {
         this.isbn = isbn;
         this.titre = titre;
-        this.nbpages = nbpages;
-        this.datepubli = datepubli;
+        this.nbPages = nbPages;
+        this.datePubli = datePubli;
         this.prix = prix;
     }
 
@@ -17,9 +21,18 @@ public class Livre {
 
     public String getTitre(){return this.titre;}
 
-    public int getNbPages(){return this.nbpages;}
+    public int getNbPages(){return this.nbPages;}
 
-    public String getDatePubli(){return this.datepubli;}
+    public String getDatePubli(){return this.datePubli;}
 
     public double getPrix(){return this.prix;}
+
+    @Override
+    public boolean equals(Object o){
+        if (o == null){return false;}
+        if (o == this){return true;}
+        if (!(o instanceof Livre)){return false;}
+        Livre cast = (Livre) o;
+        return this.isbn == cast.getIsbn();
+    }
 }
