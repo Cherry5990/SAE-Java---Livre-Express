@@ -14,6 +14,28 @@ public class Magasin {
         this.stock = new ArrayList<>();
     }
 
+    public void ajouteLivre(Livre livre,int qte){
+        this.stock.add(new Posseder(this, livre, qte));
+    }
+
+    public boolean livreEnStock(Livre livre){
+        for(Posseder pos:this.stock){
+            if (pos.getLivre().equals(livre)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int qteEnStock(Livre livre){
+        for(Posseder pos:this.stock){
+            if (pos.getLivre().equals(livre)){
+                return pos.getQte();
+            }
+        }
+        return 0;
+    }
+
     public int getIdMagasin(){
         return this.idMagasin;
     }
