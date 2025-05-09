@@ -18,10 +18,12 @@ public class Magasin {
         this.stock.add(new Posseder(this, livre, qte));
     }
 
-    public boolean livreEnStock(Livre livre){
+    public boolean livreEnStock(Livre livre,int qte){
         for(Posseder pos:this.stock){
             if (pos.getLivre().equals(livre)){
-                return true;
+                if(pos.getQte()==qte){
+                    return true;
+                }
             }
         }
         return false;
