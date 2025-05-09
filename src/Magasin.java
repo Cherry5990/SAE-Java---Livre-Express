@@ -38,6 +38,31 @@ public class Magasin {
         return 0;
     }
 
+    public boolean augmenteQte(Livre livre,int qte){
+        for(Posseder pos:this.stock){
+            if (pos.getLivre().equals(livre)){
+                pos.setQte(pos.getQte()+qte);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean dimimueQte(Livre livre,int qte){
+        for(Posseder pos:this.stock){
+            if (pos.getLivre().equals(livre) && pos.getQte()-qte>-1){
+                if (pos.getQte()-qte==0){
+                    this.stock.remove(pos);
+                }
+                else{
+                    pos.setQte(pos.getQte()-qte);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int getIdMagasin(){
         return this.idMagasin;
     }

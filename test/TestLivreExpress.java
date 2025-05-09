@@ -6,6 +6,17 @@ import java.util.Arrays;
 
 
 public class TestLivreExpress {
+
+    public Reseau creationReseauSimple(){
+        Reseau res = new Reseau();
+        res.ajouteAdmin("Dupont", "Jean");
+        res.ajouteClient("Alexadre", "Dias", "3 rue des Pomiers", "99999", "Sucy-en-Brie");
+        res.ajouteMagasin("Magasin des 3 ponts", "Marseille");
+        res.ajouteVendeur("Martin", "Christine", 1);
+        Vendeur vendeur = res.getVendeur("Martin", "Christine");
+        vendeur.ajouteLivre(1, "Titanic",350,"2000",30.0,3);
+        return res;
+    }
     
     @Test
     public void testAssosciationLivre(){
