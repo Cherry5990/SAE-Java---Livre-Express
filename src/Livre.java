@@ -32,6 +32,30 @@ public class Livre {
 
     public double getPrix(){return this.prix;}
 
+    public void ajouteTheme(Theme theme){
+        this.themes.add(theme);
+    }
+
+    public void ajouteAuteur(Auteur auteur){
+        this.auteurs.add(auteur);
+    }
+
+    public void ajouteEditeur(Editeur editeur){
+        this.editeurs.add(editeur);
+    }
+
+    public List<Auteur> getAuteurs(){
+        return this.auteurs;
+    }
+
+    public List<Theme> getThemes(){
+        return this.themes;
+    }
+
+    public List<Editeur> getEditeur(){
+        return this.editeurs;
+    }
+
     @Override
     public boolean equals(Object o){
         if (o == null){return false;}
