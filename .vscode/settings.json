@@ -1,7 +1,11 @@
 {
-    "java.project.sourcePaths": ["src", "test"],
+    "java.project.sourcePaths": [
+        "src",
+        "test"
+    ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "junit-4.13.2.jar",
+        "hamcrest-2.2.jar"
     ]
 }
