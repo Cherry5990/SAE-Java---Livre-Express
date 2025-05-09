@@ -53,5 +53,6 @@ public class TestLivreExpress {
         assertEquals(new ArrayList<>(), commande.getDetailComanndes());
         assertEquals(true, commande.ajouteLivre(livre1, 2));
         assertEquals(1,commande.getDetailComanndes().size());
+        assertEquals(livre1.getPrix() * 2, commande.sommeComande(), 0.001);
     }
 }

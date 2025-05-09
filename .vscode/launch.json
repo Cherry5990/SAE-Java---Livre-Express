@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Test TestLivreExpress",
+            "request": "launch",
+            "mainClass": "org.junit.runner.JUnitCore",
+            "vmArgs": "-cp \".:lib/hamcrest-2.2.jar:lib/junit-4.13.2.jar:bin\"",
+            "args": "TestLivreExpress"
+        }
+    ]
+}
