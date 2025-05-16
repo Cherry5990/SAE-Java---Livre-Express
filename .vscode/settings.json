@@ -2,6 +2,7 @@
     "java.project.sourcePaths": [
         "src",
         "test",
+        "menu",
         "BD"
     ],
     "java.project.outputPath": "bin",
