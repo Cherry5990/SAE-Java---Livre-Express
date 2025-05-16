@@ -3,10 +3,10 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Executable",
+            "name": "ExecutableMenu",
             "request": "launch",
-            "mainClass": "Executable",
-            "projectName": "SAE-Java---Livre-Express_7243ae03"
+            "mainClass": "ExecutableMenu",
+            "projectName": "SAE-Java---Livre-Express_b9579d60"
         },
         {
             "type": "java",
