@@ -13,21 +13,23 @@ public class ExecutableMenu{
         
         Scanner scan = new Scanner(System.in);
         String  action = scan.nextLine();
-        if (action.equals("Q") || action.equals("q")){System.out.println("Vous quitter l'application");}
-        else if (action.equals("1") || action.equals("&")){
-            ExecutableMenu.menuClient();
-        }
-        else if (action.equals("2")|| action.equals("é")){
-            ExecutableMenu.menuVendeur();
-        }
-
-        else if (action.equals("3") || action.equals(String.valueOf('"'))){
-            System.out.println("A faire");
-            ExecutableMenu.menuPrincipal();
-        }
-        else{
-            System.out.println("Veuillez rentrer une commande valide");
-            ExecutableMenu.menuPrincipal();
+        switch (action) {
+            case "Q":
+            case "q":{
+                System.out.println("Vous quitter l'application");
+                break;}          
+            case "1":
+                ExecutableMenu.menuClient();
+                break;
+            case "2":
+                ExecutableMenu.menuVendeur();
+                break;
+            case "3":
+                 System.out.println("A faire");
+                break;
+            default:
+            System.out.println("Veuillez rentrer une commande valide");           
+                break;
         }
     }
 
@@ -43,22 +45,25 @@ public class ExecutableMenu{
         System.out.println("└─────────────────────────────────────────┘");   
         Scanner scan = new Scanner(System.in);
         String action = scan.nextLine();
-
-        if(action.equals("Q") || action.equals("q")){
-            ExecutableMenu.menuPrincipal();
-        }
-        else if (action.equals("1") || action.equals("&")){
-            ExecutableMenu.sousMenuLivreRecommande();
-        }                
-        else if (action.equals("2")|| action.equals("é")){
-            ExecutableMenu.sousMenuConsulterCatalogue();
-        }
-        else if (action.equals("3") || action.equals(String.valueOf('"'))){
-            ExecutableMenu.sousMenuPasserUneCommande();
-        }
-        else{
+        switch (action) {
+            case "Q":
+            case "q":{
+                System.out.println("Vous retournez au menu principal");
+                ExecutableMenu.menuPrincipal();
+                break;}          
+            case "1":
+                ExecutableMenu.sousMenuLivreRecommande();
+                break;
+            case "2":
+                ExecutableMenu.sousMenuConsulterCatalogue();;
+                break;
+            case "3":
+                ExecutableMenu.sousMenuPasserUneCommande();
+                break;
+            default:
             System.out.println("Veuillez rentrer une commande valide");
-            ExecutableMenu.menuClient();                   
+            ExecutableMenu.menuClient();        
+                break;
         }
     }  
 
@@ -72,36 +77,50 @@ public class ExecutableMenu{
         System.out.println("└───────────────────────────────────────────────┘"); 
         Scanner scan = new Scanner(System.in);
         String action = scan.nextLine();
-        if(action.equals("Q") || action.equals("q")){
-            ExecutableMenu.menuClient();
-        }
-        else if(action.equals("M") || action.equals("m")){
-            ExecutableMenu.menuPrincipal();
-        }
-        else {   
+        switch (action) {
+            case "Q":
+            case "q":{
+                System.out.println("Vous retournez au menu Client");
+                 ExecutableMenu.menuClient();
+                break;}          
+            case "M":
+            case "m":{
+                System.out.println("Vous retournez au menu principal");
+                ExecutableMenu.menuPrincipal();
+                break;}
+            default:
             System.out.println("Veuillez rentrer une commande valide");
-            ExecutableMenu.sousMenuLivreRecommande();                   
+            ExecutableMenu.sousMenuLivreRecommande();           
+                break;
         }
+        
+        
     }
     //A finir
     public static void sousMenuConsulterCatalogue(){
         System.out.println("┌───────────────────────────────────────────────┐");        
-        System.out.println("│          Voici le catalogue de livres         │");
+        System.out.println("│  Vous êtes sur le menu catalogue de livres    │");
         System.out.println("│           [Inserer catalogues livres]         │");
         System.out.println("│  Appuyez sur Q pour revenir en arriere        │");
         System.out.println("│  Appuyez sur M pour revenir au menu principal │");
         System.out.println("└───────────────────────────────────────────────┘"); 
         Scanner scan = new Scanner(System.in);
         String action = scan.nextLine();
-        if(action.equals("Q") || action.equals("q")){
-            ExecutableMenu.menuClient();
-        }
-        else if(action.equals("M") || action.equals("m")){
-            ExecutableMenu.menuPrincipal();
-        }
-        else {   
+        switch (action) {
+            case "Q":
+            case "q":{
+                System.out.println("Vous retournez au menu Client");
+                 ExecutableMenu.menuClient();
+                break;}          
+            case "M":
+            case "m":{
+                System.out.println("Vous retournez au menu principal");
+                ExecutableMenu.menuPrincipal();
+                break;}
+            default:
             System.out.println("Veuillez rentrer une commande valide");
-            ExecutableMenu.sousMenuLivreRecommande();                   
+            ExecutableMenu.sousMenuConsulterCatalogue();           
+                break;
         }
     }
     //A finir
@@ -114,15 +133,21 @@ public class ExecutableMenu{
         System.out.println("└───────────────────────────────────────────────┘"); 
         Scanner scan = new Scanner(System.in);
         String action = scan.nextLine();
-        if(action.equals("Q") || action.equals("q")){
-            ExecutableMenu.menuClient();
-        }
-        else if(action.equals("M") || action.equals("m")){
-            ExecutableMenu.menuPrincipal();
-        }
-        else {   
+        switch (action) {
+            case "Q":
+            case "q":{
+                System.out.println("Vous retournez au menu Client");
+                 ExecutableMenu.menuClient();
+                break;}          
+            case "M":
+            case "m":{
+                System.out.println("Vous retournez au menu principal");
+                ExecutableMenu.menuPrincipal();
+                break;}
+            default:
             System.out.println("Veuillez rentrer une commande valide");
-            ExecutableMenu.sousMenuLivreRecommande();                   
+            ExecutableMenu.sousMenuPasserUneCommande();           
+                break;
         }
     }
     
@@ -140,33 +165,37 @@ public class ExecutableMenu{
         System.out.println("└─────────────────────────────────────────┘");   
         Scanner scan = new Scanner(System.in);
         String action = scan.nextLine();
+        switch (action) {
+            case "Q":
+            case "q":{
+                System.out.println("Vous retournez au menu principal");
+                ExecutableMenu.menuPrincipal();
+                break;}          
+            case "1":
+                System.out.println("A faire");
+                ExecutableMenu.menuVendeur();
+                break;
+            case "2":
+                System.out.println("A faire");
+                ExecutableMenu.menuVendeur();
+                break;
+            case "3":
+                System.out.println("A faire");
+                ExecutableMenu.menuVendeur();
+                break;
+            case "4":
+                System.out.println("A faire");
+                ExecutableMenu.menuVendeur();
+                break;
+            case "5":
+                System.out.println("A faire");
+                ExecutableMenu.menuVendeur();
+                break;
 
-        if(action.equals("Q") || action.equals("q")){
-            ExecutableMenu.menuPrincipal();
-        }
-        else if (action.equals("1") || action.equals("&")){
-            System.out.println("A faire");
-            ExecutableMenu.menuVendeur();
-        }                
-        else if (action.equals("2")|| action.equals("é")){
-            System.out.println("A faire");
-            ExecutableMenu.menuVendeur();
-        }
-        else if (action.equals("3") || action.equals(String.valueOf('"'))){
-            System.out.println("A faire");
-            ExecutableMenu.menuVendeur();
-        }
-        else if (action.equals("4")|| action.equals("'")){
-            System.out.println("A faire");
-            ExecutableMenu.menuVendeur();
-        }
-        else if (action.equals("5")|| action.equals("(")){
-            System.out.println("A faire");
-            ExecutableMenu.menuVendeur();
-        }
-        else{
+            default:
             System.out.println("Veuillez rentrer une commande valide");
-            ExecutableMenu.menuVendeur();                      
+            ExecutableMenu.menuClient();        
+                break;
         }
     }  
 
@@ -182,33 +211,32 @@ public class ExecutableMenu{
         System.out.println("└─────────────────────────────────────────┘");   
         Scanner scan = new Scanner(System.in);
         String action = scan.nextLine();
-
-        if(action.equals("Q") || action.equals("q")){
-            ExecutableMenu.menuPrincipal();
-        }
-        else if (action.equals("1") || action.equals("&")){
-            System.out.println("A faire");
-            ExecutableMenu.menuAdmin();
-        }                
-        else if (action.equals("2")|| action.equals("é")){
-            System.out.println("A faire");
-            ExecutableMenu.menuAdmin();
-        }
-        else if (action.equals("3") || action.equals(String.valueOf('"'))){
-            System.out.println("A faire");
-            ExecutableMenu.menuAdmin();
-        }
-        else if (action.equals("4")|| action.equals("'")){
-            System.out.println("A faire");
-            ExecutableMenu.menuAdmin();
-        }
-        else if (action.equals("5")|| action.equals("(")){
-            System.out.println("A faire");
-            ExecutableMenu.menuAdmin();
-        }
-        else{
+        switch (action) {
+            case "Q":
+            case "q":{
+                System.out.println("Vous retournez au menu principal");
+                ExecutableMenu.menuPrincipal();
+                break;}          
+            case "1":
+                System.out.println("A faire");
+                ExecutableMenu.menuAdmin();
+                break;
+            case "2":
+                System.out.println("A faire");
+                ExecutableMenu.menuAdmin();
+                break;
+            case "3":
+                System.out.println("A faire");
+                ExecutableMenu.menuAdmin();
+                break;
+            case "4":
+                System.out.println("A faire");
+                ExecutableMenu.menuAdmin();
+                break;
+            default:
             System.out.println("Veuillez rentrer une commande valide");
-            ExecutableMenu.menuAdmin();                      
+            ExecutableMenu.menuClient();        
+                break;
         }
     }  
 
