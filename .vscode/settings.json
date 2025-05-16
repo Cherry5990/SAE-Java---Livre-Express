@@ -2,7 +2,8 @@
     "java.project.sourcePaths": [
         "src",
         "test",
-        "menu"
+        "menu",
+        "BD"
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
