@@ -9,7 +9,7 @@ public class MenuAdmin {
         System.out.println("│ 2: ajouter une nouvelle librairie       │");
         System.out.println("│ 3: gérer les stocks globaux             │");
         System.out.println("│ 4: Consulter les statistiques de ventes │");
-        System.out.println("│  Appuyez sur Q pour revenir en arriere  │");
+        System.out.println("│    Rentrez Q pour revenir en arriere    │");
         System.out.println("└─────────────────────────────────────────┘");   
         Scanner scan = new Scanner(System.in);
         String action = scan.nextLine();

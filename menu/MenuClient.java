@@ -10,7 +10,7 @@ public class MenuClient {
         System.out.println("│ 1:  voir vos livres recommandés         │");
         System.out.println("│ 2:  consulter le catalogue              │");
         System.out.println("│ 3:  passer une commande                 │");
-        System.out.println("│  Appuyez sur Q pour revenir en arriere  │");
+        System.out.println("│    Rentrez Q pour revenir en arriere    │");
         System.out.println("└─────────────────────────────────────────┘");   
         Scanner scan = new Scanner(System.in);
         String action = scan.nextLine();
@@ -41,8 +41,8 @@ public class MenuClient {
         System.out.println("┌───────────────────────────────────────────────┐");        
         System.out.println("│    Vos livres recommandés sont les suivant    │");
         System.out.println("│         [Inserer livres recommande]           │");
-        System.out.println("│  Appuyez sur Q pour revenir en arriere        │");
-        System.out.println("│  Appuyez sur M pour revenir au menu principal │");
+        System.out.println("│       Rentrez Q pour revenir en arriere       │");
+        System.out.println("│    Rentrez M pour revenir au menu principal   │");
         System.out.println("└───────────────────────────────────────────────┘"); 
         Scanner scan = new Scanner(System.in);
         String action = scan.nextLine();
@@ -62,16 +62,15 @@ public class MenuClient {
             MenuClient.sousMenuLivreRecommande();           
                 break;
         }
-        
-        
     }
+
     //A finir
     public static void sousMenuConsulterCatalogue(){
         System.out.println("┌───────────────────────────────────────────────┐");        
         System.out.println("│  Vous êtes sur le menu catalogue de livres    │");
         System.out.println("│           [Inserer catalogues livres]         │");
-        System.out.println("│  Appuyez sur Q pour revenir en arriere        │");
-        System.out.println("│  Appuyez sur M pour revenir au menu principal │");
+        System.out.println("│       Rentrez Q pour revenir en arriere       │");
+        System.out.println("│    Rentrez M pour revenir au menu principal   │");
         System.out.println("└───────────────────────────────────────────────┘"); 
         Scanner scan = new Scanner(System.in);
         String action = scan.nextLine();
@@ -92,13 +91,14 @@ public class MenuClient {
                 break;
         }
     }
+
     //A finir
     public static void sousMenuPasserUneCommande(){
         System.out.println("┌───────────────────────────────────────────────┐");        
         System.out.println("│       Vous êtes sur le menu de commande       │");
         System.out.println("│              [A faire]                        │");
-        System.out.println("│  Appuyez sur Q pour revenir en arriere        │");
-        System.out.println("│  Appuyez sur M pour revenir au menu principal │");
+        System.out.println("│    Rentrez Q pour revenir en arriere          │");
+        System.out.println("│    Rentrez M pour revenir au menu principal   │");
         System.out.println("└───────────────────────────────────────────────┘"); 
         Scanner scan = new Scanner(System.in);
         String action = scan.nextLine();
@@ -119,4 +119,6 @@ public class MenuClient {
                 break;
         }
     }
+
+
 }

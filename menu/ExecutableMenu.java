@@ -9,7 +9,7 @@ public class ExecutableMenu{
         System.out.println("│ 1:pour vous connecter en tant que Client │");
         System.out.println("│ 2:pour vous connecter en tant que Vendeur│");
         System.out.println("│ 3:pour vous connecter en tant qu'Admin   │");
-        System.out.println("│  Appuyez sur Q pour quitter l'appli      │");
+        System.out.println("│      Rentrez Q pour quitter l'appli      │");
         System.out.println("└──────────────────────────────────────────┘");   
         
         Scanner scan = new Scanner(System.in);
@@ -34,16 +34,6 @@ public class ExecutableMenu{
         }
     }
 
-    
-    
-
-    
-
-     
-
-
-
-    
     public static void main(String[] args) {
         
         ExecutableMenu.menuPrincipal();
