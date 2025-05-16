@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Commande {
     private int numCom;
     private String dateCom;
@@ -5,16 +8,18 @@ public class Commande {
     private boolean livraison;
     private Client client;
     private Magasin magasin;
-    private DetailCommande detailCommande;
+    private List<DetailCommande> detailCommandes;
+    private int ligne;
 
-    public Commande(int numCom, String dateCom, boolean enLigne, boolean livraison, Client client, Magasin magasin, DetailCommande detailCommande) {
+    public Commande(int numCom, String dateCom, boolean enLigne, boolean livraison, Client client, Magasin magasin) {
         this.numCom = numCom;
         this.dateCom = dateCom;
         this.enLigne = enLigne;
         this.livraison = livraison;
         this.client = client;
         this.magasin = magasin;
-        this.detailCommande = detailCommande;
+        this.detailCommandes = new ArrayList<>();
+        this.ligne = 1;
     }
 
     public int getNumCom() {return numCom;}
@@ -22,6 +27,25 @@ public class Commande {
     public boolean isEnLigne() {return enLigne;}
     public boolean isLivraison() {return livraison;}
     public Client getClient() {return client;}
+    public Magasin getMagasin(){return this.magasin;}
+    public List<DetailCommande> getDetailComanndes(){return this.detailCommandes;}
 
     public void setLivraison(boolean eL) {this.enLigne = eL;}
+
+    public double sommeComande(){
+        double somme=0;
+        for(DetailCommande dc:this.detailCommandes){
+            somme+=dc.getPrixVente();
+        }
+        return somme;
+    }
+
+    public boolean ajouteLivre(Livre livre,int qte){
+        if (this.magasin.livreEnStock(livre, qte)){
+            this.detailCommandes.add(new DetailCommande(this.ligne, qte, livre));
+            this.ligne +=1;
+            return true;
+        }
+        return false;
+    }
 }
