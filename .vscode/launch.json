@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ExecutableMenu",
+            "request": "launch",
+            "mainClass": "ExecutableMenu",
+            "projectName": "SAE-Java---Livre-Express_b9579d60"
+        },
+        {
+            "type": "java",
             "name": "Test TestLivreExpress",
             "request": "launch",
             "mainClass": "org.junit.runner.JUnitCore",
