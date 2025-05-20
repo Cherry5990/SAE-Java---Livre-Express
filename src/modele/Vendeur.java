@@ -1,3 +1,5 @@
+package modele;
+
 public class Vendeur extends Compte{
     private Magasin librairie;
 

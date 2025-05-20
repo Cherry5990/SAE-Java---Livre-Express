@@ -1,3 +1,5 @@
+package modele;
+
 public class Client extends Compte{
     
     private String adresse;

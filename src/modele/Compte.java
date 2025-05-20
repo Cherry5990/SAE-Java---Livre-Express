@@ -1,3 +1,5 @@
+package modele;
+
 public abstract class Compte {
     protected int id;
     protected String nom;

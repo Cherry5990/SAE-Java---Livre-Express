@@ -1,3 +1,5 @@
+package modele;
+
 public class Admin extends Compte{
     
     public Admin(int id, String nom,String prenom,Reseau reseau){

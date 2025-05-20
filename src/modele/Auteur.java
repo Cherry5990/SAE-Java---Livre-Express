@@ -1,3 +1,5 @@
+package modele;
+
 public class Auteur {
     private int idAuteur;
     private String nomAuteur;

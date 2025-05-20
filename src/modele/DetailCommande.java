@@ -1,3 +1,5 @@
+package modele;
+
 public class DetailCommande {
     private int numlig;
     private int qte;

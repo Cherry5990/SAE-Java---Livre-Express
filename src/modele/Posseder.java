@@ -1,3 +1,5 @@
+package modele;
+
 public class Posseder {
     private Magasin magasin;
     private Livre livre;
