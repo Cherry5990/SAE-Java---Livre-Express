@@ -21,7 +21,7 @@ public class ClientBD {
 
 	public void insererClient(String prenom,String nom,String adresse,int codePostal,String ville) throws SQLException{
         try(PreparedStatement ps = laConnexion.prepareStatement("insert into CLIENT values(?,?,?,?,?,?);")){
-            ps.setInt(1, this.maxIdClient()+1);
+            ps.setInt(1, maxIdClient()+1);
             ps.setString(2, nom);
             ps.setString(3, prenom);
             ps.setString(4, adresse);
