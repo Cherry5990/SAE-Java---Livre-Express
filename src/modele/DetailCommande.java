@@ -21,5 +21,23 @@ public class DetailCommande {
 
     public Livre getLivre(){return this.livre;}
 
+    @Override
+    public String toString(){
+        return "Ligne " + this.numlig + ": commande du livre " + this.livre.getTitre() + " au prix de " + this.prixVente + " en " + this.qte + " exemplaires.";
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (o == null){return false;}
+        if (o == this){return true;}
+        if (!(o instanceof DetailCommande)){return false;}
+        DetailCommande c = (DetailCommande) o;
+        return c.getNumlig() == this.numlig;
+    }
+
+    @Override
+    public int hashCode(){
+        return this.numlig * 673;
+    }
 
 }

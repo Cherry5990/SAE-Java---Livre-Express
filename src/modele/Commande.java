@@ -50,4 +50,24 @@ public class Commande {
         }
         return false;
     }
+
+    @Override
+    public String toString(){
+        return this.detailCommandes.toString();
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (o == null){return false;}
+        if (o == this){return true;}
+        if (!(o instanceof Commande)){return false;}
+        Commande c = (Commande) o;
+        return c.getNumCom() == this.numCom;
+    }
+
+    @Override
+    public int hashCode(){
+        return this.numCom * 673;
+    }
+
 }

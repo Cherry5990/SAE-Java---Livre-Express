@@ -1,16 +1,21 @@
 package modele;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class Client extends Compte{
     
     private String adresse;
     private String codePostal;
     private String ville;
+    private List<Commande> commandes;
 
     public Client(int id, String nom,String prenom,Reseau reseau, String adresse, String codePostal, String ville){
         super(id,nom,prenom,reseau);
         this.adresse = adresse;
         this.codePostal = codePostal;
         this.ville = ville;
+        this.commandes = new ArrayList<>();
     }
 
     public int getId(){return super.id;}
@@ -20,6 +25,7 @@ public class Client extends Compte{
     public String getAdresse(){return this.adresse;}
     public String getCodePostal(){return this.codePostal;}
     public String getVille(){return this.ville;}
+    public List<Commande> getCommandes(){return this.commandes;}
     
 
     
