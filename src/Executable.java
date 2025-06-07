@@ -8,7 +8,7 @@ public class Executable{
         try{
             ConnexionMySQL con = new ConnexionMySQL();
 
-            con.connecter("servinfo-maria", "DBjoubert", "joubert", "joubert");
+            con.connecter("localhost", "java");
             ClientBD clientBD = new ClientBD(con);
             
             System.out.println(clientBD.maxIdClient());

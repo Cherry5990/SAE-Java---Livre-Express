@@ -9,10 +9,15 @@ public class ConnexionMySQL {
         this.mysql=null;
         this.connecte=false;
 	}
+	/*
+	 * Attention ici j'ai mit la connexion pour faire marcher le code chez moi
+	 * Si vous travailler à l'IUT changer les lignes commenter
+	 */
 
-	public void connecter(String nomServeur, String nomBase, String nomLogin, String motDePasse) throws SQLException {
-		// si tout s'est bien passé la connexion n'est plus nulle
-        this.mysql=DriverManager.getConnection("jdbc:mysql://"+nomServeur+":3306/"+nomBase,nomLogin,motDePasse);
+	// public void connecter(String nomServeur, String nomBase, String nomLogin, String motDePasse) throws SQLException {
+	public void connecter(String nomServeur, String nomBase) throws SQLException {
+        this.mysql=DriverManager.getConnection("jdbc:mariadb://"+nomServeur+":3306/"+nomBase,"root","java");
+		//this.mysql=DriverManager.getConnection("jdbc:mysql://"+nomServeur+":3306/"+nomBase,nomLogin,motDePasse);
 		this.connecte=this.mysql!=null;
 	}
 	public void close() throws SQLException {
