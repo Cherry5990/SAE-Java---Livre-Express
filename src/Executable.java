@@ -11,14 +11,12 @@ public class Executable{
             con.connecter("localhost", "java");
             ClientBD clientBD = new ClientBD(con);
             VendeurBD vendeurBD = new VendeurBD(con);
+            CommandeBD commandeBD = new CommandeBD(con);
             
-            System.out.println(clientBD.maxIdClient());
-            clientBD.insererClient("Nathan", "Joubert", "69 rue des pomiers", 45000, "Orléans");
-            clientBD.deleteClient(clientBD.maxIdClient());
+            
+            clientBD.insererClient("Désiré", "Doué", "Tour Eiffel", 93000, "Paris");
 
 
-
-            System.out.println(vendeurBD.maxIdVendeur());
             vendeurBD.insererVendeur("Nathan", "Joubert", 7);
             vendeurBD.deleteVendeur(vendeurBD.maxIdVendeur());
         }
