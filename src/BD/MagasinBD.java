@@ -87,6 +87,20 @@ public class MagasinBD {
         return sb.toString();
     }
 
+    public int maxPossederLivre(int mag){
+        Integer maxLivre = null;
+        try(PreparedStatement ps = laConnexion.prepareStatement("select count(*) nbLivre from MAGASIN natural join POSSEDER where idmag=?;")){
+            ps.setInt(1, mag);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            maxLivre = rs.getInt("nbLivre");
+        }
+        catch(SQLException e){
+            System.out.println("Le magsin n'existe pas");
+        }
+        return maxLivre;
+    }
+
     public String afficheMagasins(){
         StringBuilder sb = new StringBuilder();
         try (PreparedStatement ps = laConnexion.prepareStatement("SELECT idmag, nommag, villemag FROM MAGASIN")) {

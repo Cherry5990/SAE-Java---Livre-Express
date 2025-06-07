@@ -3,7 +3,7 @@ import BD.*;
 import java.util.Scanner;
 
 public class MenuClient {
-    
+    private static final Scanner scan = new Scanner(System.in); // Scanner unique
     
     public static void menuClient(ConnexionMySQL con){
         MagasinBD magBD = new MagasinBD(con);
@@ -15,8 +15,7 @@ public class MenuClient {
         System.out.println("│ 3:  passer une commande                 │");
         System.out.println("│    Rentrez Q pour revenir en arriere    │");
         System.out.println("└─────────────────────────────────────────┘");   
-        Scanner scan = new Scanner(System.in);
-        String action = scan.nextLine();
+        String action = scan.nextLine().toLowerCase().trim();
         switch (action) {
             case "Q":
             case "q":{
@@ -47,8 +46,7 @@ public class MenuClient {
         System.out.println("│       Rentrez Q pour revenir en arriere       │");
         System.out.println("│    Rentrez M pour revenir au menu principal   │");
         System.out.println("└───────────────────────────────────────────────┘"); 
-        Scanner scan = new Scanner(System.in);
-        String action = scan.nextLine();
+        String action = scan.nextLine().toLowerCase().trim();
         switch (action) {
             case "Q":
             case "q":{
@@ -70,8 +68,7 @@ public class MenuClient {
     public static Integer chosirUnMagasin(ConnexionMySQL con,MagasinBD magBD){
         System.out.println(magBD.afficheMagasins());
         System.out.println("Veuillez saisir le numéro du magasin :");
-        Scanner scan = new Scanner(System.in);
-        String action = scan.nextLine();
+        String action = scan.nextLine().toLowerCase().trim();
         Integer mag = null;
         if (Integer.parseInt(action)>0 && Integer.parseInt(action)<=magBD.maxIdMagasin()){
             mag = Integer.parseInt(action);
@@ -91,8 +88,7 @@ public class MenuClient {
         System.out.println("│       Rentrez Q pour revenir en arriere       │");
         System.out.println("│    Rentrez M pour revenir au menu principal   │");
         System.out.println("└───────────────────────────────────────────────┘"); 
-        Scanner scan = new Scanner(System.in);
-        String action = scan.nextLine().toLowerCase();
+        String action = scan.nextLine().toLowerCase().trim();
         switch (action) {
             case "1":{
                 //a faire
@@ -100,18 +96,21 @@ public class MenuClient {
             }
             case "2":{
                 MenuClient.sousMenuCatalogue(con, magBD,mag,0,10);
+                break;
             }
             case "q":{
                 System.out.println("Vous retournez au menu Client");
                  MenuClient.menuClient(con);
-                break;}          
+                break;
+            }          
             case "m":{
                 System.out.println("Vous retournez au menu principal");
                 ExecutableMenu.menuPrincipal();
-                break;}
+                break;
+            }
             default:
-            System.out.println("Veuillez rentrer une commande valide");
-            MenuClient.sousMenuConsulterCatalogue(con,magBD);           
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuClient.sousMenuConsulterCatalogue(con,magBD);           
                 break;
         }
     }
@@ -122,21 +121,36 @@ public class MenuClient {
         System.out.println(magBD.voirStock(mag,debut,fin));
         System.out.println("│         "+debut+"-"+fin+"                       │");
         System.out.println("│       Rentrez C pour continuer                │");
+        System.out.println("│       Rentrez R pour revenir en arrière       │");
         System.out.println("│       Rentrez Q pour revenir en arriere       │");
         System.out.println("└───────────────────────────────────────────────┘"); 
-        Scanner scan = new Scanner(System.in);
-        String action = scan.nextLine().toLowerCase();
+        String action = scan.nextLine().toLowerCase().trim();
         switch (action) {
-            case "c":{
-                MenuClient.sousMenuCatalogue(con,magBD,mag,debut+10,fin+10);
-            }
-            case "q":{
+            case "c":
+                if(fin<magBD.maxPossederLivre(mag)){
+                    MenuClient.sousMenuCatalogue(con,magBD,mag,debut+10,fin+10);
+                }
+                else{
+                    System.out.println("Vous êtes déjà à la fin du catalogue.");
+                    MenuClient.sousMenuCatalogue(con, magBD, mag, debut, fin);
+                }
+                break;
+            case "r":
+                if (debut>=10){
+                    MenuClient.sousMenuCatalogue(con,magBD,mag,debut-10,fin-10);
+                }
+                else{
+                    System.out.println("Vous êtes déjà au début du catalogue.");
+                    MenuClient.sousMenuCatalogue(con, magBD, mag, debut, fin);
+                }
+                break;
+            case "q":
                 System.out.println("Vous retournez au menu Client");
-                 MenuClient.menuClient(con);
-                break;}          
+                MenuClient.menuClient(con);
+                break;      
             default:
-            System.out.println("Veuillez rentrer une commande valide");
-            MenuClient.sousMenuCatalogue(con,magBD,mag,debut,fin);           
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuClient.sousMenuCatalogue(con,magBD,mag,debut,fin);           
                 break;
         }
     }
@@ -149,8 +163,7 @@ public class MenuClient {
         System.out.println("│    Rentrez Q pour revenir en arriere          │");
         System.out.println("│    Rentrez M pour revenir au menu principal   │");
         System.out.println("└───────────────────────────────────────────────┘"); 
-        Scanner scan = new Scanner(System.in);
-        String action = scan.nextLine();
+        String action = scan.nextLine().toLowerCase().trim();
         switch (action) {
             case "Q":
             case "q":{
