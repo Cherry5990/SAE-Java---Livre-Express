@@ -12,13 +12,17 @@ public class Executable{
             ClientBD clientBD = new ClientBD(con);
             VendeurBD vendeurBD = new VendeurBD(con);
             CommandeBD commandeBD = new CommandeBD(con);
+            MagasinBD magasinBD = new MagasinBD(con);
             
             
-            clientBD.insererClient("Désiré", "Doué", "Tour Eiffel", 93000, "Paris");
+            //clientBD.insererClient("Désiré", "Doué", "Tour Eiffel", 93000, "Paris");
 
 
-            vendeurBD.insererVendeur("Nathan", "Joubert", 7);
-            vendeurBD.deleteVendeur(vendeurBD.maxIdVendeur());
+            //vendeurBD.insererVendeur("Nathan", "Joubert", 7);
+            //vendeurBD.deleteVendeur(vendeurBD.maxIdVendeur());
+            //System.out.println(magasinBD.voirStock(1));
+            //System.out.println(magasinBD.voirStock(1,10,20));
+            System.out.println(magasinBD.afficheMagasins());
         }
         catch (SQLException e){
             System.out.println(e.getMessage());
