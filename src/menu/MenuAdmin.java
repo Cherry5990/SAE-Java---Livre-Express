@@ -2,8 +2,10 @@ package menu;
 
 import java.util.Scanner;
 
+import BD.ConnexionMySQL;
+
 public class MenuAdmin {
-    public static void menuAdmin(){
+    public static void menuAdmin(ConnexionMySQL con){
         System.out.println("┌─────────────────────────────────────────┐");        
         System.out.println("│ Vous êtes connectés en tant que Vendeur │");
         System.out.println("│         Que voulez vous faire?          │");
@@ -23,23 +25,23 @@ public class MenuAdmin {
                 break;}          
             case "1":
                 System.out.println("A faire");
-                MenuAdmin.menuAdmin();
+                MenuAdmin.menuAdmin(con);
                 break;
             case "2":
                 System.out.println("A faire");
-                MenuAdmin.menuAdmin();
+                MenuAdmin.menuAdmin(con);
                 break;
             case "3":
                 System.out.println("A faire");
-                MenuAdmin.menuAdmin();
+                MenuAdmin.menuAdmin(con);
                 break;
             case "4":
                 System.out.println("A faire");
-                MenuAdmin.menuAdmin();
+                MenuAdmin.menuAdmin(con);
                 break;
             default:
             System.out.println("Veuillez rentrer une commande valide");
-            MenuClient.menuClient();        
+            MenuClient.menuClient(con);        
                 break;
         }
     } 

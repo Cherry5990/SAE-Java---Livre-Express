@@ -2,10 +2,12 @@ package menu;
 
 import java.util.Scanner;
 
+import BD.ConnexionMySQL;
+
 public class MenuVendeur {
     
     
-    public static void menuVendeur(){
+    public static void menuVendeur(ConnexionMySQL con){
         System.out.println("┌─────────────────────────────────────────┐");        
         System.out.println("│ Vous êtes connectés en tant que Vendeur │");
         System.out.println("│         Que voulez vous faire?          │");
@@ -26,33 +28,33 @@ public class MenuVendeur {
                 break;}          
             case "1":
                 System.out.println("A faire");
-                MenuVendeur.menuVendeur();
+                MenuVendeur.menuVendeur(con);
                 break;
             case "2":
                 System.out.println("A faire");
-                MenuVendeur.menuVendeur();
+                MenuVendeur.menuVendeur(con);
                 break;
             case "3":
                 System.out.println("A faire");
-                MenuVendeur.menuVendeur();
+                MenuVendeur.menuVendeur(con);
                 break;
             case "4":
                 System.out.println("A faire");
-                MenuVendeur.menuVendeur();
+                MenuVendeur.menuVendeur(con);
                 break;
             case "5":
                 System.out.println("A faire");
-                MenuVendeur.menuVendeur();
+                MenuVendeur.menuVendeur(con);
                 break;
 
             default:
             System.out.println("Veuillez rentrer une commande valide");
-            MenuClient.menuClient();        
+            MenuClient.menuClient(con);        
                 break;
         }
     }  
 
-    public static void sousMenuAjouterLivre(){
+    public static void sousMenuAjouterLivre(ConnexionMySQL con){
         System.out.println("┌─────────────────────────────────────────────┐");        
         System.out.println("│ Vous êtes sur le menu d'ajout de livre      │");
         System.out.println("│  Rentrez 1 pour lancer la procédure d'ajout │");
@@ -70,7 +72,7 @@ public class MenuVendeur {
                 break;}          
             default:
             System.out.println("Veuillez rentrer une commande valide");
-            MenuClient.menuClient();        
+            MenuClient.menuClient(con);        
                 break;
         }
     }

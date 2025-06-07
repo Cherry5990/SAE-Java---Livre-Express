@@ -13,10 +13,10 @@ public class CommandeBD {
 	}
 
     public int maxIdCommande() throws SQLException{
-        try(PreparedStatement ps = laConnexion.prepareStatement("select MAX(idcli) from COMMANDE;")){
+        try(PreparedStatement ps = laConnexion.prepareStatement("select MAX(numcom) from COMMANDE;")){
             ResultSet rs = ps.executeQuery();
             rs.next();
-            int max = rs.getInt("MAX(idcli)");
+            int max = rs.getInt("MAX(numcom)");
             rs.close();
             ps.close();
             return max;
