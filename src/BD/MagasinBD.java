@@ -1,6 +1,9 @@
 package BD;
 import java.sql.*;
 
+import modele.Client;
+import modele.Magasin;
+
 
 public class MagasinBD {
 	ConnexionMySQL laConnexion;
@@ -63,22 +66,23 @@ public class MagasinBD {
 
     public String voirStock(int mag,int debut,int fin){
         StringBuilder sb = new StringBuilder();
-        try(PreparedStatement ps = laConnexion.prepareStatement("select titre,prix,qte from MAGASIN natural join POSSEDER natural join LIVRE where idmag=? LIMIT ? OFFSET ?;")){
+        try(PreparedStatement ps = laConnexion.prepareStatement("select isbn,titre,prix,qte from MAGASIN natural join POSSEDER natural join LIVRE where idmag=? LIMIT ? OFFSET ?;")){
             int limit = fin-debut;
             ps.setInt(1, mag);
             ps.setInt(2, limit);
             ps.setInt(3, debut);
             ResultSet rs = ps.executeQuery();
-            sb.append(String.format("%-40s %-8s %-5s\n", "titre", "prix", "qte"));
+            sb.append(String.format("%-15s %-40s %-8s %-5s\n", "isbn", "titre", "prix", "qte"));
             while(rs.next()){
-                String titre = "";
-                if (rs.getString("titre").length()>35){
-                    titre = rs.getString("titre").substring(0, 35)+"...";
+                String titre =rs.getString("titre");
+                if (titre.length() > 35){
+                    titre = titre.substring(0, 35) + "...";
                 }
-                else{
-                    titre = rs.getString("titre");
-                }
-                sb.append(String.format("%-40s %-8s %-5s\n",titre,rs.getDouble("prix")+"€",rs.getString("qte")));
+                sb.append(String.format("%-15s %-40s %-8s %-5s\n",
+                        rs.getString("isbn"),
+                        titre,
+                        rs.getDouble("prix") + "€",
+                        rs.getString("qte")));
             }
         }
         catch(SQLException e){
@@ -116,5 +120,41 @@ public class MagasinBD {
             sb.append("Erreur lors de l'affichage des magasins : ").append(e.getMessage());
         }
         return sb.toString();
+    }
+
+    public String rechercheLivre(int mag,String like){
+        StringBuilder sb = new StringBuilder();
+        try (PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn,titre,prix,qte from MAGASIN natural join POSSEDER natural join LIVRE where idmag=? and titre LIKE ?")) {
+            ps.setInt(1, mag);
+            ps.setString(2, "%" + like + "%");
+            ResultSet rs = ps.executeQuery();
+            sb.append(String.format("%-15s %-40s %-8s %-5s\n", "isbn", "titre", "prix", "qte"));
+            while (rs.next()) {
+                String titre = rs.getString("titre");
+                if (titre.length() > 35) {
+                    titre = titre.substring(0, 35) + "...";
+                }
+                sb.append(String.format("%-15s %-40s %-8s %-5s\n",
+                        rs.getString("isbn"),
+                        titre,
+                        rs.getDouble("prix") + "€",
+                        rs.getString("qte")));
+            }
+        } 
+        catch (SQLException e) {
+            sb.append("Erreur lors de l'affichage des magasins : ").append(e.getMessage());
+        }
+        return sb.toString();
+    }
+
+    public Magasin getMagasin(int mag)throws SQLException{
+        try(PreparedStatement ps =laConnexion.prepareStatement("select idmag,nommag,villemag from MAGASIN where idmag=?;")){
+            ps.setInt(1, mag);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return new Magasin(rs.getInt("idmag"),
+                            rs.getString("nommag"),
+                            rs.getString("villemag"));
+        }
     }
 }

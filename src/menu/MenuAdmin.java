@@ -41,7 +41,7 @@ public class MenuAdmin {
                 break;
             default:
             System.out.println("Veuillez rentrer une commande valide");
-            MenuClient.menuClient(con);        
+            MenuAdmin.menuAdmin(con);      
                 break;
         }
     } 

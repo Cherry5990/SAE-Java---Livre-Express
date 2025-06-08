@@ -30,19 +30,19 @@ public class Reseau {
     public void ajouteVendeur(String nom,String prenom,int idMag){
         for (Magasin mag:this.magasins){
             if (mag.getIdMagasin()==idMag){
-                this.vendeurs.add(new Vendeur(this.idCompte, nom,prenom, this, mag));
+                this.vendeurs.add(new Vendeur(this.idCompte, nom,prenom, mag));
                 this.idCompte +=1;
             }
         }
     }
 
     public void ajouteClient(String nom,String prenom,String adresse,String codePostal,String ville){
-        this.clients.add(new Client(this.idCompte, nom ,prenom, this,adresse, codePostal, ville));
+        this.clients.add(new Client(this.idCompte, nom ,prenom,adresse, codePostal, ville));
         this.idCompte+=1;
     }
 
     public void ajouteAdmin(String nom,String prenom){
-        this.admins.add(new Admin(this.idCompte, nom, prenom, this));
+        this.admins.add(new Admin(this.idCompte, nom, prenom));
         this.idCompte+=1;
     }
 

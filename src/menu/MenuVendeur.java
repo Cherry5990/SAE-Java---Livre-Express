@@ -49,7 +49,7 @@ public class MenuVendeur {
 
             default:
             System.out.println("Veuillez rentrer une commande valide");
-            MenuClient.menuClient(con);        
+            MenuVendeur.menuVendeur(con);       
                 break;
         }
     }  
@@ -72,7 +72,7 @@ public class MenuVendeur {
                 break;}          
             default:
             System.out.println("Veuillez rentrer une commande valide");
-            MenuClient.menuClient(con);        
+            MenuVendeur.menuVendeur(con);       
                 break;
         }
     }

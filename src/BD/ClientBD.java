@@ -1,6 +1,8 @@
 package BD;
 import java.sql.*;
 
+import modele.Client;
+
 public class ClientBD {
 	ConnexionMySQL laConnexion;
 	Statement st;
@@ -37,6 +39,20 @@ public class ClientBD {
             ps.setInt(1, id);
             ps.executeUpdate();
             ps.close();
+        }
+    }
+
+    public Client getClient(int id)throws SQLException{
+        try(PreparedStatement ps =laConnexion.prepareStatement("select idcli,nomcli,prenomcli,adressecli,codepostal,villecli from CLIENT where idcli=?;")){
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return new Client(rs.getInt("idcli"),
+                            rs.getString("nomcli"),
+                            rs.getString("prenomcli"),
+                            rs.getString("adressecli"),
+                            rs.getString("codepostal"),
+                            rs.getString("villecli"));
         }
     }
 }
