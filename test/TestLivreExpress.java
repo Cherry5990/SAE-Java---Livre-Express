@@ -15,13 +15,13 @@ public class TestLivreExpress {
         res.ajouteMagasin("Magasin des 3 ponts", "Marseille");
         res.ajouteVendeur("Martin", "Christine", 1);
         Vendeur vendeur = res.getVendeur("Martin", "Christine");
-        vendeur.ajouteLivre(1, "Titanic",350,"2000",30.0,3);
+        vendeur.ajouteLivre("1", "Titanic",350,"2000",30.0,3);
         return res;
     }
     
     @Test
     public void testAssosciationLivre(){
-        Livre livre1 = new Livre(1,"Titanic",350,"2000",30);
+        Livre livre1 = new Livre("1","Titanic",350,"2000",30);
         Auteur auteur1 = new Auteur(1, "Joubert", 2000, 2020);
         Theme theme1 = new Theme(1, "horreur");
         Editeur editeur1 = new Editeur(1, "mario");
@@ -36,7 +36,7 @@ public class TestLivreExpress {
     @Test
     public void testAssociationPosseder(){
         Magasin magasin = new Magasin(1, "la goutière", "Paris");
-        Livre livre1 = new Livre(1,"Titanic",350,"2000",30);
+        Livre livre1 = new Livre("1","Titanic",350,"2000",30);
         Auteur auteur1 = new Auteur(1, "Joubert", 2000, 2020);
         Theme theme1 = new Theme(1, "horreur");
         Editeur editeur1 = new Editeur(1, "mario");
@@ -52,7 +52,7 @@ public class TestLivreExpress {
     @Test
     public void testDetailCommande(){
         Magasin magasin = new Magasin(1, "la goutière", "Paris");
-        Livre livre1 = new Livre(1,"Titanic",350,"2000",30);
+        Livre livre1 = new Livre("1","Titanic",350,"2000",30);
         Auteur auteur1 = new Auteur(1, "Joubert", 2000, 2020);
         Theme theme1 = new Theme(1, "horreur");
         Editeur editeur1 = new Editeur(1, "mario");

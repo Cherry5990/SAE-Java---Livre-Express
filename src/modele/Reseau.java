@@ -55,11 +55,7 @@ public class Reseau {
         return null;
     }
 
-
-
-
-
-
+    
     public void deplaceStock(Magasin src,Magasin target,int qte,Livre livre){
         src.dimimueQte(livre, qte);
         target.augmenteQte(livre, qte);

@@ -100,7 +100,7 @@ public class MagasinBD {
             maxLivre = rs.getInt("nbLivre");
         }
         catch(SQLException e){
-            System.out.println("Le magsin n'existe pas");
+            System.out.println("Le magasin n'existe pas");
         }
         return maxLivre;
     }
@@ -158,4 +158,6 @@ public class MagasinBD {
                             rs.getString("villemag"));
         }
     }
+
+    
 }
