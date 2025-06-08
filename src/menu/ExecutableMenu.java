@@ -28,7 +28,7 @@ public class ExecutableMenu{
                     System.out.println("Vous quitter l'application");
                     break;}          
                 case "1":
-                    MenuClient.menuClient(con);
+                    MenuClient.connexionClient(con);
                     break;
                 case "2":
                     MenuVendeur.menuVendeur(con);
