@@ -109,6 +109,7 @@ public class MagasinBD {
         StringBuilder sb = new StringBuilder();
         try (PreparedStatement ps = laConnexion.prepareStatement("SELECT idmag, nommag, villemag FROM MAGASIN")) {
             ResultSet rs = ps.executeQuery();
+            sb.append("─────────────────────────────────────────────\n");
             sb.append(String.format("%-8s %-30s %-20s\n", "numéro", "nom", "ville"));
             while (rs.next()) {
                 sb.append(String.format("%-8d %-30s %-20s\n",

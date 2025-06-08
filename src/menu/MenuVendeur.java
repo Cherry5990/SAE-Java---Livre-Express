@@ -21,10 +21,9 @@ public class MenuVendeur {
         Scanner scan = new Scanner(System.in);
         String action = scan.nextLine();
         switch (action) {
-            case "Q":
             case "q":{
                 System.out.println("Vous retournez au menu principal");
-                ExecutableMenu.menuPrincipal();
+                ExecutableMenu.menuPrincipal(con);
                 break;}          
             case "1":
                 System.out.println("A faire");
@@ -65,10 +64,9 @@ public class MenuVendeur {
         Scanner scan = new Scanner(System.in);
         String action = scan.nextLine();
         switch (action) {
-            case "Q":
             case "q":{
                 System.out.println("Vous retournez au menu principal");
-                ExecutableMenu.menuPrincipal();
+                ExecutableMenu.menuPrincipal(con);
                 break;}          
             default:
             System.out.println("Veuillez rentrer une commande valide");

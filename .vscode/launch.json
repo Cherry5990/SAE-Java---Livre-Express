@@ -6,6 +6,13 @@
             "name": "ExecutableMenu",
             "request": "launch",
             "mainClass": "menu.ExecutableMenu",
+            "projectName": "SAE-Java---Livre-Express_d33b24c3"
+        },
+        {
+            "type": "java",
+            "name": "ExecutableMenu",
+            "request": "launch",
+            "mainClass": "menu.ExecutableMenu",
             "projectName": "SAE-Java---Livre-Express_af6a008b"
         },
         {
