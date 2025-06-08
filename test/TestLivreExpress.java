@@ -62,9 +62,9 @@ public class TestLivreExpress {
         magasin.ajouteLivre(livre1, 2);
         Commande commande = new Commande(1, null, false, false, null, magasin);
         assertEquals(false, commande.ajouteLivre(livre1, 3));
-        assertEquals(new ArrayList<>(), commande.getDetailComanndes());
+        assertEquals(new ArrayList<>(), commande.getDetailCommandes());
         assertEquals(true, commande.ajouteLivre(livre1, 2));
-        assertEquals(1,commande.getDetailComanndes().size());
+        assertEquals(1,commande.getDetailCommandes().size());
         assertEquals(livre1.getPrix() * 2, commande.sommeComande(), 0.001);
     }
 }

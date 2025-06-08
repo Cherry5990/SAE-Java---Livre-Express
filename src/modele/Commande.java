@@ -30,7 +30,7 @@ public class Commande {
     public boolean isLivraison() {return livraison;}
     public Client getClient() {return client;}
     public Magasin getMagasin(){return this.magasin;}
-    public List<DetailCommande> getDetailComanndes(){return this.detailCommandes;}
+    public List<DetailCommande> getDetailCommandes(){return this.detailCommandes;}
 
     public void setLivraison(boolean eL) {this.enLigne = eL;}
 

@@ -15,8 +15,9 @@ public class ConnexionMySQL {
 	 */
 
 	// public void connecter(String nomServeur, String nomBase, String nomLogin, String motDePasse) throws SQLException {
-	public void connecter(String nomServeur, String nomBase) throws SQLException {
-        this.mysql=DriverManager.getConnection("jdbc:mariadb://"+nomServeur+":3306/"+nomBase,"root","java");
+	public void connecter(String nomServeur, String nomBase, String user, String mdp) throws SQLException {
+        //this.mysql=DriverManager.getConnection("jdbc:mariadb://"+nomServeur+":3306/"+nomBase,"root","java");
+		this.mysql=DriverManager.getConnection("jdbc:mariadb://"+nomServeur+":3306/"+nomBase,user,mdp);
 		//this.mysql=DriverManager.getConnection("jdbc:mysql://"+nomServeur+":3306/"+nomBase,nomLogin,motDePasse);
 		this.connecte=this.mysql!=null;
 	}
