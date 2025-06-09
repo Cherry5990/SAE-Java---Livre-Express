@@ -37,6 +37,9 @@ public class Commande {
     }
     public void setLivraison(boolean eL) {this.enLigne = eL;}
 
+    public void setEnLigne(boolean enLigne){
+        this.enLigne = enLigne;
+    }
     public double sommeComande(){
         double somme=0;
         for(DetailCommande dc:this.detailCommandes){
@@ -45,13 +48,9 @@ public class Commande {
         return somme;
     }
 
-    public boolean ajouteLivre(Livre livre,int qte){
-        if (this.magasin.livreEnStock(livre, qte)){
-            this.detailCommandes.add(new DetailCommande(this.ligne, qte, livre));
-            this.ligne +=1;
-            return true;
-        }
-        return false;
+    public void ajouteLivre(Livre livre,int qte){
+        this.detailCommandes.add(new DetailCommande(this.ligne, qte, livre));
+        this.ligne +=1;
     }
     
 }

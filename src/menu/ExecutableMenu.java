@@ -33,7 +33,7 @@ public class ExecutableMenu{
         ConnexionMySQL con = new ConnexionMySQL();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String entre = reader.readLine();
-        con.connecter("localhost", "sae_java", user, entre);
+        con.connecter("localhost", "java", user, entre);
         ExecutableMenu.menuPrincipal(con);
         }
         catch(IOException e){

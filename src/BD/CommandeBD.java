@@ -26,16 +26,15 @@ public class CommandeBD {
     }
 
 	public void insererCommande(Commande c) throws SQLException{
-        try(PreparedStatement ps = laConnexion.prepareStatement("insert into COMMANDE values(?,?,?,?,?,?);")){
+        try(PreparedStatement ps = laConnexion.prepareStatement("insert into COMMANDE values(?,CURDATE(),?,?,?,?);")){
             int numCom = maxIdCommande()+1;
             ps.setInt(1,numCom);
-            ps.setString(2, c.getDateCom());
-            if (c.isEnLigne())ps.setString(3,"O");
-            else ps.setString(3,"N");
-            if (c.isLivraison())ps.setString(4, "C");
-            else ps.setString(4, "M");
-            ps.setInt(5, c.getClient().getId());
-            ps.setInt(6, c.getMagasin().getIdMagasin());
+            if (c.isEnLigne())ps.setString(2,"O");
+            else ps.setString(2,"N");
+            if (c.isLivraison())ps.setString(3, "C");
+            else ps.setString(3, "M");
+            ps.setInt(4, c.getClient().getId());
+            ps.setInt(5, c.getMagasin().getIdMagasin());
             List<DetailCommande> detailCommandes = c.getDetailCommandes();
             for(DetailCommande dc:detailCommandes){
                 try(PreparedStatement ps2 = laConnexion.prepareStatement("insert into DETAILCOMMANDE values(?,?,?,?,?);")){
@@ -49,26 +48,37 @@ public class CommandeBD {
         }
 	}
 
-    public Livre verifLivreExiste(String entrer) throws SQLException{
-        try(PreparedStatement ps = laConnexion.prepareStatement("select * from LIVRE")){
+    public Livre verifLivreExiste(String entrer,int mag) throws SQLException{
+        try(PreparedStatement ps = laConnexion.prepareStatement("select isbn,titre,nbPages,datepubli,prix from MAGASIN natural join POSSEDER natural join LIVRE where idmag=? and titre=?")){
+            ps.setInt(1, mag);
+            ps.setString(2, entrer);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                String nom = rs.getString("titre");
-
-                if (nom.equals(entrer)){
-                    String isbn = rs.getString("isbn");
-                    String titre = rs.getString("titre");
-                    int nbPages = rs.getInt("nbPages");
-                    String datePubli = rs.getString("datepubli");
-                    double prix = rs.getDouble("prix");
-                    Livre livre = new Livre(isbn, titre, nbPages, datePubli, prix);
-                    return livre;
-                }
-                
+                String isbn = rs.getString("isbn");
+                String titre = rs.getString("titre");
+                int nbPages = rs.getInt("nbPages");
+                String datePubli = rs.getString("datepubli");
+                double prix = rs.getDouble("prix");
+                Livre livre = new Livre(isbn, titre, nbPages, datePubli, prix);
+                return livre;
             }
-            return null;
-            
         }
+        return null;
+            
+    }
+
+    public int avoirStockLivre(Livre livre,int mag) throws SQLException{
+        int stock = 0;
+        try(PreparedStatement ps = laConnexion.prepareStatement("select qte from MAGASIN natural join POSSEDER where idmag=? and isbn=?")){
+            ps.setInt(1, mag);
+            ps.setString(2, livre.getIsbn());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                stock = rs.getInt("qte");
+            }
+        }
+        return stock;
+            
     }
 
 }
