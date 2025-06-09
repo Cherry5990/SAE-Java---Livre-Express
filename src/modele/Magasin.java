@@ -76,4 +76,6 @@ public class Magasin {
     public String getVille(){
         return this.ville;
     }
+
+    public List<Posseder> getPosseders(){return this.stock;}
 }

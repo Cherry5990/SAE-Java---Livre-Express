@@ -20,10 +20,21 @@ public class Reseau {
         this.idCompte = 1;
     }
 
+    public List<Magasin> getMagasins(){return this.magasins;}
+    public List<Vendeur> getVendeurs(){return this.vendeurs;}
+    public List<Admin> getAdmins(){return this.admins; }
+    public List<Client> getClients(){return this.clients;}
+    public int getIdMag(){return this.idMag;}
+    public int getIdCompte(){return this.idCompte;}
 
     // méthodes création compte sur le réseau de librairie
     public void ajouteMagasin(String nom,String ville){
         this.magasins.add(new Magasin(this.idMag, nom, ville));
+        this.idMag+=1;
+    }
+
+    public void ajouteMagasinExistant(Magasin magasin){
+        this.magasins.add(magasin);
         this.idMag+=1;
     }
 
