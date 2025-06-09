@@ -42,6 +42,10 @@ public class ExecutableMenu{
             System.out.println("Driver MySQL non trouvé!!!");
             System.exit(1);
         }
+        catch (IOException ioe) {
+            System.out.println("Erreur lors de la lecture du mot de passe.");
+            System.exit(1);
+        }
     }
 
     public static void menuPrincipal(ConnexionMySQL con){
