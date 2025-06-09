@@ -2,10 +2,14 @@ package menu;
 import BD.*;
 import modele.Client;
 import modele.Commande;
+import modele.CommandeTest;
 import modele.DetailCommande;
 import modele.Livre;
 import modele.Magasin;
+import modele.Posseder;
+import modele.Reseau;
 
+import java.awt.Menu;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
@@ -13,8 +17,9 @@ import java.util.Scanner;
 public class MenuClient {
     private static final Scanner scan = new Scanner(System.in); // Scanner unique
 
-    private static Commande commande = new Commande(0, null, false, false, null, null);
+    private static CommandeTest commande = new CommandeTest(0, null, false, false, null, null);
     private static Client client = null;
+    private static Reseau reseau = new Reseau();
 
     public static void connexionClient(ConnexionMySQL con){
         System.out.println("┌───────────────────────────────┐");
@@ -22,6 +27,15 @@ public class MenuClient {
         System.out.println("└───────────────────────────────┘"); 
         String action = scan.nextLine().trim();
         ClientBD clientBD = new ClientBD(con);
+
+        //Temporaire
+        ReseauBD reseauBD = new ReseauBD(con);
+        reseauBD.ajouterMagasins(MenuClient.reseau);
+        if(commande.getReseau() == null){
+            commande.setReseau(MenuClient.reseau);
+        }
+
+
         // Vérifie si 'action' est un nombre entier
         try {
             MenuClient.client = clientBD.getClient(Integer.parseInt(action));
@@ -279,14 +293,13 @@ public class MenuClient {
             case "q":
                 MenuClient.sousMenuPasserUneCommande(con);
                 break;
-
             default:
             try {
                 Livre livre = cBD.verifLivreExiste(action);
                 
                 if (livre == null){
                 System.out.println("Navré, mais aucune des librairies de Vallé Livre n'a le livre que vous souhaité");
-                String sauter = scan.nextLine().trim();
+                String saut = scan.nextLine().trim();
                 MenuClient.sousMenuAjouterUnLivreAuPanier(con);
                 } 
                 else {
@@ -306,17 +319,28 @@ public class MenuClient {
                         System.out.println("Vous ne pouvez pas commander plus de 10 exemplaires");
                         MenuClient.sousMenuAjouterUnLivreAuPanier(con);
                     }
-                    commande.ajouteLivre(livre, (int) qteInt);
+                    if(commande.ajouteLivreReseau(livre, (int) qteInt) == false){
+                        int qteDispo = 0;
+                        for (Magasin mag : MenuClient.reseau.getMagasins() ){
+                             for(Posseder pos : mag.getPosseders()){
+                                qteDispo += pos.getQte();
+                            }
+                        }
+                        System.out.println("Nous sommes navré, nous n'avous que " + qteDispo +" exemplaires de " + nomLivre + " en stock");
+                        System.out.println("Veuillez refaire votre ajout au panier avec une quatité inférieur à celle en stock"); 
+                        String saut = scan.nextLine().trim();
+                        MenuClient.sousMenuAjouterUnLivreAuPanier(con);
+                    }  
+                    System.out.println(qte + " exemplaire de " + nomLivre + " a bien été ajouté au panier");
                     MenuClient.sousMenuAjouterUnLivreAuPanier(con);
                     break;
                     default:
                     System.out.println("Le livre n'est pas ajouté au panier\nVous revenez au menu ajouter un livre au panier");
                     MenuClient.sousMenuAjouterUnLivreAuPanier(con);
                     break;
+                        }
                     }
-                }
-            }
-                 catch (SQLException e) {
+                } catch (SQLException e) {
                     System.out.println("Erreur lors de l'accès à la base de données : " + e.getMessage());
                     MenuClient.sousMenuAjouterUnLivreAuPanier(con);
                 } catch (NumberFormatException e) {
@@ -357,7 +381,7 @@ public class MenuClient {
         else{
             double prixTotal = 0;
             for (DetailCommande dc : listeDC){
-                System.out.println(dc.getLivre().getTitre() + " " +dc.getQte()+"x"+dc.getLivre().getPrix() + "=" +dc.getPrixVente()+ "euros");
+                System.out.println(dc.getLivre().getTitre() + " " + dc.getQte()+" x "+dc.getLivre().getPrix() + " = " +dc.getPrixVente()+ "euros");
                 prixTotal += dc.getPrixVente();
             }
             System.out.println("Prix total: " + prixTotal + " euros" );
@@ -376,6 +400,7 @@ public class MenuClient {
             }
         }
     }
+
 
     public static void sousMenuValiderLaCommande(ConnexionMySQL con){
         System.out.println("A faire");
