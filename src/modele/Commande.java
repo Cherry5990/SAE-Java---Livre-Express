@@ -32,6 +32,9 @@ public class Commande {
     public Magasin getMagasin(){return this.magasin;}
     public List<DetailCommande> getDetailCommandes(){return this.detailCommandes;}
 
+    public void setClient(Client c){
+        this.client = c;
+    }
     public void setLivraison(boolean eL) {this.enLigne = eL;}
 
     public double sommeComande(){
@@ -50,4 +53,5 @@ public class Commande {
         }
         return false;
     }
+    
 }
