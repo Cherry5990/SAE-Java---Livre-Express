@@ -1,13 +1,19 @@
 package BD;
 import java.sql.*;
 
+import modele.Magasin;
+import modele.Vendeur;
+
 
 public class VendeurBD {
 	ConnexionMySQL laConnexion;
 	Statement st;
-	public VendeurBD(ConnexionMySQL laConnexion){
-		this.laConnexion=laConnexion;
-	}
+    private Long maxIsbn;
+    public VendeurBD(ConnexionMySQL laConnexion){
+        this.laConnexion=laConnexion;
+        this.maxIsbn = 9792000000000L;             
+    }
+    
 
     public int maxIdVendeur() throws SQLException{
         try(PreparedStatement ps = laConnexion.prepareStatement("select MAX(idVendeur) from VENDEUR;")){
@@ -37,5 +43,47 @@ public class VendeurBD {
             ps.executeUpdate();
             ps.close();
         }
+    }
+
+    public Vendeur getVendeur(int id)throws SQLException{
+        try(PreparedStatement ps =laConnexion.prepareStatement("select * from VENDEUR natural join MAGASIN group by idVendeur having idVendeur=?;")){
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return new Vendeur(rs.getInt("idVendeur"),
+                            rs.getString("nomVendeur"),
+                            rs.getString("prenomVendeur"),
+                            new Magasin(id, rs.getString("nommag"), "villemag"));
+        }
+    }
+
+    public boolean verifLivreExisteDansMagasin(int id, String entrer) throws SQLException{
+        try(PreparedStatement ps =laConnexion.prepareStatement("select isbn, titre From MAGASIN natural join POSSEDER natural join Livre where titre = ?;")){
+            ps.setString(1, entrer);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String regardeSiISBNExiste(String entrer) throws SQLException{
+        try(PreparedStatement ps = laConnexion.prepareStatement(" select isbn from Livre where titre = ?;")){
+            ps.setString(1, entrer);
+            ResultSet rs = ps.executeQuery();
+            String isbn  = null;
+            if(rs.next()){
+                isbn = rs.getString("isbn");
+            }
+            
+            return isbn;
+        }
+    }
+
+    public String maxIsbn(){
+        String res = Long.toString(this.maxIsbn);
+        this.maxIsbn += 1;
+        return res;
     }
 }
