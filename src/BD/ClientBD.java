@@ -1,7 +1,10 @@
 package BD;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.*;
 
 import modele.Client;
+import modele.Livre;
 
 public class ClientBD {
 	ConnexionMySQL laConnexion;
@@ -54,5 +57,78 @@ public class ClientBD {
                             rs.getString("codepostal"),
                             rs.getString("villecli"));
         }
+    }
+
+    public List<Livre> getRecommandationClient(int id)throws SQLException{
+        List<Livre> recommandation = new ArrayList<>();
+        List<Livre> livreClient = new ArrayList<>();
+        try (PreparedStatement ps = laConnexion.prepareStatement(
+            "SELECT l.isbn, l.titre, l.nbpages, l.datepubli, l.prix " +
+            "FROM LIVRE l " +
+            "JOIN DETAILCOMMANDE dc ON l.isbn = dc.isbn " +
+            "JOIN COMMANDE c ON dc.numcom = c.numcom " +
+            "WHERE c.idcli = ?")) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+            livreClient.add(new Livre(
+                rs.getString("isbn"),
+                rs.getString("titre"),
+                rs.getInt("nbpages"),
+                rs.getString("datepubli"),
+                rs.getDouble("prix")
+            ));
+            }
+        }
+        List<Livre> max = new ArrayList<>();
+        Integer maxCommun = null;
+        try(PreparedStatement ps =laConnexion.prepareStatement("select idcli from CLIENT;")){
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                if (rs.getInt("idcli") == id) {
+                    continue;
+                }
+                List<Livre> listClient = new ArrayList<>();
+                PreparedStatement ps2 =laConnexion.prepareStatement("select numcom from COMMANDE where idcli=?;");
+                ps2.setInt(1, rs.getInt("idcli"));
+                ResultSet rs2 = ps2.executeQuery();
+                while(rs2.next()){
+                    PreparedStatement ps3 =laConnexion.prepareStatement("select isbn,titre,nbpages,datepubli,prix from DETAILCOMMANDE natural join LIVRE where numcom=?;");
+                    ps3.setInt(1, rs2.getInt("numcom"));
+                    ResultSet rs3 = ps3.executeQuery();
+                    while (rs3.next()) {
+                        listClient.add(new Livre(
+                            rs3.getString("isbn"),
+                            rs3.getString("titre"),
+                            rs3.getInt("nbpages"),
+                            rs3.getString("datepubli"),
+                            rs3.getDouble("prix")
+                        ));
+                    }
+                    rs3.close();
+                    ps3.close();
+                }
+                int commun = 0;
+                for (Livre livre : livreClient) {
+                    if (listClient.contains(livre)) {
+                        commun++;
+                    }
+                }
+                if (maxCommun == null || commun > maxCommun) {
+                    maxCommun = commun;
+                    max.clear();
+                    max.addAll(listClient);
+                }
+            }
+            for (Livre livre : max) {
+                if (!livreClient.contains(livre)) {
+                    recommandation.add(livre);
+                }
+            }
+        }
+        catch(SQLException e){
+            System.out.println("problème de recommandation : "+e.getMessage());
+        }
+        return recommandation;
     }
 }

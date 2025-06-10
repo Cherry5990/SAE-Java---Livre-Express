@@ -110,7 +110,12 @@ public class MenuClient {
     public static void sousMenuLivreRecommande(ConnexionMySQL con){
         System.out.println("┌───────────────────────────────────────────────┐");        
         System.out.println("│    Vos livres recommandés sont les suivant    │");
-        System.out.println("│         [Inserer livres recommande]           │");
+        try{
+            System.out.println(clientBD.getRecommandationClient(client.getId()));
+        }
+        catch(SQLException e){
+            System.out.println("problème recommandation : " +e.getMessage());
+        }
         System.out.println("│       Rentrez Q pour revenir en arriere       │");
         System.out.println("│    Rentrez M pour revenir au menu principal   │");
         System.out.println("└───────────────────────────────────────────────┘"); 
@@ -290,7 +295,34 @@ public class MenuClient {
                 MenuClient.sousMenuValiderLaCommande(con);
                 break;
             case "q":
-                MenuClient.menuClient(con);
+                System.out.println("┌───────────────────────────────────────────────┐");
+                System.out.println("│ Attention cela va supprimer votre commmande   │");
+                System.out.println("│   [C] confirmer                               │");
+                System.out.println("│   [A] Annuler                                 │");
+                System.out.println("└───────────────────────────────────────────────┘");
+                String action2 = scan.nextLine().toLowerCase().trim(); 
+                switch (action2) {
+                    case "c":
+                        try{
+                            for(DetailCommande dc:commande.getDetailCommandes()){
+                                magBD.ajouterQte(dc.getLivre().getIsbn(), dc.getQte(), magasin.getIdMagasin());
+                            }
+                        }
+                        catch(SQLException e){
+                            System.out.println("Problème de code");
+                        }
+                        MenuClient.sousMenuMagasin(con);
+                        break;
+                    case "a":
+                        MenuClient.sousMenuPasserUneCommande(con);
+                        break;
+                    default:
+                        System.out.println("Insertion incorrecte !");
+                        System.out.println("Retour à la commande");
+                        String skip = scan.nextLine().toLowerCase().trim(); 
+                        MenuClient.sousMenuPasserUneCommande(con);
+                        break;
+                }
                 break;
             default:
             System.out.println("Veuillez rentrer une commande valide");
@@ -333,6 +365,7 @@ public class MenuClient {
                                 Integer qteInt = Integer.parseInt(qte.trim());
                                 if (qteInt <= stock && qteInt>0) {
                                     commande.ajouteLivre(livre, qteInt);
+                                    magBD.miseAJourQuantite(livre.getIsbn(),stock-qteInt,magasin.getIdMagasin());
                                     System.out.println("Livre ajouté un votre commande avec succés");
                                 }
                                 else{
