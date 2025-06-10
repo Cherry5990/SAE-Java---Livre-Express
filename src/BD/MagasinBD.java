@@ -160,15 +160,51 @@ public class MagasinBD {
     }
 
     public void miseAJourQuantite(String isbn, Integer qte, Integer idmag){
-        try(PreparedStatement ps = laConnexion.prepareStatement("update posseder set qte = ? where isbn = ? and idmag = ?;")){
-            ps.setInt(1, qte);
-            ps.setString(2, isbn);
-            ps.setInt(3, idmag);
-            ps.executeUpdate();
-            ps.close();
+        try{
+            if (qte == 0) {
+                PreparedStatement ps = laConnexion.prepareStatement("DELETE FROM POSSEDER WHERE isbn=? and idmag=?;");
+                ps.setString(1, isbn);
+                ps.setInt(2, idmag);
+                ps.executeUpdate();
+            }
+            else{
+                PreparedStatement ps = laConnexion.prepareStatement("update POSSEDER set qte = ? where isbn = ? and idmag = ?;");
+                ps.setInt(1, qte);
+                ps.setString(2, isbn);
+                ps.setInt(3, idmag);
+                ps.executeUpdate();
+                ps.close();
+            }
         }
-        catch (SQLException e) {
-            System.out.println("Impossible de mettre à jour la quatité, un paramètre doit être éronné ");  
+        catch(SQLException e){
+            System.out.println("Changement impossible de la quantité du livre : "+e.getMessage());
+        }
+    }
+
+    public void ajouterQte(String isbn,Integer qte,Integer mag)throws SQLException{
+        try(PreparedStatement ps = laConnexion.prepareStatement("select qte from MAGASIN natural join POSSEDER where isbn=? and idmag=?")){
+            ps.setString(1, isbn);
+            ps.setInt(2, mag);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Integer ancienneQte = rs.getInt("qte");
+                PreparedStatement ps2 = laConnexion.prepareStatement("update POSSEDER set qte=? where isbn=? and idmag=?");
+                ps2.setInt(1, qte+ancienneQte);
+                ps2.setString(2, isbn);
+                ps2.setInt(3, mag);
+                ps2.executeUpdate();
+                ps2.close();
+            } else {
+                PreparedStatement ps2 = laConnexion.prepareStatement("INSERT INTO POSSEDER (isbn, idmag, qte) VALUES (?, ?, ?)");
+                ps2.setString(1, isbn);
+                ps2.setInt(2, mag);
+                ps2.setInt(3, qte);
+                ps2.executeUpdate();
+                ps2.close();
+            }
+        }
+        catch(SQLException e){
+            System.out.println("Modification impossible : "+e.getMessage());
         }
     }
 

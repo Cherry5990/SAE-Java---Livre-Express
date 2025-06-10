@@ -64,6 +64,16 @@ public class Livre {
         if (o == this){return true;}
         if (!(o instanceof Livre)){return false;}
         Livre cast = (Livre) o;
-        return this.isbn == cast.getIsbn();
+        return this.isbn.equals(cast.getIsbn());
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.parseInt(isbn);
+    }
+
+    @Override
+    public String toString(){
+        return titre;
     }
 }
