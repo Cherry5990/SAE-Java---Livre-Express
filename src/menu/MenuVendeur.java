@@ -6,7 +6,9 @@ import java.util.Scanner;
 
 import BD.ConnexionMySQL;
 import BD.LivreBD;
+import BD.MagasinBD;
 import BD.VendeurBD;
+import modele.Magasin;
 import modele.Vendeur;
 
 public class MenuVendeur {
@@ -14,6 +16,7 @@ public class MenuVendeur {
     private static Vendeur vendeur;
     private static VendeurBD vendeurBD;
     private static LivreBD livreBD;
+    private static MagasinBD magasinBD;
 
     public static void connexionVendeur(ConnexionMySQL con){
         System.out.println("┌────────────────────────────────┐");
@@ -28,6 +31,7 @@ public class MenuVendeur {
             default:
             MenuVendeur.vendeurBD = new VendeurBD(con);
             MenuVendeur.livreBD = new LivreBD(con);
+            MenuVendeur.magasinBD = new MagasinBD(con);
 
             try {
                 MenuVendeur.vendeur = vendeurBD.getVendeur(Integer.parseInt(action));
@@ -85,8 +89,7 @@ public class MenuVendeur {
                 MenuVendeur.sousMenuAjouterLivre(con);
                 break;
             case "2":
-                System.out.println("A faire");
-                MenuVendeur.menuVendeur(con);
+                MenuVendeur.sousMenuMajQte(con);
                 break;
             case "3":
                 System.out.println("A faire");
@@ -263,13 +266,103 @@ public class MenuVendeur {
                 break;
         }
     }
+    //Fin de la Première Partie 
 
     //Deuxième Partie - mettre à jour la qte dispo d'un livre
     public static void sousMenuMajQte(ConnexionMySQL con){
-        System.out.println("A faire");
-        MenuVendeur.menuVendeur(con);
+        System.out.println("┌──────────────────────────────────────────────┐"); 
+        System.out.println("│Rentrez le nom d'un livre ou juste une partie:│"); 
+        System.out.println("│[Q] retour au menu Vendeur                    │"); 
+        System.out.println("└──────────────────────────────────────────────┘");
+        String entrer = scan.nextLine().trim();
+        switch (entrer) {
+            case "q":
+            case "Q":
+                MenuVendeur.menuVendeur(con);
+                break;
+            default:
+                String reponse = MenuVendeur.magasinBD.rechercheLivre(vendeur.getMagasin().getIdMagasin(), entrer);
+                System.out.println(reponse);
+                System.out.println("┌──────────────────────────────────────────────┐"); 
+                System.out.println("│[C] continuer [R] faire une nouvelle recherche│");
+                System.out.println("│[Q] retour au menu Vendeur                    │");        
+                System.out.println("└──────────────────────────────────────────────┘");
+                String entrer2 = scan.nextLine().toLowerCase().trim();
+                switch (entrer2) {
+                    case "c":
+                    MenuVendeur.MajQteDonnerIsbn(con);
+                    break;
+                case "r":
+                    MenuVendeur.sousMenuMajQte(con);
+                    break;
+                case "q":
+                    MenuVendeur.menuVendeur(con);
+                    break;
+                default:
+                    System.out.println("Veuillez rentrer une commande valide");
+                    MenuVendeur.sousMenuMajQte(con);                
+                    break;
+        }
+                    break;
+        }
+        
+    }
+    public static void MajQteDonnerIsbn(ConnexionMySQL con){
+        System.out.println("┌───────────────────────────────────────────────────────┐"); 
+        System.out.println("│Rentrez l'isbn du livre dont vous voulez changer la qte│"); 
+        System.out.println("│Rentrez les 13 chiffres sans espaces                   │"); 
+        System.out.println("└───────────────────────────────────────────────────────┘");
+        String entrerIsbn = scan.nextLine().trim();
+        String titre = null;
+        try {
+            titre = livreBD.rechercheTitre(entrerIsbn);
+            System.out.println("───────────────────────────────────────────────────────");
+            System.out.println("Rentrez la nouvelle quantité qu'aura " + titre); 
+            System.out.println("Veillez à rentrer un nombre entier"); 
+            System.out.println("───────────────────────────────────────────────────────");
+            String entrerQte = scan.nextLine().trim();
+            Integer qte = (Integer.parseInt(entrerQte));
+            MenuVendeur.MajQteDonnerValider(con, titre, qte, entrerIsbn);
+
+
+        } catch (java.sql.SQLException e) {
+            System.out.println("Erreur lors dans l'entrer de l'isbn");
+            System.out.println("Veiller à bien rentrer 13 chiffres sans espaces");
+            MenuVendeur.MajQteDonnerIsbn(con);
+        } catch(Exception e){
+                System.out.println("Veuillez rentrer un nombre");
+                MenuVendeur.MajQteDonnerIsbn(con);
+        }
     }
 
+    public static void MajQteDonnerValider(ConnexionMySQL con, String titre, Integer qte, String isbn){
+        System.out.println("───────────────────────────────────────────────────────"); 
+        System.out.println("Confirmez vous la mise à jour de la qantité de: "); 
+        System.out.println(titre +" à " + qte + " exemplaires?" ); 
+        System.out.println("[C] confirmer   [Q] annuler"  ); 
+        System.out.println("───────────────────────────────────────────────────────");
+        String entrer = scan.nextLine().toLowerCase().trim();
+        switch (entrer) {
+            case "q":
+                System.out.println("mise à jour annulée");
+                MenuVendeur.sousMenuMajQte(con);
+                break;
+            case "c":
+                MenuVendeur.magasinBD.miseAJourQuantite(isbn, qte, vendeur.getMagasin().getIdMagasin());
+                System.out.println("──────────────────────────────────────────────────────────────────────────────────");
+                System.out.println("La quantité de " + titre + " a bien été mise à jour à " + qte + " exemplaires");
+                System.out.println("appuyer sur entrer pour retourner au menu mise à jour de quantité");
+                System.out.println("──────────────────────────────────────────────────────────────────────────────────");
+                String saut = scan.nextLine().trim();
+                MenuVendeur.sousMenuMajQte(con);
+            default:
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuVendeur.MajQteDonnerValider(con, titre, qte, isbn);                
+                break;
+        }
+
+    }
+    //Fin de la deuxième Partie 
 
 
 
