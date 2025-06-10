@@ -8,10 +8,8 @@ import modele.Vendeur;
 public class VendeurBD {
 	ConnexionMySQL laConnexion;
 	Statement st;
-    private Long maxIsbn;
     public VendeurBD(ConnexionMySQL laConnexion){
-        this.laConnexion=laConnexion;
-        this.maxIsbn = 9792000000000L;             
+        this.laConnexion=laConnexion;          
     }
     
 
@@ -57,33 +55,6 @@ public class VendeurBD {
         }
     }
 
-    public boolean verifLivreExisteDansMagasin(int id, String entrer) throws SQLException{
-        try(PreparedStatement ps =laConnexion.prepareStatement("select isbn, titre From MAGASIN natural join POSSEDER natural join Livre where titre = ?;")){
-            ps.setString(1, entrer);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()){
-                return true;
-            }
-        }
-        return false;
-    }
 
-    public String regardeSiISBNExiste(String entrer) throws SQLException{
-        try(PreparedStatement ps = laConnexion.prepareStatement(" select isbn from Livre where titre = ?;")){
-            ps.setString(1, entrer);
-            ResultSet rs = ps.executeQuery();
-            String isbn  = null;
-            if(rs.next()){
-                isbn = rs.getString("isbn");
-            }
-            
-            return isbn;
-        }
-    }
-
-    public String maxIsbn(){
-        String res = Long.toString(this.maxIsbn);
-        this.maxIsbn += 1;
-        return res;
-    }
+    
 }
