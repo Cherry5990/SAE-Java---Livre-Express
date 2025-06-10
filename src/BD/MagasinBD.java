@@ -159,5 +159,18 @@ public class MagasinBD {
         }
     }
 
+    public void miseAJourQuantite(String isbn, Integer qte, Integer idmag){
+        try(PreparedStatement ps = laConnexion.prepareStatement("update posseder set qte = ? where isbn = ? and idmag = ?;")){
+            ps.setInt(1, qte);
+            ps.setString(2, isbn);
+            ps.setInt(3, idmag);
+            ps.executeUpdate();
+            ps.close();
+        }
+        catch (SQLException e) {
+            System.out.println("Impossible de mettre à jour la quatité, un paramètre doit être éronné ");  
+        }
+    }
+
     
 }

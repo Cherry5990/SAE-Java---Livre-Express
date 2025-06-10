@@ -88,4 +88,17 @@ public class LivreBD {
     } 
     // Fin des methodes pour Partie 1 de MenuVendeur
     
+    // Methode pour Partie 2 de MenuVendeur
+    public String rechercheTitre(String isbn) throws SQLException{
+        try(PreparedStatement ps = laConnexion.prepareStatement("select titre from Livre where isbn = ?;")){
+            ps.setString(1, isbn);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            String titre = rs.getString("titre");
+            return titre;
+        }
+    } 
+
+    
+    
 }
