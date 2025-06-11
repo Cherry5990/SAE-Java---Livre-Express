@@ -5,15 +5,9 @@ import modele.Commande;
 import modele.DetailCommande;
 import modele.Livre;
 import modele.Magasin;
-import modele.Posseder;
-import modele.Reseau;
 
-import java.awt.Menu;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
-
-import javax.swing.text.StyledEditorKit.BoldAction;
 
 public class MenuClient {
     private static final Scanner scan = new Scanner(System.in); // Scanner unique

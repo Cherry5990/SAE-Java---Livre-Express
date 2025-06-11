@@ -16,7 +16,7 @@ public class ReseauBD {
 
     public String magasinsAyantLivre(Integer idmag, String isbn){
         StringBuilder sb = new StringBuilder();
-        try (PreparedStatement ps = laConnexion.prepareStatement("SELECT * FROM LIVRE NATURAL JOIN POSSEDER NATURAL JOIN MAGASIN WHERE idmag <> ? and isbn = ?;")) {
+        try (PreparedStatement ps = laConnexion.prepareStatement("SELECT * FROM LIVRE NATURAL JOIN POSSEDER NATURAL JOIN MAGASIN WHERE idmag != ? and isbn = ?;")) {
             ps.setInt(1, idmag);
             ps.setString(2, isbn);
             ResultSet rs = ps.executeQuery();
@@ -39,10 +39,11 @@ public class ReseauBD {
         return sb.toString();
     }
 
-    public String rechercheLivre(String like){
+    public String rechercheLivre(String like,int idmag){
         StringBuilder sb = new StringBuilder();
-        try (PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn, titre, sum(qte) qte FROM LIVRE NATURAL JOIN POSSEDER group by isbn having titre LIKE '%?%';")) {
-            ps.setString(1, "%" + like + "%");
+        try (PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn, titre, sum(qte) qte FROM LIVRE NATURAL JOIN POSSEDER where idmag!= ? group by isbn having titre LIKE ?;")) {
+            ps.setString(2, "%" + like + "%");
+            ps.setInt(1, idmag);
             ResultSet rs = ps.executeQuery();
             sb.append(String.format("%-15s %-40s %-5s\n", "isbn", "titre", "qte totale"));
             while (rs.next()) {

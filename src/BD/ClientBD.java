@@ -131,4 +131,23 @@ public class ClientBD {
         }
         return recommandation;
     }
+
+    public String rechercheClient(String prenom,String nom)throws SQLException{
+        StringBuilder sb = new StringBuilder(nom);
+        try(PreparedStatement ps =laConnexion.prepareStatement("select idcli,nomcli,prenomcli from CLIENT where nomcli LIKE ? and prenomcli LIKE ?;")){
+            ps.setString(1, "%" + nom + "%");
+            ps.setString(2, "%" + prenom + "%");
+            ResultSet rs = ps.executeQuery();
+            if (!rs.isBeforeFirst()) {
+                return null;
+            }
+            while(rs.next()){
+                sb.append("\n" + rs.getInt("idcli") + ", " + rs.getString("nomcli") + ", " + rs.getString("prenomcli"));
+            }
+        }
+        catch(SQLException e){
+            System.out.println("problème de nom et prenom : " +e.getMessage());
+        }
+        return sb.toString();
+    }
 }
