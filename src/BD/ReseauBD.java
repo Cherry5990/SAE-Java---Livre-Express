@@ -48,10 +48,11 @@ public class ReseauBD {
         }
     }
 
-    public String magasinsAyantLivre(String isbn){
+    public String magasinsAyantLivre(Integer idmag, String isbn){
         StringBuilder sb = new StringBuilder();
-        try (PreparedStatement ps = laConnexion.prepareStatement("select * from LIVRE natural join POSSEDER natural join MAGASIN where isbn = ?;")) {
-            ps.setString(1, isbn);
+        try (PreparedStatement ps = laConnexion.prepareStatement("SELECT * FROM LIVRE NATURAL JOIN POSSEDER NATURAL JOIN MAGASIN WHERE idmag <> ? and isbn = ?;")) {
+            ps.setInt(1, idmag);
+            ps.setString(2, isbn);
             ResultSet rs = ps.executeQuery();
             sb.append(String.format("%-5s %-40s %-20s %-5s\n", "idmag", "nommag", "villemag", "qte"));
             while (rs.next()) {
@@ -59,7 +60,7 @@ public class ReseauBD {
                 if (nommag.length() > 35) {
                     nommag = nommag.substring(0, 35) + "...";
                 }
-                sb.append(String.format("%-15s %-40s %-8s %-5s\n",
+                sb.append(String.format("%-5s %-40s %-20s %-5s\n",
                         rs.getInt("idmag"),
                         nommag,
                         rs.getString("villemag"),
@@ -68,6 +69,29 @@ public class ReseauBD {
         }
         }catch(SQLException e){
         System.out.println(e.getMessage());
+        }
+        return sb.toString();
+    }
+
+    public String rechercheLivre(String like){
+        StringBuilder sb = new StringBuilder();
+        try (PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn, titre, sum(qte) qte FROM LIVRE NATURAL JOIN POSSEDER group by isbn having titre LIKE '%hu%';")) {
+            ps.setString(1, "%" + like + "%");
+            ResultSet rs = ps.executeQuery();
+            sb.append(String.format("%-15s %-40s %-5s\n", "isbn", "titre", "qte totale"));
+            while (rs.next()) {
+                String titre = rs.getString("titre");
+                if (titre.length() > 35) {
+                    titre = titre.substring(0, 35) + "...";
+                }
+                sb.append(String.format("%-15s %-40s %-5s\n",
+                        rs.getString("isbn"),
+                        titre,
+                        rs.getString("qte")));
+            }
+        } 
+        catch (SQLException e) {
+            sb.append("Erreur lors de l'affichage des magasins : ").append(e.getMessage());
         }
         return sb.toString();
     }

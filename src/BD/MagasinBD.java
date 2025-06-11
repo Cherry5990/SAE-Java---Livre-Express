@@ -207,6 +207,21 @@ public class MagasinBD {
             System.out.println("Modification impossible : "+e.getMessage());
         }
     }
+    public Integer getQte(String isbn, Integer idmag){
+        try(PreparedStatement ps = laConnexion.prepareStatement("select qte from POSSEDER where isbn = ? and idmag = ?;" )){
+            ps.setString(1, isbn);
+            ps.setInt(2, idmag);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            Integer qte = rs.getInt("qte");
+            return qte;
+
+
+        }catch(SQLException e){
+            return 0;
+        }
+        
+    }
 
     
 }
