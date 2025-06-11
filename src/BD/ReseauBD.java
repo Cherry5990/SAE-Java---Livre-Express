@@ -1,15 +1,9 @@
 package BD;
-import java.nio.file.attribute.PosixFileAttributeView;
 import java.sql.*;
 
-import modele.Livre;
-import modele.Magasin;
-import modele.Posseder;
-import modele.Vendeur;
 
 public class ReseauBD {
     private ConnexionMySQL laConnexion;
-	private Statement st;
 	public ReseauBD(ConnexionMySQL laConnexion){
 		this.laConnexion=laConnexion;
 	}

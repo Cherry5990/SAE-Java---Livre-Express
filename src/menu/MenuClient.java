@@ -78,13 +78,13 @@ public class MenuClient {
         System.out.println("│         Que voulez vous faire?          │");
         System.out.println("│ 1 - voir vos livres recommandés         │");
         System.out.println("│ 2 - se connecter à un magasin           │");
-        System.out.println("│ Q - revenir en arrière                  │");
+        System.out.println("│ Q - revenir au menu principal           │");
         System.out.println("└─────────────────────────────────────────┘");   
         String action = scan.nextLine().toLowerCase().trim();
         switch (action) {
             case "q":
                 System.out.println("Vous retournez au menu de connexion pour client");
-                MenuClient.connexionClient(con);
+                ExecutableMenu.menuPrincipal(con);
                 break;        
             case "1":
                 MenuClient.sousMenuLivreRecommande(con);
@@ -93,8 +93,8 @@ public class MenuClient {
                 MenuClient.chosirUnMagasin(con);
                 break;
             default:
-            System.out.println("Veuillez rentrer une commande valide");
-            MenuClient.menuClient(con);        
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuClient.menuClient(con);        
                 break;
         }
     }
@@ -123,8 +123,8 @@ public class MenuClient {
                 ExecutableMenu.menuPrincipal(con);
                 break;
             default:
-            System.out.println("Veuillez rentrer une commande valide");
-            MenuClient.sousMenuLivreRecommande(con);           
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuClient.sousMenuLivreRecommande(con);           
                 break;
         }
     }
@@ -318,8 +318,8 @@ public class MenuClient {
                 }
                 break;
             default:
-            System.out.println("Veuillez rentrer une commande valide");
-            MenuClient.sousMenuPasserUneCommande(con);         
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuClient.sousMenuPasserUneCommande(con);         
                 break;
         }
     }
@@ -370,6 +370,7 @@ public class MenuClient {
                                 break;
                             default:
                                 MenuClient.sousMenuAjouterUnLivreAuPanier(con);
+                                break;
                         }
                     }
                 }
@@ -381,7 +382,8 @@ public class MenuClient {
                     System.out.println("La quantité d'exemplaire souhaité doit être un nombre entier");
                     MenuClient.sousMenuAjouterUnLivreAuPanier(con);
                     System.out.println("La quantité d'exemplaire souhaité doit être un nombre entier");
-                }   
+                }
+                break;   
         }   
 
     }

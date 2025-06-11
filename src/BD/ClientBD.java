@@ -8,7 +8,6 @@ import modele.Livre;
 
 public class ClientBD {
 	ConnexionMySQL laConnexion;
-	Statement st;
 	public ClientBD(ConnexionMySQL laConnexion){
 		this.laConnexion=laConnexion;
 	}

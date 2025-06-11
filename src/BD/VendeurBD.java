@@ -7,7 +7,6 @@ import modele.Vendeur;
 
 public class VendeurBD {
 	ConnexionMySQL laConnexion;
-	Statement st;
     public VendeurBD(ConnexionMySQL laConnexion){
         this.laConnexion=laConnexion;          
     }
