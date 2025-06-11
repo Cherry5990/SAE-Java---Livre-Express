@@ -259,5 +259,5 @@ public class MenuAdmin {
                 MenuAdmin.ajouteLibrairieValide(con,nom, nomVille);        
                 break;
         }
-    }
+    } //Fin deuxieme partie 
 }
