@@ -32,18 +32,19 @@ public class MenuVendeur {
                 ExecutableMenu.menuPrincipal(con);
                 break;
             default:
-            MenuVendeur.vendeurBD = new VendeurBD(con);
-            MenuVendeur.livreBD = new LivreBD(con);
-            MenuVendeur.magasinBD = new MagasinBD(con);
-            MenuVendeur.reseauBD = new ReseauBD(con);
+                MenuVendeur.vendeurBD = new VendeurBD(con);
+                MenuVendeur.livreBD = new LivreBD(con);
+                MenuVendeur.magasinBD = new MagasinBD(con);
+                MenuVendeur.reseauBD = new ReseauBD(con);
 
-            try {
-                MenuVendeur.vendeur = vendeurBD.getVendeur(Integer.parseInt(action));
-            }
+                try {
+                    MenuVendeur.vendeur = vendeurBD.getVendeur(Integer.parseInt(action));
+                }
 
-            catch(Exception e){
-                System.out.println("Veuillez rentrer un nombre");
-                MenuVendeur.connexionVendeur(con);
+                catch(Exception e){
+                    System.out.println("Veuillez rentrer un nombre");
+                    MenuVendeur.connexionVendeur(con);
+                break;
             }
         }
         
@@ -62,8 +63,8 @@ public class MenuVendeur {
                 ExecutableMenu.menuPrincipal(con);
                 break;
             default:
-            System.out.println("Veuillez rentrer une commande valide");
-            MenuClient.connexionClient(con);        
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuClient.connexionClient(con);        
                 break;
         }
     }
@@ -89,6 +90,7 @@ public class MenuVendeur {
                 break;       
             case "m":
                 ExecutableMenu.menuPrincipal(con);
+                break;
             case "1":
                 MenuVendeur.sousMenuAjouterLivre(con);
                 break;

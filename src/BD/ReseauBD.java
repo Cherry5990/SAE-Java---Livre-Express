@@ -5,7 +5,6 @@ import java.sql.*;
 import modele.Livre;
 import modele.Magasin;
 import modele.Posseder;
-import modele.Reseau;
 import modele.Vendeur;
 
 public class ReseauBD {
@@ -14,39 +13,6 @@ public class ReseauBD {
 	public ReseauBD(ConnexionMySQL laConnexion){
 		this.laConnexion=laConnexion;
 	}
-
-    public void ajouterMagasins(Reseau reseau){
-        try(PreparedStatement ps = laConnexion.prepareStatement("select * From MAGASIN natural join POSSEDER natural join LIVRE;")){
-            ResultSet rs = ps.executeQuery();
-            int idCourant = 1;
-            Magasin magCourant = null;
-            while (rs.next()) {
-                int id = rs.getInt("idmag");
-                if (id == idCourant){
-                    if(magCourant == null){
-                        magCourant = new Magasin(id, rs.getString("nommag"), rs.getString("villemag"));
-
-                        
-                    }
-                    magCourant.ajouteLivre(new Livre(rs.getString("isbn"), rs.getString("titre"), rs.getInt("nbpages"), rs.getString("datepubli"), rs.getDouble("prix")), rs.getInt("qte"));
-                }
-                else{
-                    
-                    idCourant = id;
-                    
-                    reseau.ajouteMagasinExistant(magCourant);
-                    
-
-                    magCourant = new Magasin(id, rs.getString("nommag"), rs.getString("villemag"));
-                    magCourant.ajouteLivre(new Livre(rs.getString("isbn"), rs.getString("titre"), rs.getInt("nbpages"), rs.getString("datepubli"), rs.getDouble("prix")), rs.getInt("qte"));
-                }
-            }
-            reseau.ajouteMagasinExistant(magCourant);
-        }
-        catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-    }
 
     public String magasinsAyantLivre(Integer idmag, String isbn){
         StringBuilder sb = new StringBuilder();
@@ -68,14 +34,14 @@ public class ReseauBD {
             
         }
         }catch(SQLException e){
-        System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return sb.toString();
     }
 
     public String rechercheLivre(String like){
         StringBuilder sb = new StringBuilder();
-        try (PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn, titre, sum(qte) qte FROM LIVRE NATURAL JOIN POSSEDER group by isbn having titre LIKE '%hu%';")) {
+        try (PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn, titre, sum(qte) qte FROM LIVRE NATURAL JOIN POSSEDER group by isbn having titre LIKE '%?%';")) {
             ps.setString(1, "%" + like + "%");
             ResultSet rs = ps.executeQuery();
             sb.append(String.format("%-15s %-40s %-5s\n", "isbn", "titre", "qte totale"));

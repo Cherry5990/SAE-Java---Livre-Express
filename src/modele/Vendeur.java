@@ -13,9 +13,4 @@ public class Vendeur extends Compte{
     public String getNom(){return this.nom;}
     public String getPrenom(){return this.prenom;}
     public Magasin getMagasin(){return this.librairie;}
-
-    public void ajouteLivre(String isbn, String titre, int nbPages, String datePubli, double prix,int qte){
-        this.librairie.ajouteLivre(new Livre(isbn,titre,nbPages,datePubli,prix), qte);
-    }
-    
 }
