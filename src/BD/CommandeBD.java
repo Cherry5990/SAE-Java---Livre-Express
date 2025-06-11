@@ -1,6 +1,5 @@
 package BD;
 import java.sql.*;
-import java.util.HashMap;
 import java.util.List;
 
 import modele.Commande;
@@ -9,7 +8,6 @@ import modele.Livre;
 
 public class CommandeBD {
 	ConnexionMySQL laConnexion;
-	Statement st;
 	public CommandeBD(ConnexionMySQL laConnexion){
 		this.laConnexion=laConnexion;
 	}

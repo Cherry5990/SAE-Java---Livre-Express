@@ -1,13 +1,10 @@
 package BD;
 import java.sql.*;
-
-import modele.Client;
 import modele.Magasin;
 
 
 public class MagasinBD {
 	ConnexionMySQL laConnexion;
-	Statement st;
 	public MagasinBD(ConnexionMySQL laConnexion){
 		this.laConnexion=laConnexion;
 	}

@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 public class LivreBD {
     ConnexionMySQL laConnexion;
-	Statement st;
     
     public LivreBD(ConnexionMySQL laConnexion){
         this.laConnexion=laConnexion;             
