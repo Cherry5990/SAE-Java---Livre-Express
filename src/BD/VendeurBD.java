@@ -51,7 +51,7 @@ public class VendeurBD {
             return new Vendeur(rs.getInt("idVendeur"),
                             rs.getString("nomVendeur"),
                             rs.getString("prenomVendeur"),
-                            new Magasin(id, rs.getString("nommag"), "villemag"));
+                            new Magasin(rs.getInt("idmag"), rs.getString("nommag"), "villemag"));
         }
     }
 
