@@ -12,7 +12,7 @@ public class MenuAdmin {
     private static MagasinBD magasinBD;
     private static VendeurBD vendeurBD;
 
-    public static void ConnexionAdmin(ConnexionMySQL con){
+    public static void connexionAdmin(ConnexionMySQL con){
         System.out.println("┌────────────────────────────────────────────────────────────┐");        
         System.out.println("│ Etes vous sure de vouloir vous connecter en tant qu'Admin? │");
         System.out.println("│ [C] continuer  [Q] retour en arriere                       │");
@@ -21,6 +21,7 @@ public class MenuAdmin {
         switch (action) {
             case "c":
                 magasinBD = new MagasinBD(con);
+                vendeurBD = new VendeurBD(con);
                 MenuAdmin.menuAdmin(con);
                 break;
             case "q":
@@ -51,12 +52,10 @@ public class MenuAdmin {
                 ExecutableMenu.menuPrincipal(con);
                 break;}          
             case "1":
-                System.out.println("A faire");
-                MenuAdmin.menuAdmin(con);
+                MenuAdmin.sousMenuCreeCompteVendeur(con);
                 break;
             case "2":
-                System.out.println("A faire");
-                MenuAdmin.menuAdmin(con);
+                MenuAdmin.sousMenuAjouterLibrairie(con);
                 break;
             case "3":
                 System.out.println("A faire");
@@ -143,7 +142,7 @@ public class MenuAdmin {
                     break;
                 }catch(Exception e){
                 System.out.println("Veuillez rentrer un nombre");
-                MenuVendeur.connexionVendeur(con);
+                MenuAdmin.creeCompteVendeurDemandeIdmag(con, Prenom, Nom);
                 }
         }
     }
@@ -170,6 +169,9 @@ public class MenuAdmin {
             case "c":
                 try {
                     vendeurBD.insererVendeur(Prenom, Nom, idmag);
+                    System.out.println( "Le compte de " + Nom + " " + Prenom + " à bien été crée et associé au magasin d'id "+ idmag );
+                    String saut = scan.nextLine();
+                    MenuAdmin.sousMenuCreeCompteVendeur(con);
                 } catch (java.sql.SQLException e) {
                     System.out.println("Erreur lors de l'insertion du vendeur : " + e.getMessage());
                 }
@@ -178,6 +180,84 @@ public class MenuAdmin {
                 MenuAdmin.creeCompteVendeurValider(con,Prenom,Nom, idmag);        
                 break;
         }
-        
+    }
+    //Fin première partie 
+
+    //Deuxième Partie - ajouter une librairie
+    public static void sousMenuAjouterLibrairie(ConnexionMySQL con){
+        System.out.println("┌────────────────────────────────┐");        
+        System.out.println("│ Ajouter une librairie:         │");
+        System.out.println("│ Rentrer le nom de la librairie │");
+        System.out.println("│ Q - revenir en arriere         │");
+        System.out.println("└────────────────────────────────┘"); 
+        String entrerNom = scan.nextLine().trim();
+        switch (entrerNom) {
+            case "q":
+            case "Q":
+                MenuAdmin.menuAdmin(con);
+                break;
+            default:
+                MenuAdmin.ajouteLibrairieNom(con,entrerNom);
+                break;
+        }
+    }
+
+    private static void ajouteLibrairieNom(ConnexionMySQL con, String nom){
+        System.out.println("┌────────────────────────────────────────────────┐");        
+        System.out.println("│ Ajouter une librairie:                         │");
+        System.out.println("│ Rentrer le nom de la ville où est la librairie │");
+        System.out.println("│ Q - revenir en arriere                         │");
+        System.out.println("│ M - Menu Admin                                 │");
+        System.out.println("└────────────────────────────────────────────────┘"); 
+        String entrerNomVille = scan.nextLine().trim();
+        switch (entrerNomVille) {
+            case "m":
+            case "M":
+                MenuAdmin.menuAdmin(con);
+                break;
+            case "q":
+            case "Q":
+                MenuAdmin.sousMenuAjouterLibrairie(con);
+                break;
+            default:
+                MenuAdmin.ajouteLibrairieValide(con,nom, entrerNomVille);
+                break;
+        }
+    }
+
+    private static void ajouteLibrairieValide(ConnexionMySQL con, String nom, String nomVille){
+        System.out.println("┌───────────────────────────────────────┐");        
+        System.out.println("│ Ajouter une librairie:                │");
+        System.out.println("│ Confirmer vous l'ajout de la librairie│");
+        System.out.println("└───────────────────────────────────────┘"); 
+        System.out.println( nom + " basé à " + nomVille );
+        System.out.println("┌───────────────────────────────────┐"); 
+        System.out.println("│ C - confirmer                     │");
+        System.out.println("│ Q - retour en arriere             │");
+        System.out.println("│ M - Menu Admin                    │");
+        System.out.println("└───────────────────────────────────┘"); 
+        String entrer = scan.nextLine().toLowerCase().trim();
+        switch (entrer) {
+            case "m":
+                MenuAdmin.menuAdmin(con);
+                break;
+            case "q":
+                MenuAdmin.ajouteLibrairieNom(con, nom);
+                break;
+            case "c":
+                try {
+                    magasinBD.insererMagasin(nom, nomVille);
+                    System.out.println( "Le magasin " + nom + " basé à " + nomVille + " a bien été ajouté au réseau" );
+                    String saut = scan.nextLine();
+                    MenuAdmin.sousMenuAjouterLibrairie(con);
+                } catch (java.sql.SQLException e) {
+                    System.out.println("Erreur lors de l'insertion de la librairie : " + e.getMessage());
+                }
+                break;
+            default:
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuAdmin.ajouteLibrairieValide(con,nom, nomVille);        
+                break;
+        }
     }
 }
