@@ -73,7 +73,7 @@ public class Reseau {
         List<Livre> livreDuClient = new ArrayList<>();
 
         for (Commande cmd : client.getCommandes()){
-            for (DetailCommande ligne : cmd.getDetailComanndes()){
+            for (DetailCommande ligne : cmd.getDetailCommandes()){
                 Livre livre = ligne.getLivre();
                 if (!livreDuClient.contains(livre)){
                     livreDuClient.add(livre);
@@ -86,7 +86,7 @@ public class Reseau {
                 // La liste des livres 
                 List<Livre> livresAutreClient = new ArrayList<>();
                 for (Commande cmd : autreClient.getCommandes()){
-                    for (DetailCommande ligne : cmd.getDetailComanndes()){
+                    for (DetailCommande ligne : cmd.getDetailCommandes()){
                         Livre livre = ligne.getLivre();
                         if (!livresAutreClient.contains(livre)){
                             livresAutreClient.add(livre);
