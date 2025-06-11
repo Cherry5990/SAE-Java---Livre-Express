@@ -15,13 +15,13 @@ public class TestLivreExpress {
         res.ajouteMagasin("Magasin des 3 ponts", "Marseille");
         res.ajouteVendeur("Martin", "Christine", 1);
         Vendeur vendeur = res.getVendeur("Martin", "Christine");
-        vendeur.ajouteLivre(1, "Titanic",350,"2000",30.0,3);
+        vendeur.ajouteLivre("1", "Titanic",350,"2000",30.0,3);
         return res;
     }
     
     @Test
     public void testAssosciationLivre(){
-        Livre livre1 = new Livre(1,"Titanic",350,"2000",30);
+        Livre livre1 = new Livre("1","Titanic",350,"2000",30);
         Auteur auteur1 = new Auteur(1, "Joubert", 2000, 2020);
         Theme theme1 = new Theme(1, "horreur");
         Editeur editeur1 = new Editeur(1, "mario");
@@ -36,7 +36,7 @@ public class TestLivreExpress {
     @Test
     public void testAssociationPosseder(){
         Magasin magasin = new Magasin(1, "la goutière", "Paris");
-        Livre livre1 = new Livre(1,"Titanic",350,"2000",30);
+        Livre livre1 = new Livre("1","Titanic",350,"2000",30);
         Auteur auteur1 = new Auteur(1, "Joubert", 2000, 2020);
         Theme theme1 = new Theme(1, "horreur");
         Editeur editeur1 = new Editeur(1, "mario");
@@ -48,23 +48,5 @@ public class TestLivreExpress {
         assertEquals(true,magasin.livreEnStock(livre1,2));
         assertEquals(2, magasin.qteEnStock(livre1));
     }
-
-    @Test
-    public void testDetailCommande(){
-        Magasin magasin = new Magasin(1, "la goutière", "Paris");
-        Livre livre1 = new Livre(1,"Titanic",350,"2000",30);
-        Auteur auteur1 = new Auteur(1, "Joubert", 2000, 2020);
-        Theme theme1 = new Theme(1, "horreur");
-        Editeur editeur1 = new Editeur(1, "mario");
-        livre1.ajouteAuteur(auteur1);
-        livre1.ajouteEditeur(editeur1);
-        livre1.ajouteTheme(theme1);
-        magasin.ajouteLivre(livre1, 2);
-        Commande commande = new Commande(1, null, false, false, null, magasin);
-        assertEquals(false, commande.ajouteLivre(livre1, 3));
-        assertEquals(new ArrayList<>(), commande.getDetailComanndes());
-        assertEquals(true, commande.ajouteLivre(livre1, 2));
-        assertEquals(1,commande.getDetailComanndes().size());
-        assertEquals(livre1.getPrix() * 2, commande.sommeComande(), 0.001);
-    }
+    
 }

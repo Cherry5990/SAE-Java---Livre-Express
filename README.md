@@ -1,24 +1,27 @@
-## Getting Started
+# Livre Express
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Bienvenue sur le projet **Livre Express** : une application Java de gestion de librairies, permettant la gestion des stocks, des commandes, des clients, des vendeurs et des administrateurs.
 
-## Folder Structure
+## Structure du projet
 
-The workspace contains two folders by default, where:
+- `src/` : Contient le code source Java organisé en packages (`modele`, `BD`, `menu`, etc.).
+- `lib/` : Bibliothèques externes nécessaires (JDBC, JUnit, Hamcrest).
+- `bin/` : Fichiers compilés (.class).
+- `test/` : Tests unitaires JUnit.
+- `.vscode/` : Configuration pour Visual Studio Code.
+- `creationBD.sql`, `insertions.sql` : Scripts SQL pour créer et remplir la base de données.
+- `README.md` : Ce fichier.
+- `Sujet.pdf` : Sujet du projet.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Prérequis
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+- Java 8 ou supérieur
+- [MariaDB](https://mariadb.org/) ou MySQL pour la base de données
+- Les librairies présentes dans le dossier `lib/` (JUnit, Hamcrest, MariaDB JDBC)
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## Compilation et exécution
 
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
-
-
-... Il n'y a rien à lire ici
+Pour compiler le projet et lancer les tests unitaires :
 
 javac -d bin -cp .:lib/junit-4.13.2.jar:src test/TestLivreExpress.java 
 java -cp .:lib/hamcrest-2.2.jar:lib/junit-4.13.2.jar:bin org.junit.runner.JUnitCore TestLivreExpress

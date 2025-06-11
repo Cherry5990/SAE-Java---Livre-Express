@@ -1,13 +1,17 @@
 package BD;
 import java.sql.*;
 
+import modele.Magasin;
+import modele.Vendeur;
+
 
 public class VendeurBD {
 	ConnexionMySQL laConnexion;
 	Statement st;
-	public VendeurBD(ConnexionMySQL laConnexion){
-		this.laConnexion=laConnexion;
-	}
+    public VendeurBD(ConnexionMySQL laConnexion){
+        this.laConnexion=laConnexion;          
+    }
+    
 
     public int maxIdVendeur() throws SQLException{
         try(PreparedStatement ps = laConnexion.prepareStatement("select MAX(idVendeur) from VENDEUR;")){
@@ -38,4 +42,19 @@ public class VendeurBD {
             ps.close();
         }
     }
+
+    public Vendeur getVendeur(int id)throws SQLException{
+        try(PreparedStatement ps =laConnexion.prepareStatement("select * from VENDEUR natural join MAGASIN group by idVendeur having idVendeur=?;")){
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return new Vendeur(rs.getInt("idVendeur"),
+                            rs.getString("nomVendeur"),
+                            rs.getString("prenomVendeur"),
+                            new Magasin(rs.getInt("idmag"), rs.getString("nommag"), "villemag"));
+        }
+    }
+
+
+    
 }

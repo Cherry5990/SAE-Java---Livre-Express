@@ -3,23 +3,23 @@ package modele;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Commande {
+public class CommandeTest {
     private int numCom;
     private String dateCom;
     private boolean enLigne;
     private boolean livraison;
     private Client client;
-    private Magasin magasin;
+    private Reseau reseau;
     private List<DetailCommande> detailCommandes;
     private int ligne;
 
-    public Commande(int numCom, String dateCom, boolean enLigne, boolean livraison, Client client, Magasin magasin) {
+    public CommandeTest(int numCom, String dateCom, boolean enLigne, boolean livraison, Client client, Reseau reseau) {
         this.numCom = numCom;
         this.dateCom = dateCom;
         this.enLigne = enLigne;
         this.livraison = livraison;
         this.client = client;
-        this.magasin = magasin;
+        this.reseau = reseau;
         this.detailCommandes = new ArrayList<>();
         this.ligne = 1;
     }
@@ -29,18 +29,16 @@ public class Commande {
     public boolean isEnLigne() {return enLigne;}
     public boolean isLivraison() {return livraison;}
     public Client getClient() {return client;}
-    public Magasin getMagasin(){return this.magasin;}
+    public Reseau getReseau(){return this.reseau;}
     public List<DetailCommande> getDetailCommandes(){return this.detailCommandes;}
 
     public void setClient(Client c){
         this.client = c;
     }
     public void setLivraison(boolean eL) {this.enLigne = eL;}
+    public void setReseau(Reseau reseau){this.reseau = reseau;}
 
-    public void setEnLigne(boolean enLigne){
-        this.enLigne = enLigne;
-    }
-    public double sommeComande(){
+    public double sommeCommande(){
         double somme=0;
         for(DetailCommande dc:this.detailCommandes){
             somme+=dc.getPrixVente();
@@ -48,28 +46,17 @@ public class Commande {
         return somme;
     }
 
-    public void ajouteLivre(Livre livre,int qte){
-        this.detailCommandes.add(new DetailCommande(this.ligne, qte, livre));
-        this.ligne +=1;
+    public boolean ajouteLivreReseau(Livre livre,int qte){
+        for (Magasin m : reseau.getMagasins())
+            for(Posseder pos : m.getPosseders()){
+                if(pos.getQte() > 0){
+                    this.detailCommandes.add(new DetailCommande(this.ligne, qte, livre));
+                    this.ligne +=1;
+                    return true;
+                }
+                
+            }
+        return false;
     }
-
-    @Override
-    public String toString(){
-        return this.detailCommandes.toString();
-    }
-
-    @Override
-    public boolean equals(Object o){
-        if (o == null){return false;}
-        if (o == this){return true;}
-        if (!(o instanceof Commande)){return false;}
-        Commande c = (Commande) o;
-        return c.getNumCom() == this.numCom;
-    }
-
-    @Override
-    public int hashCode(){
-        return this.numCom * 673;
-    }
-
+    
 }
