@@ -92,8 +92,7 @@ public class MenuVendeur {
                 MenuVendeur.sousMenuMajQte(con);
                 break;
             case "3":
-                System.out.println("A faire");
-                MenuVendeur.menuVendeur(con);
+                MenuVendeur.sousMenuVerifDispo(con);
                 break;
             case "4":
                 System.out.println("A faire");
@@ -296,10 +295,11 @@ public class MenuVendeur {
 
     //Deuxième Partie - mettre à jour la qte dispo d'un livre
     public static void sousMenuMajQte(ConnexionMySQL con){
-        System.out.println("┌──────────────────────────────────────────────┐"); 
-        System.out.println("│Rentrez le nom d'un livre ou juste une partie:│"); 
-        System.out.println("│[Q] retour au menu Vendeur                    │"); 
-        System.out.println("└──────────────────────────────────────────────┘");
+        System.out.println("┌────────────────────────────────────────────────────┐"); 
+        System.out.println("│ Vous êtes sur la page de de mise à jour de quantité│");
+        System.out.println("│ Rentrez le nom d'un livre ou juste une partie:     │"); 
+        System.out.println("│ [Q] retour au menu Vendeur                         │"); 
+        System.out.println("└────────────────────────────────────────────────────┘");
         String entrer = scan.nextLine().trim();
         switch (entrer) {
             case "q":
@@ -333,6 +333,8 @@ public class MenuVendeur {
         }
         
     }
+
+
     public static void MajQteDonnerIsbn(ConnexionMySQL con){
         System.out.println("┌───────────────────────────────────────────────────────┐"); 
         System.out.println("│Rentrez l'isbn du livre dont vous voulez changer la qte│"); 
@@ -389,6 +391,46 @@ public class MenuVendeur {
 
     }
     //Fin de la deuxième Partie 
+
+    
+    //Troisieme Partie - verifier la disponibilité d'un livre
+
+    public static void sousMenuVerifDispo(ConnexionMySQL con){
+        System.out.println("┌────────────────────────────────────────────────────────┐");        
+        System.out.println("│ Vous êtes sur la page de verification de disponibilité │");
+        System.out.println("│ Rentrer le nom du livre que vous souhaitez vérifier    │");
+        System.out.println("│ Q - revenir en arrière                                 │");
+        System.out.println("└────────────────────────────────────────────────────────┘");
+        String entrer = scan.nextLine().trim();
+        switch (entrer) {
+            case "q":
+            case "Q":
+                MenuVendeur.menuVendeur(con);
+                break;
+            default:
+                String reponse = MenuVendeur.magasinBD.rechercheLivre(vendeur.getMagasin().getIdMagasin(), entrer);
+                System.out.println(reponse);
+                System.out.println("┌────────────────────────────────────────────────────────────────────────────────────┐"); 
+                System.out.println("│ Si aucun livre ne s'affiche, c'est que le livre n'est pas dispo dans votre magasin │");
+                System.out.println("│ [R] faire une nouvelle recherche [Q] retour au menu Vendeur                        │");        
+                System.out.println("└────────────────────────────────────────────────────────────────────────────────────┘");
+                String entrer2 = scan.nextLine().toLowerCase().trim();
+                switch(entrer2){
+                case "r":
+                    MenuVendeur.sousMenuVerifDispo(con);
+                    break;
+                case "q":
+                    MenuVendeur.menuVendeur(con);
+                    break;
+                default:
+                    System.out.println("Veuillez rentrer une commande valide");
+                    MenuVendeur.sousMenuMajQte(con);                
+                    break;
+        }
+                    break;
+        }
+    }
+
 
 
 
