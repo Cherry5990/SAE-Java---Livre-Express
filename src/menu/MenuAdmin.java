@@ -3,11 +3,40 @@ package menu;
 import java.util.Scanner;
 
 import BD.ConnexionMySQL;
+import BD.MagasinBD;
+import BD.VendeurBD;
+import modele.Admin;
 
 public class MenuAdmin {
+    private static final Scanner scan = new Scanner(System.in, "UTF-8"); // Scanner unique
+    private static MagasinBD magasinBD;
+    private static VendeurBD vendeurBD;
+
+    public static void ConnexionAdmin(ConnexionMySQL con){
+        System.out.println("┌────────────────────────────────────────────────────────────┐");        
+        System.out.println("│ Etes vous sure de vouloir vous connecter en tant qu'Admin? │");
+        System.out.println("│ [C] continuer  [Q] retour en arriere                       │");
+        System.out.println("└────────────────────────────────────────────────────────────┘");
+        String action = scan.nextLine().toLowerCase().trim();
+        switch (action) {
+            case "c":
+                magasinBD = new MagasinBD(con);
+                MenuAdmin.menuAdmin(con);
+                break;
+            case "q":
+                ExecutableMenu.menuPrincipal(con);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+
+
     public static void menuAdmin(ConnexionMySQL con){
         System.out.println("┌─────────────────────────────────────────┐");        
-        System.out.println("│ Vous êtes connectés en tant que Vendeur │");
+        System.out.println("│ Vous êtes connectés en tant qu'Admin    │");
         System.out.println("│         Que voulez vous faire?          │");
         System.out.println("│ 1: créer un compte vendeur              │");
         System.out.println("│ 2: ajouter une nouvelle librairie       │");
@@ -15,7 +44,6 @@ public class MenuAdmin {
         System.out.println("│ 4: Consulter les statistiques de ventes │");
         System.out.println("│    Rentrez Q pour revenir en arriere    │");
         System.out.println("└─────────────────────────────────────────┘");   
-        Scanner scan = new Scanner(System.in);
         String action = scan.nextLine();
         switch (action) {
             case "q":{
@@ -44,4 +72,112 @@ public class MenuAdmin {
                 break;
         }
     } 
+
+    //Première Partie - Creer un compte vendeur
+    public static void sousMenuCreeCompteVendeur(ConnexionMySQL con){
+        System.out.println("┌──────────────────────────────┐");        
+        System.out.println("│ Creer un compte vendeur:     │");
+        System.out.println("│ Rentrer le prenom du vendeur │");
+        System.out.println("│ Q - revenir en arriere       │");
+        System.out.println("└──────────────────────────────┘"); 
+        String entrerPrenom = scan.nextLine().trim();
+        switch (entrerPrenom) {
+            case "q":
+            case "Q":
+                MenuAdmin.menuAdmin(con);
+                break;
+            default:
+                MenuAdmin.creeCompteVendeurDemandeNom(con, entrerPrenom);
+                break;
+        }
+    }
+
+    public static void creeCompteVendeurDemandeNom(ConnexionMySQL con, String Prenom){
+        System.out.println("┌──────────────────────────────┐");        
+        System.out.println("│ Creer un compte vendeur:     │");
+        System.out.println("│ Rentrer le nom du vendeur    │");
+        System.out.println("│ Q - revenir en arriere       │");
+        System.out.println("│ M - Menu Admin               │");
+        System.out.println("└──────────────────────────────┘"); 
+        String entrerNom = scan.nextLine().trim();
+        switch (entrerNom) {
+            case "q":
+            case "Q":
+                MenuAdmin.sousMenuCreeCompteVendeur(con);
+                break;
+            case "m":
+            case "M":
+                MenuAdmin.menuAdmin(con);
+                break;
+            default:
+                MenuAdmin.creeCompteVendeurDemandeIdmag(con,Prenom,entrerNom);
+                break;
+        }
+    }
+
+    public static void creeCompteVendeurDemandeIdmag(ConnexionMySQL con, String Prenom, String Nom){
+        System.out.println("┌───────────────────────────────────┐");        
+        System.out.println("│ Creer un compte vendeur:          │");
+        System.out.println("│ Rentrer l'id du magasin du vendeur│");
+        System.out.println("│ Q - revenir en arriere            │");
+        System.out.println("│ M - Menu Admin                    │");
+        System.out.println("└───────────────────────────────────┘"); 
+        String entrerIdmag = scan.nextLine().toLowerCase().trim();
+        switch (entrerIdmag) {
+            case "q":
+                MenuAdmin.sousMenuCreeCompteVendeur(con);
+                break;
+            case "m":
+                MenuAdmin.menuAdmin(con);
+                break;
+            default:
+                try{
+                    int idmagMax = magasinBD.maxIdMagasin();
+                    int idmag = Integer.parseInt(entrerIdmag);
+                    if(idmag > idmagMax){
+                        System.out.println("Aucun magasin n'a comme id " + idmag);
+                        String saut = scan.nextLine();
+                        MenuAdmin.creeCompteVendeurDemandeIdmag(con,Prenom,Nom);
+                    }
+                    MenuAdmin.creeCompteVendeurValider(con,Prenom,Nom, idmag);
+                    break;
+                }catch(Exception e){
+                System.out.println("Veuillez rentrer un nombre");
+                MenuVendeur.connexionVendeur(con);
+                }
+        }
+    }
+
+    public static void creeCompteVendeurValider(ConnexionMySQL con, String Prenom, String Nom, int idmag){
+        System.out.println("┌───────────────────────────────────┐");        
+        System.out.println("│ Creer un compte vendeur:          │");
+        System.out.println("│ Confirmer vous l'ajout du vendeur │");
+        System.out.println("└───────────────────────────────────┘"); 
+        System.out.println( Nom + " " + Prenom + " au magasin d'id "+ idmag );
+        System.out.println("┌───────────────────────────────────┐"); 
+        System.out.println("│ C - confirmer                     │");
+        System.out.println("│ Q - retour en arriere             │");
+        System.out.println("│ M - Menu Admin                    │");
+        System.out.println("└───────────────────────────────────┘"); 
+        String entrer = scan.nextLine().toLowerCase().trim();
+        switch (entrer) {
+            case "q":
+                MenuAdmin.sousMenuCreeCompteVendeur(con);
+                break;
+            case "m":
+                MenuAdmin.menuAdmin(con);
+                break;
+            case "c":
+                try {
+                    vendeurBD.insererVendeur(Prenom, Nom, idmag);
+                } catch (java.sql.SQLException e) {
+                    System.out.println("Erreur lors de l'insertion du vendeur : " + e.getMessage());
+                }
+            default:
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuAdmin.creeCompteVendeurValider(con,Prenom,Nom, idmag);        
+                break;
+        }
+        
+    }
 }
