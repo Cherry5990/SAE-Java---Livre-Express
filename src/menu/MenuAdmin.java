@@ -260,4 +260,22 @@ public class MenuAdmin {
                 break;
         }
     }
+    //Fin deuxieme partie 
+
+    //Quatrieme Partie - consulter les statistique de vente
+
+    public static void sousMenuStatsDeVente(ConnexionMySQL con){
+        System.out.println("┌──────────────────────────────────────────────────────┐");        
+        System.out.println("│ Menu statistiques de vente                           │");
+        System.out.println("│ Quelle stat voulez vous consulter                    │");
+        System.out.println("│ 1 - chiffre d'affaire                                │");
+        System.out.println("│ 2 - livres les plus vendus                           │");
+        System.out.println("│ 3 - Comparaison ventes en ligne et ventes en magasin │");
+        System.out.println("│ 4 - Valeur du stock par magasin                      │");
+        System.out.println("│ Q - revenir en arriere                               │");
+        System.out.println("└──────────────────────────────────────────────────────┘");   
+        String action = scan.nextLine();
+
+    }
+
 }
