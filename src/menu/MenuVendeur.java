@@ -70,7 +70,7 @@ public class MenuVendeur {
         System.out.println("┌──────────────────────────────────────────┐");        
         System.out.println("│ Vous êtes connectés en tant que Vendeur  │");
         System.out.println("│         Que voulez vous faire?           │");
-        System.out.println("│ 1 - ajouté un livre au stocks            │");
+        System.out.println("│ 1 - ajouter un livre au stocks           │");
         System.out.println("│ 2 - mettre à jour la qte dispo d'un livre│");
         System.out.println("│ 3 - verifier la disponibilité d'un livre │");
         System.out.println("│ 4 - passer une commande pour un client   │");
@@ -151,7 +151,7 @@ public class MenuVendeur {
                     }
                 }
                 else{
-                        MenuVendeur.procedureDAjout( con, entrer);
+                    MenuVendeur.procedureDAjout(con, entrer);
                 }
             } catch (java.sql.SQLException e) {
                 System.out.println("Erreur lors de la vérification du livre : " + e.getMessage());
@@ -167,10 +167,11 @@ public class MenuVendeur {
     
     public static void procedureDAjout(ConnexionMySQL con, String entrer){
         try {
+            
             String isbn = MenuVendeur.livreBD.regardeSiISBNExiste(entrer);
             boolean isbnExiste = true;
             if (isbn == null){
-            isbn = MenuVendeur.livreBD.maxIsbn();
+            isbn = MenuVendeur.livreBD.maxIsbnPlus1();
             isbnExiste = false;
             }
             System.out.println("───────────────────────────────────────────────────────────────────────────────");
@@ -183,7 +184,8 @@ public class MenuVendeur {
                 Integer nbpages = MenuVendeur.livreBD.rechercheNbPagesLivre(isbn); 
                 Double prix  = MenuVendeur.livreBD.recherchePrixLivre(isbn);
                 Integer datePubli = MenuVendeur.livreBD.rechercheDatePubli(isbn);
-                MenuVendeur.confirmationAjout(con, entrer, isbn,datePubli, nbpages, prix);
+                Integer qte = MenuVendeur.demandeQte(con);
+                MenuVendeur.confirmationAjout(con, entrer, isbn,datePubli, nbpages, prix, true,qte);
             }
             else{
                 MenuVendeur.demandeNbLigneEtPrix(con, entrer, isbn);
@@ -195,7 +197,7 @@ public class MenuVendeur {
     }
 
     public static void demandeNbLigneEtPrix(ConnexionMySQL con, String nom, String isbn){
-        System.out.println("Le livre n'existant pas, vous allez devoir renseigné ces informations");
+        System.out.println("Le livre n'existant pas dans le réseau, vous allez devoir renseigné ces informations");
         System.out.println("[C] Pour continuer [Q] Pour revenir en arrière");
         String entrer = scan.nextLine().toLowerCase().trim();
         switch (entrer) {
@@ -224,7 +226,8 @@ public class MenuVendeur {
                 System.out.println("──────────────────────────────────────────────────────────────");
                 String entrerPrix = scan.nextLine().trim();
                 Double prix = (Double.parseDouble(entrerPrix));
-                MenuVendeur.confirmationAjout(con, nom, isbn, nbpages, annee, prix);
+                Integer qte = MenuVendeur.demandeQte(con);
+                MenuVendeur.confirmationAjout(con, nom, isbn, nbpages, annee, prix, false, qte);
                 break;
             default:
             System.out.println("Veuillez rentrer une commande valide");
@@ -233,7 +236,20 @@ public class MenuVendeur {
         }
     }
 
-    public static void confirmationAjout(ConnexionMySQL con, String titre, String isbn, Integer nbPages,Integer datePubli, Double prix){
+    public static Integer demandeQte(ConnexionMySQL con){
+        System.out.println("─────────────────────────────────────────────────────────");
+        System.out.println("Rentrer la quantité de livre qui sera ajouté");
+        System.out.println("Rentrer un nombre entier");
+        System.out.println("Vous retournerez au menu d'ajout si vous faite une erreur");
+        System.out.println("─────────────────────────────────────────────────────────");
+        String entrerQte = scan.nextLine().trim();
+        Integer qte = (Integer.parseInt(entrerQte));
+        return qte;
+
+        
+    }
+
+    public static void confirmationAjout(ConnexionMySQL con, String titre, String isbn, Integer nbPages,Integer datePubli, Double prix, boolean existe, Integer qte){
         System.out.println("─────────────────────────────────────────────────────────────────────────────────");
         System.out.println("Vous êtes sur le point d'ajouter à votre magasin un livre avec les infos suivante");
         System.out.println("identifiant: " + isbn);
@@ -241,14 +257,24 @@ public class MenuVendeur {
         System.out.println("Le nombres de pages: " + nbPages);
         System.out.println("La date de publication: " + datePubli);
         System.out.println("Le prix: " + prix);
+        System.out.println("La quantité " + qte);
         System.out.println("[C] Pour confirmer l'ajout  [Q] Pour annuler");
         System.out.println("─────────────────────────────────────────────────────────────────────────────────");
         String entrer = scan.nextLine().toLowerCase().trim();
         switch (entrer) {
             case "c":
                 try {
-                    MenuVendeur.livreBD.insererLivre(isbn, titre, nbPages, datePubli, prix);
-                    System.out.println(titre + " a bien été ajouté dans le stock du magasin");
+                    if(existe){
+                        MenuVendeur.magasinBD.ajouterQte(isbn, qte, vendeur.getMagasin().getIdMagasin());
+                        System.out.println(titre + " a bien été ajouté dans le stock du magasin");
+                    }
+                    else{
+                        MenuVendeur.livreBD.insererLivre(isbn, titre, nbPages, datePubli, prix);
+                        MenuVendeur.magasinBD.ajouterQte(isbn, qte, vendeur.getMagasin().getIdMagasin());
+                        System.out.println(titre + " a bien été ajouté dans le réseau");
+                        System.out.println(titre + " a bien été ajouté dans le stock du magasin");
+                        
+                    }
                     System.out.println("appuyez sur entrer pour revenir au menu d'ajout de livre");
                     String saut = scan.nextLine();
                     MenuVendeur.sousMenuAjouterLivre(con);
@@ -262,7 +288,7 @@ public class MenuVendeur {
                 break;
             default:
                 System.out.println("Veuillez rentrer une commande valide");
-                MenuVendeur.confirmationAjout(con, titre, isbn, nbPages, datePubli, prix);                
+                MenuVendeur.confirmationAjout(con, titre, isbn, nbPages, datePubli, prix, existe, qte);                
                 break;
         }
     }

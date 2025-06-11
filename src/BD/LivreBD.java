@@ -8,10 +8,9 @@ import java.sql.SQLException;
 public class LivreBD {
     ConnexionMySQL laConnexion;
 	Statement st;
-    private Long maxIsbn;
+    
     public LivreBD(ConnexionMySQL laConnexion){
-        this.laConnexion=laConnexion;
-        this.maxIsbn = 9792000000000L;             
+        this.laConnexion=laConnexion;             
     }
 
 
@@ -29,14 +28,23 @@ public class LivreBD {
 
 
     // Methodes pour Partie 1 de MenuVendeur
-    public String maxIsbn(){
-        String res = Long.toString(this.maxIsbn);
-        this.maxIsbn += 1;
-        return res;
+    public String maxIsbnPlus1() throws SQLException{
+        try(PreparedStatement ps = laConnexion.prepareStatement("select max(isbn) from LIVRE;")){
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            String isbnStr = rs.getString("max(isbn)");
+            Long isbnInt= (Long.parseLong(isbnStr));
+            isbnInt += 1;
+            isbnStr = Long.toString(isbnInt);
+            return isbnStr;
+            
+
+        }
     }
     public boolean verifLivreExisteDansMagasin(int id, String entrer) throws SQLException{
-        try(PreparedStatement ps =laConnexion.prepareStatement("select isbn, titre From MAGASIN natural join POSSEDER natural join Livre where titre = ?;")){
+        try(PreparedStatement ps =laConnexion.prepareStatement("select isbn, titre From LIVRE natural join POSSEDER where titre = ? and idmag = ?;")){
             ps.setString(1, entrer);
+            ps.setInt(2, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()){
                 return true;
@@ -46,7 +54,7 @@ public class LivreBD {
     }
 
     public String regardeSiISBNExiste(String entrer) throws SQLException{
-        try(PreparedStatement ps = laConnexion.prepareStatement(" select isbn from Livre where titre = ?;")){
+        try(PreparedStatement ps = laConnexion.prepareStatement(" select isbn from LIVRE where titre = ?;")){
             ps.setString(1, entrer);
             ResultSet rs = ps.executeQuery();
             String isbn  = null;
@@ -58,7 +66,7 @@ public class LivreBD {
     }
     //Les trois methodes suivante pourrait être compilé en une seule méthode
     public Integer rechercheNbPagesLivre(String isbn) throws SQLException{
-        try(PreparedStatement ps = laConnexion.prepareStatement("select nbpages from Livre where isbn = ?;")){
+        try(PreparedStatement ps = laConnexion.prepareStatement("select nbpages from LIVRE where isbn = ?;")){
             ps.setString(1, isbn);
             ResultSet rs = ps.executeQuery();
             rs.next();
@@ -68,7 +76,7 @@ public class LivreBD {
     }
 
     public Double recherchePrixLivre(String isbn) throws SQLException{
-        try(PreparedStatement ps = laConnexion.prepareStatement("select prix from Livre where isbn = ?;")){
+        try(PreparedStatement ps = laConnexion.prepareStatement("select prix from LIVRE where isbn = ?;")){
             ps.setString(1, isbn);
             ResultSet rs = ps.executeQuery();
             rs.next();
@@ -78,7 +86,7 @@ public class LivreBD {
     }
 
     public Integer rechercheDatePubli(String isbn) throws SQLException{
-        try(PreparedStatement ps = laConnexion.prepareStatement("select datepubli from Livre where isbn = ?;")){
+        try(PreparedStatement ps = laConnexion.prepareStatement("select datepubli from LIVRE where isbn = ?;")){
             ps.setString(1, isbn);
             ResultSet rs = ps.executeQuery();
             rs.next();
@@ -90,7 +98,7 @@ public class LivreBD {
     
     // Methode pour Partie 2 de MenuVendeur
     public String rechercheTitre(String isbn) throws SQLException{
-        try(PreparedStatement ps = laConnexion.prepareStatement("select titre from Livre where isbn = ?;")){
+        try(PreparedStatement ps = laConnexion.prepareStatement("select titre from LIVRE where isbn = ?;")){
             ps.setString(1, isbn);
             ResultSet rs = ps.executeQuery();
             rs.next();
