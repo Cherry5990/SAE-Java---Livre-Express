@@ -48,5 +48,29 @@ public class ReseauBD {
         }
     }
 
+    public String magasinsAyantLivre(String isbn){
+        StringBuilder sb = new StringBuilder();
+        try (PreparedStatement ps = laConnexion.prepareStatement("select * from LIVRE natural join POSSEDER natural join MAGASIN where isbn = ?;")) {
+            ps.setString(1, isbn);
+            ResultSet rs = ps.executeQuery();
+            sb.append(String.format("%-5s %-40s %-20s %-5s\n", "idmag", "nommag", "villemag", "qte"));
+            while (rs.next()) {
+                String nommag = rs.getString("nommag");
+                if (nommag.length() > 35) {
+                    nommag = nommag.substring(0, 35) + "...";
+                }
+                sb.append(String.format("%-15s %-40s %-8s %-5s\n",
+                        rs.getInt("idmag"),
+                        nommag,
+                        rs.getString("villemag"),
+                        rs.getInt("qte") + " exemplaires"));
+            
+        }
+        }catch(SQLException e){
+        System.out.println(e.getMessage());
+        }
+        return sb.toString();
+    }
+
 
 }

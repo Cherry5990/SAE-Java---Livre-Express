@@ -7,6 +7,7 @@ import java.util.Scanner;
 import BD.ConnexionMySQL;
 import BD.LivreBD;
 import BD.MagasinBD;
+import BD.ReseauBD;
 import BD.VendeurBD;
 import modele.Magasin;
 import modele.Vendeur;
@@ -17,6 +18,7 @@ public class MenuVendeur {
     private static VendeurBD vendeurBD;
     private static LivreBD livreBD;
     private static MagasinBD magasinBD;
+    private static ReseauBD reseauBD;
 
     public static void connexionVendeur(ConnexionMySQL con){
         System.out.println("┌────────────────────────────────┐");
@@ -32,6 +34,7 @@ public class MenuVendeur {
             MenuVendeur.vendeurBD = new VendeurBD(con);
             MenuVendeur.livreBD = new LivreBD(con);
             MenuVendeur.magasinBD = new MagasinBD(con);
+            MenuVendeur.reseauBD = new ReseauBD(con);
 
             try {
                 MenuVendeur.vendeur = vendeurBD.getVendeur(Integer.parseInt(action));
@@ -99,8 +102,7 @@ public class MenuVendeur {
                 MenuVendeur.menuVendeur(con);
                 break;
             case "5":
-                System.out.println("A faire");
-                MenuVendeur.menuVendeur(con);
+                MenuVendeur.transfererLivre(con);
                 break;
 
             default:
@@ -431,7 +433,66 @@ public class MenuVendeur {
         }
     }
 
+    //fin de la troisieme Partie 
 
+    //Cinquieme Partie - transferer un livre
+
+
+    public static void transfererLivre(ConnexionMySQL con){
+        System.out.println("┌──────────────────────────────────────────────────────────────┐");        
+        System.out.println("│ Vous êtes sur la page de transfert de livre                  │");
+        System.out.println("│ Pour transferer un livre, vous aurez besoin de son Isbn      │");
+        System.out.println("│ Rentrer le nom du livre dont vous souhaité connaitre l'isbn  │");
+        System.out.println("│ Vous pouvez mettre qu'une partie du mot                       │");
+        System.out.println("│ Q - revenir en arrière                                       │");
+        System.out.println("└──────────────────────────────────────────────────────────────┘");
+        String entrer = scan.nextLine().trim();
+        switch(entrer){
+            case "q":
+            case "Q":
+                MenuVendeur.menuVendeur(con);
+                break;
+            default:
+            String reponse = MenuVendeur.magasinBD.rechercheLivre(vendeur.getMagasin().getIdMagasin(), entrer);
+            System.out.println(reponse);
+            System.out.println("┌───────────────────────────────────────────────────────┐"); 
+            System.out.println("│Rentrez l'isbn du livre que vous voulez transferer     │"); 
+            System.out.println("│Rentrez les 13 chiffres sans espaces                   │"); 
+            System.out.println("│[R] faire une nouvelle recherche [Q] Menu Vendeur      │");
+            System.out.println("└───────────────────────────────────────────────────────┘");
+            String entrerIsbn = scan.nextLine().toLowerCase().trim();
+            switch (entrerIsbn) {
+                case "q":
+                    MenuVendeur.menuVendeur(con);
+                    break;
+                case "r":
+                    MenuVendeur.transfererLivre(con);
+                    break;
+                default:
+                    try {
+                        System.out.println("┌───────────────────────────────────────────────────────────────┐"); 
+                        System.out.println("│Voici les magasins ayant le livre souhaité en stock            │"); 
+                        System.out.println("│Rentrez l'id du magasin duquel vous voulez transferer le livre │"); 
+                        System.out.println("│Rentrez l'id du magasin duquel vous voulez transferer le livre │"); 
+                        System.out.println("│[R] faire une nouvelle recherche [Q] Menu Vendeur              │");
+                        System.out.println("└───────────────────────────────────────────────────────────────┘");
+                        String magasins = reseauBD.magasinsAyantLivre(entrerIsbn);
+                        System.out.println(magasins);
+                        
+
+                        
+
+                    }catch(Exception e){
+                    System.out.println("Veuillez rentrer un nombre");
+                    MenuVendeur.MajQteDonnerIsbn(con);
+                    }
+                    break;
+
+            }
+        }
+
+
+    }
 
 
 }
