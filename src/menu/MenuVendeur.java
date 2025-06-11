@@ -1,6 +1,7 @@
 package menu;
 
 import java.lang.invoke.VarHandle.VarHandleDesc;
+import java.lang.reflect.Member;
 import java.util.Scanner;
 
 
@@ -102,7 +103,7 @@ public class MenuVendeur {
                 MenuVendeur.menuVendeur(con);
                 break;
             case "5":
-                MenuVendeur.transfererLivre(con);
+                MenuVendeur.sousMenuTransfererLivre(con);
                 break;
 
             default:
@@ -401,6 +402,7 @@ public class MenuVendeur {
         System.out.println("┌────────────────────────────────────────────────────────┐");        
         System.out.println("│ Vous êtes sur la page de verification de disponibilité │");
         System.out.println("│ Rentrer le nom du livre que vous souhaitez vérifier    │");
+        System.out.println("│ Ou juste une partie                                    │");
         System.out.println("│ Q - revenir en arrière                                 │");
         System.out.println("└────────────────────────────────────────────────────────┘");
         String entrer = scan.nextLine().trim();
@@ -426,7 +428,7 @@ public class MenuVendeur {
                     break;
                 default:
                     System.out.println("Veuillez rentrer une commande valide");
-                    MenuVendeur.sousMenuMajQte(con);                
+                    MenuVendeur.sousMenuVerifDispo(con);                
                     break;
         }
                     break;
@@ -438,83 +440,134 @@ public class MenuVendeur {
     //Cinquieme Partie - transferer un livre
 
 
-    public static void transfererLivre(ConnexionMySQL con){
+    public static void sousMenuTransfererLivre(ConnexionMySQL con){
         System.out.println("┌──────────────────────────────────────────────────────────────┐");        
         System.out.println("│ Vous êtes sur la page de transfert de livre                  │");
         System.out.println("│ Pour transferer un livre, vous aurez besoin de son Isbn      │");
         System.out.println("│ Rentrez le nom du livre dont vous souhaité connaitre l'isbn  │");
-        System.out.println("│ Vous pouvez mettre qu'une partie du mot                       │");
+        System.out.println("│ Vous pouvez ne mettre qu'une partie du nom                   │");
         System.out.println("│ Q - revenir en arrière                                       │");
         System.out.println("└──────────────────────────────────────────────────────────────┘");
-        String entrer = scan.nextLine().trim();
-        switch(entrer){
+        String entrerTitre = scan.nextLine().trim();
+        switch(entrerTitre){
             case "q":
             case "Q":
                 MenuVendeur.menuVendeur(con);
                 break;
             default:
-            String reponse = MenuVendeur.magasinBD.rechercheLivre(vendeur.getMagasin().getIdMagasin(), entrer);
+                MenuVendeur.transfererLivreDemandeIsbn(con, entrerTitre);
+                break;
+        }
+    }
+
+    public static void transfererLivreDemandeIsbn(ConnexionMySQL con, String titre){
+            String reponse = MenuVendeur.reseauBD.rechercheLivre(titre);
             System.out.println(reponse);
             System.out.println("┌───────────────────────────────────────────────────────┐"); 
             System.out.println("│Rentrez l'isbn du livre que vous voulez transferer     │"); 
             System.out.println("│Rentrez les 13 chiffres sans espaces                   │"); 
-            System.out.println("│[R] faire une nouvelle recherche [Q] Menu Vendeur      │");
+            System.out.println("│[R] faire une nouvelle recherche [M] Menu Vendeur      │");
             System.out.println("└───────────────────────────────────────────────────────┘");
             String entrerIsbn = scan.nextLine().toLowerCase().trim();
             switch (entrerIsbn) {
-                case "q":
+                case "m":
                     MenuVendeur.menuVendeur(con);
                     break;
                 case "r":
-                    MenuVendeur.transfererLivre(con);
+                    MenuVendeur.sousMenuTransfererLivre(con);
                     break;
                 default:
-                    try {
-                        System.out.println("┌────────────────────────────────────────────────────┐"); 
-                        System.out.println("│Voici les magasins ayant le livre souhaité en stock │"); 
-                        System.out.println("└────────────────────────────────────────────────────┘");
-                        String magasins = reseauBD.magasinsAyantLivre(entrerIsbn);
-                        System.out.println(magasins);
-                        System.out.println("┌───────────────────────────────────────────────────────────────┐");
-                        System.out.println("│Rentrez l'id du magasin duquel vous voulez transferer le livre │"); 
-                        System.out.println("│Rentrer seulement le un nombre                                 │"); 
-                        System.out.println("│[R] faire une nouvelle recherche [Q] Menu Vendeur              │");
-                        System.out.println("└───────────────────────────────────────────────────────────────┘");
-                        String entrerIdMag = scan.nextLine().toLowerCase().trim();
-                        switch(entrerIdMag){
-                            case "q":
-                                MenuVendeur.menuVendeur(con);
-                                break;
-                            case "r":
-                                MenuVendeur.transfererLivre(con);
-                                break;
-                            default:
-                                Integer idmag = Integer.parseInt(entrerIdMag);
-                                System.out.println("┌────────────────────────────────────────────────────────┐"); 
-                                System.out.println("│Rentrez la quantité de livre que vous voulez transferer │"); 
-                                System.out.println("└────────────────────────────────────────────────────────┘");
-                                String entrerQte = scan.nextLine().toLowerCase().trim();
-                                Integer qteTransfere = Integer.parseInt(entrerQte);
-
-                                Integer qteMagasinDonneur = magasinBD.getQte(idmag);
-                                break;
-
-                        }
-                        
-
-                        
-
-                    }catch(Exception e){
-                    System.out.println("Veuillez rentrer un nombre");
-                    MenuVendeur.MajQteDonnerIsbn(con);
-                    }
+                    MenuVendeur.transfererLivreDemandeIdMag(con, entrerIsbn, titre);
                     break;
-
             }
-        }
-
-
     }
 
+    public static void transfererLivreDemandeIdMag(ConnexionMySQL con, String isbn, String titre){
+        try {
+            System.out.println("┌───────────────────────────────────────────────────────────────────────┐"); 
+            System.out.println("│Voici les magasins ayant le livre souhaité en stock                    │"); 
+            System.out.println("│S'il n'y a pas de valeur, c'est qu'aucun magasin n'a ce livre en stock │");
+            System.out.println("└───────────────────────────────────────────────────────────────────────┘");
+            String magasins = reseauBD.magasinsAyantLivre(vendeur.getMagasin().getIdMagasin(),isbn);
+            System.out.println(magasins);
+            System.out.println("┌───────────────────────────────────────────────────────────────┐");
+            System.out.println("│Rentrez l'id du magasin duquel vous voulez transferer le livre │"); 
+            System.out.println("│Rentrer uniquement un nombre                                   │"); 
+            System.out.println("│[R] faire une nouvelle recherche [Q] retour en arriere         │");
+            System.out.println("│[M] menu Vendeur                                               │");
+            System.out.println("└───────────────────────────────────────────────────────────────┘");
+            String entrerIdMag = scan.nextLine().toLowerCase().trim();
+            switch(entrerIdMag){
+                case "m":
+                    MenuVendeur.menuVendeur(con);
+                    break;
+                case "r":
+                    MenuVendeur.sousMenuTransfererLivre(con);
+                    break;
+                case "q":
+                    MenuVendeur.transfererLivreDemandeIsbn(con, titre);
+                    break;
+                default:
+                    Integer idmag = Integer.parseInt(entrerIdMag);
+                    MenuVendeur.transfererLivreDemandeQte(con, idmag, isbn, titre);
+                    break;
+            }
+        }catch(Exception e){
+            System.out.println("Veuillez rentrer un nombre");
+            MenuVendeur.sousMenuTransfererLivre(con);
+        }
+    }
 
+    public static void transfererLivreDemandeQte(ConnexionMySQL con, Integer idmag, String isbn, String titre){
+        try {
+            System.out.println("┌────────────────────────────────────────────────────────┐"); 
+            System.out.println("│Rentrez la quantité de livre que vous voulez transferer │"); 
+            System.out.println("│[R] faire une nouvelle recherche [Q] retour en arriere  │");
+            System.out.println("│[M] menu Vendeur                                        │");
+            System.out.println("└────────────────────────────────────────────────────────┘");
+            String entrerQte = scan.nextLine().toLowerCase().trim();
+            switch(entrerQte){
+                case "m":
+                    MenuVendeur.menuVendeur(con);
+                    break;
+                case "r":
+                    MenuVendeur.sousMenuTransfererLivre(con);
+                    break;
+                case "q":
+                    MenuVendeur.transfererLivreDemandeIdMag(con,isbn,titre);
+                    break;
+                default:
+                    Integer qteTransfere = Integer.parseInt(entrerQte);
+                    Integer qteMagasinDonneur = magasinBD.getQte(isbn, idmag);
+                    Integer idmagCourant = vendeur.getMagasin().getIdMagasin();
+                    Integer qteMagasinReceveur =  magasinBD.getQte(isbn, idmagCourant);
+                    if (qteMagasinDonneur < qteTransfere){
+                        System.out.println("Vous ne pouvez pas transferer plus de livre que le magasin donneur n'a en stock");
+                        String saut = scan.nextLine();
+                        MenuVendeur.sousMenuTransfererLivre(con);
+                        return;
+                 }
+                    qteMagasinDonneur -= qteTransfere;
+                    magasinBD.miseAJourQuantite(isbn, qteMagasinDonneur, idmag);
+
+                    if(qteMagasinReceveur == 0){
+                        magasinBD.ajouterQte(isbn, qteTransfere, idmagCourant);
+                    }
+                    else{
+                        qteMagasinReceveur += qteTransfere;
+                        magasinBD.miseAJourQuantite(isbn, qteMagasinReceveur, idmagCourant);
+                    }
+                    System.out.println("┌─────────────────────────────────────────────┐"); 
+                    System.out.println("│Le Transfert c'est effectuer sans problème   │"); 
+                    System.out.println("└─────────────────────────────────────────────┘");
+                    String action = scan.nextLine().toLowerCase().trim();
+                    MenuVendeur.sousMenuTransfererLivre(con);
+                
+                break;
+            }
+        }catch(Exception e){
+                    System.out.println("Veuillez rentrer un nombre");
+                    MenuVendeur.sousMenuTransfererLivre(con);
+        }       
+    }
 }
