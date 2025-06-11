@@ -66,7 +66,47 @@ public class Reseau {
         return null;
     }
 
-    
+    public List<Livre> onVousRecommande(Client client){
+        List<Livre> recommandations = new ArrayList<>();
+
+        // On récupére d'abord la liste des livres commandes par le client passé en paramètres
+        List<Livre> livreDuClient = new ArrayList<>();
+
+        for (Commande cmd : client.getCommandes()){
+            for (DetailCommande ligne : cmd.getDetailComanndes()){
+                Livre livre = ligne.getLivre();
+                if (!livreDuClient.contains(livre)){
+                    livreDuClient.add(livre);
+                }
+            }
+        }
+
+        for (Client autreClient : this.clients){
+            if (!autreClient.equals(client)){
+                // La liste des livres 
+                List<Livre> livresAutreClient = new ArrayList<>();
+                for (Commande cmd : autreClient.getCommandes()){
+                    for (DetailCommande ligne : cmd.getDetailComanndes()){
+                        Livre livre = ligne.getLivre();
+                        if (!livresAutreClient.contains(livre)){
+                            livresAutreClient.add(livre);
+                        }
+                    }
+                } 
+                for (Livre livre : livresAutreClient){
+                    if (livreDuClient.contains(livre)){
+                        for (Livre l : livresAutreClient){
+                            if (!livreDuClient.contains(l) && !recommandations.contains(l)){
+                                recommandations.add(l);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return recommandations;
+    }
+
     public void deplaceStock(Magasin src,Magasin target,int qte,Livre livre){
         src.dimimueQte(livre, qte);
         target.augmenteQte(livre, qte);
