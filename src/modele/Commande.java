@@ -40,13 +40,6 @@ public class Commande {
     public void setEnLigne(boolean enLigne){
         this.enLigne = enLigne;
     }
-    public double sommeComande(){
-        double somme=0;
-        for(DetailCommande dc:this.detailCommandes){
-            somme+=dc.getPrixVente();
-        }
-        return somme;
-    }
 
     public void ajouteLivre(Livre livre,int qte){
         this.detailCommandes.add(new DetailCommande(this.ligne, qte, livre));

@@ -16,8 +16,4 @@ public class Posseder {
     public Livre getLivre(){return this.livre;}
 
     public Magasin getMagasin(){return this.magasin;}
-
-    public void setQte(int qte){
-        this.qte=qte;
-    }
 }

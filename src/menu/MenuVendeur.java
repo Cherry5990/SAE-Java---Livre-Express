@@ -1,25 +1,32 @@
 package menu;
 
-import java.lang.invoke.VarHandle.VarHandleDesc;
-import java.lang.reflect.Member;
+import java.sql.SQLException;
 import java.util.Scanner;
 
-
+import BD.ClientBD;
 import BD.ConnexionMySQL;
 import BD.LivreBD;
 import BD.MagasinBD;
 import BD.ReseauBD;
 import BD.VendeurBD;
-import modele.Magasin;
+import modele.Client;
+import modele.Commande;
+import modele.DetailCommande;
+import modele.Livre;
+import BD.CommandeBD;
 import modele.Vendeur;
 
 public class MenuVendeur {
     private static final Scanner scan = new Scanner(System.in, "UTF-8"); // Scanner unique
     private static Vendeur vendeur;
+    private static Commande commande;
     private static VendeurBD vendeurBD;
     private static LivreBD livreBD;
     private static MagasinBD magasinBD;
     private static ReseauBD reseauBD;
+    private static ClientBD clientBD;
+    private static CommandeBD comBD;
+
 
     public static void connexionVendeur(ConnexionMySQL con){
         System.out.println("┌────────────────────────────────┐");
@@ -32,18 +39,21 @@ public class MenuVendeur {
                 ExecutableMenu.menuPrincipal(con);
                 break;
             default:
-            MenuVendeur.vendeurBD = new VendeurBD(con);
-            MenuVendeur.livreBD = new LivreBD(con);
-            MenuVendeur.magasinBD = new MagasinBD(con);
-            MenuVendeur.reseauBD = new ReseauBD(con);
+                MenuVendeur.vendeurBD = new VendeurBD(con);
+                MenuVendeur.livreBD = new LivreBD(con);
+                MenuVendeur.magasinBD = new MagasinBD(con);
+                MenuVendeur.reseauBD = new ReseauBD(con);
+                MenuVendeur.clientBD = new ClientBD(con);
+                MenuVendeur.comBD = new CommandeBD(con);
 
-            try {
-                MenuVendeur.vendeur = vendeurBD.getVendeur(Integer.parseInt(action));
-            }
+                try {
+                    MenuVendeur.vendeur = vendeurBD.getVendeur(Integer.parseInt(action));
+                }
 
-            catch(Exception e){
-                System.out.println("Veuillez rentrer un nombre");
-                MenuVendeur.connexionVendeur(con);
+                catch(Exception e){
+                    System.out.println("Veuillez rentrer un nombre");
+                    MenuVendeur.connexionVendeur(con);
+                break;
             }
         }
         
@@ -62,8 +72,8 @@ public class MenuVendeur {
                 ExecutableMenu.menuPrincipal(con);
                 break;
             default:
-            System.out.println("Veuillez rentrer une commande valide");
-            MenuClient.connexionClient(con);        
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuVendeur.connexionVendeur(con);        
                 break;
         }
     }
@@ -71,7 +81,8 @@ public class MenuVendeur {
 
 
     public static void menuVendeur(ConnexionMySQL con){
-        System.out.println("┌──────────────────────────────────────────┐");        
+        System.out.println("┌──────────────────────────────────────────┐");     
+        System.out.println("│ Magasin "+ vendeur.getMagasin().getNomMagasin()+"        │");   
         System.out.println("│ Vous êtes connectés en tant que Vendeur  │");
         System.out.println("│         Que voulez vous faire?           │");
         System.out.println("│ 1 - ajouter un livre au stocks           │");
@@ -89,6 +100,7 @@ public class MenuVendeur {
                 break;       
             case "m":
                 ExecutableMenu.menuPrincipal(con);
+                break;
             case "1":
                 MenuVendeur.sousMenuAjouterLivre(con);
                 break;
@@ -99,19 +111,264 @@ public class MenuVendeur {
                 MenuVendeur.sousMenuVerifDispo(con);
                 break;
             case "4":
-                System.out.println("A faire");
-                MenuVendeur.menuVendeur(con);
+                MenuVendeur.sousMenuCommande(con);
                 break;
             case "5":
                 MenuVendeur.sousMenuTransfererLivre(con);
                 break;
 
             default:
-            System.out.println("Veuillez rentrer une commande valide");
-            MenuVendeur.menuVendeur(con);       
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuVendeur.menuVendeur(con);       
                 break;
         }
     }  
+
+    public static void sousMenuCommande(ConnexionMySQL con){
+        System.out.println("┌─────────────────────────────────────────────┐");        
+        System.out.println("│ Veuillez rentrer le nom de la personne      │");
+        System.out.println("└─────────────────────────────────────────────┘"); 
+        String nom = scan.nextLine().trim();
+        System.out.println("┌─────────────────────────────────────────────┐");        
+        System.out.println("│ Veuillez rentrer le prenom de la personne   │");
+        System.out.println("└─────────────────────────────────────────────┘"); 
+        String prenom = scan.nextLine().trim();
+        try{
+            String recherche = clientBD.rechercheClient(prenom, nom);
+            if(recherche ==null){
+                System.out.println("Aucun utilisateur avec ce nom et prénom");
+                String skip= scan.nextLine();
+                MenuVendeur.sousMenuCommande(con);
+            }
+            else{
+                System.out.println(recherche);
+            }
+        }
+        catch(SQLException e){
+            System.out.println("Recherche invalide");
+            String skip = scan.nextLine();
+            MenuVendeur.sousMenuCommande(con);
+        }
+        System.out.println("┌─────────────────────────────────────────────┐");        
+        System.out.println("│ Veuillez rentrer l'id de la personne        │");
+        System.out.println("└─────────────────────────────────────────────┘"); 
+        String id = scan.nextLine().toLowerCase().trim();
+        Client client = null;
+        try{
+            client = clientBD.getClient(Integer.parseInt(id));
+        }
+        catch(SQLException e){
+            System.out.println("id qui n'existe pas");
+            String skip = scan.nextLine();
+            MenuVendeur.sousMenuCommande(con);
+        }
+        catch(NumberFormatException ex){
+            System.out.println("Veuillez rentrez un nombre ou un id existant");
+            String skip = scan.nextLine();
+            MenuVendeur.sousMenuCommande(con);
+        }
+        commande = new Commande(0, null, false, false, client, vendeur.getMagasin());
+        MenuVendeur.sousMenuPasserUneCommande(con);
+    }
+
+    public static void sousMenuPasserUneCommande(ConnexionMySQL con){
+        System.out.println("┌───────────────────────────────────────────────┐");        
+        System.out.println("│             Passer une commande               │");
+        System.out.println("│   1 - Ajouter un livre au panier              │");
+        System.out.println("│   2 - Voir le panier                          │");
+        System.out.println("│   3 - Valider la commande                     │");
+        System.out.println("│   Q - Retour au menu Client                   │");
+        System.out.println("└───────────────────────────────────────────────┘"); 
+        String action = scan.nextLine().toLowerCase().trim();
+        switch (action) {
+            case "1":
+                MenuVendeur.sousMenuAjouterUnLivreAuPanier(con);
+                break;       
+            case "2":
+                MenuVendeur.sousMenuVoirLePanier(con);
+                break;
+            case "3":
+                MenuVendeur.sousMenuValiderLaCommande(con);
+                break;
+            case "q":
+                System.out.println("┌───────────────────────────────────────────────┐");
+                System.out.println("│ Attention cela va supprimer votre commmande   │");
+                System.out.println("│   [C] confirmer                               │");
+                System.out.println("│   [A] Annuler                                 │");
+                System.out.println("└───────────────────────────────────────────────┘");
+                String action2 = scan.nextLine().toLowerCase().trim(); 
+                switch (action2) {
+                    case "c":
+                        try{
+                            for(DetailCommande dc:commande.getDetailCommandes()){
+                                magasinBD.ajouterQte(dc.getLivre().getIsbn(), dc.getQte(), vendeur.getMagasin().getIdMagasin());
+                            }
+                        }
+                        catch(SQLException e){
+                            System.out.println("Problème de code");
+                        }
+                        MenuVendeur.menuVendeur(con);
+                        break;
+                    case "a":
+                        MenuVendeur.sousMenuPasserUneCommande(con);
+                        break;
+                    default:
+                        System.out.println("Insertion incorrecte !");
+                        System.out.println("Retour à la commande");
+                        String skip = scan.nextLine().toLowerCase().trim(); 
+                        MenuVendeur.sousMenuPasserUneCommande(con);
+                        break;
+                }
+                break;
+            default:
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuVendeur.sousMenuPasserUneCommande(con);         
+                break;
+        }
+    }
+
+    public static  void sousMenuAjouterUnLivreAuPanier(ConnexionMySQL con){
+        System.out.println("┌──────────────────────────────────────────────────────────────┐");
+        System.out.println("│ Rentrer le nom du livre que vous souhaitez ajouter au panier │");
+        System.out.println("│ Q - pour revenir en arrière                                  │");
+        System.out.println("└──────────────────────────────────────────────────────────────┘"); 
+        String action = scan.nextLine().trim();
+        switch (action){
+            case "q":
+                MenuVendeur.sousMenuPasserUneCommande(con);
+                break;
+            default:
+                try {
+                    Livre livre = comBD.verifLivreExiste(action,vendeur.getMagasin().getIdMagasin());
+
+                    if (livre == null){
+                        System.out.println("Navré, mais "+vendeur.getMagasin().getIdMagasin()+" n'a le livre que vous souhaité");
+                        String saut = scan.nextLine().trim();
+                        MenuVendeur.sousMenuAjouterUnLivreAuPanier(con);
+                    } 
+                    else {
+                        String nomLivre = livre.getTitre();
+                        double prixLivre = livre.getPrix();
+                        System.out.println("Souhaitez-vous ajouter " + nomLivre + " qui coûte " + prixLivre + "euros");
+                        System.out.println("[C] Confirmer    [N'importe quelle touche] Non");
+
+                        String verif = scan.nextLine().toLowerCase().trim();
+                        switch (verif) {
+                            case "c":
+                                int stock = comBD.avoirStockLivre(livre, vendeur.getMagasin().getIdMagasin());
+                                System.out.println("Combien d'exemplaire voulez-vous commander?\nAttention vous ne pouvez pas commander plus de "+stock+" exemplaires");
+                                String qte = scan.nextLine().trim();
+                                Integer qteInt = Integer.parseInt(qte.trim());
+                                if (qteInt <= stock && qteInt>0) {
+                                    commande.ajouteLivre(livre, qteInt);
+                                    magasinBD.miseAJourQuantite(livre.getIsbn(),stock-qteInt,vendeur.getMagasin().getIdMagasin());
+                                    System.out.println("Livre ajouté un votre commande avec succés");
+                                }
+                                else{
+                                    System.out.println("Nous sommes navré, nous n'avous que " + stock +" exemplaires de " + nomLivre + " en stock");
+                                    System.out.println("Veuillez refaire votre ajout au panier avec une quatité inférieur à celle en stock");
+                                    String saut = scan.nextLine().trim();
+                                }
+                                MenuVendeur.sousMenuAjouterUnLivreAuPanier(con);
+                                break;
+                            default:
+                                MenuVendeur.sousMenuAjouterUnLivreAuPanier(con);
+                                break;
+                        }
+                    }
+                }
+                catch (SQLException e) {
+                    System.out.println("Erreur lors de l'accès à la base de données : " + e.getMessage());
+                    MenuVendeur.sousMenuAjouterUnLivreAuPanier(con);
+                }
+                catch (NumberFormatException e) {
+                    System.out.println("La quantité d'exemplaire souhaité doit être un nombre entier");
+                    MenuVendeur.sousMenuAjouterUnLivreAuPanier(con);
+                    System.out.println("La quantité d'exemplaire souhaité doit être un nombre entier");
+                }
+                break;   
+        }   
+
+    }
+
+    public static  void sousMenuVoirLePanier(ConnexionMySQL con){
+        System.out.println("┌──────────────────────────────────────────────────────────────────┐");
+        System.out.println("│ Voici les livre figurant dans votre panier:                      │");
+        int somme = 0;
+        for(DetailCommande dc : commande.getDetailCommandes()){
+            System.out.printf("│ %2d | %-30s | %6.2f € | %3d exemplaire(s) │%n",
+                dc.getNumlig(),
+                dc.getLivre().getTitre(),
+                dc.getPrixVente(),
+                dc.getQte()
+            );
+            somme+=dc.getPrixVente()*dc.getQte();
+        }
+        System.out.println("│  Prix Total : "+somme+"€                                             │");
+        System.out.println("│  Q - revenir en arrière                                          │");
+        System.out.println("└──────────────────────────────────────────────────────────────────┘");
+        String action = scan.nextLine().toLowerCase().trim();
+        switch (action) {
+            case "q":
+                MenuVendeur.sousMenuPasserUneCommande(con);
+                break;
+            default:
+                System.out.println("Veuillez rentrer une commande valide");
+                break;
+        } 
+    }
+
+
+    public static void sousMenuValiderLaCommande(ConnexionMySQL con){
+        System.out.println("┌──────────────────────────────────────────────────────────────┐");
+        System.out.println("│ Etes vous sur de vouloir validez votre commande ?            │");
+        System.out.println("│ [V] Visulier la comannde                                     │");
+        System.out.println("│ [C] confirmer                  [Q] Revenir en arrière        │");
+        System.out.println("└──────────────────────────────────────────────────────────────┘"); 
+        String action2 = scan.nextLine().toLowerCase().trim();
+        switch (action2) {
+            case "c":
+                try{
+                    comBD.insererCommande(commande);
+                }
+                catch(SQLException e){
+                    System.out.println("Problème au niveau de la commande : "+e.getMessage());
+                }
+                System.out.println("┌────────────────────────────────────────────────────────────────┐");
+                System.out.println("│           Très bien, la commande est enregistré                │");
+                System.out.println("└────────────────────────────────────────────────────────────────┘");
+                String skip3 = scan.nextLine().toLowerCase().trim();
+                break;
+            case "q":
+                MenuVendeur.sousMenuPasserUneCommande(con);
+                break;
+            case "v":
+                int somme = 0;
+                for(DetailCommande dc : commande.getDetailCommandes()){
+                    System.out.println("┌──────────────────────────────────────────────────────────────────┐");
+                    System.out.println("│ Voici les livre figurant dans votre panier:                      │");
+                    System.out.printf("│ %2d | %-30s | %6.2f € | %3d exemplaire(s) │%n",
+                        dc.getNumlig(),
+                        dc.getLivre().getTitre(),
+                        dc.getPrixVente(),
+                        dc.getQte()
+                    );
+                    somme+=dc.getPrixVente();
+                }
+                System.out.println("│  Prix Total : "+somme+"€                                             │");
+                System.out.println("│  Q - revenir en arrière                                          │");
+                System.out.println("└──────────────────────────────────────────────────────────────────┘");
+                String skip4 = scan.nextLine();
+                MenuVendeur.sousMenuValiderLaCommande(con);
+                break;
+            default:
+                System.out.println("Veuillez entrer une commande valide");
+                String skip = scan.nextLine();
+                MenuVendeur.sousMenuValiderLaCommande(con);
+                break;
+        }   
+        MenuVendeur.menuVendeur(con);
+    }
 
     //Première Partie - ajouté un livre au stocks
     public static void sousMenuAjouterLivre(ConnexionMySQL con){
@@ -127,41 +384,41 @@ public class MenuVendeur {
                 MenuVendeur.menuVendeur(con);
                 break;
             default:
-            try {
-                if(MenuVendeur.livreBD.verifLivreExisteDansMagasin(MenuVendeur.vendeur.getMagasin().getIdMagasin(),entrer)){
-                    System.out.println("┌────────────────────────────────────────────────────────┐");        
-                    System.out.println("│ Le livre que vous voulez ajouter existe déjà en stock  │");
-                    System.out.println("│  1 - mettre à jour la qte dispo de ce livre            │");
-                    System.out.println("│  2 - retourner à la page d'ajout de livre              │");
-                    System.out.println("│  Q - retourner au menu Vendeur                         │");
-                    System.out.println("└────────────────────────────────────────────────────────┘");
-                    String entrer2 = scan.nextLine().toLowerCase().trim();
-                    switch (entrer2) {
-                        case "q":
-                            MenuVendeur.menuVendeur(con);
-                            break;
-                        case "1":
-                            MenuVendeur.sousMenuMajQte(con);
-                            break;
-                        case "2":
-                            MenuVendeur.sousMenuAjouterLivre(con);
-                            break;
-                        default:
-                            System.out.println("Veuillez rentrer une commande valide");
-                            MenuVendeur.menuVendeur(con);       
-                            break;
+                try {
+                    if(MenuVendeur.livreBD.verifLivreExisteDansMagasin(MenuVendeur.vendeur.getMagasin().getIdMagasin(),entrer)){
+                        System.out.println("┌────────────────────────────────────────────────────────┐");        
+                        System.out.println("│ Le livre que vous voulez ajouter existe déjà en stock  │");
+                        System.out.println("│  1 - mettre à jour la qte dispo de ce livre            │");
+                        System.out.println("│  2 - retourner à la page d'ajout de livre              │");
+                        System.out.println("│  Q - retourner au menu Vendeur                         │");
+                        System.out.println("└────────────────────────────────────────────────────────┘");
+                        String entrer2 = scan.nextLine().toLowerCase().trim();
+                        switch (entrer2) {
+                            case "q":
+                                MenuVendeur.menuVendeur(con);
+                                break;
+                            case "1":
+                                MenuVendeur.sousMenuMajQte(con);
+                                break;
+                            case "2":
+                                MenuVendeur.sousMenuAjouterLivre(con);
+                                break;
+                            default:
+                                System.out.println("Veuillez rentrer une commande valide");
+                                MenuVendeur.menuVendeur(con);       
+                                break;
+                        }
                     }
+                    else{
+                        MenuVendeur.procedureDAjout(con, entrer);
+                    }
+                } catch (java.sql.SQLException e) {
+                    System.out.println("Erreur lors de la vérification du livre : " + e.getMessage());
+                    MenuVendeur.sousMenuAjouterLivre(con);
+                } catch(Exception e){
+                    System.out.println("Veuillez rentrer un nombre");
+                    MenuVendeur.sousMenuAjouterLivre(con);
                 }
-                else{
-                    MenuVendeur.procedureDAjout(con, entrer);
-                }
-            } catch (java.sql.SQLException e) {
-                System.out.println("Erreur lors de la vérification du livre : " + e.getMessage());
-                MenuVendeur.sousMenuAjouterLivre(con);
-            } catch(Exception e){
-                System.out.println("Veuillez rentrer un nombre");
-                MenuVendeur.sousMenuAjouterLivre(con);
-            }
                 break;
         }
         
@@ -461,7 +718,7 @@ public class MenuVendeur {
     }
 
     public static void transfererLivreDemandeIsbn(ConnexionMySQL con, String titre){
-            String reponse = MenuVendeur.reseauBD.rechercheLivre(titre);
+            String reponse = MenuVendeur.reseauBD.rechercheLivre(titre,vendeur.getMagasin().getIdMagasin());
             System.out.println(reponse);
             System.out.println("┌───────────────────────────────────────────────────────┐"); 
             System.out.println("│Rentrez l'isbn du livre que vous voulez transferer     │"); 
