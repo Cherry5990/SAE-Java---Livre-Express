@@ -442,7 +442,7 @@ public class MenuVendeur {
         System.out.println("┌──────────────────────────────────────────────────────────────┐");        
         System.out.println("│ Vous êtes sur la page de transfert de livre                  │");
         System.out.println("│ Pour transferer un livre, vous aurez besoin de son Isbn      │");
-        System.out.println("│ Rentrer le nom du livre dont vous souhaité connaitre l'isbn  │");
+        System.out.println("│ Rentrez le nom du livre dont vous souhaité connaitre l'isbn  │");
         System.out.println("│ Vous pouvez mettre qu'une partie du mot                       │");
         System.out.println("│ Q - revenir en arrière                                       │");
         System.out.println("└──────────────────────────────────────────────────────────────┘");
@@ -470,14 +470,36 @@ public class MenuVendeur {
                     break;
                 default:
                     try {
-                        System.out.println("┌───────────────────────────────────────────────────────────────┐"); 
-                        System.out.println("│Voici les magasins ayant le livre souhaité en stock            │"); 
-                        System.out.println("│Rentrez l'id du magasin duquel vous voulez transferer le livre │"); 
-                        System.out.println("│Rentrez l'id du magasin duquel vous voulez transferer le livre │"); 
-                        System.out.println("│[R] faire une nouvelle recherche [Q] Menu Vendeur              │");
-                        System.out.println("└───────────────────────────────────────────────────────────────┘");
+                        System.out.println("┌────────────────────────────────────────────────────┐"); 
+                        System.out.println("│Voici les magasins ayant le livre souhaité en stock │"); 
+                        System.out.println("└────────────────────────────────────────────────────┘");
                         String magasins = reseauBD.magasinsAyantLivre(entrerIsbn);
                         System.out.println(magasins);
+                        System.out.println("┌───────────────────────────────────────────────────────────────┐");
+                        System.out.println("│Rentrez l'id du magasin duquel vous voulez transferer le livre │"); 
+                        System.out.println("│Rentrer seulement le un nombre                                 │"); 
+                        System.out.println("│[R] faire une nouvelle recherche [Q] Menu Vendeur              │");
+                        System.out.println("└───────────────────────────────────────────────────────────────┘");
+                        String entrerIdMag = scan.nextLine().toLowerCase().trim();
+                        switch(entrerIdMag){
+                            case "q":
+                                MenuVendeur.menuVendeur(con);
+                                break;
+                            case "r":
+                                MenuVendeur.transfererLivre(con);
+                                break;
+                            default:
+                                Integer idmag = Integer.parseInt(entrerIdMag);
+                                System.out.println("┌────────────────────────────────────────────────────────┐"); 
+                                System.out.println("│Rentrez la quantité de livre que vous voulez transferer │"); 
+                                System.out.println("└────────────────────────────────────────────────────────┘");
+                                String entrerQte = scan.nextLine().toLowerCase().trim();
+                                Integer qteTransfere = Integer.parseInt(entrerQte);
+
+                                Integer qteMagasinDonneur = magasinBD.getQte(idmag);
+                                break;
+
+                        }
                         
 
                         

@@ -2,7 +2,6 @@ package menu;
 import BD.*;
 import modele.Client;
 import modele.Commande;
-import modele.CommandeTest;
 import modele.DetailCommande;
 import modele.Livre;
 import modele.Magasin;
