@@ -33,8 +33,7 @@ echo "✅ Fichier $PROPERTIES_FILE généré :"
 cat $PROPERTIES_FILE
 
 echo "🛠 Création de la base de données si besoin..."
-mysql --defaults-file=$MYCNF -e "CREATE DATABASE IF NOT EXISTS $DBNAME;" -vvv
-echo "Code de sortie: $?"
+mysql --defaults-file=$MYCNF -e "CREATE DATABASE IF NOT EXISTS $DBNAME;"
 
 echo "🧱 Création des tables..."
 mysql --defaults-file=$MYCNF $DBNAME < creationBD.sql
