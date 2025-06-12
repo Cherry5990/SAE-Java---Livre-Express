@@ -2,6 +2,7 @@ package menu;
 
 import java.util.Scanner;
 
+import BD.AdminBD;
 import BD.ConnexionMySQL;
 import BD.MagasinBD;
 import BD.VendeurBD;
@@ -11,6 +12,7 @@ public class MenuAdmin {
     private static final Scanner scan = new Scanner(System.in, "UTF-8"); // Scanner unique
     private static MagasinBD magasinBD;
     private static VendeurBD vendeurBD;
+    private static AdminBD adminBD;
 
     public static void connexionAdmin(ConnexionMySQL con){
         System.out.println("┌────────────────────────────────────────────────────────────┐");        
@@ -20,8 +22,9 @@ public class MenuAdmin {
         String action = scan.nextLine().toLowerCase().trim();
         switch (action) {
             case "c":
-                magasinBD = new MagasinBD(con);
-                vendeurBD = new VendeurBD(con);
+                MenuAdmin.magasinBD = new MagasinBD(con);
+                MenuAdmin.vendeurBD = new VendeurBD(con);
+                MenuAdmin.adminBD = new AdminBD(con);
                 MenuAdmin.menuAdmin(con);
                 break;
             case "q":
@@ -62,8 +65,7 @@ public class MenuAdmin {
                 MenuAdmin.menuAdmin(con);
                 break;
             case "4":
-                System.out.println("A faire");
-                MenuAdmin.menuAdmin(con);
+                MenuAdmin.sousMenuStatsDeVente(con);
                 break;
             default:
             System.out.println("Veuillez rentrer une commande valide");
@@ -274,8 +276,213 @@ public class MenuAdmin {
         System.out.println("│ 4 - Valeur du stock par magasin                      │");
         System.out.println("│ Q - revenir en arriere                               │");
         System.out.println("└──────────────────────────────────────────────────────┘");   
-        String action = scan.nextLine();
+        String action = scan.nextLine().toLowerCase().trim();
+        switch (action) {
+            case "q":
+                MenuAdmin.menuAdmin(con);
+                break;
+            case "1":
+                MenuAdmin.chiffreDAffaire(con);
+                break;
+            case "2":
+                MenuAdmin.livresLesPlusVendu(con);
+            case "3":
+                MenuAdmin.venteEnLigneContreMagasin(con);
+                break;
+            case "4":
+                MenuAdmin.valeurStock(con);
+                break;
+            default:
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuAdmin.sousMenuStatsDeVente(con);
+                break;
+        }
 
     }
 
+    public static void chiffreDAffaire(ConnexionMySQL con){
+        System.out.println("┌───────────────────────────────────┐");        
+        System.out.println("│ Menu chiffre d'affaire            │");
+        System.out.println("│ 1 - CA total tout les temps       │");
+        System.out.println("│ 2 - CA total par annee            │");
+        System.out.println("│ 3 - CA par magasin tout les temps │");
+        System.out.println("│ 4 - CA par magasin par annee      │");
+        System.out.println("│ Q - revenir en arriere            │");
+        System.out.println("└───────────────────────────────────┘");  
+        String entrer = scan.nextLine().toLowerCase().trim();
+        switch (entrer) {
+            case "q":
+                MenuAdmin.menuAdmin(con);
+                break;
+            case "1":
+                System.out.println(adminBD.chiffreDAffaireTotalToutTemps());
+                MenuAdmin.appuyerEntrer(con);
+                MenuAdmin.chiffreDAffaire(con);
+                break;
+            case "3":
+                System.out.println(adminBD.chiffreDAffaireMagasinToutTemps());
+                MenuAdmin.appuyerEntrer(con);
+                MenuAdmin.chiffreDAffaire(con);
+                break;
+            case "2":
+                System.out.println(adminBD.chiffreDAffaireTotalParAns());
+                MenuAdmin.appuyerEntrer(con);
+                MenuAdmin.chiffreDAffaire(con);
+                break;
+            case "4":
+                System.out.println("┌───────────────────────────┐");        
+                System.out.println("│ Rentrer l'annee souhaité  │");
+                System.out.println("└───────────────────────────┘"); 
+                try{
+                    String entrerAnne = scan.nextLine();
+                    Integer anne = Integer.parseInt(entrerAnne);
+                    System.out.println(adminBD.chiffreDAffaireMagasinParAns(anne));
+                    MenuAdmin.appuyerEntrer(con);
+                    MenuAdmin.chiffreDAffaire(con);
+                }catch(Exception e){
+                    System.out.println("Veuillez rentrer un nombre");
+                    MenuAdmin.chiffreDAffaire(con);
+                }
+                break;
+            default:
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuAdmin.chiffreDAffaire(con);   
+                break;
+        }
+    }
+
+    public static void appuyerEntrer(ConnexionMySQL con){
+        System.out.println("┌────────────────────────────────────────────┐");        
+        System.out.println("│ Appuyez sur entrer pour revenir en arrière │");
+        System.out.println("└────────────────────────────────────────────┘"); 
+        String saut = scan.nextLine();
+    }
+
+    public static void livresLesPlusVendu(ConnexionMySQL con) {
+        System.out.println("┌────────────────────────────────┐");
+        System.out.println("│ Les 10 livres les plus vendus  │");
+        System.out.println("│ 1 - total tout les temps       │");
+        System.out.println("│ 2 - total par annee            │");
+        System.out.println("│ 3 - par magasin tout les temps │");
+        System.out.println("│ 4 - par magasin par annee      │");
+        System.out.println("│ Q - revenir en arriere         │");
+        System.out.println("└────────────────────────────────┘");
+
+        String entrer = scan.nextLine().toLowerCase().trim();
+        try {
+            switch (entrer) {
+                case "q":
+                    MenuAdmin.menuAdmin(con);
+                    break;
+                case "1":
+                    System.out.println(adminBD.livresLesPlusVendusTotalToutTemps());
+                    MenuAdmin.appuyerEntrer(con);
+                    MenuAdmin.livresLesPlusVendu(con);
+                    break;
+                case "3":
+                    System.out.println("┌───────────────────────────────┐");
+                    System.out.println("│ Rentrer l'id du magasin       │");
+                    System.out.println("└───────────────────────────────┘");
+                    String entrerIdMag = scan.nextLine();
+                    int idMag = Integer.parseInt(entrerIdMag);
+                    System.out.println(adminBD.livresLesPlusVendusParMagasinToutTemps(idMag));
+                    MenuAdmin.appuyerEntrer(con);
+                    MenuAdmin.livresLesPlusVendu(con);
+                    break;
+                case "2":
+                    System.out.println("┌───────────────────────────┐");
+                    System.out.println("│ Rentrer l'annee souhaitée │");
+                    System.out.println("└───────────────────────────┘");
+                    String entrerAnne = scan.nextLine();
+                    int annee = Integer.parseInt(entrerAnne);
+                    System.out.println(adminBD.livresLesPlusVendusTotalParAns(annee));
+                    MenuAdmin.appuyerEntrer(con);
+                    MenuAdmin.livresLesPlusVendu(con);
+                    break;
+                case "4":
+                    System.out.println("┌───────────────────────────────┐");
+                    System.out.println("│ Rentrer l'id du magasin       │");
+                    System.out.println("└───────────────────────────────┘");
+                    String entrerIdMag2 = scan.nextLine();
+                    int idMag2 = Integer.parseInt(entrerIdMag2);
+                    System.out.println("┌───────────────────────────┐");
+                    System.out.println("│ Rentrer l'annee souhaitée │");
+                    System.out.println("└───────────────────────────┘");
+                    String entrerAnne4 = scan.nextLine();
+                    int annee4 = Integer.parseInt(entrerAnne4);
+                    System.out.println(adminBD.livresLesPlusVendusParMagasinParAns(idMag2, annee4));
+                    MenuAdmin.appuyerEntrer(con);
+                    MenuAdmin.livresLesPlusVendu(con);
+                    break;
+                default:
+                    System.out.println("Veuillez rentrer une commande valide");
+                    MenuAdmin.livresLesPlusVendu(con);
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println("Veuillez rentrer un nombre");
+            MenuAdmin.livresLesPlusVendu(con);
+        }
+    }
+
+    public static void venteEnLigneContreMagasin(ConnexionMySQL con){
+        System.out.println("┌───────────────────────────────────┐");        
+        System.out.println("│ Ventes en ligne contre en magasin │");
+        System.out.println("│ 1 - tout les temps                │");
+        System.out.println("│ 2 - par annee                     │");
+        System.out.println("│ 3 - par magasin tout les temps    │");
+        System.out.println("│ 4 - par magasin par annee         │");
+        System.out.println("│ Q - revenir en arriere            │");
+        System.out.println("└───────────────────────────────────┘");  
+        String entrer = scan.nextLine().toLowerCase().trim();
+        switch (entrer) {
+            case "q":
+                MenuAdmin.menuAdmin(con);
+                break;
+            case "1":
+                System.out.println(adminBD.ventesLigneContreMagasinToutTemps());
+                MenuAdmin.appuyerEntrer(con);
+                MenuAdmin.venteEnLigneContreMagasin(con);
+                break;
+            case "2":
+                System.out.println(adminBD.ventesLigneContreMagasinParAns());
+                MenuAdmin.appuyerEntrer(con);
+                MenuAdmin.venteEnLigneContreMagasin(con);
+                break;
+            case "3":
+                System.out.println(adminBD.ventesLigneContreMagasinParMagasinTousTemps());
+                MenuAdmin.appuyerEntrer(con);
+                MenuAdmin.venteEnLigneContreMagasin(con);
+                break;
+            case "4":
+                System.out.println("┌───────────────────────────┐");        
+                System.out.println("│ Rentrer l'annee souhaité  │");
+                System.out.println("└───────────────────────────┘"); 
+                try{
+                    String entrerAnne = scan.nextLine();
+                    Integer anne = Integer.parseInt(entrerAnne);
+                    System.out.println(adminBD.ventesLigneContreMagasinParMagasinParAns(anne));
+                    MenuAdmin.appuyerEntrer(con);
+                    MenuAdmin.venteEnLigneContreMagasin(con);
+                }catch(Exception e){
+                    System.out.println("Veuillez rentrer un nombre");
+                    MenuAdmin.venteEnLigneContreMagasin(con);
+                }
+                break;
+            default:
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuAdmin.venteEnLigneContreMagasin(con);   
+                break;
+        }
+    }
+
+    public static void valeurStock(ConnexionMySQL con){
+        System.out.println(adminBD.valeurStockTotal());
+        System.out.println("Celle par magasin est :");
+        System.out.println(adminBD.valeurStockParMagasin());
+        MenuAdmin.appuyerEntrer(con);
+        MenuAdmin.sousMenuStatsDeVente(con);
+    }
+
 }
+
