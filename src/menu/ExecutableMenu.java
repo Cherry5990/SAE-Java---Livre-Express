@@ -74,7 +74,7 @@ public class ExecutableMenu{
                 MenuVendeur.connexionVendeur(con);
                 break;
             case "3":
-                System.out.println("A faire");
+                MenuAdmin.connexionAdmin(con);
                 break;
             default:
                 System.out.println("Veuillez rentrer une commande valide");     
