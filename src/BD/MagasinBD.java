@@ -40,7 +40,7 @@ public class MagasinBD {
     }
 
 	public void insererMagasin(String nom,String ville) throws SQLException{
-        try(PreparedStatement ps = laConnexion.prepareStatement("insert into Magasin values(?,?,?);")){
+        try(PreparedStatement ps = laConnexion.prepareStatement("insert into MAGASIN values(?,?,?);")){
             ps.setInt(1, maxIdMagasin()+1);
             ps.setString(2, nom);
             ps.setString(3, ville);
