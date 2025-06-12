@@ -16,7 +16,7 @@ HOST=$(get_value host)
 DBNAME=$"java"
 
 # Vérification que .my.cnf existe
-if [ ! -f "$MYCNF" ]; then
+if [ ! -f "$MYCNF" ]; then  #-f Si le chemin existe ET si c'est un fichier régulier 
     echo "❌ Le fichier $MYCNF n'existe pas. Crée-le d'abord avec les bons paramètres."
     exit 1
 fi
@@ -34,9 +34,9 @@ cat $PROPERTIES_FILE
 
 
 echo "🛠 Vérification de l'existence de la base de données..."
-DB_EXISTS=$(mysql --defaults-file=$MYCNF -e "SHOW DATABASES LIKE '$DBNAME';" | grep "$DBNAME")
+DB_EXISTS=$(mysql --defaults-file=$MYCNF -e "SHOW DATABASES LIKE '$DBNAME';" | grep "$DBNAME") #-e est une option mysql qui signifie "execute"
 
-if [ -z "$DB_EXISTS" ]; then
+if [ -z "$DB_EXISTS" ]; then  #-z vérifie si une chaine est vide
     echo "🔍 La base de données n'existe pas. Création en cours..."
     mysql --defaults-file=$MYCNF -e "CREATE DATABASE $DBNAME;"
     
