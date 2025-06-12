@@ -1,9 +1,15 @@
 package menu;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.Scanner;
 
 import BD.ConnexionMySQL;
@@ -77,9 +83,32 @@ public class ExecutableMenu{
             }
     }
 
+    public static void connexionV2(){
+        Properties props = new Properties();
+        try {
+            // 1. Charger le fichier de configuration
+            FileInputStream in = new FileInputStream("config.properties");
+            props.load(in);
+            in.close();
+
+            // 2. Récupérer les paramètres
+            String user = props.getProperty("db.user");
+            String password = props.getProperty("db.password");
+            String host = props.getProperty("db.host");
+            String database = props.getProperty("db.database");
+
+            ConnexionMySQL con = new ConnexionMySQL();
+            con.connecter(host, database, user,password );
+            ExecutableMenu.menuPrincipal(con);
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         
-        ExecutableMenu.connexionBD();
+        ExecutableMenu.connexionV2();
     }
 }
     
