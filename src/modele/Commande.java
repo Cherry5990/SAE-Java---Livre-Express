@@ -41,6 +41,11 @@ public class Commande {
         this.enLigne = enLigne;
     }
 
+    /**
+     * Ajoute le livre dans la commande
+     * @param livre le livre de la commande
+     * @param qte la quantité du livre commandé
+     */
     public void ajouteLivre(Livre livre,int qte){
         this.detailCommandes.add(new DetailCommande(this.ligne, qte, livre));
         this.ligne +=1;

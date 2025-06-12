@@ -12,6 +12,11 @@ public class CommandeBD {
 		this.laConnexion=laConnexion;
 	}
 
+    /**
+     * Cette méthode permettra de récupérer le dernier id de commande inséré dans la base de donnée
+     * @return
+     * @throws SQLException
+     */
     public int maxIdCommande() throws SQLException{
         try(PreparedStatement ps = laConnexion.prepareStatement("select MAX(numcom) from COMMANDE;")){
             ResultSet rs = ps.executeQuery();
@@ -23,6 +28,11 @@ public class CommandeBD {
         }
     }
 
+    /**
+     * Insére une commande dans la base de donnée
+     * @param c
+     * @throws SQLException
+     */
 	public void insererCommande(Commande c) throws SQLException{
         try(PreparedStatement ps = laConnexion.prepareStatement("insert into COMMANDE values(?,CURDATE(),?,?,?,?);")){
             int numCom = maxIdCommande()+1;
@@ -46,6 +56,13 @@ public class CommandeBD {
         }
 	}
 
+    /**
+     * Cette méthode permet de vérifier si un livre existe dans le magasin grâce à son titre
+     * @param entrer le title du livre à vérifier
+     * @param mag l'id du magasin dans lequel on vérifie l'existence du livre
+     * @return le livre s'il existe, sinon null
+     * @throws SQLException
+     */
     public Livre verifLivreExiste(String entrer,int mag) throws SQLException{
         try(PreparedStatement ps = laConnexion.prepareStatement("select isbn,titre,nbPages,datepubli,prix from MAGASIN natural join POSSEDER natural join LIVRE where idmag=? and titre=?")){
             ps.setInt(1, mag);
@@ -65,6 +82,13 @@ public class CommandeBD {
             
     }
 
+    /**
+     *
+     * @param livre
+     * @param mag
+     * @return le stock du livre dans le magasin, retourne 0 si le livre n'existe pas dans le magasin
+     * @throws SQLException
+     */
     public int avoirStockLivre(Livre livre,int mag) throws SQLException{
         int stock = 0;
         try(PreparedStatement ps = laConnexion.prepareStatement("select qte from MAGASIN natural join POSSEDER where idmag=? and isbn=?")){
