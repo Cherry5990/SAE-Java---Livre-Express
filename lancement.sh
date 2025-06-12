@@ -50,7 +50,7 @@ else
 fi
 echo "🧮 Compilation du projet Java..."
 mkdir -p bin
-javac -d bin -cp "lib/*:src" $(find src -name "*.java")
+javac -d bin -cp "lib/*:src" src/*/*.java
 
 echo "🚀 Lancement de l'application..."
 java -cp "lib/*:bin" $MAIN_CLASS
