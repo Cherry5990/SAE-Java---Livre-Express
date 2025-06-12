@@ -177,7 +177,7 @@ public class MenuVendeur {
         System.out.println("│   1 - Ajouter un livre au panier              │");
         System.out.println("│   2 - Voir le panier                          │");
         System.out.println("│   3 - Valider la commande                     │");
-        System.out.println("│   Q - Retour au menu Client                   │");
+        System.out.println("│   Q - Retour au menu Vendeur                  │");
         System.out.println("└───────────────────────────────────────────────┘"); 
         String action = scan.nextLine().toLowerCase().trim();
         switch (action) {
@@ -242,7 +242,7 @@ public class MenuVendeur {
                     Livre livre = comBD.verifLivreExiste(action,vendeur.getMagasin().getIdMagasin());
 
                     if (livre == null){
-                        System.out.println("Navré, mais "+vendeur.getMagasin().getIdMagasin()+" n'a le livre que vous souhaité");
+                        System.out.println("Navré, mais "+vendeur.getMagasin().getNomMagasin()+" n'a le livre que vous souhaité");
                         String saut = scan.nextLine().trim();
                         MenuVendeur.sousMenuAjouterUnLivreAuPanier(con);
                     } 
@@ -294,7 +294,7 @@ public class MenuVendeur {
     public static  void sousMenuVoirLePanier(ConnexionMySQL con){
         System.out.println("┌──────────────────────────────────────────────────────────────────┐");
         System.out.println("│ Voici les livre figurant dans votre panier:                      │");
-        int somme = 0;
+        double somme = 0;
         for(DetailCommande dc : commande.getDetailCommandes()){
             System.out.printf("│ %2d | %-30s | %6.2f € | %3d exemplaire(s) │%n",
                 dc.getNumlig(),
@@ -302,7 +302,7 @@ public class MenuVendeur {
                 dc.getPrixVente(),
                 dc.getQte()
             );
-            somme+=dc.getPrixVente()*dc.getQte();
+            somme+=dc.getPrixVente();
         }
         System.out.println("│  Prix Total : "+somme+"€                                             │");
         System.out.println("│  Q - revenir en arrière                                          │");
@@ -343,7 +343,7 @@ public class MenuVendeur {
                 MenuVendeur.sousMenuPasserUneCommande(con);
                 break;
             case "v":
-                int somme = 0;
+                double somme = 0;
                 for(DetailCommande dc : commande.getDetailCommandes()){
                     System.out.println("┌──────────────────────────────────────────────────────────────────┐");
                     System.out.println("│ Voici les livre figurant dans votre panier:                      │");
