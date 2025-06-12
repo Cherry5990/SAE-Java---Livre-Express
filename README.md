@@ -23,6 +23,6 @@ Bienvenue sur le projet **Livre Express** : une application Java de gestion de l
     [client]  
     user=le nom utilisateur de votre BD  
     password=le mot de passe associer a cette utilisateur  
-    host=sur quel serveur vous voulez que la BD créer  
+    host=sur quel serveur vous voulez que la BD soit crée  
 2. éxecuter le fichier `lancement.sh` en allant à la racine du projet et en faisant cette commande: `./lancement.sh`  
 -> Après cela vous pouvez utilisez librement notre application dans le terminal
