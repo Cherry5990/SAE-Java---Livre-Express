@@ -7,6 +7,7 @@ import modele.Livre;
 import modele.Magasin;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuClient {
@@ -150,7 +151,19 @@ public class MenuClient {
         System.out.println("┌───────────────────────────────────────────────┐");        
         System.out.println("│    Vos livres recommandés sont les suivant    │");
         try{
-            System.out.println(clientBD.getRecommandationClient(client.getId()));
+            List<Livre> reco = clientBD.getRecommandationClient(client.getId());
+            if (reco.isEmpty()) {
+                System.out.println("│   Aucun livre recommandé pour vous pour le moment.             │");
+            } else {
+                System.out.println("├────┬───────────────────────────────────────────────┬──────────┤");
+                System.out.println("│ #  │ Titre                                         │ Prix (€) │");
+                System.out.println("├────┼───────────────────────────────────────────────┼──────────┤");
+                int i = 1;
+                for (Livre livre : reco) {
+                    System.out.printf("│ %-2d │ %-41s │ %8.2f │%n", i++, livre.getTitre(), livre.getPrix());
+                }
+                System.out.println("└────┴───────────────────────────────────────────────┴──────────┘");
+            }
         }
         catch(SQLException e){
             System.out.println("problème recommandation : " +e.getMessage());
