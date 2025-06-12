@@ -10,8 +10,7 @@ Bienvenue sur le projet **Livre Express** : une application Java de gestion de l
 - `test/` : Tests unitaires JUnit.
 - `.vscode/` : Configuration pour Visual Studio Code.
 - `creationBD.sql`, `insertions.sql` : Scripts SQL pour créer et remplir la base de données.
-- `README.md` : Ce fichier.
-- `Sujet.pdf` : Sujet du projet.
+- `README.md` : lire ce fichier pour savoir comment lancer le projet
 
 ## Prérequis
 
@@ -19,10 +18,11 @@ Bienvenue sur le projet **Livre Express** : une application Java de gestion de l
 - [MariaDB](https://mariadb.org/) ou MySQL pour la base de données
 - Les librairies présentes dans le dossier `lib/` (JUnit, Hamcrest, MariaDB JDBC)
 
-## Compilation et exécution
-
-Pour compiler le projet et lancer les tests unitaires :
-
-javac -d bin -cp .:lib/junit-4.13.2.jar:src test/TestLivreExpress.java 
-java -cp .:lib/hamcrest-2.2.jar:lib/junit-4.13.2.jar:bin org.junit.runner.JUnitCore TestLivreExpress
-
+## Pour lancer ce projet:
+1. Aller dans le fichier .my.cnf est remplir les paramètres,c'est à dire comme ceci:  
+    [client]  
+    user=le nom utilisateur de votre BD  
+    password=le mot de passe associer a cette utilisateur  
+    host=sur quel serveur vous voulez que la BD créer  
+2. éxecuter le fichier `lancement.sh` en allant à la racine du projet et en faisant cette commande: `./lancement.sh`  
+-> Après cela vous pouvez utilisez librement notre application dans le terminal
