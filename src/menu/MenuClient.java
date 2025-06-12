@@ -78,6 +78,7 @@ public class MenuClient {
         System.out.println("│         Que voulez vous faire?          │");
         System.out.println("│ 1 - voir vos livres recommandés         │");
         System.out.println("│ 2 - se connecter à un magasin           │");
+        System.out.println("│ 3 - voir ses commandes                  │");
         System.out.println("│ Q - revenir au menu principal           │");
         System.out.println("└─────────────────────────────────────────┘");   
         String action = scan.nextLine().toLowerCase().trim();
@@ -92,6 +93,9 @@ public class MenuClient {
             case "2":
                 MenuClient.chosirUnMagasin(con);
                 break;
+            case "3":
+                MenuClient.sousMenuCommandePasser(con);
+                break;
             default:
                 System.out.println("Veuillez rentrer une commande valide");
                 MenuClient.menuClient(con);        
@@ -99,7 +103,49 @@ public class MenuClient {
         }
     }
 
-    //A finir
+    public static void sousMenuCommandePasser(ConnexionMySQL con){
+        try{
+            System.out.println(comBD.voirCommandeClient(client.getId()));
+        }
+        catch(SQLException e){
+            System.out.println("commande qui n'existe pas"+e.getMessage());
+        }
+        System.out.println("┌───────────────────────────────────────────────┐");
+        System.out.println("│ Entrez le numéro de la commande à détailler   │");
+        System.out.println("│ [Q] Retour                                    │");
+        System.out.println("└───────────────────────────────────────────────┘");
+        String action = scan.nextLine().trim();
+        switch (action) {
+            case "q":
+                MenuClient.menuClient(con);
+                    break;
+            default:
+                try {
+                    int numCommande = Integer.parseInt(action);
+                    String rep = comBD.getCommande(numCommande,client.getId());
+                    if(rep!=null){
+                        System.out.println(rep);
+                        String skip = scan.nextLine();
+                        MenuClient.sousMenuCommandePasser(con);
+                    }
+                    else{
+                        System.out.println("Numéro de commande invalide");
+                        String skip = scan.nextLine();
+                        MenuClient.sousMenuCommandePasser(con);
+                    }
+                }
+                catch(SQLException e){
+                    System.out.println("commande qui n'existe pas"+e.getMessage());
+                }
+                catch(NumberFormatException ex){
+                    System.out.println("Veuillez rentrez un numéro");
+                    String skip = scan.nextLine();
+                    MenuClient.sousMenuCommandePasser(con);
+                }
+                break;
+        }
+    }
+
     public static void sousMenuLivreRecommande(ConnexionMySQL con){
         System.out.println("┌───────────────────────────────────────────────┐");        
         System.out.println("│    Vos livres recommandés sont les suivant    │");
@@ -253,13 +299,13 @@ public class MenuClient {
         System.out.println("└───────────────────────────────────────────────┘");
         String action2 = scan.nextLine().toLowerCase().trim();
         switch (action2) {
-            case "c":{
+            case "c":
                 MenuClient.sousMenuRecherche(con);
-                break;}          
-            case "q":{
+                break;       
+            case "q":
                 System.out.println("Vous retournez au menu principal");
                 MenuClient.sousMenuMagasin(con);
-                break;}
+                break;
             default:
                 System.out.println("Veuillez rentrer une commande valide");
                 MenuClient.sousMenuRecherche(con);        
@@ -337,7 +383,6 @@ public class MenuClient {
             default:
                 try {
                     Livre livre = comBD.verifLivreExiste(action,magasin.getIdMagasin());
-
                     if (livre == null){
                         System.out.println("Navré, mais "+magasin.getNomMagasin()+" n'a le livre que vous souhaité");
                         String saut = scan.nextLine().trim();
@@ -399,7 +444,7 @@ public class MenuClient {
                 dc.getPrixVente(),
                 dc.getQte()
             );
-            somme+=dc.getPrixVente()*dc.getQte();
+            somme+=dc.getPrixVente();
         }
         System.out.println("│  Prix Total : "+somme+"€                                             │");
         System.out.println("│  Q - revenir en arrière                                          │");
@@ -436,7 +481,7 @@ public class MenuClient {
                 String skip = scan.nextLine().toLowerCase().trim();
                 break;
             case "2":
-            commande.setLivraison(true);
+                commande.setLivraison(true);
                 System.out.println("┌────────────────────────────┐");
                 System.out.println("│ Changement prit en compte  │");
                 System.out.println("└────────────────────────────┘");
@@ -483,7 +528,7 @@ public class MenuClient {
                         MenuClient.sousMenuPasserUneCommande(con);
                         break;
                     case "v":
-                        int somme = 0;
+                        double somme = 0;
                         for(DetailCommande dc : commande.getDetailCommandes()){
                             System.out.println("┌──────────────────────────────────────────────────────────────────┐");
                             System.out.println("│ Voici les livre figurant dans votre panier:                      │");
@@ -511,7 +556,6 @@ public class MenuClient {
         catch(SQLException e){
             System.out.println("La commande ne peut pas être inserer");
         }
-        MenuClient.sousMenuMagasin(con);
     }
 
 }
