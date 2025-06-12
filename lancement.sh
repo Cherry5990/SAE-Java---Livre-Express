@@ -32,15 +32,22 @@ EOF
 echo "✅ Fichier $PROPERTIES_FILE généré :"
 cat $PROPERTIES_FILE
 
-echo "🛠 Création de la base de données si besoin..."
-mysql --defaults-file=$MYCNF -e "CREATE DATABASE IF NOT EXISTS $DBNAME;"
 
-echo "🧱 Création des tables..."
-mysql --defaults-file=$MYCNF $DBNAME < creationBD.sql
+echo "🛠 Vérification de l'existence de la base de données..."
+DB_EXISTS=$(mysql --defaults-file=$MYCNF -e "SHOW DATABASES LIKE '$DBNAME';" | grep "$DBNAME")
 
-echo "📦 Insertion des données..."
-mysql --defaults-file=$MYCNF $DBNAME < insertions.sql
+if [ -z "$DB_EXISTS" ]; then
+    echo "🔍 La base de données n'existe pas. Création en cours..."
+    mysql --defaults-file=$MYCNF -e "CREATE DATABASE $DBNAME;"
+    
+    echo "🧱 Création des tables..."
+    mysql --defaults-file=$MYCNF $DBNAME < creationBD.sql
 
+    echo "📦 Insertion des données initiales..."
+    mysql --defaults-file=$MYCNF $DBNAME < insertions.sql
+else
+    echo "✅ La base de données existe déjà. Pas de création ni d'insertion de données."
+fi
 echo "🧮 Compilation du projet Java..."
 mkdir -p bin
 javac -d bin -cp "lib/*:src" $(find src -name "*.java")
