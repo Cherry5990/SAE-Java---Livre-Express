@@ -119,7 +119,7 @@ public class MenuClient {
         switch (action) {
             case "q":
                 MenuClient.menuClient(con);
-                    break;
+                break;
             default:
                 try {
                     int numCommande = Integer.parseInt(action);
