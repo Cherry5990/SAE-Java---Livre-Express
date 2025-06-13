@@ -52,5 +52,8 @@ echo "🧮 Compilation du projet Java..."
 mkdir -p bin
 javac -d bin -cp "lib/*:src" src/*/*.java
 
+echo "📃 génération de la javadoc..."
+javadoc -d doc src/*/*.java
+
 echo "🚀 Lancement de l'application..."
 java -cp "lib/*:bin" $MAIN_CLASS
