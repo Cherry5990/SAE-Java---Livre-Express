@@ -1,34 +1,72 @@
-# Livre Express
+# 📚 Livre Express
 
-Bienvenue sur le projet **Livre Express** : une application Java de gestion de librairies, permettant la gestion des stocks, des commandes, des clients, des vendeurs et des administrateurs.
+Bienvenue dans **Livre Express**, une application Java de gestion de librairie. Elle permet de gérer les **stocks**, **commandes**, **clients**, **vendeurs** et **administrateurs** à travers une interface en ligne de commande.
 
-## Structure du projet
+---
 
-- `src/` : Contient le code source Java organisé en packages (`modele`, `BD`, `menu`, etc.).
-- `lib/` : Bibliothèques externes nécessaires (JDBC, JUnit, Hamcrest).
-- `bin/` : Fichiers compilés (.class).
-- `test/` : Tests unitaires JUnit.
+## 🗂️ Structure du projet
+
+- `src/` : Code source Java, organisé en packages (`modele`, `BD`, `menu`, etc.).
+- `lib/` : Bibliothèques externes requises (JDBC, JUnit, Hamcrest).
+- `bin/` : Fichiers compilés `.class`.
+- `test/` : Tests unitaires (JUnit).
 - `.vscode/` : Configuration pour Visual Studio Code.
-- `creationBD.sql`, `insertions.sql` : Scripts SQL pour créer et remplir la base de données.
-- `README.md` : lire ce fichier pour savoir comment lancer le projet
+- `creationBD.sql` & `insertions.sql` : Scripts SQL pour créer et remplir la base de données.
+- `README.md` : Ce fichier.
 
-## Prérequis
+---
 
-- Java 8 ou supérieur
-- [MariaDB](https://mariadb.org/) ou MySQL pour la base de données
-- Les librairies présentes dans le dossier `lib/` (JUnit, Hamcrest, MariaDB JDBC)
+## ✅ Prérequis
 
-## Pour lancer ce projet:
-1. Aller dans le fichier .my.cnf est remplir les paramètres,c'est à dire comme ceci:  
-    [client]  
-    user=le nom utilisateur de votre BD  
-    password=le mot de passe associer a cette utilisateur  
-    host=sur quel serveur vous voulez que la BD soit crée  
-2. éxecuter le fichier `lancement.sh` en allant à la racine du projet et en faisant cette commande: `./lancement.sh`  
--> Après cela vous pouvez utilisez librement notre application dans le terminal
+- **Java**
+- [**MariaDB**](https://mariadb.org/) ou **MySQL**
+- Les bibliothèques du dossier `lib/` :
+  - `mariadb-java-client`
+- **un bash linux** pour le script
 
-### Cas spéciale
-Si vous `n'avez pas les droits` de créer une DATABASE sur votre BD:  
-Il faut préciser dans le `lancement.sh` la base que vous utiliser:
--> trouver la ligne `DBNAME=$"java"` et changé `java` par la DATABASE que vous utiliser. 
-Puis vous pouvez lancer avec la même commande : `./lancement.sh`
+---
+
+## 🚀 Lancement du projet
+
+1. Configurez le fichier `.my.cnf` à la racine du projet avec vos identifiants de base de données :
+
+    ```ini
+    [client]
+    user=VotreNomUtilisateur
+    password=VotreMotDePasse
+    host=AdresseDuServeur
+    ```
+
+2. Depuis la racine du projet, exécutez :
+
+    ```bash
+    ./lancement.sh
+    ```
+
+    Cela :
+    - Crée la base de données (si vous avez les droits)
+    - Exécute les scripts SQL
+    - Compile le projet
+    - Génère la **Javadoc**
+    - Lance l'application dans le terminal
+
+---
+
+### ⚠️ Cas particulier : Pas de droit de création de base de données
+
+Si vous **n'avez pas les droits** pour créer une base de données :
+
+1. Ouvrez le fichier `lancement.sh`
+2. Repérez la ligne suivante :
+
+    ```bash
+    DBNAME=$"java"
+    ```
+
+3. Remplacez `"java"` par le nom de **votre** base de données existante.
+
+4. Relancez le script avec :
+
+    ```bash
+    ./lancement.sh
+    ```
