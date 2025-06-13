@@ -26,3 +26,9 @@ Bienvenue sur le projet **Livre Express** : une application Java de gestion de l
     host=sur quel serveur vous voulez que la BD soit crée  
 2. éxecuter le fichier `lancement.sh` en allant à la racine du projet et en faisant cette commande: `./lancement.sh`  
 -> Après cela vous pouvez utilisez librement notre application dans le terminal
+
+### Cas spéciale
+Si vous `n'avez pas les droits` de créer une DATABASE sur votre BD:  
+Il faut préciser dans le `lancement.sh` la base que vous utiliser:
+-> trouver la ligne `DBNAME=$"java"` et changé `java` par la DATABASE que vous utiliser. 
+Puis vous pouvez lancer avec la même commande : `./lancement.sh`
