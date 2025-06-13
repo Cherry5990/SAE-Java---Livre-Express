@@ -49,7 +49,6 @@ else
     echo "✅ La base de données existe déjà. Pas de création ni d'insertion de données."
 fi
 echo "🧮 Compilation du projet Java..."
-mkdir -p bin
 javac -d bin -cp "lib/*:src" src/*/*.java
 
 echo "📃 génération de la javadoc..."
