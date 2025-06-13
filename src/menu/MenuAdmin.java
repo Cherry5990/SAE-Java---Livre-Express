@@ -31,6 +31,9 @@ public class MenuAdmin {
                 ExecutableMenu.menuPrincipal(con);
                 break;
             default:
+                System.out.println("Veuillez rentrez une commande valide");
+                String skip = scan.nextLine();
+                MenuAdmin.connexionAdmin(con);
                 break;
         }
 
@@ -68,8 +71,8 @@ public class MenuAdmin {
                 MenuAdmin.sousMenuStatsDeVente(con);
                 break;
             default:
-            System.out.println("Veuillez rentrer une commande valide");
-            MenuAdmin.menuAdmin(con);      
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuAdmin.menuAdmin(con);      
                 break;
         }
     } 
@@ -146,6 +149,7 @@ public class MenuAdmin {
                 System.out.println("Veuillez rentrer un nombre");
                 MenuAdmin.creeCompteVendeurDemandeIdmag(con, Prenom, Nom);
                 }
+                break;
         }
     }
 
@@ -177,6 +181,7 @@ public class MenuAdmin {
                 } catch (java.sql.SQLException e) {
                     System.out.println("Erreur lors de l'insertion du vendeur : " + e.getMessage());
                 }
+                break;
             default:
                 System.out.println("Veuillez rentrer une commande valide");
                 MenuAdmin.creeCompteVendeurValider(con,Prenom,Nom, idmag);        
