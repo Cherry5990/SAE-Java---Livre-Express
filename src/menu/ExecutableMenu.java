@@ -19,10 +19,10 @@ public class ExecutableMenu{
     private static final Scanner scan = new Scanner(System.in);
 
     public static void connexionBD(){
-        System.out.println("┌──────────────────────────────────────────┐"); 
-        System.out.println("│ Bienvenue sur l'application Vallé Libre  │");
-        System.out.println("│ Veuillez rentrer nom d'utilisateur mysql │");
-        System.out.println("└──────────────────────────────────────────┘");   
+        System.out.println("┌────────────────────────────────────────────────┐"); 
+        System.out.println("│ Bienvenue sur l'application Vallé Livre        │");
+        System.out.println("│ Veuillez rentrer votre nom d'utilisateur mysql │");
+        System.out.println("└────────────────────────────────────────────────┘");   
         String action = scan.nextLine();
         ExecutableMenu.connexionBD2(action);
     }
@@ -41,7 +41,7 @@ public class ExecutableMenu{
         catch (SQLException e){
             System.out.println("─────────────────────────────────────────────────────────");
             System.out.println("Votre nom utilisateur ou votre mot de passe est incorrect");
-            System.out.println("Veuillez reessayer");
+            System.out.println("Veuillez réessayer");
             ExecutableMenu.connexionBD();
         }
         catch (ClassNotFoundException ex){
@@ -56,11 +56,11 @@ public class ExecutableMenu{
 
     public static void menuPrincipal(ConnexionMySQL con){
         System.out.println("┌──────────────────────────────────────────┐");        
-        System.out.println("│ Bienvenue sur l'application Vallé Libre  │");
-        System.out.println("│   1 - connexion Client                   │");
-        System.out.println("│   2 - connexion Vendeur                  │");
-        System.out.println("│   3 - connexion Admin                    │");
-        System.out.println("│   Q - quitter l'appli                    │");
+        System.out.println("│ Bienvenue sur l'application Vallé Livre  │");
+        System.out.println("│   1 - Connexion Client                   │");
+        System.out.println("│   2 - Connexion Vendeur                  │");
+        System.out.println("│   3 - Connexion Admin                    │");
+        System.out.println("│   Q - Quitter l'appli                    │");
         System.out.println("└──────────────────────────────────────────┘");   
         String action = scan.nextLine();;
         switch (action) {
