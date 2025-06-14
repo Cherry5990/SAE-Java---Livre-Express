@@ -5,6 +5,7 @@ import java.util.Scanner;
 import BD.AdminBD;
 import BD.ConnexionMySQL;
 import BD.MagasinBD;
+import BD.ReseauBD;
 import BD.VendeurBD;
 import modele.Admin;
 
@@ -13,6 +14,7 @@ public class MenuAdmin {
     private static MagasinBD magasinBD;
     private static VendeurBD vendeurBD;
     private static AdminBD adminBD;
+    private static ReseauBD reseauBD;
 
     // Menu de connexion en tant qu'Admin
     public static void connexionAdmin(ConnexionMySQL con){
@@ -26,6 +28,7 @@ public class MenuAdmin {
                 MenuAdmin.magasinBD = new MagasinBD(con);
                 MenuAdmin.vendeurBD = new VendeurBD(con);
                 MenuAdmin.adminBD = new AdminBD(con);
+                MenuAdmin.reseauBD = new ReseauBD(con);
                 MenuAdmin.menuAdmin(con);
                 break;
             case "q":
@@ -43,15 +46,15 @@ public class MenuAdmin {
 
     // Menu principal de l'Admin
     public static void menuAdmin(ConnexionMySQL con){
-        System.out.println("┌─────────────────────────────────────────┐");        
-        System.out.println("│ Vous êtes connectés en tant qu'Admin    │");
-        System.out.println("│         Que voulez vous faire?          │");
-        System.out.println("│ 1: créer un compte vendeur              │");
-        System.out.println("│ 2: ajouter une nouvelle librairie       │");
-        System.out.println("│ 3: gérer les stocks globaux             │");
-        System.out.println("│ 4: Consulter les statistiques de ventes │");
-        System.out.println("│    Rentrez Q pour revenir en arriere    │");
-        System.out.println("└─────────────────────────────────────────┘");   
+        System.out.println("┌──────────────────────────────────────────┐");        
+        System.out.println("│ Vous êtes connectés en tant qu'Admin     │");
+        System.out.println("│         Que voulez vous faire?           │");
+        System.out.println("│ 1 - créer un compte vendeur              │");
+        System.out.println("│ 2 - ajouter une nouvelle librairie       │");
+        System.out.println("│ 3 - gérer les stocks globaux             │");
+        System.out.println("│ 4 - consulter les statistiques de ventes │");
+        System.out.println("│ Q - revenir en arriere                   │");
+        System.out.println("└──────────────────────────────────────────┘");   
         String action = scan.nextLine();
         switch (action) {
             case "q":{
@@ -65,8 +68,7 @@ public class MenuAdmin {
                 MenuAdmin.sousMenuAjouterLibrairie(con);
                 break;
             case "3":
-                System.out.println("A faire");
-                MenuAdmin.menuAdmin(con);
+                MenuAdmin.sousMenuGererStocksGlobaux(con);
                 break;
             case "4":
                 MenuAdmin.sousMenuStatsDeVente(con);
@@ -271,7 +273,6 @@ public class MenuAdmin {
     //Fin deuxieme partie 
 
     //Quatrieme Partie - consulter les statistique de vente
-
     public static void sousMenuStatsDeVente(ConnexionMySQL con){
         System.out.println("┌──────────────────────────────────────────────────────┐");        
         System.out.println("│ Menu statistiques de vente                           │");
@@ -489,6 +490,353 @@ public class MenuAdmin {
         MenuAdmin.appuyerEntrer(con);
         MenuAdmin.sousMenuStatsDeVente(con);
     }
+    //Fin quatrieme Partie 
+
+    //Troisieme Partie - gerer les stocks globaux
+    public static void sousMenuGererStocksGlobaux(ConnexionMySQL con){
+        System.out.println("┌───────────────────────────────────┐");        
+        System.out.println("│ Gerer les stocks globaux          │");
+        System.out.println("│ 1 - voir stocks                   │");
+        System.out.println("│ 2 - transferer stocks             │");
+        System.out.println("│ Q - revenir en arriere            │");
+        System.out.println("└───────────────────────────────────┘"); 
+        String action = scan.nextLine().toLowerCase().trim();
+        switch (action) {
+            case "q":
+                MenuAdmin.menuAdmin(con);
+                break;
+            case "1":
+                MenuAdmin.voirStocks(con);
+                break;
+            case "2":
+                MenuAdmin.transfererStocks(con);
+                break;
+            default:
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuAdmin.sousMenuGererStocksGlobaux(con);
+                break;
+        }
+    }
+
+    public static void voirStocks(ConnexionMySQL con) {
+        System.out.println("┌─────────────────────────────────────────────────────────┐");        
+        System.out.println("│                     Voir les stocks:                    │");
+        System.out.println("│ Entrer l'id du magasin dont vous voulez voir les stocks │");
+        System.out.println("│ Entrez 0 pour voir les stocks de tout le réseau         │");
+        System.out.println("│ Q - revenir en arriere                                  │");
+        System.out.println("└─────────────────────────────────────────────────────────┘"); 
+        String entrer = scan.nextLine().toLowerCase().trim();
+        switch (entrer) {
+            case "q":
+                MenuAdmin.menuAdmin(con);
+                break;
+            case "0":
+                MenuAdmin.stocksReseau(con, 0, 10);
+                break;
+            default:
+                try{int idmag = Integer.parseInt(entrer);
+                if (idmag > 0 && idmag <= magasinBD.maxIdMagasin()) {
+                    MenuAdmin.stocksMagasin(con, idmag, 0, 10);
+                }else {
+                    System.out.println("Aucun magasin n'a comme id " + idmag);
+                    String saut = scan.nextLine();
+                    MenuAdmin.voirStocks(con);
+                }
+                break;
+                } catch (Exception e) {
+                System.out.println("Veuillez rentrer un nombre");
+                MenuAdmin.voirStocks(con);
+        }
+        }
+        
+    }
+
+    public static void stocksReseau(ConnexionMySQL con, int debut, int fin){
+        
+        System.out.println("┌────────────────────────────────────────────────────────────────────┐");
+        System.out.println("│            Catalogue des livres du réseau                          │");
+        System.out.println("├────────────────────────────────────────────────────────────────────┤");
+        System.out.println(reseauBD.voirStockReseau(debut, fin));
+        System.out.println("├────────────────────────────────────────────────────────────────────┤");
+        System.out.println("  Affichage : " + (debut + 1) + " - " + fin + "                 ");
+        System.out.println("  [C] Page suivante   [R] Page précédente   [Q] Retour        ");
+        System.out.println("└────────────────────────────────────────────────────────────────────┘");
+        String action = scan.nextLine().toLowerCase().trim();
+        switch (action) {
+            case "c":
+                if(fin<reseauBD.maxPossederLivreReseau()){
+                    MenuAdmin.stocksReseau(con, debut+10,fin+10);
+                }
+                else{
+                    System.out.println("Vous êtes déjà à la fin du catalogue.");
+                    MenuAdmin.stocksReseau(con, debut, fin);
+                }
+                break;
+            case "r":
+                if (debut>=10){
+                    MenuAdmin.stocksReseau(con, debut-10,fin-10);
+                }
+                else{
+                    System.out.println("Vous êtes déjà au début du catalogue.");
+                    MenuAdmin.stocksReseau(con, debut, fin);
+                }
+                break;
+            case "q":
+                MenuAdmin.voirStocks(con);
+                break;      
+            default:
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuAdmin.stocksReseau(con, debut, fin);
+        MenuAdmin.voirStocks(con);
+                break;
+        }
+       
+    }
+
+    public static void stocksMagasin(ConnexionMySQL con,int idmag, int debut,int fin){
+        System.out.println("┌────────────────────────────────────────────────────────────────────┐");
+        System.out.println("│            Catalogue des livres du magasin " + idmag +"                     │");
+        System.out.println("├────────────────────────────────────────────────────────────────────┤");
+        System.out.println(magasinBD.voirStock(idmag, debut, fin));
+        System.out.println("├────────────────────────────────────────────────────────────────────┤");
+        System.out.println("  Affichage : " + (debut + 1) + " - " + fin + "                 ");
+        System.out.println("  [C] Page suivante   [R] Page précédente   [Q] Retour        ");
+        System.out.println("└────────────────────────────────────────────────────────────────────┘");
+        String action = scan.nextLine().toLowerCase().trim();
+        switch (action) {
+            case "c":
+                if(fin<magasinBD.maxPossederLivre(idmag)){
+                    MenuAdmin.stocksMagasin(con,idmag, debut+10,fin+10);
+                }
+                else{
+                    System.out.println("Vous êtes déjà à la fin du catalogue.");
+                    MenuAdmin.stocksMagasin(con, idmag,debut, fin);
+                }
+                break;
+            case "r":
+                if (debut>=10){
+                    MenuAdmin.stocksMagasin(con, idmag ,debut-10,fin-10);
+                }
+                else{
+                    System.out.println("Vous êtes déjà au début du catalogue.");
+                    MenuAdmin.stocksMagasin(con,idmag, debut, fin);
+                }
+                break;
+            case "q":
+                MenuAdmin.voirStocks(con);
+                break;      
+            default:
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuAdmin.stocksMagasin(con,idmag , debut,fin);           
+                break;
+        }
+    }
+
+    public static void transfererStocks(ConnexionMySQL con){
+        System.out.println("┌───────────────────────────────────────────────┐");
+        System.out.println("│  Transférer un livre d'un magasin à un autre  │");
+        System.out.println("│  Rentrer l'id du magasin qui donnera le livre │");
+        System.out.println("│  Q - revenir en arriere                       │");
+        System.out.println("└───────────────────────────────────────────────┘");
+        String entrerIdMagDonneur = scan.nextLine().toLowerCase().trim();
+        switch (entrerIdMagDonneur) {
+            case "q":
+                MenuAdmin.sousMenuGererStocksGlobaux(con);
+                break;
+            default:
+                try {
+                    int idMagDonneur = Integer.parseInt(entrerIdMagDonneur);
+                    if (idMagDonneur > 0 && idMagDonneur <= magasinBD.maxIdMagasin()) {
+                        MenuAdmin.transfererStocksDemandeLivre(con, idMagDonneur);
+                    } else {
+                        System.out.println("Aucun magasin n'a comme id " + idMagDonneur);
+                        String saut = scan.nextLine();
+                        MenuAdmin.transfererStocks(con);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Veuillez rentrer un nombre");
+                    String saut = scan.nextLine();
+                    MenuAdmin.transfererStocks(con);
+                }
+                break;
+        }
+    }
+
+    public static void transfererStocksDemandeLivre(ConnexionMySQL con, int idMagDonneur){
+        System.out.println("┌──────────────────────────────────────────────────────────────┐");
+        System.out.println("│ Pour transferer un livre, vous aurez besoin de son Isbn      │");
+        System.out.println("│ Rentrez le nom du livre dont vous souhaité connaitre l'isbn  │");
+        System.out.println("│ Vous pouvez ne mettre qu'une partie du nom                   │");
+        System.out.println("│ Q - revenir en arrière                                       │");
+        System.out.println("└──────────────────────────────────────────────────────────────┘");
+        String entrerNomLivre = scan.nextLine().toLowerCase().trim();
+        switch (entrerNomLivre) {
+            case "q":
+                MenuAdmin.transfererStocks(con);
+                break;
+            default:
+                String livres = magasinBD.rechercheLivre(idMagDonneur, entrerNomLivre);
+                if (livres.isEmpty()) {
+                    System.out.println("Aucun livre ne correspond à votre recherche");
+                    String saut = scan.nextLine();
+                    MenuAdmin.transfererStocksDemandeLivre(con, idMagDonneur);
+                } else {
+                    System.out.println(livres);
+                    MenuAdmin.transfererStocksDemandeIsbn(con, idMagDonneur);
+                }
+                break;
+        }
+    }
+    
+    public static void transfererStocksDemandeIsbn(ConnexionMySQL con, int idMagDonneur){
+        System.out.println("┌───────────────────────────────────────────────────────┐"); 
+        System.out.println("│Rentrez l'isbn du livre que vous voulez transferer     │"); 
+        System.out.println("│Rentrez les 13 chiffres sans espaces                   │"); 
+        System.out.println("│[R] faire une nouvelle recherche [M] Menu gerer stocks │");
+        System.out.println("└───────────────────────────────────────────────────────┘");
+        String entrerIsbn = scan.nextLine().toLowerCase().trim();
+        switch (entrerIsbn) {
+            case "r":
+                MenuAdmin.transfererStocksDemandeLivre(con, idMagDonneur);
+                break;
+            case "m":
+                MenuAdmin.sousMenuGererStocksGlobaux(con);
+                break;
+            default:
+                if(magasinBD.existeLivre(entrerIsbn,idMagDonneur)){
+                    MenuAdmin.transfererStocksDemandeIdMagReceveur(con, idMagDonneur, entrerIsbn);
+                } else {
+                    System.out.println("Le livre " + entrerIsbn + " n'est pas dans le magasin d'id " + idMagDonneur);
+                    String saut = scan.nextLine();
+                    MenuAdmin.transfererStocksDemandeIsbn(con, idMagDonneur);
+                }
+                break;
+        }
+    }
+
+    public static void transfererStocksDemandeIdMagReceveur(ConnexionMySQL con, int idMagDonneur, String isbn){
+        System.out.println("┌──────────────────────────────────────────────────────────────┐");
+        System.out.println("│ Pour transferer le livre, vous devez choisir un magasin      │");
+        System.out.println("│ Rentrer l'id du magasin qui recevra le livre                 │");
+        System.out.println("│ Q - revenir en arriere                                       │");
+        System.out.println("│ M - Menu gerer stocks                                        │");
+        System.out.println("└──────────────────────────────────────────────────────────────┘");
+        String entrerIdMagReceveur = scan.nextLine().toLowerCase().trim();
+        switch (entrerIdMagReceveur) {
+            case "q":
+                MenuAdmin.transfererStocksDemandeIsbn(con, idMagDonneur);
+                break;
+            case "m":
+                MenuAdmin.sousMenuGererStocksGlobaux(con);
+                break;
+            default:
+                try {
+                    int idMagReceveur = Integer.parseInt(entrerIdMagReceveur);
+                    if (idMagReceveur == idMagDonneur) {
+                        System.out.println("Vous ne pouvez pas transferer un livre à son propre magasin");
+                        String saut = scan.nextLine();
+                        MenuAdmin.transfererStocksDemandeIdMagReceveur(con, idMagDonneur, isbn);
+                    }
+                    else if (idMagReceveur > 0 && idMagReceveur <= magasinBD.maxIdMagasin()) {
+                        MenuAdmin.demandeQte(con, idMagDonneur, idMagReceveur, isbn);
+                    } else {
+                        System.out.println("Aucun magasin n'a comme id " + idMagReceveur);
+                        String saut = scan.nextLine();
+                        MenuAdmin.transfererStocksDemandeIdMagReceveur(con, idMagDonneur, isbn);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Veuillez rentrer un nombre");
+                    String saut = scan.nextLine();
+                    MenuAdmin.transfererStocksDemandeIdMagReceveur(con, idMagDonneur, isbn);
+                }
+                break;
+        }
+    }
+
+    public static void demandeQte(ConnexionMySQL con, int idMagDonneur, int idMagReceveur, String isbn) {
+        System.out.println("┌──────────────────────────────────────────────────────────────┐");
+        System.out.println("│ Rentrer la quantité de livre à transferer                    │");
+        System.out.println("│ Q - revenir en arriere                                       │");
+        System.out.println("│ M - Menu gerer stocks                                        │");
+        System.out.println("└──────────────────────────────────────────────────────────────┘");
+        String entrerQte = scan.nextLine().toLowerCase().trim();
+        switch (entrerQte) {
+            case "q":
+                MenuAdmin.transfererStocksDemandeIdMagReceveur(con, idMagDonneur, isbn);
+                break;
+            case "m":
+                MenuAdmin.sousMenuGererStocksGlobaux(con);
+                break;
+            default:
+                try {
+                    int qte = Integer.parseInt(entrerQte);
+                    if (qte <= 0 || qte > magasinBD.getQte(isbn, idMagDonneur)) {
+                        System.out.println("La quantité doit être supérieure à 0");
+                        String saut = scan.nextLine();
+                        MenuAdmin.demandeQte(con, idMagDonneur, idMagReceveur, isbn);
+                    } else {
+                        MenuAdmin.transfererStocksValider(con, idMagDonneur, idMagReceveur, isbn, qte);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Veuillez rentrer un nombre");
+                    String saut = scan.nextLine();
+                    MenuAdmin.demandeQte(con, idMagDonneur, idMagReceveur, isbn);
+                }
+                break;
+        }
+    }
+
+    public static void transfererStocksValider(ConnexionMySQL con, int idMagDonneur, int idMagReceveur, String isbn,int qte){
+        System.out.println("┌────────────────────────────────────────────────────────────────────────────┐");
+        System.out.println("│ Confirmer vous le transfert de "+ qte + " exemplaire du livre d'id " + isbn+"    │");
+        System.out.println("│du magasin d'id " + idMagDonneur + " vers le magasin d'id " + idMagReceveur + "?                                   │");
+        System.out.println("└────────────────────────────────────────────────────────────────────────────┘");
+        System.out.println("┌───────────────────────────────────┐"); 
+        System.out.println("│ C - confirmer                     │");
+        System.out.println("│ Q - retour en arriere             │");
+        System.out.println("│ M - Menu gerer stocks             │");
+        System.out.println("└───────────────────────────────────┘"); 
+        String entrer = scan.nextLine().toLowerCase().trim();
+        switch (entrer) {
+            case "q":
+                MenuAdmin.demandeQte(con, idMagDonneur, idMagReceveur, isbn);
+                break;
+            case "m":
+                MenuAdmin.sousMenuGererStocksGlobaux(con);
+                break;
+            case "c":
+                MenuAdmin.transfererLivre(con,idMagDonneur, idMagReceveur, isbn, qte);
+                System.out.println(qte + " exemplaires du livre " + isbn + " a bien été transferé du magasin d'id " + idMagDonneur + " vers le magasin d'id " + idMagReceveur);
+                String saut = scan.nextLine();
+                MenuAdmin.sousMenuGererStocksGlobaux(con);
+                break;
+            default:
+                System.out.println("Veuillez rentrer une commande valide");
+                MenuAdmin.transfererStocksValider(con,idMagDonneur,idMagReceveur,isbn, qte);        
+                break;
+        }
+    }
+
+    public static void transfererLivre(ConnexionMySQL con, int idMagDonneur, int idMagReceveur, String isbn, int qte) {
+        try {
+            int qteD = magasinBD.getQte(isbn, idMagDonneur) -qte ;
+            int qteR = magasinBD.getQte(isbn, idMagReceveur) + qte;
+            magasinBD.miseAJourQuantite(isbn, qteD, idMagDonneur);
+            if (magasinBD.existeLivre(isbn, idMagReceveur)){
+                magasinBD.miseAJourQuantite(isbn, qteR, idMagReceveur);
+            } else {
+                magasinBD.ajouterQte(isbn, qteR, idMagReceveur);
+            }
+
+        } catch (java.sql.SQLException e) {
+            System.out.println("Erreur lors du transfert du livre : " + e.getMessage());
+        }
+    }
+    //Fin troisieme partie 
+
+        
 
 }
+
+
 
