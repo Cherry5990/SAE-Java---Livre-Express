@@ -9,6 +9,11 @@ public class MagasinBD {
 		this.laConnexion=laConnexion;
 	}
 
+    /**
+     * Cette méthode permet de récupérer le nom d'un magasin à partir de son identifiant
+     * @param mag l'identifiant du magasin
+     * @return le nom du magasin ou null si le magasin n'existe pas
+     */
     public String avoirNom(int mag){
         String nom= null;
         try(PreparedStatement ps = laConnexion.prepareStatement("select nommag from MAGASIN;")){
@@ -24,6 +29,10 @@ public class MagasinBD {
         return nom;
     }
 
+    /**
+     * Cette méthode permet de récupérer l'identifiant maximum d'un magasin dans la base de données
+     * @return l'identifiant maximum d'un magasin
+     */
     public int maxIdMagasin(){
         Integer max= null;
         try(PreparedStatement ps = laConnexion.prepareStatement("select MAX(idmag) from MAGASIN;")){
@@ -39,6 +48,12 @@ public class MagasinBD {
         return max;
     }
 
+    /**
+     * Cette méthode permet d'insérer un nouveau magasin dans la base de données
+     * @param nom le nom du magasin
+     * @param ville la ville du magasin
+     * @throws SQLException
+     */
 	public void insererMagasin(String nom,String ville) throws SQLException{
         try(PreparedStatement ps = laConnexion.prepareStatement("insert into Magasin values(?,?,?);")){
             ps.setInt(1, maxIdMagasin()+1);
@@ -49,6 +64,12 @@ public class MagasinBD {
         }
 	}
 
+    /**
+     * Cette méthode permet de voir le stock d'un magasin
+     * @param mag l'id du magasin
+     * @return une chaîne de caractères contenant les informations sur les livres en stock
+     * @throws SQLException
+     */
     public String voirStock(int mag) throws SQLException{
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("select isbn,titre,prix,qte from MAGASIN natural join POSSEDER natural join LIVRE where idmag=?;")){
@@ -61,6 +82,7 @@ public class MagasinBD {
         return sb.toString();
     }
 
+    
     public String voirStock(int mag,int debut,int fin){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("select isbn,titre,prix,qte from MAGASIN natural join POSSEDER natural join LIVRE where idmag=? LIMIT ? OFFSET ?;")){

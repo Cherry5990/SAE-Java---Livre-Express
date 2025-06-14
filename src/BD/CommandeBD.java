@@ -83,7 +83,7 @@ public class CommandeBD {
     }
 
     /**
-     *
+     * Cette méthode retourne le stock d'un livre dans un magasin
      * @param livre
      * @param mag
      * @return le stock du livre dans le magasin, retourne 0 si le livre n'existe pas dans le magasin
