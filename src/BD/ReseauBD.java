@@ -70,4 +70,45 @@ public class ReseauBD {
     }
 
 
+    public String voirStockReseau(int debut, int fin){
+        StringBuilder sb = new StringBuilder();
+        try(PreparedStatement ps = laConnexion.prepareStatement("select isbn,titre,prix,qte from LIVRE natural join POSSEDER group by isbn LIMIT ? OFFSET ?;")){
+            int limit = fin-debut;
+            ps.setInt(1, limit);
+            ps.setInt(2, debut);
+            ResultSet rs = ps.executeQuery();
+            sb.append(String.format("%-15s %-40s %-13s %-5s\n", "isbn", "titre", "prix", "qte"));
+            while(rs.next()){
+                String titre =rs.getString("titre");
+                if (titre.length() > 35){
+                    titre = titre.substring(0, 35) + "...";
+                }
+                sb.append(String.format("%-15s %-40s %-13s %-5s\n",
+                        rs.getString("isbn"),
+                        titre,
+                        rs.getDouble("prix") + " euros",
+                        rs.getString("qte")));
+            }
+        }
+        catch(SQLException e){
+            System.out.println("bug au niveau de voirStock");
+        }
+        return sb.toString();
+
+    }
+
+    public Integer maxPossederLivreReseau(){
+        Integer maxLivre = null;
+        try(PreparedStatement ps = laConnexion.prepareStatement("select count(*) nbLivre from LIVRE;")){
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            maxLivre = rs.getInt("nbLivre");
+        }
+        catch(SQLException e){
+            System.out.println("Le magasin n'existe pas");
+        }
+        return maxLivre;
+    }
+
+
 }

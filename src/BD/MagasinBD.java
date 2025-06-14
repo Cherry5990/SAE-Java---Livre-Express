@@ -284,5 +284,17 @@ public class MagasinBD {
         
     }
 
+    public boolean existeLivre(String isbn, int idmag){
+        try(PreparedStatement ps = laConnexion.prepareStatement("select * from POSSEDER where isbn = ? and idmag = ?;")){
+            ps.setString(1, isbn);
+            ps.setInt(2, idmag);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        }catch(SQLException e){
+            System.out.println("Erreur lors de la vérification de l'existence du livre : " + e.getMessage());
+            return false;
+        }
+    }
+
     
 }
