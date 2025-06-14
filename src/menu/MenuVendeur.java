@@ -27,7 +27,7 @@ public class MenuVendeur {
     private static ClientBD clientBD;
     private static CommandeBD comBD;
 
-
+    // Menu de connexion du vendeur
     public static void connexionVendeur(ConnexionMySQL con){
         System.out.println("┌────────────────────────────────┐");
         System.out.println("│Veuillez saisir un id de Vendeur│");
@@ -79,7 +79,7 @@ public class MenuVendeur {
     }
 
 
-
+    // Menu principal du vendeur
     public static void menuVendeur(ConnexionMySQL con){
         System.out.println("┌──────────────────────────────────────────┐");     
         System.out.println("│ Magasin "+ vendeur.getMagasin().getNomMagasin()+"        │");   

@@ -14,6 +14,7 @@ public class MenuAdmin {
     private static VendeurBD vendeurBD;
     private static AdminBD adminBD;
 
+    // Menu de connexion en tant qu'Admin
     public static void connexionAdmin(ConnexionMySQL con){
         System.out.println("┌────────────────────────────────────────────────────────────┐");        
         System.out.println("│ Etes vous sure de vouloir vous connecter en tant qu'Admin? │");
@@ -40,7 +41,7 @@ public class MenuAdmin {
     }
 
 
-
+    // Menu principal de l'Admin
     public static void menuAdmin(ConnexionMySQL con){
         System.out.println("┌─────────────────────────────────────────┐");        
         System.out.println("│ Vous êtes connectés en tant qu'Admin    │");

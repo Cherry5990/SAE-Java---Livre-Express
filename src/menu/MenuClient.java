@@ -19,7 +19,7 @@ public class MenuClient {
     private static Magasin magasin = null;
     private static Commande commande = null;
 
-
+    // Menu de connexion pour le client
     public static void connexionClient(ConnexionMySQL con){
         System.out.println("┌───────────────────────────────┐");
         System.out.println("│Veuillez saisir un id de Client│");
@@ -72,7 +72,7 @@ public class MenuClient {
 
 
 
-    
+    // Menu principal pour le client
     public static void menuClient(ConnexionMySQL con){
         System.out.println("┌─────────────────────────────────────────┐");        
         System.out.println("│  Vous êtes connectés en tant que Client │");

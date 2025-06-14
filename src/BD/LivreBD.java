@@ -12,7 +12,15 @@ public class LivreBD {
         this.laConnexion=laConnexion;             
     }
 
-
+    /**
+     * Cette méthode permet d'insérer un livre dans la base de données
+     * @param isbn l'isbn du livre
+     * @param titre le titre du livre
+     * @param nbPages le nombre de pages
+     * @param datePubli la date de publication
+     * @param Prix le prix du livre
+     * @throws SQLException
+     */
     public void insererLivre(String isbn,String titre,Integer nbPages, Integer datePubli, Double Prix) throws SQLException{
         try(PreparedStatement ps = laConnexion.prepareStatement("insert into LIVRE values(?,?,?,?,?);")){
             ps.setString(1, isbn);
@@ -27,6 +35,11 @@ public class LivreBD {
 
 
     // Methodes pour Partie 1 de MenuVendeur
+    /**
+     * Cette méthode permet de récupérer le plus grand ISBN dans la base de données et d'y ajouter 1
+     * @return String: l'isbn maximum + 1
+     * @throws SQLException
+     */
     public String maxIsbnPlus1() throws SQLException{
         try(PreparedStatement ps = laConnexion.prepareStatement("select max(isbn) from LIVRE;")){
             ResultSet rs = ps.executeQuery();
@@ -40,6 +53,13 @@ public class LivreBD {
 
         }
     }
+    /**
+     * Cette méthode permet de vérifier si un livre existe déjà dans un magasin
+     * @param id l'identifiant du magasin
+     * @param entrer l'isbn du livre à rechercher
+     * @return
+     * @throws SQLException
+     */
     public boolean verifLivreExisteDansMagasin(int id, String entrer) throws SQLException{
         try(PreparedStatement ps =laConnexion.prepareStatement("select isbn, titre From LIVRE natural join POSSEDER where titre = ? and idmag = ?;")){
             ps.setString(1, entrer);
@@ -52,6 +72,12 @@ public class LivreBD {
         return false;
     }
 
+    /**
+     * Cette méthode permet de vérifier si un ISBN existe déjà dans la base de données pour un titre de livre donné
+     * @param entrer le titre du livre à rechercher
+     * @return l'isbn du livre si trouvé, sinon null
+     * @throws SQLException
+     */
     public String regardeSiISBNExiste(String entrer) throws SQLException{
         try(PreparedStatement ps = laConnexion.prepareStatement(" select isbn from LIVRE where titre = ?;")){
             ps.setString(1, entrer);
@@ -63,7 +89,14 @@ public class LivreBD {
             return isbn;
         }
     }
+
     //Les trois methodes suivante pourrait être compilé en une seule méthode
+    /**
+     * Cette méthode permet de rechercher le nombre de pages d'un livre dans la base de données
+     * @param isbn
+     * @return le nombre de pages du livre
+     * @throws SQLException
+     */
     public Integer rechercheNbPagesLivre(String isbn) throws SQLException{
         try(PreparedStatement ps = laConnexion.prepareStatement("select nbpages from LIVRE where isbn = ?;")){
             ps.setString(1, isbn);
@@ -74,6 +107,12 @@ public class LivreBD {
         }
     }
 
+    /**
+     * Cette méthode permet de rechercher le prix d'un livre dans la base de données
+     * @param isbn
+     * @return le prix du livre
+     * @throws SQLException
+     */
     public Double recherchePrixLivre(String isbn) throws SQLException{
         try(PreparedStatement ps = laConnexion.prepareStatement("select prix from LIVRE where isbn = ?;")){
             ps.setString(1, isbn);
@@ -84,6 +123,12 @@ public class LivreBD {
         }
     }
 
+    /**
+     * Cette méthode permet de rechercher la date de publication d'un livre dans la base de données
+     * @param isbn
+     * @return la date de publication du livre
+     * @throws SQLException
+     */
     public Integer rechercheDatePubli(String isbn) throws SQLException{
         try(PreparedStatement ps = laConnexion.prepareStatement("select datepubli from LIVRE where isbn = ?;")){
             ps.setString(1, isbn);
@@ -96,6 +141,12 @@ public class LivreBD {
     // Fin des methodes pour Partie 1 de MenuVendeur
     
     // Methode pour Partie 2 de MenuVendeur
+    /**
+     * Cette méthode permet de rechercher le titre d'un livre dans la base de données en fonction de son ISBN
+     * @param isbn
+     * @return
+     * @throws SQLException
+     */
     public String rechercheTitre(String isbn) throws SQLException{
         try(PreparedStatement ps = laConnexion.prepareStatement("select titre from LIVRE where isbn = ?;")){
             ps.setString(1, isbn);
