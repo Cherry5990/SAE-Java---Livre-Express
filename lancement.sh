@@ -47,6 +47,7 @@ if [ -z "$DB_EXISTS" ]; then  #-z vérifie si une chaine est vide
     mysql --defaults-file=$MYCNF $DBNAME < insertions.sql
 else
     echo "✅ La base de données existe déjà. Pas de création ni d'insertion de données."
+#rajouter ici si la base de s'appeler pas java alors faire les scripts 
 fi
 echo "🧮 Compilation du projet Java..."
 javac -d bin -cp "lib/*:src" src/*/*.java
