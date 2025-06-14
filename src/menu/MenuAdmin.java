@@ -19,8 +19,8 @@ public class MenuAdmin {
     // Menu de connexion en tant qu'Admin
     public static void connexionAdmin(ConnexionMySQL con){
         System.out.println("┌────────────────────────────────────────────────────────────┐");        
-        System.out.println("│ Etes vous sure de vouloir vous connecter en tant qu'Admin? │");
-        System.out.println("│ [C] continuer  [Q] retour en arriere                       │");
+        System.out.println("│ Êtes vous sure de vouloir vous connecter en tant qu'Admin? │");
+        System.out.println("│ [C] continuer  [Q] Retour en arriere                       │");
         System.out.println("└────────────────────────────────────────────────────────────┘");
         String action = scan.nextLine().toLowerCase().trim();
         switch (action) {
@@ -47,13 +47,13 @@ public class MenuAdmin {
     // Menu principal de l'Admin
     public static void menuAdmin(ConnexionMySQL con){
         System.out.println("┌──────────────────────────────────────────┐");        
-        System.out.println("│ Vous êtes connectés en tant qu'Admin     │");
+        System.out.println("│ Vous êtes connecté en tant qu'Admin      │");
         System.out.println("│         Que voulez vous faire?           │");
-        System.out.println("│ 1 - créer un compte vendeur              │");
-        System.out.println("│ 2 - ajouter une nouvelle librairie       │");
-        System.out.println("│ 3 - gérer les stocks globaux             │");
-        System.out.println("│ 4 - consulter les statistiques de ventes │");
-        System.out.println("│ Q - revenir en arriere                   │");
+        System.out.println("│ 1 - Créer un compte vendeur              │");
+        System.out.println("│ 2 - Ajouter une nouvelle librairie       │");
+        System.out.println("│ 3 - Gérer les stocks globaux             │");
+        System.out.println("│ 4 - Consulter les statistiques de ventes │");
+        System.out.println("│ Q - Revenir en arriere                   │");
         System.out.println("└──────────────────────────────────────────┘");   
         String action = scan.nextLine();
         switch (action) {
@@ -83,9 +83,9 @@ public class MenuAdmin {
     //Première Partie - Creer un compte vendeur
     public static void sousMenuCreeCompteVendeur(ConnexionMySQL con){
         System.out.println("┌──────────────────────────────┐");        
-        System.out.println("│ Creer un compte vendeur:     │");
-        System.out.println("│ Rentrer le prenom du vendeur │");
-        System.out.println("│ Q - revenir en arriere       │");
+        System.out.println("│ Créer un compte vendeur:     │");
+        System.out.println("│ Rentrer le prénom du vendeur │");
+        System.out.println("│ Q - revenir en arrière       │");
         System.out.println("└──────────────────────────────┘"); 
         String entrerPrenom = scan.nextLine().trim();
         switch (entrerPrenom) {
@@ -101,9 +101,9 @@ public class MenuAdmin {
 
     public static void creeCompteVendeurDemandeNom(ConnexionMySQL con, String Prenom){
         System.out.println("┌──────────────────────────────┐");        
-        System.out.println("│ Creer un compte vendeur:     │");
+        System.out.println("│ Créer un compte vendeur:     │");
         System.out.println("│ Rentrer le nom du vendeur    │");
-        System.out.println("│ Q - revenir en arriere       │");
+        System.out.println("│ Q - revenir en arrière       │");
         System.out.println("│ M - Menu Admin               │");
         System.out.println("└──────────────────────────────┘"); 
         String entrerNom = scan.nextLine().trim();
@@ -124,9 +124,9 @@ public class MenuAdmin {
 
     public static void creeCompteVendeurDemandeIdmag(ConnexionMySQL con, String Prenom, String Nom){
         System.out.println("┌───────────────────────────────────┐");        
-        System.out.println("│ Creer un compte vendeur:          │");
+        System.out.println("│ Créer un compte vendeur:          │");
         System.out.println("│ Rentrer l'id du magasin du vendeur│");
-        System.out.println("│ Q - revenir en arriere            │");
+        System.out.println("│ Q - Revenir en arrière            │");
         System.out.println("│ M - Menu Admin                    │");
         System.out.println("└───────────────────────────────────┘"); 
         String entrerIdmag = scan.nextLine().toLowerCase().trim();
@@ -158,13 +158,13 @@ public class MenuAdmin {
 
     public static void creeCompteVendeurValider(ConnexionMySQL con, String Prenom, String Nom, int idmag){
         System.out.println("┌───────────────────────────────────┐");        
-        System.out.println("│ Creer un compte vendeur:          │");
+        System.out.println("│ Créer un compte vendeur:          │");
         System.out.println("│ Confirmer vous l'ajout du vendeur │");
         System.out.println("└───────────────────────────────────┘"); 
         System.out.println( Nom + " " + Prenom + " au magasin d'id "+ idmag );
         System.out.println("┌───────────────────────────────────┐"); 
-        System.out.println("│ C - confirmer                     │");
-        System.out.println("│ Q - retour en arriere             │");
+        System.out.println("│ C - Confirmer                     │");
+        System.out.println("│ Q - Retour en arrière             │");
         System.out.println("│ M - Menu Admin                    │");
         System.out.println("└───────────────────────────────────┘"); 
         String entrer = scan.nextLine().toLowerCase().trim();
@@ -198,7 +198,7 @@ public class MenuAdmin {
         System.out.println("┌────────────────────────────────┐");        
         System.out.println("│ Ajouter une librairie:         │");
         System.out.println("│ Rentrer le nom de la librairie │");
-        System.out.println("│ Q - revenir en arriere         │");
+        System.out.println("│ Q - Revenir en arrière         │");
         System.out.println("└────────────────────────────────┘"); 
         String entrerNom = scan.nextLine().trim();
         switch (entrerNom) {
@@ -216,7 +216,7 @@ public class MenuAdmin {
         System.out.println("┌────────────────────────────────────────────────┐");        
         System.out.println("│ Ajouter une librairie:                         │");
         System.out.println("│ Rentrer le nom de la ville où est la librairie │");
-        System.out.println("│ Q - revenir en arriere                         │");
+        System.out.println("│ Q - Revenir en arrière                         │");
         System.out.println("│ M - Menu Admin                                 │");
         System.out.println("└────────────────────────────────────────────────┘"); 
         String entrerNomVille = scan.nextLine().trim();
@@ -242,8 +242,8 @@ public class MenuAdmin {
         System.out.println("└───────────────────────────────────────┘"); 
         System.out.println( nom + " basé à " + nomVille );
         System.out.println("┌───────────────────────────────────┐"); 
-        System.out.println("│ C - confirmer                     │");
-        System.out.println("│ Q - retour en arriere             │");
+        System.out.println("│ C - Confirmer                     │");
+        System.out.println("│ Q - Retour en arrière             │");
         System.out.println("│ M - Menu Admin                    │");
         System.out.println("└───────────────────────────────────┘"); 
         String entrer = scan.nextLine().toLowerCase().trim();
@@ -276,12 +276,12 @@ public class MenuAdmin {
     public static void sousMenuStatsDeVente(ConnexionMySQL con){
         System.out.println("┌──────────────────────────────────────────────────────┐");        
         System.out.println("│ Menu statistiques de vente                           │");
-        System.out.println("│ Quelle stat voulez vous consulter                    │");
-        System.out.println("│ 1 - chiffre d'affaire                                │");
-        System.out.println("│ 2 - livres les plus vendus                           │");
+        System.out.println("│ Quelle statistique voulez vous consulter             │");
+        System.out.println("│ 1 - Chiffre d'affaire                                │");
+        System.out.println("│ 2 - Livres les plus vendus                           │");
         System.out.println("│ 3 - Comparaison ventes en ligne et ventes en magasin │");
         System.out.println("│ 4 - Valeur du stock par magasin                      │");
-        System.out.println("│ Q - revenir en arriere                               │");
+        System.out.println("│ Q - Revenir en arrière                               │");
         System.out.println("└──────────────────────────────────────────────────────┘");   
         String action = scan.nextLine().toLowerCase().trim();
         switch (action) {
@@ -310,11 +310,11 @@ public class MenuAdmin {
     public static void chiffreDAffaire(ConnexionMySQL con){
         System.out.println("┌───────────────────────────────────┐");        
         System.out.println("│ Menu chiffre d'affaire            │");
-        System.out.println("│ 1 - CA total tout les temps       │");
-        System.out.println("│ 2 - CA total par annee            │");
-        System.out.println("│ 3 - CA par magasin tout les temps │");
-        System.out.println("│ 4 - CA par magasin par annee      │");
-        System.out.println("│ Q - revenir en arriere            │");
+        System.out.println("│ 1 - CA total tous les temps       │");
+        System.out.println("│ 2 - CA total par année            │");
+        System.out.println("│ 3 - CA par magasin tous les temps │");
+        System.out.println("│ 4 - CA par magasin par année      │");
+        System.out.println("│ Q - Revenir en arrière            │");
         System.out.println("└───────────────────────────────────┘");  
         String entrer = scan.nextLine().toLowerCase().trim();
         switch (entrer) {
@@ -338,7 +338,7 @@ public class MenuAdmin {
                 break;
             case "4":
                 System.out.println("┌───────────────────────────┐");        
-                System.out.println("│ Rentrer l'annee souhaité  │");
+                System.out.println("│ Rentrez l'année souhaitée │");
                 System.out.println("└───────────────────────────┘"); 
                 try{
                     String entrerAnne = scan.nextLine();
@@ -368,11 +368,11 @@ public class MenuAdmin {
     public static void livresLesPlusVendu(ConnexionMySQL con) {
         System.out.println("┌────────────────────────────────┐");
         System.out.println("│ Les 10 livres les plus vendus  │");
-        System.out.println("│ 1 - total tout les temps       │");
-        System.out.println("│ 2 - total par annee            │");
-        System.out.println("│ 3 - par magasin tout les temps │");
-        System.out.println("│ 4 - par magasin par annee      │");
-        System.out.println("│ Q - revenir en arriere         │");
+        System.out.println("│ 1 - Total tous les temps       │");
+        System.out.println("│ 2 - Total par année            │");
+        System.out.println("│ 3 - Par magasin tous les temps │");
+        System.out.println("│ 4 - Par magasin par année      │");
+        System.out.println("│ Q - Revenir en arrière         │");
         System.out.println("└────────────────────────────────┘");
 
         String entrer = scan.nextLine().toLowerCase().trim();
@@ -435,11 +435,11 @@ public class MenuAdmin {
     public static void venteEnLigneContreMagasin(ConnexionMySQL con){
         System.out.println("┌───────────────────────────────────┐");        
         System.out.println("│ Ventes en ligne contre en magasin │");
-        System.out.println("│ 1 - tout les temps                │");
-        System.out.println("│ 2 - par annee                     │");
-        System.out.println("│ 3 - par magasin tout les temps    │");
-        System.out.println("│ 4 - par magasin par annee         │");
-        System.out.println("│ Q - revenir en arriere            │");
+        System.out.println("│ 1 - Tous les temps                │");
+        System.out.println("│ 2 - Par annee                     │");
+        System.out.println("│ 3 - Par magasin tous les temps    │");
+        System.out.println("│ 4 - Par magasin par année         │");
+        System.out.println("│ Q - Revenir en arrière            │");
         System.out.println("└───────────────────────────────────┘");  
         String entrer = scan.nextLine().toLowerCase().trim();
         switch (entrer) {
@@ -463,7 +463,7 @@ public class MenuAdmin {
                 break;
             case "4":
                 System.out.println("┌───────────────────────────┐");        
-                System.out.println("│ Rentrer l'annee souhaité  │");
+                System.out.println("│ Rentrez l'annee souhaité  │");
                 System.out.println("└───────────────────────────┘"); 
                 try{
                     String entrerAnne = scan.nextLine();
@@ -496,9 +496,9 @@ public class MenuAdmin {
     public static void sousMenuGererStocksGlobaux(ConnexionMySQL con){
         System.out.println("┌───────────────────────────────────┐");        
         System.out.println("│ Gerer les stocks globaux          │");
-        System.out.println("│ 1 - voir stocks                   │");
-        System.out.println("│ 2 - transferer stocks             │");
-        System.out.println("│ Q - revenir en arriere            │");
+        System.out.println("│ 1 - Voir stocks                   │");
+        System.out.println("│ 2 - Transférer stocks             │");
+        System.out.println("│ Q - Revenir en arrière            │");
         System.out.println("└───────────────────────────────────┘"); 
         String action = scan.nextLine().toLowerCase().trim();
         switch (action) {
@@ -636,7 +636,7 @@ public class MenuAdmin {
         System.out.println("┌───────────────────────────────────────────────┐");
         System.out.println("│  Transférer un livre d'un magasin à un autre  │");
         System.out.println("│  Rentrer l'id du magasin qui donnera le livre │");
-        System.out.println("│  Q - revenir en arriere                       │");
+        System.out.println("│  Q - Revenir en arrière                       │");
         System.out.println("└───────────────────────────────────────────────┘");
         String entrerIdMagDonneur = scan.nextLine().toLowerCase().trim();
         switch (entrerIdMagDonneur) {
@@ -664,10 +664,10 @@ public class MenuAdmin {
 
     public static void transfererStocksDemandeLivre(ConnexionMySQL con, int idMagDonneur){
         System.out.println("┌──────────────────────────────────────────────────────────────┐");
-        System.out.println("│ Pour transferer un livre, vous aurez besoin de son Isbn      │");
-        System.out.println("│ Rentrez le nom du livre dont vous souhaité connaitre l'isbn  │");
+        System.out.println("│ Pour transférer un livre, vous aurez besoin de son ISBN      │");
+        System.out.println("│ Rentrez le nom du livre dont vous souhaitez connaitre l'ISBN │");
         System.out.println("│ Vous pouvez ne mettre qu'une partie du nom                   │");
-        System.out.println("│ Q - revenir en arrière                                       │");
+        System.out.println("│ Q - Revenir en arrière                                       │");
         System.out.println("└──────────────────────────────────────────────────────────────┘");
         String entrerNomLivre = scan.nextLine().toLowerCase().trim();
         switch (entrerNomLivre) {
@@ -690,9 +690,9 @@ public class MenuAdmin {
     
     public static void transfererStocksDemandeIsbn(ConnexionMySQL con, int idMagDonneur){
         System.out.println("┌───────────────────────────────────────────────────────┐"); 
-        System.out.println("│Rentrez l'isbn du livre que vous voulez transferer     │"); 
+        System.out.println("│Rentrez l'ISBN du livre que vous voulez transférer     │"); 
         System.out.println("│Rentrez les 13 chiffres sans espaces                   │"); 
-        System.out.println("│[R] faire une nouvelle recherche [M] Menu gerer stocks │");
+        System.out.println("│[R] Faire une nouvelle recherche [M] Menu gérer stocks │");
         System.out.println("└───────────────────────────────────────────────────────┘");
         String entrerIsbn = scan.nextLine().toLowerCase().trim();
         switch (entrerIsbn) {
@@ -716,10 +716,10 @@ public class MenuAdmin {
 
     public static void transfererStocksDemandeIdMagReceveur(ConnexionMySQL con, int idMagDonneur, String isbn){
         System.out.println("┌──────────────────────────────────────────────────────────────┐");
-        System.out.println("│ Pour transferer le livre, vous devez choisir un magasin      │");
+        System.out.println("│ Pour transférer le livre, vous devez choisir un magasin      │");
         System.out.println("│ Rentrer l'id du magasin qui recevra le livre                 │");
-        System.out.println("│ Q - revenir en arriere                                       │");
-        System.out.println("│ M - Menu gerer stocks                                        │");
+        System.out.println("│ Q - Revenir en arrière                                       │");
+        System.out.println("│ M - Menu gérer stocks                                        │");
         System.out.println("└──────────────────────────────────────────────────────────────┘");
         String entrerIdMagReceveur = scan.nextLine().toLowerCase().trim();
         switch (entrerIdMagReceveur) {
@@ -733,7 +733,7 @@ public class MenuAdmin {
                 try {
                     int idMagReceveur = Integer.parseInt(entrerIdMagReceveur);
                     if (idMagReceveur == idMagDonneur) {
-                        System.out.println("Vous ne pouvez pas transferer un livre à son propre magasin");
+                        System.out.println("Vous ne pouvez pas transférer un livre à son propre magasin");
                         String saut = scan.nextLine();
                         MenuAdmin.transfererStocksDemandeIdMagReceveur(con, idMagDonneur, isbn);
                     }
@@ -755,8 +755,8 @@ public class MenuAdmin {
 
     public static void demandeQte(ConnexionMySQL con, int idMagDonneur, int idMagReceveur, String isbn) {
         System.out.println("┌──────────────────────────────────────────────────────────────┐");
-        System.out.println("│ Rentrer la quantité de livre à transferer                    │");
-        System.out.println("│ Q - revenir en arriere                                       │");
+        System.out.println("│ Rentrez la quantité de livre à transférer                    │");
+        System.out.println("│ Q - Revenir en arrière                                       │");
         System.out.println("│ M - Menu gerer stocks                                        │");
         System.out.println("└──────────────────────────────────────────────────────────────┘");
         String entrerQte = scan.nextLine().toLowerCase().trim();
@@ -792,9 +792,9 @@ public class MenuAdmin {
         System.out.println("│du magasin d'id " + idMagDonneur + " vers le magasin d'id " + idMagReceveur + "?                                   │");
         System.out.println("└────────────────────────────────────────────────────────────────────────────┘");
         System.out.println("┌───────────────────────────────────┐"); 
-        System.out.println("│ C - confirmer                     │");
-        System.out.println("│ Q - retour en arriere             │");
-        System.out.println("│ M - Menu gerer stocks             │");
+        System.out.println("│ C - Confirmer                     │");
+        System.out.println("│ Q - Retour en arrière             │");
+        System.out.println("│ M - Menu gérer stocks             │");
         System.out.println("└───────────────────────────────────┘"); 
         String entrer = scan.nextLine().toLowerCase().trim();
         switch (entrer) {
@@ -806,7 +806,7 @@ public class MenuAdmin {
                 break;
             case "c":
                 MenuAdmin.transfererLivre(con,idMagDonneur, idMagReceveur, isbn, qte);
-                System.out.println(qte + " exemplaires du livre " + isbn + " a bien été transferé du magasin d'id " + idMagDonneur + " vers le magasin d'id " + idMagReceveur);
+                System.out.println(qte + " exemplaires du livre " + isbn + " a bien été transféré du magasin d'id " + idMagDonneur + " vers le magasin d'id " + idMagReceveur);
                 String saut = scan.nextLine();
                 MenuAdmin.sousMenuGererStocksGlobaux(con);
                 break;

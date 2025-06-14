@@ -82,7 +82,13 @@ public class MagasinBD {
         return sb.toString();
     }
 
-    
+    /**
+     * Cette méthode permet de voir le stock d'un magasin avec une limite et un offset 
+     * @param mag l'id du magasin
+     * @param debut l'index de début
+     * @param fin l'index de fin
+     * @return une chaîne de caractères contenant les informations sur les livres en stock dans la plage spécifiée
+     */
     public String voirStock(int mag,int debut,int fin){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("select isbn,titre,prix,qte from MAGASIN natural join POSSEDER natural join LIVRE where idmag=? LIMIT ? OFFSET ?;")){
@@ -284,6 +290,12 @@ public class MagasinBD {
         
     }
 
+    /**
+     * Cette méthode permet de vérifier si un livre existe dans un magasin
+     * @param isbn l'ISBN du livre
+     * @param idmag l'identifiant du magasin
+     * @return true si le livre existe dans le magasin, false sinon
+     */
     public boolean existeLivre(String isbn, int idmag){
         try(PreparedStatement ps = laConnexion.prepareStatement("select * from POSSEDER where isbn = ? and idmag = ?;")){
             ps.setString(1, isbn);

@@ -9,6 +9,10 @@ public class AdminBD {
 
 
     //Chiffre d'affaire - début
+    /**
+     * Calcul le chiffre d'affaire total de tous les temps
+     * @return le chiffre d'affaire total
+     */
     public String chiffreDAffaireTotalToutTemps(){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement(" SELECT SUM(qte * prixvente) AS CA FROM DETAILCOMMANDE ;")){
@@ -26,6 +30,10 @@ public class AdminBD {
 
     }
 
+    /**
+     * Calcul le chiffre d'affaire total de tous les temps par magasin
+     * @return le chiffre d'affaire total par magasin
+     */
     public String chiffreDAffaireMagasinToutTemps(){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("SELECT idmag, nommag, SUM(qte * prixvente) CA FROM DETAILCOMMANDE natural join COMMANDE natural join MAGASIN GROUP BY idmag, nommag ORDER BY idmag;")){
@@ -46,6 +54,10 @@ public class AdminBD {
         }
     }
 
+    /**
+     * Calcul le chiffre d'affaire total par an
+     * @return le chiffre d'affaire total par an
+     */
     public String chiffreDAffaireTotalParAns(){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("SELECT YEAR(datecom) annee, SUM(qte * prixvente) CA FROM DETAILCOMMANDE natural join COMMANDE GROUP BY annee ORDER BY annee;")){
@@ -63,6 +75,11 @@ public class AdminBD {
         }
     }
 
+    /**
+     * Calcul le chiffre d'affaire total pour un magasin à une année donnée
+     * @param idmag l'identifiant du magasin
+     * @return le chiffre d'affaire total du magasin à l'année donnée
+     */
     public String chiffreDAffaireMagasinParAns(Integer anne){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("SELECT idmag, nommag, YEAR(datecom) annee, SUM(qte * prixvente) CA FROM DETAILCOMMANDE  natural join COMMANDE natural join MAGASIN WHERE YEAR(datecom) = ? GROUP BY idmag, nommag, annee ORDER BY idmag  ;")){
@@ -81,9 +98,13 @@ public class AdminBD {
             return "Pas de chiffre d'affaire";
         }
     }
+
     //Chiffre d'affaire - fin
 
-    //10 livres les plus vendus - début
+    /**
+     * Affiche les 10 livres les plus vendus de tous les temps
+     * @return une chaîne de caractères contenant les 10 livres les plus vendus
+     */
     public String livresLesPlusVendusTotalToutTemps(){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn, titre, SUM(qte) qte FROM LIVRE NATURAL JOIN DETAILCOMMANDE GROUP BY isbn, titre ORDER BY qte DESC LIMIT 10;")){
@@ -108,6 +129,10 @@ public class AdminBD {
         }
     }
 
+    /**
+     * Affiche les 10 livres les plus vendus par année
+     * @return une chaîne de caractères contenant les 10 livres les plus vendus par année
+     */
     public String livresLesPlusVendusTotalParAns(){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn, titre, SUM(qte) qte FROM LIVRE NATURAL JOIN DETAILCOMMANDE GROUP BY isbn, titre ORDER BY qte DESC LIMIT 10;")){
@@ -132,6 +157,11 @@ public class AdminBD {
         }
     }
 
+    /**
+     * Affiche les 10 livres les plus vendus pour une année donnée
+     * @param annee 
+     * @return une chaîne de caractères contenant les 10 livres les plus vendus pour l'année donnée
+     */
     public String livresLesPlusVendusTotalParAns(Integer annee){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn, titre, YEAR(datecom) annee, SUM(qte) qte FROM LIVRE NATURAL JOIN DETAILCOMMANDE NATURAL JOIN COMMANDE WHERE YEAR(datecom) = ? GROUP BY annee, isbn, titre ORDER BY annee, qte DESC LIMIT 10;")){
@@ -158,6 +188,11 @@ public class AdminBD {
         }
     }
 
+    /**
+     * Affiche les 10 livres les plus vendus pour un magasin donné de tous les temps
+     * @param idmag
+     * @return une chaîne de caractères contenant les 10 livres les plus vendus pour le magasin donné
+     */
     public String livresLesPlusVendusParMagasinToutTemps(Integer idmag){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn, titre, idmag, nommag, SUM(qte) qte FROM LIVRE NATURAL JOIN DETAILCOMMANDE NATURAL JOIN COMMANDE NATURAL JOIN MAGASIN WHERE idmag = ? GROUP BY idmag, nommag, isbn, titre ORDER BY qte DESC LIMIT 10;")){
@@ -182,6 +217,12 @@ public class AdminBD {
         }
     }
 
+    /**
+     * Affiche les 10 livres les plus vendus pour un magasin donné pour une année donnée
+     * @param idmag l'identifiant du magasin
+     * @param annee l'année
+     * @return une chaîne de caractères contenant les 10 livres les plus vendus pour le magasin et l'année donnée
+     */
     public String livresLesPlusVendusParMagasinParAns(Integer idmag, Integer annee){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn, titre, idmag, nommag, YEAR(datecom) annee, SUM(qte) qte FROM LIVRE NATURAL JOIN DETAILCOMMANDE NATURAL JOIN COMMANDE NATURAL JOIN MAGASIN WHERE idmag = ? and YEAR(datecom) = ? GROUP BY annee, idmag, nommag, isbn, titre ORDER BY annee, qte DESC LIMIT 10;")){
@@ -210,6 +251,10 @@ public class AdminBD {
     //10 livres les plus vendus - fin 
 
     //Ventes en ligne contre en magasin - début
+    /**
+     * Affiche les ventes en ligne contre les ventes en magasin de tous les temps
+     * @return une chaîne de caractères contenant les ventes en ligne contre en magasin
+     */
     public String ventesLigneContreMagasinToutTemps(){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("SELECT enligne, SUM(qte * prixvente) CA FROM DETAILCOMMANDE NATURAL JOIN COMMANDE GROUP BY enligne")){
@@ -227,6 +272,11 @@ public class AdminBD {
         }
     }
 
+    /**
+     * Affiche les ventes en ligne contre les ventes en magasin par année
+     * @param annee l'année pour laquelle on veut les ventes
+     * @return une chaîne de caractères contenant les ventes en ligne contre en magasin par an
+     */
     public String ventesLigneContreMagasinParAns(){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("SELECT enligne, YEAR(datecom) annee, SUM(qte * prixvente) CA FROM DETAILCOMMANDE NATURAL JOIN COMMANDE GROUP BY enligne, annee ORDER BY annee, enligne;")){
@@ -245,6 +295,10 @@ public class AdminBD {
         }
     }
 
+    /**
+     * Affiche les ventes en ligne contre les ventes en magasin par magasin de tous les temps
+     * @return une chaîne de caractères contenant les ventes en ligne contre en magasin par magasin
+     */
     public String ventesLigneContreMagasinParMagasinTousTemps(){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("SELECT idmag, nommag, enligne, SUM(qte * prixvente) CA FROM DETAILCOMMANDE NATURAL JOIN COMMANDE NATURAL JOIN MAGASIN GROUP BY idmag, nommag, enligne ORDER BY idmag, enligne;")){
@@ -264,6 +318,11 @@ public class AdminBD {
         }
     }    
     
+    /**
+     * Affiche les ventes en ligne contre les ventes en magasin par magasin pour une année donnée
+     * @param annee l'année pour laquelle on veut les ventes
+     * @return une chaîne de caractères contenant les ventes en ligne contre en magasin par magasin pour l'année donnée
+     */
     public String ventesLigneContreMagasinParMagasinParAns(Integer annee){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("SELECT idmag, nommag, YEAR(datecom) annee, enligne, SUM(qte * prixvente) CA FROM DETAILCOMMANDE NATURAL JOIN COMMANDE NATURAL JOIN MAGASIN WHERE YEAR(datecom) = ? GROUP BY idmag, nommag, annee, enligne ORDER BY annee, idmag, enligne; ")){
@@ -288,6 +347,10 @@ public class AdminBD {
 
     //Valeur du stock - début
 
+    /**
+     * Calcule la valeur totale du stock de tous les livres présents dans une librairie quelconque
+     * @return une chaîne de caractères contenant la valeur totale du stock
+     */
     public String valeurStockTotal(){
         try{
             PreparedStatement ps = laConnexion.prepareStatement("SELECT SUM(qte * prix) stock FROM POSSEDER NATURAL JOIN LIVRE;");
@@ -304,6 +367,10 @@ public class AdminBD {
         }
     }
 
+    /**
+     * Calcule la valeur du stock de chaque magasin
+     * @return une chaîne de caractères contenant la valeur du stock par magasin
+     */
     public String valeurStockParMagasin(){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("SELECT idmag, nommag, SUM(qte * prix) stock FROM POSSEDER NATURAL JOIN MAGASIN NATURAL JOIN LIVRE GROUP BY idmag, nommag ORDER BY idmag;")){

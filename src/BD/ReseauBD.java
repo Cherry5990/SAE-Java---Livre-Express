@@ -70,6 +70,12 @@ public class ReseauBD {
     }
 
 
+    /**
+     * Affiche le stock de livres du réseau avec une limite et un offset
+     * @param debut l'index de début
+     * @param fin l'index de fin
+     * @return le stock de livres du réseau
+     */
     public String voirStockReseau(int debut, int fin){
         StringBuilder sb = new StringBuilder();
         try(PreparedStatement ps = laConnexion.prepareStatement("select isbn,titre,prix,qte from LIVRE natural join POSSEDER group by isbn LIMIT ? OFFSET ?;")){
@@ -97,6 +103,10 @@ public class ReseauBD {
 
     }
 
+    /**
+     * Retourne le nombre maximum de livres du réseau
+     * @return le nombre maximum de livres
+     */
     public Integer maxPossederLivreReseau(){
         Integer maxLivre = null;
         try(PreparedStatement ps = laConnexion.prepareStatement("select count(*) nbLivre from LIVRE;")){
