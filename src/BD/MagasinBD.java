@@ -110,6 +110,11 @@ public class MagasinBD {
         return sb.toString();
     }
 
+    /**
+     * Cette méthode permet de récupérer le nombre maximum de livres possédés par un magasin
+     * @param mag l'identifiant du magasin
+     * @return le nombre maximum de livres possédés par le magasin
+     */
     public int maxPossederLivre(int mag){
         Integer maxLivre = null;
         try(PreparedStatement ps = laConnexion.prepareStatement("select count(*) nbLivre from MAGASIN natural join POSSEDER where idmag=?;")){
@@ -124,6 +129,10 @@ public class MagasinBD {
         return maxLivre;
     }
 
+    /**
+     * Cette méthode permet d'afficher toutes les informations de tous les magasins de la base de données
+     * @return une chaîne de caractères contenant les informations sur les magasins
+     */
     public String afficheMagasins(){
         StringBuilder sb = new StringBuilder();
         try (PreparedStatement ps = laConnexion.prepareStatement("SELECT idmag, nommag, villemag FROM MAGASIN")) {
@@ -142,6 +151,12 @@ public class MagasinBD {
         return sb.toString();
     }
 
+    /**
+     * Cette méthode permet de rechercher des livres dans un magasin en fonction d'un mot-clé du titre
+     * @param mag l'identifiant du magasin
+     * @param like le mot-clé à rechercher dans les titres des livres
+     * @return une chaîne de caractères contenant les informations sur les livres trouvés
+     */
     public String rechercheLivre(int mag,String like){
         StringBuilder sb = new StringBuilder();
         try (PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn,titre,prix,qte from MAGASIN natural join POSSEDER natural join LIVRE where idmag=? and titre LIKE ?")) {
@@ -167,6 +182,12 @@ public class MagasinBD {
         return sb.toString();
     }
 
+    /**
+     * Cette méthode permet de récupérer un objet Magasin à partir de son identifiant
+     * @param mag l'identifiant du magasin
+     * @return un objet Magasin contenant les informations du magasin
+     * @throws SQLException
+     */
     public Magasin getMagasin(int mag)throws SQLException{
         try(PreparedStatement ps =laConnexion.prepareStatement("select idmag,nommag,villemag from MAGASIN where idmag=?;")){
             ps.setInt(1, mag);
@@ -178,6 +199,12 @@ public class MagasinBD {
         }
     }
 
+    /**
+     * Cette méthode permet de mettre à jour la quantité d'un livre dans un magasin
+     * @param isbn l'ISBN du livre
+     * @param qte la nouvelle quantité du livre
+     * @param idmag l'identifiant du magasin
+     */
     public void miseAJourQuantite(String isbn, Integer qte, Integer idmag){
         try{
             if (qte == 0) {
@@ -200,6 +227,14 @@ public class MagasinBD {
         }
     }
 
+    /**
+     * Cette méthode permet d'ajouter une quantité d'un livre dans un magasin
+     * Si le livre existe déjà dans le magasin, la quantité est mise à jour, sinon le livre est ajouté avec la quantité spécifiée
+     * @param isbn l'ISBN du livre
+     * @param qte la quantité à ajouter
+     * @param mag l'identifiant du magasin
+     * @throws SQLException
+     */
     public void ajouterQte(String isbn,Integer qte,Integer mag)throws SQLException{
         try(PreparedStatement ps = laConnexion.prepareStatement("select qte from MAGASIN natural join POSSEDER where isbn=? and idmag=?")){
             ps.setString(1, isbn);
@@ -226,6 +261,13 @@ public class MagasinBD {
             System.out.println("Modification impossible : "+e.getMessage());
         }
     }
+
+    /**
+     * Cette méthode permet de récupérer la quantité d'un livre dans un magasin
+     * @param isbn l'ISBN du livre
+     * @param idmag l'identifiant du magasin
+     * @return la quantité du livre dans le magasin
+     */
     public Integer getQte(String isbn, Integer idmag){
         try(PreparedStatement ps = laConnexion.prepareStatement("select qte from POSSEDER where isbn = ? and idmag = ?;" )){
             ps.setString(1, isbn);

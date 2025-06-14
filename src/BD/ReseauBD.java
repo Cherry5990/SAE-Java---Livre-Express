@@ -8,6 +8,12 @@ public class ReseauBD {
 		this.laConnexion=laConnexion;
 	}
 
+    /**
+     * Affiche les magasins qui possèdent le livre donné en paramètre
+     * @param idmag l'identifiant du magasin
+     * @param isbn l'ISBN du livre
+     * @return les magasins qui possèdent le livre
+     */
     public String magasinsAyantLivre(Integer idmag, String isbn){
         StringBuilder sb = new StringBuilder();
         try (PreparedStatement ps = laConnexion.prepareStatement("SELECT * FROM LIVRE NATURAL JOIN POSSEDER NATURAL JOIN MAGASIN WHERE idmag != ? and isbn = ?;")) {
@@ -33,6 +39,12 @@ public class ReseauBD {
         return sb.toString();
     }
 
+    /**
+     * Recherche les livres dont le titre contient la chaîne de caractères donnée en paramètre
+     * @param like la chaîne de caractères à rechercher dans le titre des livres
+     * @param idmag l'identifiant du magasin à exclure de la recherche
+     * @return les livres dont le titre contient la chaîne de caractères donnée
+     */
     public String rechercheLivre(String like,int idmag){
         StringBuilder sb = new StringBuilder();
         try (PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn, titre, sum(qte) qte FROM LIVRE NATURAL JOIN POSSEDER where idmag!= ? group by isbn having titre LIKE ?;")) {
