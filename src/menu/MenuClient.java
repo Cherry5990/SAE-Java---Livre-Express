@@ -552,7 +552,7 @@ public class MenuClient {
                                 dc.getPrixVente(),
                                 dc.getQte()
                             );
-                            somme+=dc.getPrixVente()*dc.getQte();
+                            somme+=dc.getPrixVente();
                         }
                         System.out.println("│  Prix Total : "+somme+"€                                             │");
                         System.out.println("│  Q - Revenir en arrière                                          │");
