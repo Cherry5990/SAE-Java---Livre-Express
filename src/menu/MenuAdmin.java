@@ -240,7 +240,7 @@ public class MenuAdmin {
         System.out.println("│ Ajouter une librairie:                │");
         System.out.println("│ Confirmer vous l'ajout de la librairie│");
         System.out.println("└───────────────────────────────────────┘"); 
-        System.out.println( nom + " basé à " + nomVille );
+        System.out.println( nom + " basée à " + nomVille );
         System.out.println("┌───────────────────────────────────┐"); 
         System.out.println("│ C - Confirmer                     │");
         System.out.println("│ Q - Retour en arrière             │");

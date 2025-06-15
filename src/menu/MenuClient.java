@@ -148,8 +148,8 @@ public class MenuClient {
     }
 
     public static void sousMenuLivreRecommande(ConnexionMySQL con){
-        System.out.println("┌───────────────────────────────────────────────┐");        
-        System.out.println("│    Vos livres recommandés sont les suivant    │");
+        System.out.println("┌───────────────────────────────────────────────────────────────┐");        
+        System.out.println("│            Vos livres recommandés sont les suivant            │");
         try{
             List<Livre> reco = clientBD.getRecommandationClient(client.getId());
             if (reco.isEmpty()) {
@@ -160,9 +160,9 @@ public class MenuClient {
                 System.out.println("├────┼───────────────────────────────────────────────┼──────────┤");
                 int i = 1;
                 for (Livre livre : reco) {
-                    System.out.printf("│ %-2d │ %-41s │ %8.2f │%n", i++, livre.getTitre(), livre.getPrix());
+                    System.out.printf("│ %-2d │ %-45s │ %8.2f │%n", i++, livre.getTitre(), livre.getPrix());
                 }
-                System.out.println("└────┴───────────────────────────────────────────────┴──────────┘");
+                System.out.println("├────┴──────────────────────────────────────────┬────┴──────────┘");
             }
         }
         catch(SQLException e){
@@ -469,6 +469,7 @@ public class MenuClient {
                 break;
             default:
                 System.out.println("Veuillez rentrer une commande valide");
+                MenuClient.sousMenuVoirLePanier(con);
                 break;
         } 
     }
