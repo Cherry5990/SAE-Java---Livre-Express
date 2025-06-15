@@ -569,25 +569,26 @@ public class MenuVendeur {
             default:
                 String reponse = MenuVendeur.magasinBD.rechercheLivre(vendeur.getMagasin().getIdMagasin(), entrer);
                 System.out.println(reponse);
-                System.out.println("┌───────────────────────────────────────────────────┐"); 
-                System.out.println("│[C] Continuer pour faire une nouvelle recherche    │");
-                System.out.println("│[Q] Retour au menu Vendeur                         │");        
-                System.out.println("└───────────────────────────────────────────────────┘");
+                System.out.println("┌─────────────────────────────────────┐"); 
+                System.out.println("│[C] Continuer la procédure           │");
+                System.out.println("│[R] Faire une nouvelle recherche     │");
+                System.out.println("│[Q] Retour au menu Vendeur           │");        
+                System.out.println("└─────────────────────────────────────┘");
                 String entrer2 = scan.nextLine().toLowerCase().trim();
                 switch (entrer2) {
                     case "c":
                     MenuVendeur.MajQteDonnerIsbn(con);
                     break;
-                case "r":
-                    MenuVendeur.sousMenuMajQte(con);
-                    break;
-                case "q":
-                    MenuVendeur.menuVendeur(con);
-                    break;
-                default:
-                    System.out.println("Veuillez rentrer une commande valide");
-                    MenuVendeur.sousMenuMajQte(con);                
-                    break;
+                    case "r":
+                        MenuVendeur.sousMenuMajQte(con);
+                        break;
+                    case "q":
+                        MenuVendeur.menuVendeur(con);
+                        break;
+                    default:
+                        System.out.println("Veuillez rentrer une commande valide");
+                        MenuVendeur.sousMenuMajQte(con);                
+                        break;
         }
                     break;
         }
@@ -801,7 +802,7 @@ public class MenuVendeur {
                     if (qteMagasinDonneur < qteTransfere){
                         System.out.println("Vous ne pouvez pas transférer plus de livres que le magasin donneur n'en a en stock");
                         String saut = scan.nextLine();
-                        MenuVendeur.sousMenuTransfererLivre(con);
+                        MenuVendeur.transfererLivreDemandeQte(con, idmag, isbn, titre);
                         return;
                  }
                     qteMagasinDonneur -= qteTransfere;
