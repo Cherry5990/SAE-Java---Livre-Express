@@ -7,35 +7,6 @@
             "request": "launch",
             "mainClass": "menu.ExecutableMenu",
             "projectName": "SAE-Java---Livre-Express_d33b24c3"
-        },
-        {
-            "type": "java",
-            "name": "ExecutableMenu",
-            "request": "launch",
-            "mainClass": "menu.ExecutableMenu",
-            "projectName": "SAE-Java---Livre-Express_af6a008b"
-        },
-        {
-            "type": "java",
-            "name": "ExecutableMenu",
-            "request": "launch",
-            "mainClass": "ExecutableMenu",
-            "projectName": "SAE-Java---Livre-Express_b9579d60"
-        },
-        {
-            "type": "java",
-            "name": "Test TestLivreExpress",
-            "request": "launch",
-            "mainClass": "org.junit.runner.JUnitCore",
-            "vmArgs": "-cp \".:lib/hamcrest-2.2.jar:lib/junit-4.13.2.jar:bin\"",
-            "args": "TestLivreExpress"
-        },
-        {
-            "type": "java",
-            "name": "Executable",
-            "request": "launch",
-            "mainClass": "Executable",
-            "cwd": "${workspaceFolder}/src"
         }
     ]
 }

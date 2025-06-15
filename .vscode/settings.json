@@ -1,12 +1,9 @@
 {
     "java.project.sourcePaths": [
-        "src",
-        "test"
+        "src"
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/mariadb-java-client-3.3.3.jar",
-        "lib/hamcrest-2.2.jar",
-        "lib/junit-4.13.2.jar"
+        "lib/mariadb-java-client-3.3.3.jar"
     ]
 }
