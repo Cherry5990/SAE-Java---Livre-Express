@@ -32,28 +32,44 @@ EOF
 echo "✅ Fichier $PROPERTIES_FILE généré :"
 cat $PROPERTIES_FILE
 
-
 echo "🛠 Vérification de l'existence de la base de données..."
 DB_EXISTS=$(mysql --defaults-file=$MYCNF -e "SHOW DATABASES LIKE '$DBNAME';" | grep "$DBNAME") #-e est une option mysql qui signifie "execute"
 
 if [ -z "$DB_EXISTS" ]; then  #-z vérifie si une chaine est vide
     echo "🔍 La base de données n'existe pas. Création en cours..."
     mysql --defaults-file=$MYCNF -e "CREATE DATABASE $DBNAME;"
-    
+else
+    echo "✅ La base de données existe déjà."
+fi
+
+echo "🛠 Vérification de l'existence des insertions des données..."
+INSERT_EXISTS=$(mysql --defaults-file=$MYCNF $DBNAME -e "show tables;" | grep "CLIENT") #-e est une option mysql qui signifie "execute"
+
+if [ -z "$INSERT_EXISTS" ]; then
     echo "🧱 Création des tables..."
     mysql --defaults-file=$MYCNF $DBNAME < creationBD.sql
 
     echo "📦 Insertion des données initiales..."
     mysql --defaults-file=$MYCNF $DBNAME < insertions.sql
 else
-    echo "✅ La base de données existe déjà. Pas de création ni d'insertion de données."
-#rajouter ici si la base de s'appeler pas java alors faire les scripts 
+    echo "✅ Les données ont déjà été insérées (table CLIENT existe)."
 fi
-echo "🧮 Compilation du projet Java..."
-javac -d bin -cp "lib/*:src" src/*/*.java
 
-echo "📃 génération de la javadoc..."
-javadoc -d doc src/*/*.java
+echo "🛠 Vérification de l'existence du dossier bin..."
+if [ ! -d "bin" ]; then
+    echo "🧮 Compilation du projet ..."
+    javac -d bin -cp "lib/*:src" src/*/*.java
+else
+    echo "✅ Le dossier bin existe déjà."
+fi
+
+echo "🛠 Vérification de l'existence du dossier doc..."
+if [ ! -d "bin" ]; then
+    echo "📃 génération de la javadoc..."
+    javadoc -d doc src/*/*.java
+else
+    echo "✅ Le dossier doc existe déjà."
+fi
 
 echo "🚀 Lancement de l'application..."
 java -cp "lib/*:bin" $MAIN_CLASS
