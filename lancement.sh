@@ -64,7 +64,7 @@ else
 fi
 
 echo "🛠 Vérification de l'existence du dossier doc..."
-if [ ! -d "bin" ]; then
+if [ ! -d "doc" ]; then
     echo "📃 génération de la javadoc..."
     javadoc -d doc src/*/*.java
 else
