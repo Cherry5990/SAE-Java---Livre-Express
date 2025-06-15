@@ -11,7 +11,7 @@ get_value() {
 
 # Lecture des infos depuis .my.cnf
 USER=$(get_value user)
-PASSWORD=$(get_value password) # Pas utilisé ici, mais requis dans .my.cnf
+PASSWORD=$(get_value password)
 HOST=$(get_value host)
 DBNAME=$"java"
 
