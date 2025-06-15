@@ -21,7 +21,7 @@ Bienvenue dans **Livre Express**, une application Java de gestion de librairie. 
 
 - **Java**
 - [**MariaDB**](https://mariadb.org/) ou **MySQL**
-- Les bibliothèques du dossier `lib/` :
+- Le bibliothèque du dossier `lib/` :
   - `mariadb-java-client`
 - **un bash linux** pour le script
 
