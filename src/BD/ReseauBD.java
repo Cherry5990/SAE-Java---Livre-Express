@@ -78,7 +78,7 @@ public class ReseauBD {
      */
     public String voirStockReseau(int debut, int fin){
         StringBuilder sb = new StringBuilder();
-        try(PreparedStatement ps = laConnexion.prepareStatement("select isbn,titre,prix,qte from LIVRE natural join POSSEDER group by isbn LIMIT ? OFFSET ?;")){
+        try(PreparedStatement ps = laConnexion.prepareStatement("select isbn,titre,prix,qte from LIVRE natural join POSSEDER LIMIT ? OFFSET ?;")){
             int limit = fin-debut;
             ps.setInt(1, limit);
             ps.setInt(2, debut);
