@@ -16,7 +16,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <ScrollPane style="-fx-fit-to-width: true; -fx-pannable: true;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
@@ -111,9 +110,9 @@
                                  <children>
                                     <HBox prefHeight="41.0" prefWidth="600.0">
                                        <children>
-                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Consulter votre panier" wrappingWidth="171.22799682617188">
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Consulter votre panier" wrappingWidth="216.02798461914062">
                                              <font>
-                                                <Font name="Amiri Bold" size="16.0" />
+                                                <Font name="Amiri Bold" size="21.0" />
                                              </font>
                                              <HBox.margin>
                                                 <Insets left="20.0" right="30.0" />
@@ -169,14 +168,17 @@
                                        <children>
                                           <BorderPane prefHeight="250.0" prefWidth="600.0">
                                              <left>
-                                                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 30; -fx-scale-x: 0.8; -fx-scale-y: 0.8;" BorderPane.alignment="CENTER">
+                                                <Pane prefHeight="200.0" prefWidth="180.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 30;" BorderPane.alignment="CENTER">
                                                    <children>
-                                                      <ImageView fitHeight="200.0" fitWidth="200.0" style="-fx-scale-x: 0.6; -fx-scale-y: 0.6;">
+                                                      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="15.0" layoutY="12.0" preserveRatio="true" style="-fx-fit-height: 200; -fx-fit-width: 150;">
                                                          <image>
                                                             <Image url="@../../../img/icônes/livre.png" />
                                                          </image>
                                                       </ImageView>
                                                    </children>
+                                                   <BorderPane.margin>
+                                                      <Insets bottom="15.0" left="5.0" />
+                                                   </BorderPane.margin>
                                                 </Pane>
                                              </left>
                                              <center>
@@ -192,17 +194,17 @@
                                                       </TextField>
                                                       <HBox prefHeight="100.0" prefWidth="200.0">
                                                          <children>
-                                                            <HBox prefHeight="100.0" prefWidth="154.0">
+                                                            <HBox prefHeight="83.0" prefWidth="143.0">
                                                                <children>
                                                                   <Text fill="#e8e4df" strokeType="OUTSIDE" strokeWidth="0.0" text="Sous-total :">
                                                                      <font>
                                                                         <Font name="Amiri Bold" size="14.0" />
                                                                      </font>
                                                                      <HBox.margin>
-                                                                        <Insets left="10.0" right="5.0" />
+                                                                        <Insets left="15.0" right="5.0" />
                                                                      </HBox.margin>
                                                                   </Text>
-                                                                  <TextField style="-fx-pref-width: 50;">
+                                                                  <TextField editable="false" style="-fx-pref-width: 50;">
                                                                      <HBox.margin>
                                                                         <Insets />
                                                                      </HBox.margin>
@@ -226,7 +228,7 @@
                                                                   </Spinner>
                                                                </children>
                                                             </HBox>
-                                                            <Button mnemonicParsing="false" style="-fx-background-color: #b64a4a; -fx-background-radius: 30; -fx-text-fill: white;" text="Suppprimer">
+                                                            <Button mnemonicParsing="false" style="-fx-background-color: #b64a4a; -fx-background-radius: 30; -fx-text-fill: white;" text="Supprimer">
                                                                <HBox.margin>
                                                                   <Insets right="10.0" />
                                                                </HBox.margin>
