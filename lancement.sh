@@ -13,7 +13,7 @@ get_value() {
 USER=$(get_value user)
 PASSWORD=$(get_value password)
 HOST=$(get_value host)
-DBNAME=$"java"
+DBNAME=$"DBfronton"
 
 # Vérification que .my.cnf existe
 if [ ! -f "$MYCNF" ]; then  #-f Si le chemin existe ET si c'est un fichier régulier 
