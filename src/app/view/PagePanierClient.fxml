@@ -165,9 +165,9 @@
                                  <children>
                                     <BorderPane prefHeight="250.0" prefWidth="600.0">
                                        <left>
-                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 30;" BorderPane.alignment="CENTER">
+                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 30; -fx-scale-x: 0.8; -fx-scale-y: 0.8;" BorderPane.alignment="CENTER">
                                              <children>
-                                                <ImageView fitHeight="200.0" fitWidth="200.0" style="-fx-scale-x: 0.8; -fx-scale-y: 0.8;">
+                                                <ImageView fitHeight="200.0" fitWidth="200.0" style="-fx-scale-x: 0.6; -fx-scale-y: 0.6;">
                                                    <image>
                                                       <Image url="@../../../img/icônes/livre.png" />
                                                    </image>
