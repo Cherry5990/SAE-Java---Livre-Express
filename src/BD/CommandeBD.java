@@ -1,10 +1,12 @@
 package BD;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import modele.Commande;
 import modele.DetailCommande;
 import modele.Livre;
+import modele.Magasin;
 
 public class CommandeBD {
 	ConnexionMySQL laConnexion;
@@ -105,27 +107,23 @@ public class CommandeBD {
             
     }
 
-    public String voirCommandeClient(int id) throws SQLException{
-        StringBuilder sb = new StringBuilder();
-        String sql = "SELECT numcom,datecom,enligne,livraison,nommag from COMMANDE natural join MAGASIN where idcli = ?";
+    public List<Commande> CommandeClient(int id) throws SQLException{
+        List<Commande> commandes = new ArrayList<>();
+        String sql = "SELECT numcom,datecom,enligne,livraison,idmag from COMMANDE natural join MAGASIN where idcli = ?";
         try (PreparedStatement ps = laConnexion.prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int numcom = rs.getInt("numcom");
                 Date datecom = rs.getDate("datecom");
-                String enligne = rs.getString("enligne");
-                String livraison = rs.getString("livraison");
-                String nommag = rs.getString("nommag");
-                sb.append("Commande n°").append(numcom)
-                  .append(" | Date: ").append(datecom)
-                  .append(" | En ligne: ").append(enligne)
-                  .append(" | Livraison: ").append(livraison)
-                  .append(" | Magasin: ").append(nommag)
-                  .append("\n");
+                Boolean enligne = rs.getString("enligne").charAt(0)=='O';
+                Boolean livraison = rs.getString("livraison").charAt(0)=='M';
+                MagasinBD magBD = new MagasinBD(laConnexion);
+                Magasin mag = magBD.getMagasin(rs.getInt("idmag"));
+                commandes.add(new Commande(numcom, datecom.toString(), enligne, livraison, null, mag));
             }
         }
-        return sb.toString();
+        return commandes;
     }
 
     public String getCommande(int numcom,int idclient) throws SQLException {
