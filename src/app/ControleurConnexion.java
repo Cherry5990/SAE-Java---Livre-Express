@@ -41,7 +41,7 @@ public class ControleurConnexion implements EventHandler<ActionEvent>{
             vue.idInvalide().showAndWait();
         }
         catch(IOException ex2){
-            System.out.println("Problème de fxml");
+            System.out.println("Problème de fxml" + ex2.getMessage());
         }
     }
 }
