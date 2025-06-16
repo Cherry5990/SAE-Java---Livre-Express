@@ -1,6 +1,8 @@
 package app;
 import modele.Client;
 import modele.Vendeur;
+
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
@@ -37,6 +39,9 @@ public class ControleurConnexion implements EventHandler<ActionEvent>{
         }
         catch(SQLException ex){
             vue.idInvalide().showAndWait();
+        }
+        catch(IOException ex2){
+            System.out.println("Problème de fxml");
         }
     }
 }
