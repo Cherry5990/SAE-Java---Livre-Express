@@ -12,7 +12,7 @@ public class Test extends Application {
     public void start(Stage stage){
         VBox root = new VBox();
         Scene scene = new Scene(root);
-        Livre livreTest = new Livre("978-2-02-130452-7 ", "Astrale", 316, "2027", 29.99);
+        Livre livreTest = new Livre("978-2-02-130452-7 ", "Astrale - Les aventures fantastiques de Cristalle", 316, "2027", 29.99);
         LivreDisplay affichageLivre = new LivreDisplay(livreTest);
         LivreDisplay affichageLivre2 = new LivreDisplay(livreTest);
         affichageLivre2.setPrix();
