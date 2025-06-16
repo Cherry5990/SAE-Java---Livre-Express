@@ -1,6 +1,9 @@
 package app;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,10 +19,19 @@ public class PageAcceuil {
         Button buttonClient = (Button) this.scene.lookup("#client");
         Button buttonVendeur = (Button) this.scene.lookup("#vendeur");
         Button buttonAdmin = (Button) this.scene.lookup("#admin");
+        List<Button> buttons = Arrays.asList(buttonAdmin,buttonClient,buttonVendeur);
         ControleurPageConnexion controlleur = new ControleurPageConnexion(app);
-        buttonClient.setOnAction(controlleur);
-        buttonVendeur.setOnAction(controlleur);
-        buttonAdmin.setOnAction(controlleur);
+        for (Button button : buttons) {
+            button.setOnAction(controlleur);
+            button.setOnMouseEntered(e -> {
+                button.setScaleX(1.1);
+                button.setScaleY(1.1);
+            });
+            button.setOnMouseExited(e -> {
+                button.setScaleX(1.0);
+                button.setScaleY(1.0);
+            });
+        }
     }
 
     public Scene getScene(){
