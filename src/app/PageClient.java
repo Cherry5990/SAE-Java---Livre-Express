@@ -51,10 +51,11 @@ public class PageClient {
             this.position=0;
             this.recomandation = App.clientBD.getRecommandationClient(c.getId());
             this.livres = (HBox) this.scene.lookup("#livres");
-            LivreDisplay livre1 = new LivreDisplay(recomandation.get(0));
-            LivreDisplay livre2 = new LivreDisplay(recomandation.get(1));
-            LivreDisplay livre3 = new LivreDisplay(recomandation.get(2));
-            this.livres.getChildren().addAll(livre1,livre2,livre3);
+            int count = Math.min(3, recomandation.size());
+            for (int i = 0; i < count; i++) {
+                LivreDisplay livre = new LivreDisplay(recomandation.get(i));
+                this.livres.getChildren().add(livre);
+            }
         }
         catch(SQLException e){
             System.out.println("caca");
@@ -65,16 +66,21 @@ public class PageClient {
         return App.magasinBD.getMagasin(this.magasin.getValue());
     }
 
-    public void majLivre(int debut){
-        int index = 0;
-        for(int i = debut;i<debut+3;i++){
-            if (i<recomandation.size()){
-                this.panes.get(index).getChildren().add(new LivreDisplay(recomandation.get(i)));
-                index++;
+    public void majLivre(){
+        this.livres = (HBox) this.scene.lookup("#livres");
+        this.livres.getChildren().clear();
+        for (int j = 0; j < 3; j++) {
+            if (position + j < recomandation.size()) {
+                LivreDisplay livre = new LivreDisplay(recomandation.get(position + j));
+                this.livres.getChildren().add(livre);
             }
         }
+        position+=3;
     }
 
+    public void setPosition(int pos){
+        this.position=pos;
+    }
     
 
     public Scene getScene(){
