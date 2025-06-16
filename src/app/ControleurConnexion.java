@@ -24,6 +24,7 @@ public class ControleurConnexion implements EventHandler<ActionEvent>{
             switch (nom) {
                 case "client":
                     Client c = App.clientBD.getClient(id);
+                    System.out.println(c.getPrenom());
                     app.sceneClient(c);
                     break;
                 case "vendeur":
