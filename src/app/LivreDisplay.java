@@ -19,7 +19,7 @@ public class LivreDisplay extends Button {
     public LivreDisplay(Livre livre){
         super();
         this.livre = livre;
-        ImageView imageLivre = new ImageView("livre.png");
+        ImageView imageLivre = new ImageView("file:img/icônes/livre.png");
         this.texte = new Text(livre.getTitre());
         imageLivre.setFitHeight(100);
         imageLivre.setFitWidth(100);
