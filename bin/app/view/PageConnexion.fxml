@@ -21,17 +21,17 @@
                   <Insets bottom="35.0" right="30.0" top="20.0" />
                </BorderPane.margin>
                <font>
-                  <Font name="AccanthisADFStd-Regular" size="19.0" />
+                  <Font name="Amiri Regular" size="19.0" />
                </font>
             </Text>
          </right>
          <left>
-            <ImageView fitHeight="125.0" fitWidth="200.0" style="-fx-fit-height: 70; -fx-fit-width: 100;">
+            <ImageView fitHeight="125.0" fitWidth="98.0" preserveRatio="true" style="-fx-fit-height: 60; -fx-fit-width: 90;">
                <image>
                   <Image url="@../../../img/icone.png" />
                </image>
                <BorderPane.margin>
-                  <Insets left="20.0" />
+                  <Insets left="10.0" top="10.0" />
                </BorderPane.margin>
             </ImageView>
          </left>
@@ -52,15 +52,15 @@
                <children>
                   <Text fx:id="titre" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Se connecter en tant que ">
                      <font>
-                        <Font name="AccanthisADFStd-Regular" size="28.0" />
+                        <Font name="Amiri Regular" size="28.0" />
                      </font>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Text>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="611.0">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="610.0">
                      <children>
-                        <TextField fx:id="id" alignment="CENTER" promptText="Identifiant utilisateur" style="-fx-background-color: #e8e4df; -fx-background-radius: 50;">
+                        <TextField fx:id="id" alignment="CENTER" prefHeight="26.0" prefWidth="240.0" promptText="Identifiant utilisateur" style="-fx-background-color: #e8e4df; -fx-background-radius: 50;">
                            <VBox.margin>
                               <Insets bottom="10.0" left="180.0" right="180.0" />
                            </VBox.margin>
@@ -68,10 +68,10 @@
                               <Insets bottom="5.0" top="5.0" />
                            </padding>
                            <font>
-                              <Font name="AccanthisADFStd-Regular" size="15.0" />
+                              <Font name="Amiri Regular" size="13.0" />
                            </font>
                         </TextField>
-                        <TextField alignment="CENTER" promptText="Mot de passe" style="-fx-background-color: #e8e4df; -fx-background-radius: 50;">
+                        <TextField alignment="CENTER" prefHeight="6.0" prefWidth="240.0" promptText="Mot de passe" style="-fx-background-color: #e8e4df; -fx-background-radius: 50;">
                            <padding>
                               <Insets bottom="5.0" top="5.0" />
                            </padding>
@@ -79,10 +79,13 @@
                               <Insets bottom="20.0" left="180.0" right="180.0" />
                            </VBox.margin>
                            <font>
-                              <Font name="AccanthisADFStd-Regular" size="15.0" />
+                              <Font name="Amiri Regular" size="13.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="connexion" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: #a6897e; -fx-text-fill: white; -fx-background-radius: 50;" text="Se connecter" />
+                        <Button fx:id="connexion" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="21.0" prefWidth="102.0" style="-fx-background-color: #a6897e; -fx-text-fill: white; -fx-background-radius: 50;" text="Se connecter">
+                           <font>
+                              <Font name="Amiri Regular" size="15.0" />
+                           </font></Button>
                      </children>
                   </VBox>
                </children>

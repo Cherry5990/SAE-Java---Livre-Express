@@ -20,7 +20,7 @@
    <content>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <top>
-            <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="756.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
+            <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
                <right>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Panier" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
@@ -118,17 +118,17 @@
                                                 <Insets left="20.0" right="30.0" />
                                              </HBox.margin>
                                           </Text>
-                                          <TextField promptText="Ajouter un livre" style="-fx-background-color: #e8e4df; -fx-background-radius: 30;">
+                                          <TextField alignment="CENTER" prefHeight="0.0" prefWidth="164.0" promptText="Ajouter un livre" style="-fx-background-color: #e8e4df; -fx-background-radius: 30;">
                                              <HBox.margin>
                                                 <Insets right="20.0" />
                                              </HBox.margin>
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font name="Amiri Regular" size="13.0" />
                                              </font>
                                           </TextField>
                                           <Button mnemonicParsing="false" style="-fx-background-color: #a6897e; -fx-background-radius: 30;" text="Acheter le panier" textFill="#e8e4df">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font name="Amiri Regular" size="13.0" />
                                              </font>
                                           </Button>
                                        </children>
