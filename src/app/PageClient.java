@@ -34,7 +34,7 @@ public class PageClient {
     private int position; 
 
     public PageClient(App app,Client c)throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("view/PageAccueilClient.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("view/Client/PageClientAccueil.fxml"));
         this.scene = new Scene(root);
         this.client = c;
 
