@@ -15,7 +15,7 @@
    <top>
       <BorderPane prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <right>
-            <Label prefHeight="52.0" prefWidth="72.0" text="Accueil" BorderPane.alignment="CENTER">
+            <Label prefHeight="52.0" prefWidth="108.0" text="Gérer les stocks" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Caladea Regular" size="17.0" />
                </font>
@@ -57,7 +57,7 @@
                   <Font name="Caladea Regular" size="28.0" />
                </font>
                <BorderPane.margin>
-                  <Insets right="100.0" />
+                  <Insets right="95.0" />
                </BorderPane.margin>
             </Label>
          </center>
