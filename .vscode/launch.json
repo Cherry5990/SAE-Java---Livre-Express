@@ -3,13 +3,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "app.App",
-            "projectName": "SAE-Java---Livre-Express_8e64e901"
-        },
-        {
-            "type": "java",
             "name": "ExecutableMenu",
             "request": "launch",
             "mainClass": "menu.ExecutableMenu",
@@ -20,7 +13,7 @@
             "name": "App",
             "request": "launch",
             "vmArgs": "--module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml",
-            "mainClass": "App"
+            "mainClass": "app.App"
         }
     ]
 }
