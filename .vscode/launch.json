@@ -3,6 +3,21 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Test",
+            "request": "launch",
+            "vmArgs": "--module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "app.Test",
+            "projectName": "SAE-Java---Livre-Express_7243ae03"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "vmArgs": "--module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "app.App"
+        },
+        {
+            "type": "java",
             "name": "ExecutableMenu",
             "request": "launch",
             "mainClass": "menu.ExecutableMenu",
