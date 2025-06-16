@@ -54,7 +54,7 @@
                <children>
                   <BorderPane prefHeight="262.0" prefWidth="619.0">
                      <left>
-                        <Button fx:id="client" maxHeight="105.0" maxWidth="105.0" minWidth="105.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: e8e4df;" BorderPane.alignment="CENTER">
+                        <Button fx:id="client" maxHeight="105.0" maxWidth="105.0" minWidth="105.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" BorderPane.alignment="CENTER">
                            <contentDisplay>TOP</contentDisplay>
                            <graphic>
                               <ImageView fitHeight="80.0" fitWidth="80.0" preserveRatio="true">
@@ -73,7 +73,7 @@
                         </Button>
                      </left>
                      <center>
-                        <Button fx:id="vendeur" maxHeight="110.0" minHeight="110.0" minWidth="110.0" mnemonicParsing="false" style="-fx-background-color: e8e4df;" text="Vendeur" BorderPane.alignment="CENTER">
+                        <Button fx:id="vendeur" maxHeight="110.0" minHeight="110.0" minWidth="110.0" mnemonicParsing="false" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Vendeur" BorderPane.alignment="CENTER">
                            <contentDisplay>TOP</contentDisplay>
                            <graphic>
                               <ImageView fitHeight="80.0" fitWidth="80.0" preserveRatio="true">
@@ -88,7 +88,7 @@
                         </Button>
                      </center>
                      <right>
-                        <Button fx:id="admin" minHeight="110.0" minWidth="110.0" mnemonicParsing="false" style="-fx-background-color: e8e4df;" text="Admin" BorderPane.alignment="CENTER">
+                        <Button fx:id="admin" minHeight="110.0" minWidth="110.0" mnemonicParsing="false" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Admin" BorderPane.alignment="CENTER">
                            <contentDisplay>TOP</contentDisplay>
                            <graphic>
                               <ImageView fitHeight="80.0" fitWidth="80.0" preserveRatio="true">
