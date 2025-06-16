@@ -11,10 +11,10 @@ public class PageAcceuil {
     private Scene scene;
 
     public PageAcceuil(App app)throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("view/P4Accueil.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("view/PageChoixCompte.fxml"));
         this.scene = new Scene(root);
         Button buttonClient = (Button) this.scene.lookup("#client");
-        Button buttonVendeur = (Button) this.scene.lookup("#client");
+        Button buttonVendeur = (Button) this.scene.lookup("#vendeur");
         Button buttonAdmin = (Button) this.scene.lookup("#admin");
         ControleurPageConnexion controlleur = new ControleurPageConnexion(app);
         buttonClient.setOnAction(controlleur);

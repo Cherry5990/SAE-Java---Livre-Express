@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: /../../img/Fond.jpg;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: /../../../img/Fond.jpg;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <BorderPane prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <left>
@@ -47,7 +47,7 @@
          <children>
             <ImageView fitHeight="344.0" fitWidth="724.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../img/FondFloute.png" />
+                  <Image url="@../../../img/FondFloute.png" />
                </image>
             </ImageView>
             <VBox prefHeight="200.0" prefWidth="100.0">
@@ -59,7 +59,7 @@
                            <graphic>
                               <ImageView fitHeight="80.0" fitWidth="80.0" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../img/IconClient.png" />
+                                    <Image url="@../../../img/IconClient.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -78,7 +78,7 @@
                            <graphic>
                               <ImageView fitHeight="80.0" fitWidth="80.0" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../img/IconVendeur.png" />
+                                    <Image url="@../../../img/IconVendeur.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -93,7 +93,7 @@
                            <graphic>
                               <ImageView fitHeight="80.0" fitWidth="80.0" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../img/IconAdmin.png" />
+                                    <Image url="@../../../img/IconAdmin.png" />
                                  </image>
                               </ImageView>
                            </graphic>
