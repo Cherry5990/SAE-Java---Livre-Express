@@ -48,9 +48,9 @@
                   <BoxBlur height="0.0" iterations="3" />
                </effect>
             </ImageView>
-            <VBox alignment="CENTER" prefHeight="349.0" prefWidth="605.0" style="-fx-background-image: url('file:src/app/accueil/page_accueil.jpg'); -fx-background-size: cover; -fx-background-repeat: no-repeat; -fx-background-position: center;">
+            <VBox alignment="CENTER" prefHeight="349.0" prefWidth="605.0">
                <children>
-                  <Text fx:id="textCompte" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Se connecter en tant que ">
+                  <Text fx:id="titre" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Se connecter en tant que ">
                      <font>
                         <Font name="AccanthisADFStd-Regular" size="28.0" />
                      </font>
@@ -60,7 +60,7 @@
                   </Text>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="611.0">
                      <children>
-                        <TextField alignment="CENTER" promptText="Identifiant utilisateur" style="-fx-background-color: #e8e4df; -fx-background-radius: 50;">
+                        <TextField fx:id="id" alignment="CENTER" promptText="Identifiant utilisateur" style="-fx-background-color: #e8e4df; -fx-background-radius: 50;">
                            <VBox.margin>
                               <Insets bottom="10.0" left="180.0" right="180.0" />
                            </VBox.margin>
@@ -82,7 +82,7 @@
                               <Font name="AccanthisADFStd-Regular" size="15.0" />
                            </font>
                         </TextField>
-                        <Button contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: #a6897e; -fx-text-fill: white; -fx-background-radius: 50;" text="Se connecter" />
+                        <Button fx:id="connexion" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: #a6897e; -fx-text-fill: white; -fx-background-radius: 50;" text="Se connecter" />
                      </children>
                   </VBox>
                </children>

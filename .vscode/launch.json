@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "app.App",
+            "projectName": "SAE-Java---Livre-Express_8e64e901"
+        },
+        {
+            "type": "java",
             "name": "ExecutableMenu",
             "request": "launch",
             "mainClass": "menu.ExecutableMenu",

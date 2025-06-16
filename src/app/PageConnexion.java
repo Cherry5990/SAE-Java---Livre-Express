@@ -9,22 +9,27 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 public class PageConnexion {
     private Scene scene;
-    private Label titre;
+    private Text titre;
     private Button con;
     private String utilisateur;
     private TextField id;
 
     public PageConnexion(App app,String utilisateur)throws IOException{
         this.utilisateur = utilisateur;
-        Pane root = FXMLLoader.load(getClass().getResource("view/P4Accueil.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("view/PageConnexion.fxml"));
         this.scene = new Scene(root);
-        Label titre = (Label) this.scene.lookup("#titre");
+
+        this.titre = (Text) this.scene.lookup("#titre");
         titre.setText(titre.getText() + utilisateur);
+
         Button con = (Button) this.scene.lookup("#connexion");
         con.setOnAction(new ControleurConnexion(app,this));
+
+        this.id = (TextField) this.scene.lookup("#id");
     }
 
     public String getId(){
