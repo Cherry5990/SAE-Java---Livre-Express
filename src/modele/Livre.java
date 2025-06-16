@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Livre {
-    private int isbn;
+    private String isbn;
     private String titre;
     private int nbPages;
     private String datePubli;
@@ -13,7 +13,7 @@ public class Livre {
     private List<Auteur> auteurs;
     private List<Editeur> editeurs;
 
-    public Livre(int isbn, String titre, int nbPages, String datePubli, double prix) {
+    public Livre(String isbn, String titre, int nbPages, String datePubli, double prix) {
         this.isbn = isbn;
         this.titre = titre;
         this.nbPages = nbPages;
@@ -24,7 +24,7 @@ public class Livre {
         this.editeurs = new ArrayList<>();
     }
 
-    public int getIsbn(){return this.isbn;}
+    public String getIsbn(){return this.isbn;}
 
     public String getTitre(){return this.titre;}
 
@@ -64,6 +64,16 @@ public class Livre {
         if (o == this){return true;}
         if (!(o instanceof Livre)){return false;}
         Livre cast = (Livre) o;
-        return this.isbn == cast.getIsbn();
+        return this.isbn.equals(cast.getIsbn());
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.parseInt(isbn);
+    }
+
+    @Override
+    public String toString(){
+        return titre;
     }
 }

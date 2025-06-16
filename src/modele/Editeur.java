@@ -20,6 +20,10 @@ public class Editeur {
     public String nomEditeur(){
         return nomEditeur;
     }
+    /**
+     * 
+     * @return la liste des livres édités par cet éditeur
+     */
     public List<Livre> getLivres(){
         return livres;
     }

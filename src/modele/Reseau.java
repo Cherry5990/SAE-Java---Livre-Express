@@ -20,59 +20,12 @@ public class Reseau {
         this.idCompte = 1;
     }
 
-
-    // méthodes création compte sur le réseau de librairie
-    public void ajouteMagasin(String nom,String ville){
-        this.magasins.add(new Magasin(this.idMag, nom, ville));
-        this.idMag+=1;
-    }
-
-    public void ajouteVendeur(String nom,String prenom,int idMag){
-        for (Magasin mag:this.magasins){
-            if (mag.getIdMagasin()==idMag){
-                this.vendeurs.add(new Vendeur(this.idCompte, nom,prenom, this, mag));
-                this.idCompte +=1;
-            }
-        }
-    }
-
-    public void ajouteClient(String nom,String prenom,String adresse,String codePostal,String ville){
-        this.clients.add(new Client(this.idCompte, nom ,prenom, this,adresse, codePostal, ville));
-        this.idCompte+=1;
-    }
-
-    public void ajouteAdmin(String nom,String prenom){
-        this.admins.add(new Admin(this.idCompte, nom, prenom, this));
-        this.idCompte+=1;
-    }
-
-    public Vendeur getVendeur(String nom,String prenom){
-        for(Vendeur v:this.vendeurs){
-            if (v.getPrenom().equals(prenom) && v.getNom().equals(nom)){
-                return v;
-            }
-        }
-        return null;
-    }
-
-
-
-
-
-
-    public void deplaceStock(Magasin src,Magasin target,int qte,Livre livre){
-        src.dimimueQte(livre, qte);
-        target.augmenteQte(livre, qte);
-    }
-
-    public void majStock(Magasin magasin,Livre livre,int qte){
-        if (qte>0){
-            magasin.augmenteQte(livre, qte);
-        }
-        else{
-            magasin.dimimueQte(livre, qte);
-        }
-    }
+    public List<Magasin> getMagasins(){return this.magasins;}
+    public List<Vendeur> getVendeurs(){return this.vendeurs;}
+    public List<Admin> getAdmins(){return this.admins; }
+    public List<Client> getClients(){return this.clients;}
+    public int getIdMag(){return this.idMag;}
+    public int getIdCompte(){return this.idCompte;}
 
 }
 

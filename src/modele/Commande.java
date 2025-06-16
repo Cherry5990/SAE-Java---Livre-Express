@@ -30,24 +30,44 @@ public class Commande {
     public boolean isLivraison() {return livraison;}
     public Client getClient() {return client;}
     public Magasin getMagasin(){return this.magasin;}
-    public List<DetailCommande> getDetailComanndes(){return this.detailCommandes;}
+    public List<DetailCommande> getDetailCommandes(){return this.detailCommandes;}
 
+    public void setClient(Client c){
+        this.client = c;
+    }
     public void setLivraison(boolean eL) {this.enLigne = eL;}
 
-    public double sommeComande(){
-        double somme=0;
-        for(DetailCommande dc:this.detailCommandes){
-            somme+=dc.getPrixVente();
-        }
-        return somme;
+    public void setEnLigne(boolean enLigne){
+        this.enLigne = enLigne;
     }
 
-    public boolean ajouteLivre(Livre livre,int qte){
-        if (this.magasin.livreEnStock(livre, qte)){
-            this.detailCommandes.add(new DetailCommande(this.ligne, qte, livre));
-            this.ligne +=1;
-            return true;
-        }
-        return false;
+    /**
+     * Ajoute le livre dans la commande
+     * @param livre le livre de la commande
+     * @param qte la quantité du livre commandé
+     */
+    public void ajouteLivre(Livre livre,int qte){
+        this.detailCommandes.add(new DetailCommande(this.ligne, qte, livre));
+        this.ligne +=1;
     }
+
+    @Override
+    public String toString(){
+        return this.detailCommandes.toString();
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (o == null){return false;}
+        if (o == this){return true;}
+        if (!(o instanceof Commande)){return false;}
+        Commande c = (Commande) o;
+        return c.getNumCom() == this.numCom;
+    }
+
+    @Override
+    public int hashCode(){
+        return this.numCom * 673;
+    }
+
 }

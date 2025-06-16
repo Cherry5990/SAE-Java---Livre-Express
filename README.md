@@ -1,25 +1,73 @@
-## Getting Started
+# 📚 Livre Express
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+[`lien git`](https://github.com/Cherry5990/SAE-Java---Livre-Express)  
+Bienvenue dans **Livre Express**, une application Java de gestion de librairie. Elle permet de gérer les **stocks**, **commandes**, **clients**, **vendeurs** et **administrateurs** à travers une interface en ligne de commande.
 
-## Folder Structure
+---
 
-The workspace contains two folders by default, where:
+## 🗂️ Structure du projet
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+- `src/` : Code source Java, organisé en packages (`modele`, `BD`, `menu`, etc.).
+- `lib/` : Bibliothèques externes requises (JDBC, JUnit, Hamcrest).
+- `bin/` : Fichiers compilés `.class`.
+- `test/` : Tests unitaires (JUnit).
+- `.vscode/` : Configuration pour Visual Studio Code.
+- `creationBD.sql` & `insertions.sql` : Scripts SQL pour créer et remplir la base de données.
+- `README.md` : Ce fichier.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+---
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## ✅ Prérequis
 
-## Dependency Management
+- **Java**
+- [**MariaDB**](https://mariadb.org/) ou **MySQL**
+- Le bibliothèque du dossier `lib/` :
+  - `mariadb-java-client`
+- **un bash linux** pour le script
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+---
 
+## 🚀 Lancement du projet
 
-... Il n'y a rien à lire ici
+1. Configurez le fichier `.my.cnf` à la racine du projet avec vos identifiants de base de données :
 
-javac -d bin -cp .:lib/junit-4.13.2.jar:src test/TestLivreExpress.java 
-java -cp .:lib/hamcrest-2.2.jar:lib/junit-4.13.2.jar:bin org.junit.runner.JUnitCore TestLivreExpress
+    ```ini
+    [client]
+    user=VotreNomUtilisateur
+    password=VotreMotDePasse
+    host=AdresseDuServeur
+    ```
 
+2. Depuis la racine du projet, exécutez :
+
+    ```bash
+    ./lancement.sh
+    ```
+
+    Cela :
+    - Crée la base de données (si vous avez les droits)
+    - Exécute les scripts SQL
+    - Compile le projet
+    - Génère la **Javadoc**
+    - Lance l'application dans le terminal
+
+---
+
+### ⚠️ Cas particulier : Pas de droit de création de base de données
+
+Si vous **n'avez pas les droits** pour créer une base de données :
+
+1. Ouvrez le fichier `lancement.sh`
+2. Repérez la ligne suivante :
+
+    ```bash
+    DBNAME=$"java"
+    ```
+
+3. Remplacez `"java"` par le nom de **votre** base de données existante.
+
+4. Relancez le script avec :
+
+    ```bash
+    ./lancement.sh
+    ```

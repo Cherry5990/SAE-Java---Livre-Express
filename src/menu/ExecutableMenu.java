@@ -1,43 +1,114 @@
 package menu;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Properties;
 import java.util.Scanner;
+
+import BD.ConnexionMySQL;
+
 public class ExecutableMenu{
 
+    private static final Scanner scan = new Scanner(System.in);
 
-    public static void menuPrincipal(){
+    public static void connexionBD(){
+        System.out.println("┌────────────────────────────────────────────────┐"); 
+        System.out.println("│ Bienvenue sur l'application Vallé Livre        │");
+        System.out.println("│ Veuillez rentrer votre nom d'utilisateur mysql │");
+        System.out.println("└────────────────────────────────────────────────┘");   
+        String action = scan.nextLine();
+        ExecutableMenu.connexionBD2(action);
+    }
+
+    public static void connexionBD2(String user){
+        System.out.println("┌────────────────────────────────────────────────┐"); 
+        System.out.println("│ Veuillez maintenant rentrer votre mot de passe │");
+        System.out.println("└────────────────────────────────────────────────┘");   
+        try{
+            ConnexionMySQL con = new ConnexionMySQL();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            String entre = reader.readLine();
+            con.connecter("localhost", "java", user, entre);
+            ExecutableMenu.menuPrincipal(con);
+        }
+        catch (SQLException e){
+            System.out.println("─────────────────────────────────────────────────────────");
+            System.out.println("Votre nom utilisateur ou votre mot de passe est incorrect");
+            System.out.println("Veuillez réessayer");
+            ExecutableMenu.connexionBD();
+        }
+        catch (ClassNotFoundException ex){
+            System.out.println("Driver MySQL non trouvé!!!");
+            System.exit(1);
+        }
+        catch (IOException ioe) {
+            System.out.println("Erreur lors de la lecture du mot de passe.");
+            System.exit(1);
+        }
+    }
+
+    public static void menuPrincipal(ConnexionMySQL con){
         System.out.println("┌──────────────────────────────────────────┐");        
-        System.out.println("│ Bienvenue sur l'application Vallé Libre  │");
-        System.out.println("│ 1:pour vous connecter en tant que Client │");
-        System.out.println("│ 2:pour vous connecter en tant que Vendeur│");
-        System.out.println("│ 3:pour vous connecter en tant qu'Admin   │");
-        System.out.println("│      Rentrez Q pour quitter l'appli      │");
+        System.out.println("│ Bienvenue sur l'application Vallé Livre  │");
+        System.out.println("│   1 - Connexion Client                   │");
+        System.out.println("│   2 - Connexion Vendeur                  │");
+        System.out.println("│   3 - Connexion Admin                    │");
+        System.out.println("│   Q - Quitter l'appli                    │");
         System.out.println("└──────────────────────────────────────────┘");   
-        
-        Scanner scan = new Scanner(System.in);
-        String  action = scan.nextLine();
+        String action = scan.nextLine();;
         switch (action) {
-            case "Q":
             case "q":{
                 System.out.println("Vous quitter l'application");
                 break;}          
             case "1":
-                MenuClient.menuClient();
+                MenuClient.connexionClient(con);
                 break;
             case "2":
-                MenuVendeur.menuVendeur();
+                MenuVendeur.connexionVendeur(con);
                 break;
             case "3":
-                MenuAdmin.menuAdmin();
+                MenuAdmin.connexionAdmin(con);
                 break;
             default:
-            System.out.println("Veuillez rentrer une commande valide");           
+                System.out.println("Veuillez rentrer une commande valide");     
+                menuPrincipal(con);      
                 break;
+            }
+    }
+
+    public static void connexionV2(){
+        Properties props = new Properties();
+        try {
+            // 1. Charger le fichier de configuration
+            FileInputStream in = new FileInputStream("config.properties");
+            props.load(in);
+            in.close();
+
+            // 2. Récupérer les paramètres
+            String user = props.getProperty("db.user");
+            String password = props.getProperty("db.password");
+            String host = props.getProperty("db.host");
+            String database = props.getProperty("db.database");
+
+            ConnexionMySQL con = new ConnexionMySQL();
+            con.connecter(host, database, user,password );
+            ExecutableMenu.menuPrincipal(con);
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
         
-        ExecutableMenu.menuPrincipal();
+        ExecutableMenu.connexionV2();
     }
 }
     
