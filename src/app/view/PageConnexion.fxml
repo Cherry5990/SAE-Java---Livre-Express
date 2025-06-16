@@ -38,11 +38,11 @@
       </BorderPane>
    </top>
    <center>
-      <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-image: page_accueil.jpg;" BorderPane.alignment="CENTER">
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="349.0" fitWidth="599.0" nodeOrientation="INHERIT">
                <image>
-                  <Image url="@../../../img/page_accueil.jpg" />
+                  <Image url="@../../../img/FondFloute.png" />
                </image>
                <effect>
                   <BoxBlur height="0.0" iterations="3" />

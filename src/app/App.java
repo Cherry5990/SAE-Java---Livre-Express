@@ -34,13 +34,13 @@ public class App extends Application{
             String database = props.getProperty("db.database");
 
             this.con = new ConnexionMySQL();
-            this.con.connecter(host, database, user,password );
+            this.con.connecter(host, database, user,password);
+            App.clientBD = new ClientBD(this.con);
+            App.vendeurBD = new VendeurBD(this.con);
         }
         catch (Exception e) {
             System.out.println("Problème de connexion à la BD : "+e.getMessage());
         }
-        App.clientBD = new ClientBD(this.con);
-        App.vendeurBD = new VendeurBD(this.con);
 
     }
 
