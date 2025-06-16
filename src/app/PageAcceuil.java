@@ -14,7 +14,7 @@ public class PageAcceuil {
     private Scene scene;
 
     public PageAcceuil(App app)throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("view/PageChoixCompte.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("view/PageMenuPrincipal.fxml"));
         this.scene = new Scene(root);
         Button buttonClient = (Button) this.scene.lookup("#client");
         Button buttonVendeur = (Button) this.scene.lookup("#vendeur");

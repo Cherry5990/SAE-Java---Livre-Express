@@ -12,53 +12,59 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: /../../img/Fond.jpg;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: /../../img/Fond.jpg;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <BorderPane prefHeight="100.0" prefWidth="1200.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="150.0" prefWidth="1200.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <right>
-            <Label prefHeight="66.0" prefWidth="187.0" text="Ajouter un livre" BorderPane.alignment="CENTER">
+            <Label prefHeight="66.0" prefWidth="203.0" text="Ajouter un livre" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Caladea Regular" size="28.0" />
+                  <Font name="Caladea" size="30.0" />
                </font>
                <BorderPane.margin>
-                  <Insets right="10.0" />
+                  <Insets bottom="25.0" right="10.0" />
                </BorderPane.margin>
             </Label>
          </right>
          <left>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button contentDisplay="TOP" graphicTextGap="1.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="149.0" style="-fx-background-color: transparent;" text="Livre Express">
+                  <Button fx:id="temporaire" mnemonicParsing="false" style="-fx-background-color: transparent;">
                      <graphic>
-                        <ImageView fx:id="pageChoixCompte" fitHeight="59.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="pageChoixCompte" fitHeight="94.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../img/LivreOuvert.png" />
+                              <Image url="@../../../../img/icone.png" />
                            </image>
                         </ImageView>
                      </graphic>
+                     <HBox.margin>
+                        <Insets bottom="25.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="deconnexion" contentDisplay="TOP" graphicTextGap="1.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" style="-fx-background-color: transparent;">
                      <font>
                         <Font name="Caladea Regular" size="19.0" />
                      </font>
-                  </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent;">
                      <graphic>
-                        <ImageView fx:id="deconnexion" fitHeight="44.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="deconnexion" fitHeight="62.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../img/icônes/deconnexion.png" />
+                              <Image url="@../../../../img/icônes/deconnexion.png" />
                            </image>
                         </ImageView>
                      </graphic>
+                     <HBox.margin>
+                        <Insets bottom="25.0" />
+                     </HBox.margin>
                   </Button>
                </children>
             </HBox>
          </left>
          <center>
-            <Label text="Vendeur" BorderPane.alignment="CENTER">
+            <Label prefHeight="80.0" prefWidth="200.0" text="Vendeur" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Caladea Regular" size="50.0" />
+                  <Font name="Caladea" size="50.0" />
                </font>
                <BorderPane.margin>
-                  <Insets right="9.0" />
+                  <Insets bottom="25.0" />
                </BorderPane.margin>
             </Label>
          </center>
@@ -67,21 +73,24 @@
    <center>
       <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-image: page_accueil.jpg;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="739.0" fitWidth="1200.0" nodeOrientation="INHERIT">
+            <ImageView fitHeight="700.0" fitWidth="1200.0" nodeOrientation="INHERIT">
                <image>
-                  <Image url="@../../../img/FondFloute.png" />
+                  <Image url="@../../../../img/FondFloute.png" />
                </image>
                <effect>
                   <BoxBlur height="0.0" iterations="3" />
                </effect>
+               <StackPane.margin>
+                  <Insets bottom="30.0" />
+               </StackPane.margin>
             </ImageView>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-                  <Button fx:id="retour" alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Retour à la page de &#10;gestion des stocks" textFill="WHITE" BorderPane.alignment="CENTER_LEFT">
+                  <Button fx:id="retourGestionStocks" alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Retour à la page de &#10;gestion des stocks" textFill="WHITE" BorderPane.alignment="CENTER_LEFT">
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../img/icônes/retour.png" />
+                              <Image url="@../../../../img/icônes/retour.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -143,12 +152,15 @@
                                  </font>
                               </TextField>
                            </children>
+                           <BorderPane.margin>
+                              <Insets />
+                           </BorderPane.margin>
                         </VBox>
                      </center>
                      <bottom>
-                        <HBox alignment="TOP_CENTER" prefHeight="177.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+                        <HBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Button fx:id="resetLivre" mnemonicParsing="false" prefHeight="120.0" prefWidth="240.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Réinitialiser ">
+                              <Button fx:id="resetLivre" mnemonicParsing="false" prefHeight="110.0" prefWidth="220.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Réinitialiser ">
                                  <HBox.margin>
                                     <Insets right="20.0" />
                                  </HBox.margin>
@@ -156,7 +168,7 @@
                                     <Font name="Caladea Regular" size="35.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="ajouterLivre" mnemonicParsing="false" prefHeight="120.0" prefWidth="240.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Ajouter">
+                              <Button fx:id="ajouterLivre" mnemonicParsing="false" prefHeight="110.0" prefWidth="220.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Ajouter">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
@@ -165,6 +177,9 @@
                                  </font>
                               </Button>
                            </children>
+                           <BorderPane.margin>
+                              <Insets />
+                           </BorderPane.margin>
                         </HBox>
                      </bottom>
                   </BorderPane>

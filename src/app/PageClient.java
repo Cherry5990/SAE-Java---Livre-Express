@@ -1,6 +1,5 @@
 package app;
 import modele.Client;
-import modele.Commande;
 import modele.Livre;
 import modele.Magasin;
 
@@ -32,17 +31,12 @@ public class PageClient {
     private Client client;
     private List<Livre> recomandation;
     private HBox livres;
-    private int positionLivre; 
-    private List<Commande> commandes;
-    private HBox hBoxCommande;
-    private int positionCommande;
-    private App app;
+    private int position; 
 
     public PageClient(App app,Client c)throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("view/PageAccueilClient.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("view/Client/PageClientAccueil.fxml"));
         this.scene = new Scene(root);
         this.client = c;
-        this.app = app;
 
         this.magasin = (ComboBox<String>) this.scene.lookup("#comboMag");
         List<Magasin> magasins = App.magasinBD.getAllMagasins();
@@ -52,61 +46,19 @@ public class PageClient {
 
         Button connecter = (Button) this.scene.lookup("#connexion");
         connecter.setOnAction(new ControleurConnexionMagasin(this,app));
-        connecter.setOnMouseEntered(e -> connecter.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-scale-x: 1.05; -fx-scale-y: 1.05;"));
-        connecter.setOnMouseExited(e -> connecter.setStyle("-fx-background-color: a6897e;"));
-
-        Button suivant = (Button) this.scene.lookup("#suivant");
-        suivant.setOnAction(new ControleurSuivant(this));
-        suivant.setOnMouseEntered(e -> suivant.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-scale-x: 1.08; -fx-scale-y: 1.08; -fx-effect: dropshadow(gaussian, #1976D2, 10, 0.5, 0, 2);"));
-        suivant.setOnMouseExited(e -> suivant.setStyle("-fx-background-color: transparent;"));
-
-        Button avant = (Button) this.scene.lookup("#avant");
-        avant.setOnAction(new ControleurAvant(this));
-        avant.setOnMouseEntered(e -> avant.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-scale-x: 1.08; -fx-scale-y: 1.08; -fx-effect: dropshadow(gaussian, #1976D2, 10, 0.5, 0, 2);"));
-        avant.setOnMouseExited(e -> avant.setStyle("-fx-background-color: transparent;"));
-
-        Button suivant1 = (Button) this.scene.lookup("#suivant1");
-        suivant1.setOnAction(new ControleurSuivant1(this));
-        suivant1.setOnMouseEntered(e -> suivant1.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-scale-x: 1.08; -fx-scale-y: 1.08; -fx-effect: dropshadow(gaussian, #1976D2, 10, 0.5, 0, 2);"));
-        suivant1.setOnMouseExited(e -> suivant1.setStyle("-fx-background-color: transparent;"));
-
-        Button avant1 = (Button) this.scene.lookup("#avant1");
-        avant1.setOnAction(new ControleurAvant1(this));
-        avant1.setOnMouseEntered(e -> avant1.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-scale-x: 1.08; -fx-scale-y: 1.08; -fx-effect: dropshadow(gaussian, #1976D2, 10, 0.5, 0, 2);"));
-        avant1.setOnMouseExited(e -> avant1.setStyle("-fx-background-color: transparent;"));
 
         try{
-            this.positionLivre=0;
+            this.position=0;
             this.recomandation = App.clientBD.getRecommandationClient(c.getId());
             this.livres = (HBox) this.scene.lookup("#livres");
-            int count = Math.min(4, recomandation.size());
+            int count = Math.min(3, recomandation.size());
             for (int i = 0; i < count; i++) {
-                Livre livreData = recomandation.get(i);
-                if (livreData != null) {
-                    LivreDisplay livre = new LivreDisplay(new ControleurConsulterLivre(app), livreData);
-                    this.livres.getChildren().add(livre);
-                }
+                LivreDisplay livre = new LivreDisplay(recomandation.get(i));
+                this.livres.getChildren().add(livre);
             }
         }
         catch(SQLException e){
-            System.out.println("Pas de recommandation"+e.getMessage());
-        }
-
-        try{
-            this.positionCommande=0;
-            this.commandes= App.commandeBD.CommandeClient(c.getId());
-            this.hBoxCommande = (HBox) this.scene.lookup("#commandes");
-            int count = Math.min(4, commandes.size());
-            for (int i = 0; i < count; i++) {
-                Commande commandedata = commandes.get(i);
-                if (commandedata != null) {
-                    CommandeDisplay com = new CommandeDisplay(new ControleurConsulterLivre(app), commandedata);
-                    this.hBoxCommande.getChildren().add(com);
-                }
-            }
-        }
-        catch(SQLException e){
-            System.out.println("Pas de commande"+e.getMessage());
+            System.out.println("caca");
         }
     }
 
@@ -114,33 +66,20 @@ public class PageClient {
         return App.magasinBD.getMagasin(this.magasin.getValue());
     }
 
-    public void majRecommandation() {
+    public void majLivre(){
+        this.livres = (HBox) this.scene.lookup("#livres");
         this.livres.getChildren().clear();
-        int count = Math.min(4, recomandation.size() - positionLivre);
-        for (int j = 0; j < count; j++) {
-            Livre livreData = recomandation.get(positionLivre + j);
-            if (livreData != null) {
-                LivreDisplay livre = new LivreDisplay(new ControleurConsulterLivre(app), livreData);
+        for (int j = 0; j < 3; j++) {
+            if (position + j < recomandation.size()) {
+                LivreDisplay livre = new LivreDisplay(recomandation.get(position + j));
                 this.livres.getChildren().add(livre);
             }
         }
+        position+=3;
     }
 
-    public void majCommande() {
-        this.hBoxCommande.getChildren().clear();
-        int count = Math.min(4, commandes.size() - positionCommande);
-        for (int j = 0; j < count; j++) {
-            Commande dataCommande = commandes.get(positionCommande + j);
-            if (dataCommande!= null) {
-                CommandeDisplay com = new CommandeDisplay(new ControleurConsulterLivre(app), dataCommande);
-                this.hBoxCommande.getChildren().add(com);
-            }
-        }
-    }
-
-
-    public void setPositionLivre(int pos){
-        this.positionLivre=pos;
+    public void setPosition(int pos){
+        this.position=pos;
     }
     
 
@@ -151,26 +90,4 @@ public class PageClient {
     public Client getClient() {
         return client;
     }
-
-    public Integer getPositionLivre(){
-        return this.positionLivre;
-    }
-
-    public int getNbLivre(){
-        return this.recomandation.size();
-    }
-
-    public void setPositionCommande(int pos){
-        this.positionCommande = pos;
-    }
-
-
-    public Integer getPositionCommande(){
-        return this.positionCommande;
-    }
-
-    public int getNbCommande(){
-        return this.commandes.size();
-    }
-
 }
