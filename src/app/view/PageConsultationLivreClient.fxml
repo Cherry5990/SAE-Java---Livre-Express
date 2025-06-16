@@ -18,7 +18,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="756.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
+      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <right>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Connexion" BorderPane.alignment="CENTER">
                <BorderPane.margin>
@@ -30,7 +30,7 @@
             </Text>
          </right>
          <left>
-            <HBox alignment="CENTER" prefHeight="126.0" prefWidth="483.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="73.0" prefWidth="483.0" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="125.0" fitWidth="98.0" style="-fx-fit-height: 60; -fx-fit-width: 90;">
                      <image>
@@ -104,16 +104,16 @@
                <center>
                   <BorderPane prefHeight="200.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                      <left>
-                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 30;" BorderPane.alignment="CENTER">
+                        <Pane prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 30;" BorderPane.alignment="CENTER">
                            <children>
-                              <ImageView fitHeight="200.0" fitWidth="200.0" preserveRatio="true" style="-fx-scale-x: 0.8; -fx-scale-y: 0.8;">
+                              <ImageView fitHeight="186.0" fitWidth="200.0" layoutX="7.0" layoutY="14.0" preserveRatio="true" style="-fx-scale-x: 0.8; -fx-scale-y: 0.8;">
                                  <image>
                                     <Image url="@../../../img/icônes/livre.png" />
                                  </image>
                               </ImageView>
                            </children>
                            <BorderPane.margin>
-                              <Insets bottom="30.0" left="5.0" top="30.0" />
+                              <Insets bottom="30.0" left="5.0" top="40.0" />
                            </BorderPane.margin>
                         </Pane>
                      </left>
@@ -125,9 +125,9 @@
                                     <Insets bottom="20.0" left="40.0" right="40.0" />
                                  </VBox.margin>
                               </TextField>
-                              <TableView fixedCellSize="1.0" prefHeight="200.0" prefWidth="322.0">
+                              <TableView fixedCellSize="1.0" prefHeight="200.0" prefWidth="322.0" style="-fx-background-color: transparent; -fx-border-color: #e8e4df; -fx-border-width: 3;">
                                 <columns>
-                                  <TableColumn fx:id="colonneISBN" prefWidth="60.0" text="ISBN" />
+                                  <TableColumn fx:id="colonneISBN" editable="false" prefWidth="60.0" text="ISBN" />
                                   <TableColumn fx:id="colonnePrix" prefWidth="50.0" text="Prix" />
                                   <TableColumn fx:id="colonnePages" prefWidth="50.0" text="Pages" />
                                   <TableColumn fx:id="colonneTheme" prefWidth="100.0" text="Thème" />
@@ -142,22 +142,28 @@
                               </TableView>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Button mnemonicParsing="false" style="-fx-background-radius: 30; -fx-background-color: #a6897e; -fx-text-fill: white;" text="Ajouter au panier">
+                                    <Button mnemonicParsing="false" prefHeight="0.0" prefWidth="108.0" style="-fx-background-radius: 30; -fx-background-color: #a6897e; -fx-text-fill: white;" text="Ajouter au panier">
                                        <HBox.margin>
                                           <Insets left="20.0" />
                                        </HBox.margin>
+                                       <font>
+                                          <Font name="Amiri Regular" size="13.0" />
+                                       </font>
                                     </Button>
                                     <HBox prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantité :">
+                                          <Text fill="#e8e4df" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantité :">
                                              <font>
                                                 <Font name="Amiri Bold" size="16.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets left="20.0" right="7.0" />
+                                                <Insets left="20.0" right="7.0" top="2.0" />
                                              </HBox.margin>
                                           </Text>
-                                          <Spinner fx:id="spinner" />
+                                          <Spinner fx:id="spinner">
+                                             <HBox.margin>
+                                                <Insets top="2.0" />
+                                             </HBox.margin></Spinner>
                                        </children>
                                     </HBox>
                                  </children>
