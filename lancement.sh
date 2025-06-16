@@ -2,7 +2,7 @@
 
 MYCNF=".my.cnf"
 PROPERTIES_FILE="config.properties"
-MAIN_CLASS="menu.ExecutableMenu"
+MAIN_CLASS="app.App"
 
 # Fonction pour extraire une clé depuis .my.cnf
 get_value() {
@@ -13,7 +13,7 @@ get_value() {
 USER=$(get_value user)
 PASSWORD=$(get_value password)
 HOST=$(get_value host)
-DBNAME=$"DBfronton"
+DBNAME=$"java"
 
 # Vérification que .my.cnf existe
 if [ ! -f "$MYCNF" ]; then  #-f Si le chemin existe ET si c'est un fichier régulier 
@@ -72,4 +72,4 @@ else
 fi
 
 echo "🚀 Lancement de l'application..."
-java -cp "lib/*:bin" $MAIN_CLASS
+java -cp "lib/*:bin" --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml $MAIN_CLASS
