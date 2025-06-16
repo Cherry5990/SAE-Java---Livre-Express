@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class App extends Application{
@@ -86,6 +87,11 @@ public class App extends Application{
 
     public void sceneMagasin(Client c,Magasin mag)throws IOException{
         PageMagasin page = new PageMagasin(this,c, mag);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void sceneConsultationLivre(Livre livre)throws IOException{
+        PageConsultationLivre page = new PageConsultationLivre(this, livre);
         primaryStage.setScene(page.getScene());
     }
 
