@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: /../../img/Fond.jpg;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <BorderPane prefHeight="150.0" prefWidth="1200.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
+         <right>
+            <Label prefHeight="66.0" prefWidth="155.0" text="Connexion" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Caladea" size="30.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets bottom="25.0" right="10.0" />
+               </BorderPane.margin>
+            </Label>
+         </right>
+         <left>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="pageChoixCompte" fitHeight="94.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/icone.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="25.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Button fx:id="deconnexion" contentDisplay="TOP" graphicTextGap="1.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" style="-fx-background-color: transparent;">
+                     <font>
+                        <Font name="Caladea Regular" size="19.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="25.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </left>
+         <center>
+            <Label prefHeight="80.0" prefWidth="334.0" text="Menu Principal" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Caladea" size="50.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets bottom="25.0" />
+               </BorderPane.margin>
+            </Label>
+         </center>
+      </BorderPane>
+   </top>
+   <center>
+      <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-image: page_accueil.jpg;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="740.0" fitWidth="1200.0" nodeOrientation="INHERIT">
+               <image>
+                  <Image url="@../../../img/FondFloute.png" />
+               </image>
+               <effect>
+                  <BoxBlur height="0.0" iterations="3" />
+               </effect>
+            </ImageView>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <top>
+                  <Label prefHeight="12.0" prefWidth="611.0" text="Se connecter en tant que ..." textFill="WHITE" BorderPane.alignment="BOTTOM_CENTER">
+                     <font>
+                        <Font name="Caladea" size="54.0" />
+                     </font>
+                     <BorderPane.margin>
+                        <Insets top="100.0" />
+                     </BorderPane.margin>
+                  </Label>
+               </top>
+               <left>
+                  <Button fx:id="client" contentDisplay="TOP" minHeight="272.0" mnemonicParsing="false" prefWidth="272.0" style="-fx-background-color: e8e4df; -fx-background-radius: 30;" text="Client" BorderPane.alignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="183.0" fitWidth="200.0">
+                           <image>
+                              <Image url="@../../../img/IconClient.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Caladea Bold" size="36.0" />
+                     </font>
+                     <BorderPane.margin>
+                        <Insets left="100.0" />
+                     </BorderPane.margin>
+                  </Button>
+               </left>
+               <center>
+                  <Button fx:id="vendeur" contentDisplay="TOP" mnemonicParsing="false" prefHeight="272.0" prefWidth="272.0" style="-fx-background-color: e8e4df; -fx-background-radius: 30;" text="Vendeur" BorderPane.alignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="190.0" fitWidth="200.0">
+                           <image>
+                              <Image url="@../../../img/IconVendeur.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Caladea Bold" size="36.0" />
+                     </font>
+                  </Button>
+               </center>
+               <right>
+                  <Button fx:id="admin" contentDisplay="TOP" mnemonicParsing="false" prefHeight="272.0" prefWidth="272.0" style="-fx-background-color: e8e4df; -fx-background-radius: 30;" text="Admin" BorderPane.alignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="200.0" fitWidth="188.0">
+                           <image>
+                              <Image url="@../../../img/IconAdmin.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Caladea Bold" size="36.0" />
+                     </font>
+                     <BorderPane.margin>
+                        <Insets right="100.0" />
+                     </BorderPane.margin>
+                  </Button>
+               </right>
+            </BorderPane>
+         </children>
+      </StackPane>
+   </center>
+</BorderPane>
