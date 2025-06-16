@@ -58,18 +58,18 @@ fi
 echo "🛠 Vérification de l'existence du dossier bin..."
 if [ ! -d "bin" ]; then
     echo "🧮 Compilation du projet ..."
-    javac -d bin -cp "lib/*:src" src/*/*.java
+    javac -d bin --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml -cp "lib/*:src" src/*/*.java
 else
     echo "✅ Le dossier bin existe déjà."
 fi
 
-echo "🛠 Vérification de l'existence du dossier doc..."
-if [ ! -d "doc" ]; then
-    echo "📃 génération de la javadoc..."
-    javadoc -d doc src/*/*.java
-else
-    echo "✅ Le dossier doc existe déjà."
-fi
+#echo "🛠 Vérification de l'existence du dossier doc..."
+#if [ ! -d "doc" ]; then
+#    echo "📃 génération de la javadoc..."
+#    javadoc -d doc src/*/*.java --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml
+#else
+#    echo "✅ Le dossier doc existe déjà."
+#fi
 
 echo "🚀 Lancement de l'application..."
-java -cp "lib/*:bin" --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml $MAIN_CLASS
+java --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml -cp "lib/*:bin" $MAIN_CLASS

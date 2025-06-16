@@ -105,12 +105,12 @@ public class MenuClient {
     }
 
     public static void sousMenuCommandePasser(ConnexionMySQL con){
-        try{
-            System.out.println(comBD.voirCommandeClient(client.getId()));
-        }
-        catch(SQLException e){
-            System.out.println("commande qui n'existe pas : "+e.getMessage());
-        }
+        //try{
+        //    System.out.println(comBD.voirCommandeClient(client.getId()));
+        //}
+        //catch(SQLException e){
+        //    System.out.println("commande qui n'existe pas : "+e.getMessage());
+        //}
         System.out.println("┌───────────────────────────────────────────────┐");
         System.out.println("│ Entrez le numéro de la commande à détailler   │");
         System.out.println("│ [Q] Retour                                    │");
@@ -190,7 +190,7 @@ public class MenuClient {
     
 
     public static void chosirUnMagasin(ConnexionMySQL con){
-        System.out.println(magBD.afficheMagasins());
+        //System.out.println(magBD.afficheMagasins());
         System.out.println("┌───────────────────────────────────────────┐"); 
         System.out.println("│   Veuillez saisir le numéro du magasin:   │");
         System.out.println("└───────────────────────────────────────────┘"); 
