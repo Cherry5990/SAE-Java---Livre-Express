@@ -1,4 +1,10 @@
 package app;
+import BD.*;
+import modele.*;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -8,12 +14,33 @@ import javafx.stage.Stage;
 
 public class App extends Application{
     private Stage primaryStage;
-    private Pane centre;
-    private Pane top;
-
+    public static ClientBD clientBD;
+    public static VendeurBD vendeurBD;
+    private ConnexionMySQL con;
 
     @Override
     public void init(){
+        Properties props = new Properties();
+        try {
+            // 1. Charger le fichier de configuration
+            FileInputStream in = new FileInputStream("config.properties");
+            props.load(in);
+            in.close();
+
+            // 2. Récupérer les paramètres
+            String user = props.getProperty("db.user");
+            String password = props.getProperty("db.password");
+            String host = props.getProperty("db.host");
+            String database = props.getProperty("db.database");
+
+            this.con = new ConnexionMySQL();
+            this.con.connecter(host, database, user,password);
+            App.clientBD = new ClientBD(this.con);
+            App.vendeurBD = new VendeurBD(this.con);
+        }
+        catch (Exception e) {
+            System.out.println("Problème de connexion à la BD : "+e.getMessage());
+        }
 
     }
 
@@ -26,8 +53,33 @@ public class App extends Application{
     }
 
     public void sceneAcceuil(){
-        PageAcceuil acceuil = new PageAcceuil(this);
-        primaryStage.setScene(acceuil.getScene());
+        try{
+            PageAcceuil acceuil = new PageAcceuil(this);
+            primaryStage.setScene(acceuil.getScene());
+        }
+        catch(IOException e){
+            System.out.println("problème scenAceuil()");
+        }
+    }
+
+    public void sceneConnexion(String utilisateur)throws IOException{
+        PageConnexion page = new PageConnexion(this,utilisateur);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void sceneClient(Client c){
+        PageClient page = new PageClient(this,c);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void sceneVendeur(Vendeur v){
+        PageVendeur page = new PageVendeur(this,v);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void sceneAdmin(){
+        PageAdmin page = new PageAdmin(this);
+        primaryStage.setScene(page.getScene());
     }
 
 
