@@ -68,12 +68,7 @@ public class LivreDisplay extends Button {
         this.livre = livre;
         ImageView imageLivre = new ImageView("file:img/icônes/livre.png");
         this.titre = livre.getTitre();
-        if (this.titre.length()>15){
-            this.texte = new Text(this.titre.substring(0, 15) + "...");
-        }
-        else{
-            this.texte = new Text(this.titre); 
-        }
+        this.texte = new Text(this.titre.substring(0, 15) + "...");
         imageLivre.setFitHeight(100);
         imageLivre.setFitWidth(100);
         VBox interieurBouton = new VBox(5);

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: /../../img/Fond.jpg;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <BorderPane prefHeight="150.0" prefWidth="120.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
+         <right>
+            <Label prefHeight="52.0" prefWidth="211.0" text="Gérer les stocks" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Caladea" size="30.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets bottom="25.0" right="10.0" />
+               </BorderPane.margin>
+            </Label>
+         </right>
+         <left>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button contentDisplay="TOP" graphicTextGap="1.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="106.0" style="-fx-background-color: transparent;">
+                     <font>
+                        <Font name="Caladea Regular" size="11.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fx:id="termporaire" fitHeight="94.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../img/icone.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets bottom="25.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="deconnexion" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                     <graphic>
+                        <ImageView fx:id="deconnexion" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../img/icônes/deconnexion.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets bottom="25.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </left>
+         <center>
+            <Label text="Vendeur" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Caladea" size="50.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets bottom="25.0" />
+               </BorderPane.margin>
+            </Label>
+         </center>
+      </BorderPane>
+   </top>
+   <center>
+      <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-image: page_accueil.jpg;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="700.0" fitWidth="1200.0" nodeOrientation="INHERIT">
+               <image>
+                  <Image url="@../../../../img/FondFloute.png" />
+               </image>
+               <effect>
+                  <BoxBlur height="0.0" iterations="3" />
+               </effect>
+               <StackPane.margin>
+                  <Insets bottom="30.0" />
+               </StackPane.margin>
+            </ImageView>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <top>
+                  <Button fx:id="retour" alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Retour à l'accueil" textFill="WHITE" BorderPane.alignment="CENTER_LEFT">
+                     <graphic>
+                        <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../img/icônes/retour.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Caladea Regular" size="16.0" />
+                     </font>
+                  </Button>
+               </top>
+               <center>
+                  <VBox alignment="CENTER" prefHeight="308.0" prefWidth="597.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="205.0" prefWidth="602.0">
+                           <children>
+                              <Button fx:id="ajouterLivre" contentDisplay="TOP" maxHeight="122.0" maxWidth="126.0" minHeight="240.0" minWidth="240.0" mnemonicParsing="false" prefHeight="240.0" prefWidth="240.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Ajouter un livre">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" right="40.0" />
+                                 </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="144.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../img/icônes/ajouterLivre.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font name="Caladea" size="26.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="majQteLivre" contentDisplay="TOP" maxHeight="122.0" maxWidth="126.0" minHeight="240.0" minWidth="240.0" mnemonicParsing="false" prefHeight="122.0" prefWidth="126.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Mise à jour de la &#10;quantité d'un livre">
+                                 <graphic>
+                                    <ImageView fitHeight="144.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../img/icônes/majStock.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font name="Caladea" size="25.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="40.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="62.0" prefHeight="205.0" prefWidth="602.0">
+                           <children>
+                              <Button fx:id="voirStock" contentDisplay="TOP" maxHeight="122.0" maxWidth="126.0" minHeight="240.0" minWidth="240.0" mnemonicParsing="false" prefHeight="122.0" prefWidth="126.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Voir le stocks &#10;du magasin">
+                                 <HBox.margin>
+                                    <Insets right="40.0" top="20.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="Caladea" size="27.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="144.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../img/icônes/voirStock.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="transfererLivre" contentDisplay="TOP" maxHeight="122.0" maxWidth="126.0" minHeight="240.0" minWidth="240.0" mnemonicParsing="false" prefHeight="122.0" prefWidth="126.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Transférer un livre &#10;depuis un magasin">
+                                 <graphic>
+                                    <ImageView fitHeight="144.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../img/icônes/transferStock.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font name="Caladea" size="23.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="40.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </center>
+            </BorderPane>
+         </children>
+      </StackPane>
+   </center>
+</BorderPane>
