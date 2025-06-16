@@ -19,7 +19,7 @@
                <children>
                   <ImageView fitHeight="39.0" fitWidth="93.0" layoutX="20.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../img/LivreOuvert.png" />
+                        <Image url="@../../../img/LivreOuvert.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="8.0" layoutY="39.0" text="Livre Express">
@@ -52,7 +52,7 @@
             </ImageView>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                  <BorderPane prefHeight="262.0" prefWidth="619.0">
                      <left>
                         <Button fx:id="client" maxHeight="105.0" maxWidth="105.0" minWidth="105.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: e8e4df;" BorderPane.alignment="CENTER">
                            <contentDisplay>TOP</contentDisplay>
