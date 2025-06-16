@@ -1,5 +1,8 @@
 package BD;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import modele.Magasin;
 
 
@@ -139,22 +142,17 @@ public class MagasinBD {
      * Cette méthode permet d'afficher toutes les informations de tous les magasins de la base de données
      * @return une chaîne de caractères contenant les informations sur les magasins
      */
-    public String afficheMagasins(){
-        StringBuilder sb = new StringBuilder();
+    public List<Magasin> getAllMagasins(){
+        List<Magasin> magasins = new ArrayList<>();
         try (PreparedStatement ps = laConnexion.prepareStatement("SELECT idmag, nommag, villemag FROM MAGASIN")) {
             ResultSet rs = ps.executeQuery();
-            sb.append("─────────────────────────────────────────────\n");
-            sb.append(String.format("%-8s %-30s %-20s\n", "numéro", "nom", "ville"));
             while (rs.next()) {
-                sb.append(String.format("%-8d %-30s %-20s\n",
-                        rs.getInt("idmag"),
-                        rs.getString("nommag"),
-                        rs.getString("villemag")));
+                magasins.add(new Magasin(rs.getInt("idmag"), rs.getString("nommag"), rs.getString("villemag")));
             }
-        } catch (SQLException e) {
-            sb.append("Erreur lors de l'affichage des magasins : ").append(e.getMessage());
+        }catch (SQLException e) {
+            System.out.println("Erreur lors de l'affichage des magasins : "+e.getMessage());
         }
-        return sb.toString();
+        return magasins;
     }
 
     /**
@@ -199,6 +197,20 @@ public class MagasinBD {
             ps.setInt(1, mag);
             ResultSet rs = ps.executeQuery();
             rs.next();
+            return new Magasin(rs.getInt("idmag"),
+                            rs.getString("nommag"),
+                            rs.getString("villemag"));
+        }
+    }
+
+    public Magasin getMagasin(String nomMag)throws SQLException{
+        try(PreparedStatement ps =laConnexion.prepareStatement("select idmag,nommag,villemag from MAGASIN where nommag=?;")){
+            ps.setString(1, nomMag);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            if (!rs.next()) {
+                return null;
+            }
             return new Magasin(rs.getInt("idmag"),
                             rs.getString("nommag"),
                             rs.getString("villemag"));
