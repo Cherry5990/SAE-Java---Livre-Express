@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -46,26 +45,26 @@
                         </ImageView>
                         <Button mnemonicParsing="false" style="-fx-background-color: transparent;">
                            <graphic>
-                              <ImageView fitHeight="100.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../../img/icônes/panier.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                            <HBox.margin>
-                              <Insets top="40.0" />
+                              <Insets top="25.0" />
                            </HBox.margin>
                         </Button>
                         <Button mnemonicParsing="false" style="-fx-background-color: transparent;">
                            <graphic>
-                              <ImageView fitHeight="100.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../../img/icônes/deconnexion.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                            <HBox.margin>
-                              <Insets left="10.0" top="40.0" />
+                              <Insets left="10.0" top="25.0" />
                            </HBox.margin>
                         </Button>
                      </children>
@@ -114,7 +113,7 @@
                      <StackPane.margin>
                         <Insets />
                      </StackPane.margin>
-                     <right>
+                     <center>
                         <BorderPane prefHeight="600.0" prefWidth="874.0" BorderPane.alignment="CENTER">
                            <top>
                               <Text fill="#e8e4df" strokeType="OUTSIDE" strokeWidth="0.0" text="Valider votre commande" BorderPane.alignment="CENTER">
@@ -148,17 +147,17 @@
                                                             <Font name="Caladea" size="31.0" />
                                                          </font>
                                                          <HBox.margin>
-                                                            <Insets left="5.0" />
+                                                            <Insets left="5.0" right="5.0" />
                                                          </HBox.margin>
                                                       </Text>
-                                                      <TextField prefHeight="34.0" prefWidth="154.0" style="-fx-background-color: #a6897e; -fx-background-radius: 30;">
-                                                         <HBox.margin>
-                                                            <Insets left="5.0" />
-                                                         </HBox.margin>
+                                                      <Label fx:id="labelTotal" prefHeight="37.0" prefWidth="122.0" style="-fx-background-color: #a6897e; -fx-background-radius: 30;" textFill="#e8e4df">
                                                          <font>
-                                                            <Font size="31.0" />
+                                                            <Font name="Caladea" size="14.0" />
                                                          </font>
-                                                      </TextField>
+                                                         <HBox.margin>
+                                                            <Insets top="5.0" />
+                                                         </HBox.margin>
+                                                      </Label>
                                                    </children>
                                                 </HBox>
                                              </children>
@@ -195,13 +194,16 @@
                                                 </Pane>
                                              </left>
                                              <right>
-                                                <VBox prefHeight="244.0" prefWidth="543.0" BorderPane.alignment="CENTER">
+                                                <VBox alignment="TOP_CENTER" prefHeight="244.0" prefWidth="543.0" BorderPane.alignment="CENTER">
                                                    <children>
-                                                      <TextField fx:id="tfNomLivre1" prefHeight="48.0" prefWidth="400.0" style="-fx-background-color: #a6897e; -fx-background-radius: 30;">
+                                                      <Label fx:id="labelNomLivre1" alignment="CENTER" prefHeight="36.0" prefWidth="446.0" style="-fx-background-color: #a6897e; -fx-background-radius: 30;" textFill="#e8e4df">
                                                          <VBox.margin>
-                                                            <Insets bottom="20.0" left="20.0" right="50.0" top="20.0" />
+                                                            <Insets bottom="30.0" />
                                                          </VBox.margin>
-                                                      </TextField>
+                                                         <font>
+                                                            <Font name="Caladea" size="14.0" />
+                                                         </font>
+                                                      </Label>
                                                       <HBox prefHeight="100.0" prefWidth="200.0">
                                                          <children>
                                                             <VBox prefHeight="100.0" prefWidth="220.0">
@@ -213,10 +215,17 @@
                                                                               <Font name="Caladea" size="20.0" />
                                                                            </font>
                                                                            <HBox.margin>
-                                                                              <Insets left="10.0" right="5.0" />
+                                                                              <Insets left="10.0" right="5.0" top="5.0" />
                                                                            </HBox.margin>
                                                                         </Text>
-                                                                        <TextField editable="false" prefHeight="26.0" prefWidth="112.0" />
+                                                                        <Label fx:id="labelSousTotal" prefHeight="37.0" prefWidth="122.0" style="-fx-background-color: #a6897e; -fx-background-radius: 30;" textFill="#e8e4df">
+                                                                           <font>
+                                                                              <Font name="Caladea" size="14.0" />
+                                                                           </font>
+                                                                           <HBox.margin>
+                                                                              <Insets />
+                                                                           </HBox.margin>
+                                                                        </Label>
                                                                      </children>
                                                                   </HBox>
                                                                   <HBox prefHeight="38.0" prefWidth="115.0">
@@ -236,7 +245,7 @@
                                                             </VBox>
                                                             <Button mnemonicParsing="false" style="-fx-background-color: transparent;">
                                                                <graphic>
-                                                                  <ImageView fitHeight="50.0" fitWidth="50.0">
+                                                                  <ImageView fitHeight="64.0" fitWidth="64.0">
                                                                      <image>
                                                                         <Image url="@../../../../img/icônes/poubelle_rouge.png" />
                                                                      </image>
@@ -264,7 +273,7 @@
                                  <children>
                                     <VBox alignment="CENTER" layoutY="10.0" prefHeight="250.0" prefWidth="321.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Livraison à domicile ou retrait en magasin ?" textAlignment="CENTER" wrappingWidth="351.9281005859375">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Livraison à domicile ou retrait en magasin ?" textAlignment="CENTER" wrappingWidth="363.92816162109375">
                                              <font>
                                                 <Font name="Caladea" size="24.0" />
                                              </font>
@@ -317,7 +326,7 @@
                               <Insets />
                            </BorderPane.margin>
                         </BorderPane>
-                     </right>
+                     </center>
                   </BorderPane>
                </children>
             </StackPane>
