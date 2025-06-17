@@ -64,9 +64,6 @@
                <image>
                   <Image url="@../../../img/FondFloute.png" />
                </image>
-               <effect>
-                  <BoxBlur height="0.0" iterations="3" />
-               </effect>
             </ImageView>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>

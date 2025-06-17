@@ -58,13 +58,8 @@ public class App extends Application{
     }
 
     public void sceneAcceuil(){
-        try{
             PageAcceuil acceuil = new PageAcceuil(this);
             primaryStage.setScene(acceuil.getScene());
-        }
-        catch(IOException e){
-            System.out.println("problème scenAceuil()");
-        }
     }
 
     public void sceneConnexion(String utilisateur)throws IOException{

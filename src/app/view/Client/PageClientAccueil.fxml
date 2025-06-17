@@ -29,7 +29,7 @@
                      <graphic>
                         <ImageView fx:id="pageChoixCompte" fitHeight="36.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../img/LivreOuvert.png" />
+                              <Image url="@../../../../img/LivreOuvert.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -41,7 +41,7 @@
                      <graphic>
                         <ImageView fx:id="panier" fitHeight="24.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../img/icônes/panier.png" />
+                              <Image url="@../../../../img/icônes/panier.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -50,7 +50,7 @@
                      <graphic>
                         <ImageView fx:id="deconnexion" fitHeight="33.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../img/icônes/deconnexion.png" />
+                              <Image url="@../../../../img/icônes/deconnexion.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -65,7 +65,7 @@
          <children>
             <ImageView fitHeight="685.0" fitWidth="855.0" nodeOrientation="INHERIT">
                <image>
-                  <Image url="@../../../img/FondFloute.png" />
+                  <Image url="@../../../../img/FondFloute.png" />
                </image>
             </ImageView>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
@@ -74,7 +74,7 @@
                      <graphic>
                         <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../img/icônes/retour.png" />
+                              <Image url="@../../../../img/icônes/retour.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -112,7 +112,7 @@
                                        <graphic>
                                           <ImageView fitHeight="30.0" fitWidth="30.0">
                                              <image>
-                                                <Image url="@../../../img/precedent.png" />
+                                                <Image url="@../../../../img/precedent.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -132,7 +132,7 @@
                                        <graphic>
                                           <ImageView fitHeight="30.0" fitWidth="30.0">
                                              <image>
-                                                <Image url="@../../../img/suivant.png" />
+                                                <Image url="@../../../../img/suivant.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -155,7 +155,7 @@
                                        <graphic>
                                           <ImageView fitHeight="30.0" fitWidth="30.0">
                                              <image>
-                                                <Image url="@../../../img/precedent.png" />
+                                                <Image url="@../../../../img/precedent.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -175,7 +175,7 @@
                                        <graphic>
                                           <ImageView fitHeight="30.0" fitWidth="30.0">
                                              <image>
-                                                <Image url="@../../../img/suivant.png" />
+                                                <Image url="@../../../../img/suivant.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>

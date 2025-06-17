@@ -13,9 +13,14 @@ import javafx.scene.layout.Pane;
 public class PageAcceuil {
     private Scene scene;
 
-    public PageAcceuil(App app)throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("view/PageMenuPrincipal.fxml"));
-        this.scene = new Scene(root);
+    public PageAcceuil(App app){
+        try{
+            Pane root = FXMLLoader.load(getClass().getResource("view/PageMenuPrincipal.fxml"));
+            this.scene = new Scene(root);
+        }
+        catch(IOException e){
+            System.out.println(e.getMessage());
+        }
         Button buttonClient = (Button) this.scene.lookup("#client");
         Button buttonVendeur = (Button) this.scene.lookup("#vendeur");
         Button buttonAdmin = (Button) this.scene.lookup("#admin");

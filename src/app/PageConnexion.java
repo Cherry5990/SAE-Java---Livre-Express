@@ -13,7 +13,7 @@ import javafx.scene.text.Text;
 
 public class PageConnexion {
     private Scene scene;
-    private Text titre;
+    private Label titre;
     private Button con;
     private String utilisateur;
     private TextField id;
@@ -23,7 +23,7 @@ public class PageConnexion {
         Pane root = FXMLLoader.load(getClass().getResource("view/PageConnexion.fxml"));
         this.scene = new Scene(root);
 
-        this.titre = (Text) this.scene.lookup("#titre");
+        this.titre = (Label) this.scene.lookup("#titre");
         titre.setText(titre.getText() + utilisateur);
 
         Button con = (Button) this.scene.lookup("#connexion");

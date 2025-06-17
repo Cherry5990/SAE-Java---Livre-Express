@@ -57,7 +57,7 @@
             </ImageView>
             <VBox alignment="CENTER" prefHeight="349.0" prefWidth="605.0">
                <children>
-                  <Label text="Se connecter en tant que " textFill="WHITE">
+                  <Label fx:id="titre" text="Se connecter en tant que " textFill="WHITE">
                      <font>
                         <Font size="48.0" />
                      </font>
