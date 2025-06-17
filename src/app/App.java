@@ -92,6 +92,11 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
 
+    public void scenePanier(Commande commande)throws IOException{
+        PagePanier page = new PagePanier(this, commande);
+        primaryStage.setScene(page.getScene());
+    }
+
 
     public static void main(String[] args) {
         launch(args);
