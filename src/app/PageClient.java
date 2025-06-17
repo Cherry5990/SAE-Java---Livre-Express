@@ -37,18 +37,25 @@ public class PageClient {
     private HBox hBoxCommande;
     private int positionCommande;
     private App app;
+    private String magasinChoix;
 
     public PageClient(App app,Client c)throws IOException{
         Pane root = FXMLLoader.load(getClass().getResource("view/Client/PageClientAccueil.fxml"));
         this.scene = new Scene(root);
         this.client = c;
         this.app = app;
+        this.magasinChoix = "";
 
         this.magasin = (ComboBox<String>) this.scene.lookup("#comboMag");
+        
         List<Magasin> magasins = App.magasinBD.getAllMagasins();
         for(Magasin mag:magasins){
             this.magasin.getItems().add(mag.getNomMagasin());
         }
+        this.magasin.setOnAction(event -> {
+            String selectedMagasin = this.magasin.getValue();
+            this.setMagasinChoix(selectedMagasin);
+        });
 
         Button connecter = (Button) this.scene.lookup("#connexion");
         connecter.setOnAction(new ControleurConnexionMagasin(this,app));
@@ -110,8 +117,8 @@ public class PageClient {
         }
     }
 
-    public Magasin getMagasin() throws SQLException{
-        return App.magasinBD.getMagasin(this.magasin.getValue());
+    public String getMagasinChoix(){
+        return this.magasinChoix;
     }
 
     public void majRecommandation() {
@@ -136,6 +143,10 @@ public class PageClient {
                 this.hBoxCommande.getChildren().add(com);
             }
         }
+    }
+
+    public void setMagasinChoix(String mag){
+        this.magasinChoix = mag;
     }
 
 
