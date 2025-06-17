@@ -6,8 +6,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import modele.Client;
-import modele.Magasin;
 import modele.Livre;
 
 public class PageConsultationLivre {
