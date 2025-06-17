@@ -13,7 +13,7 @@ public class PageConsultationLivre {
     private Livre livre;
 
     public PageConsultationLivre(Application app, Livre livre) throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("view/PageConsultationLivre.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("view/Client/PageConsultationLivre.fxml"));
         this.scene = new Scene(root);
         this.livre = livre;
     }
