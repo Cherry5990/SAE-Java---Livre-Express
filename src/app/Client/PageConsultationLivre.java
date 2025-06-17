@@ -1,4 +1,4 @@
-package app;
+package app.Client;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ public class PageConsultationLivre {
     private Scene scene;
 
     public PageConsultationLivre(Application app) throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("view/Client/PageConsultationLivre.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("../view/Client/PageConsultationLivre.fxml"));
         this.scene = new Scene(root);
     }
 

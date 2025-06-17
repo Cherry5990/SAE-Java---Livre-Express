@@ -1,9 +1,11 @@
-package app;
+package app.Client;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.sql.SQLException;
 import java.util.List;
+
+import app.App;
 import modele.DetailCommande;
 
 import javafx.application.Application;
@@ -24,7 +26,7 @@ public class PageConsultationCommande {
     private Scene scene;
 
     public PageConsultationCommande(App app) throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("view/Client/PageConsultationCommande.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("../view/Client/PageConsultationCommande.fxml"));
         this.scene = new Scene(root);
 
         Label num = (Label)scene.lookup("#numero");

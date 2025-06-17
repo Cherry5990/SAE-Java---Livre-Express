@@ -39,11 +39,11 @@ public class PageVendeurGererStocks {
                 retour.setScaleY(1.0);
             });
         retour.setOnAction(e -> {
-            try {
-                app.scenePageVendeurAccueil();
-            } catch (IOException ex) {
-                System.out.println("Problème");
-            }
+            //try {
+            //    app.scenePageVendeurAccueil();
+            //} catch (IOException ex) {
+            //    System.out.println("Problème");
+            //}
         });
 
         //Bouton Ajouter Livre
@@ -57,11 +57,11 @@ public class PageVendeurGererStocks {
                 addLivre.setScaleY(1.0);
             });
         addLivre.setOnAction(e -> {
-            try {
-                app.scenePageVendeurAjouterLivre(this.vendeur);
-            } catch (IOException ex) {
-                System.out.println("Problème");
-            }
+            //try {
+            //    app.scenePageVendeurAjouterLivre(this.vendeur);
+            //} catch (IOException ex) {
+            //    System.out.println("Problème");
+            //}
         });
 
         //Bouton Mise à jour de la quantité de livres
@@ -75,11 +75,11 @@ public class PageVendeurGererStocks {
                 majQteLivre.setScaleY(1.0);
             });
         majQteLivre.setOnAction(e -> {
-            try {
-                app.scenePageVendeurMajQte(this.vendeur);
-            } catch (IOException ex) {
-                System.out.println("Problème");
-            }
+            //try {
+            //    app.scenePageVendeurMajQte(this.vendeur);
+            //} catch (IOException ex) {
+            //    System.out.println("Problème");
+            //}
         });
 
         //Bouton Voir le stock du magasin

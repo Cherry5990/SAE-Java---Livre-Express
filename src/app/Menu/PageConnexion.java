@@ -1,7 +1,8 @@
-package app;
+package app.Menu;
 
 import java.io.IOException;
 
+import app.App;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -20,7 +21,7 @@ public class PageConnexion {
 
     public PageConnexion(App app,String utilisateur)throws IOException{
         this.utilisateur = utilisateur;
-        Pane root = FXMLLoader.load(getClass().getResource("view/PageConnexion.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("../view/PageConnexion.fxml"));
         this.scene = new Scene(root);
 
         this.titre = (Label) this.scene.lookup("#titre");

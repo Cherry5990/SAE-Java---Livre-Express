@@ -1,7 +1,8 @@
-package app;
+package app.Client;
 
 import java.io.IOException;
 
+import app.App;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

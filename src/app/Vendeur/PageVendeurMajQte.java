@@ -42,11 +42,11 @@ public class PageVendeurMajQte {
                 retour.setScaleY(1.0);
             });
         retour.setOnAction(e -> {
-            try {
-                app.scenePageVendeurGererStocks();
-            } catch (IOException ex) {
-                System.out.println("Problème");
-            }
+            //try {
+            //    app.scenePageVendeurGererStocks();
+            //} catch (IOException ex) {
+            //    System.out.println("Problème");
+            //}
         });
 
 

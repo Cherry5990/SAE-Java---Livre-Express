@@ -1,9 +1,10 @@
-package app;
+package app.Admin;
 import modele.Client;
 
 import java.io.IOError;
 import java.io.IOException;
 
+import app.App;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;

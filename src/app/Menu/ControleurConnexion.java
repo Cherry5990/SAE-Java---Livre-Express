@@ -1,10 +1,11 @@
-package app;
+package app.Menu;
 import modele.Client;
 import modele.Vendeur;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
+import app.App;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
