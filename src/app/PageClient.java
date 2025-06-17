@@ -108,7 +108,7 @@ public class PageClient {
             for (int i = 0; i < count; i++) {
                 Commande commandedata = commandes.get(i);
                 if (commandedata != null) {
-                    CommandeDisplay com = new CommandeDisplay(new ControleurConsulterCommande(app, this,commandedata), commandedata);
+                    CommandeDisplay com = new CommandeDisplay(new ControleurConsulterCommande(app,commandedata), commandedata);
                     this.hBoxCommande.getChildren().add(com);
                 }
             }
