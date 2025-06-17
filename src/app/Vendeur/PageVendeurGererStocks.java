@@ -40,7 +40,7 @@ public class PageVendeurGererStocks {
             });
         retour.setOnAction(e -> {
             try {
-                app.scenePageVendeurAccueil(this.vendeur);
+                app.scenePageVendeurAccueil();
             } catch (IOException ex) {
                 System.out.println("Problème");
             }

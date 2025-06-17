@@ -41,7 +41,7 @@ public class PageVendeurAjouterLivre {
             });
         retour.setOnAction(e -> {
             try {
-                app.scenePageVendeurGererStocks(v);
+                app.scenePageVendeurGererStocks();
             } catch (IOException ex) {
                 System.out.println("Problème");
             }

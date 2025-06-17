@@ -18,7 +18,7 @@ public class ControleurConsulterCommande implements EventHandler<ActionEvent> {
 
     public void handle(ActionEvent event){
         try{
-            
+            App.commande = c;
             app.sceneConsultationCommande();
         }
         catch(IOException ex){
