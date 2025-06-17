@@ -60,6 +60,15 @@ public class PageClientCatalogue {
                 System.out.println(e1.getMessage());
             }
         });
+
+        Button panier = (Button)scene.lookup("#panier");
+        panier.setOnAction(e -> {
+			try {
+				app.sceneConsultationPanier();
+			} catch (IOException ex) {
+				System.out.println(ex.getMessage());
+			}
+		});
     }
 
     public Scene getScene(){
