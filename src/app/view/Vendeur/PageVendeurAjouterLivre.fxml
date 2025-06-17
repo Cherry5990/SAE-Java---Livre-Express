@@ -77,9 +77,6 @@
                <image>
                   <Image url="@../../../../img/FondFloute.png" />
                </image>
-               <effect>
-                  <BoxBlur height="0.0" iterations="3" />
-               </effect>
                <StackPane.margin>
                   <Insets bottom="30.0" />
                </StackPane.margin>
