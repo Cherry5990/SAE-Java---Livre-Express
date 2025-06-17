@@ -16,16 +16,10 @@ import modele.Theme;
 
 public class PageConsultationLivre {
     private Scene scene;
-    private Livre livre;
 
-    public PageConsultationLivre(Application app, Livre livre) throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("view/Client/PageClientConsultationLivre.fxml"));
+    public PageConsultationLivre(Application app) throws IOException{
+        Pane root = FXMLLoader.load(getClass().getResource("view/Client/PageConsultationLivre.fxml"));
         this.scene = new Scene(root);
-        this.livre = livre;
-
-        TextField titre = (TextField) this.scene.lookup("#tfNomLivre");
-        titre.setText(livre.getTitre());
-        this.ajoutInfoLivre();
     }
 
     public Scene getScene(){

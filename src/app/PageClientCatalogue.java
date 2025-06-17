@@ -21,10 +21,10 @@ public class PageClientCatalogue {
     private List<Livre> livres;
     private VBox lignes;
 
-    public PageClientCatalogue(App app,Client c,Magasin mag)throws IOException{
+    public PageClientCatalogue(App app)throws IOException{
         Pane root = FXMLLoader.load(getClass().getResource("view/Client/PageClientCatalogue.fxml"));
         this.scene = new Scene(root);
-        this.livres = App.magasinBD.getAllLivre(mag.getIdMagasin());
+        this.livres = App.magasinBD.getAllLivre(App.magasin.getIdMagasin());
         this.scroll = (ScrollPane) this.scene.lookup("#test");
         int i = 1;
         this.lignes = (VBox) this.scroll.getContent();
@@ -35,7 +35,7 @@ public class PageClientCatalogue {
 
         TextField recherche = (TextField)scene.lookup("#recherche");
         recherche.textProperty().addListener((observable, oldValue, newValue) -> {
-            this.livres = App.magasinBD.rechercheLivre(mag.getIdMagasin(), newValue);
+            this.livres = App.magasinBD.rechercheLivre(App.magasin.getIdMagasin(), newValue);
             this.lignes.getChildren().clear();
             int j = 1;
             for(Livre livreMag:this.livres){
@@ -48,7 +48,7 @@ public class PageClientCatalogue {
         Button retour = (Button)scene.lookup("#retour");
         retour.setOnAction(e -> {
             try {
-                app.sceneClient(c);
+                app.sceneClient();
             } 
             catch (IOException e1) {
                 System.out.println(e1.getMessage());

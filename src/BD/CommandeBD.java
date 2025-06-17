@@ -60,6 +60,22 @@ public class CommandeBD {
         }
 	}
 
+    public List<DetailCommande> getDetailCommande(int com)throws SQLException{
+        List<DetailCommande> dcs = new ArrayList<>();
+        try(PreparedStatement ps = laConnexion.prepareStatement("select numlig,qte,prixvente,isbn from COMMANDE natural join DETAILCOMMANDE where numcom=?;")){
+            ps.setInt(1,com);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int numlig = rs.getInt("numlig");
+                int qte = rs.getInt("qte");
+                LivreBD livrebd = new LivreBD(laConnexion);
+                String isbn = rs.getString("isbn");
+                dcs.add(new DetailCommande(numlig, qte, livrebd.getLivre(isbn)));
+            }
+        }
+        return dcs;
+    }
+
     /**
      * Cette méthode permet de vérifier si un livre existe dans le magasin grâce à son titre
      * @param entrer le title du livre à vérifier

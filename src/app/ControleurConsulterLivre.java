@@ -21,7 +21,7 @@ public class ControleurConsulterLivre implements EventHandler<ActionEvent> {
                 vueTest.pageConsultationLivre(boutonLivre.getLivre());
             } else if (vue instanceof App){
                 App vueTest = (App) vue;
-                vueTest.sceneConsultationLivre(boutonLivre.getLivre());
+                vueTest.sceneConsultationLivre();
             }
         } catch (IOException e){
             System.err.println(e.getMessage());

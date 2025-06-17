@@ -29,7 +29,6 @@ import javafx.scene.shape.Rectangle;
 public class PageClient {
     private Scene scene;
     private ComboBox<String> magasin;
-    private Client client;
     private List<Livre> recomandation;
     private HBox livres;
     private int positionLivre; 
@@ -39,10 +38,9 @@ public class PageClient {
     private App app;
     private String magasinChoix;
 
-    public PageClient(App app,Client c)throws IOException{
+    public PageClient(App app)throws IOException{
         Pane root = FXMLLoader.load(getClass().getResource("view/Client/PageClientAccueil.fxml"));
         this.scene = new Scene(root);
-        this.client = c;
         this.app = app;
         this.magasinChoix = "";
 
@@ -56,6 +54,9 @@ public class PageClient {
             String selectedMagasin = this.magasin.getValue();
             this.setMagasinChoix(selectedMagasin);
         });
+
+        Button retour = (Button)scene.lookup("#retour");
+        retour.setOnAction(e -> app.sceneAcceuil());
 
         Button connecter = (Button) this.scene.lookup("#connexion");
         connecter.setOnAction(new ControleurConnexionMagasin(this,app));
@@ -84,7 +85,7 @@ public class PageClient {
 
         try{
             this.positionLivre=0;
-            this.recomandation = App.clientBD.getRecommandationClient(c.getId());
+            this.recomandation = App.clientBD.getRecommandationClient(App.client.getId());
             this.livres = (HBox) this.scene.lookup("#livres");
             int count = Math.min(4, recomandation.size());
             for (int i = 0; i < count; i++) {
@@ -101,13 +102,13 @@ public class PageClient {
 
         try{
             this.positionCommande=0;
-            this.commandes= App.commandeBD.CommandeClient(c.getId());
+            this.commandes= App.commandeBD.CommandeClient(App.client.getId());
             this.hBoxCommande = (HBox) this.scene.lookup("#commandes");
             int count = Math.min(4, commandes.size());
             for (int i = 0; i < count; i++) {
                 Commande commandedata = commandes.get(i);
                 if (commandedata != null) {
-                    CommandeDisplay com = new CommandeDisplay(new ControleurConsulterLivre(app), commandedata);
+                    CommandeDisplay com = new CommandeDisplay(new ControleurConsulterCommande(app,commandedata), commandedata);
                     this.hBoxCommande.getChildren().add(com);
                 }
             }
@@ -139,7 +140,7 @@ public class PageClient {
         for (int j = 0; j < count; j++) {
             Commande dataCommande = commandes.get(positionCommande + j);
             if (dataCommande!= null) {
-                CommandeDisplay com = new CommandeDisplay(new ControleurConsulterLivre(app), dataCommande);
+                CommandeDisplay com = new CommandeDisplay(new ControleurConsulterCommande(app,this, dataCommande),dataCommande);
                 this.hBoxCommande.getChildren().add(com);
             }
         }
@@ -160,7 +161,7 @@ public class PageClient {
     }
 
     public Client getClient() {
-        return client;
+        return App.client;
     }
 
     public Integer getPositionLivre(){
