@@ -5,6 +5,7 @@ import app.Client.PageClient;
 import app.Client.PageClientCatalogue;
 import app.Client.PageConsultationCommande;
 import app.Client.PageConsultationLivre;
+import app.Client.PageConsultationPanier;
 import app.Menu.PageAcceuil;
 import app.Menu.PageConnexion;
 import app.Vendeur.PageVendeur;
@@ -116,8 +117,13 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
 
-     public void sceneConsultationCommande()throws IOException{
+    public void sceneConsultationCommande()throws IOException{
         PageConsultationCommande page = new PageConsultationCommande(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void sceneConsultationPanier()throws IOException{
+        PageConsultationPanier page = new PageConsultationPanier(this);
         primaryStage.setScene(page.getScene());
     }
 
