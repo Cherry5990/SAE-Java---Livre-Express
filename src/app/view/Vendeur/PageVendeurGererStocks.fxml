@@ -27,7 +27,7 @@
          <left>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button contentDisplay="TOP" graphicTextGap="1.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="106.0" style="-fx-background-color: transparent;">
+                  <Button contentDisplay="TOP" graphicTextGap="1.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="168.0" style="-fx-background-color: transparent;">
                      <font>
                         <Font name="Caladea Regular" size="11.0" />
                      </font>

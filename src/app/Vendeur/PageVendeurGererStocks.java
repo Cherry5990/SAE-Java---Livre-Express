@@ -56,13 +56,13 @@ public class PageVendeurGererStocks {
                 addLivre.setScaleX(1.0);
                 addLivre.setScaleY(1.0);
             });
-        //addLivre.setOnAction(e -> {
-            //try {
-                //app.PageVendeurAjouterLivre(this.vendeur);
-            //} catch (IOException ex) {
-                //System.out.println("Problème");
-            //}
-        //});
+        addLivre.setOnAction(e -> {
+            try {
+                app.scenePageVendeurAjouterLivre(this.vendeur);
+            } catch (IOException ex) {
+                System.out.println("Problème");
+            }
+        });
 
         //Bouton Mise à jour de la quantité de livres
         Button majQteLivre = (Button) this.scene.lookup("#majQteLivre");

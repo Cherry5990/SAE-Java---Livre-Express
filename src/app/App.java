@@ -1,6 +1,7 @@
 package app;
 import BD.*;
 import app.Vendeur.PageVendeurAccueil;
+import app.Vendeur.PageVendeurAjouterLivre;
 import app.Vendeur.PageVendeurGererStocks;
 import modele.*;
 
@@ -84,6 +85,13 @@ public class App extends Application{
         PageVendeurGererStocks page = new PageVendeurGererStocks(this,v);
         primaryStage.setScene(page.getScene());
     }
+
+    public void scenePageVendeurAjouterLivre(Vendeur v) throws IOException{
+        PageVendeurAjouterLivre page = new PageVendeurAjouterLivre(this,v);
+        primaryStage.setScene(page.getScene());
+    }
+
+    
 
     public void sceneAdmin()throws IOException{
         PageAdmin page = new PageAdmin(this);
