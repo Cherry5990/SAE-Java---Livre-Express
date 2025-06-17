@@ -19,13 +19,16 @@ public class ControleurConnexionMagasin implements EventHandler<ActionEvent>{
 
     @Override
     public void handle(ActionEvent e){
+        System.out.println("appuyer");
         try {
-            Magasin mag = vue.getMagasin();
+            String nommag = vue.getMagasinChoix();
+            System.out.println(nommag);
+            Magasin mag = App.magasinBD.getMagasin(nommag);
             if (mag!=null){
                 app.sceneMagasin(vue.getClient(), mag);
             }
         } catch (Exception ex) {
-            System.out.println("blabla");
+            System.out.println(ex.getMessage());
         }
     }
 }
