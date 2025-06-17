@@ -567,8 +567,8 @@ public class MenuVendeur {
                 MenuVendeur.menuVendeur(con);
                 break;
             default:
-                String reponse = MenuVendeur.magasinBD.rechercheLivre(vendeur.getMagasin().getIdMagasin(), entrer);
-                System.out.println(reponse);
+                //String reponse = MenuVendeur.magasinBD.rechercheLivre(vendeur.getMagasin().getIdMagasin(), entrer);
+                //System.out.println(reponse);
                 System.out.println("┌─────────────────────────────────────┐"); 
                 System.out.println("│[C] Continuer la procédure           │");
                 System.out.println("│[R] Faire une nouvelle recherche     │");
@@ -670,8 +670,8 @@ public class MenuVendeur {
                 MenuVendeur.menuVendeur(con);
                 break;
             default:
-                String reponse = MenuVendeur.magasinBD.rechercheLivre(vendeur.getMagasin().getIdMagasin(), entrer);
-                System.out.println(reponse);
+                //String reponse = MenuVendeur.magasinBD.rechercheLivre(vendeur.getMagasin().getIdMagasin(), entrer);
+                //System.out.println(reponse);
                 System.out.println("┌────────────────────────────────────────────────────────────────────────────────────┐"); 
                 System.out.println("│ Si aucun livre ne s'affiche, c'est que le livre n'est pas dispo dans votre magasin │");
                 System.out.println("│ [R] Faire une nouvelle recherche [Q] Retour au menu Vendeur                        │");        

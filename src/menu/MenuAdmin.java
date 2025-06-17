@@ -675,15 +675,15 @@ public class MenuAdmin {
                 MenuAdmin.transfererStocks(con);
                 break;
             default:
-                String livres = magasinBD.rechercheLivre(idMagDonneur, entrerNomLivre);
-                if (livres.isEmpty()) {
-                    System.out.println("Aucun livre ne correspond à votre recherche");
-                    String saut = scan.nextLine();
-                    MenuAdmin.transfererStocksDemandeLivre(con, idMagDonneur);
-                } else {
-                    System.out.println(livres);
-                    MenuAdmin.transfererStocksDemandeIsbn(con, idMagDonneur);
-                }
+                //String livres = magasinBD.rechercheLivre(idMagDonneur, entrerNomLivre);
+                //if (livres.isEmpty()) {
+                //    System.out.println("Aucun livre ne correspond à votre recherche");
+                //    String saut = scan.nextLine();
+                //    MenuAdmin.transfererStocksDemandeLivre(con, idMagDonneur);
+                //} else {
+                //    System.out.println(livres);
+                //    MenuAdmin.transfererStocksDemandeIsbn(con, idMagDonneur);
+                //}
                 break;
         }
     }
