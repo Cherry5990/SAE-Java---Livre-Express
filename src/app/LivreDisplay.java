@@ -1,5 +1,6 @@
 package app;
 
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -41,7 +42,7 @@ public class LivreDisplay extends Button {
         this.setTooltip(new Tooltip(this.titre));
     }
 
-    public LivreDisplay(App vue, Livre livre){
+    public LivreDisplay(Livre livre, Application vue){
         super();
         this.livre = livre;
         ImageView imageLivre = new ImageView("file:img/icônes/livre.png");
@@ -63,17 +64,12 @@ public class LivreDisplay extends Button {
         this.setOnAction(new ControleurConsulterLivre(vue));
     }
 
-    public LivreDisplay(EventHandler<ActionEvent> controleur, Livre livre){
+    public LivreDisplay(Livre livre, EventHandler<ActionEvent> controleur){
         super();
         this.livre = livre;
         ImageView imageLivre = new ImageView("file:img/icônes/livre.png");
         this.titre = livre.getTitre();
-        if (this.titre.length()>15){
-            this.texte = new Text(this.titre.substring(0, 15) + "...");
-        }
-        else{
-            this.texte = new Text(this.titre); 
-        }
+        this.texte = new Text(this.titre.substring(0, 15) + "...");
         imageLivre.setFitHeight(100);
         imageLivre.setFitWidth(100);
         VBox interieurBouton = new VBox(5);
