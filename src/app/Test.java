@@ -2,6 +2,8 @@ package app;
 
 import java.io.IOException;
 
+import app.Client.PageConsultationLivre;
+import app.Display.LivreDisplay;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;

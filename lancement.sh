@@ -58,7 +58,8 @@ fi
 echo "🛠 Vérification de l'existence du dossier bin..."
 if [ ! -d "bin" ]; then
     echo "🧮 Compilation du projet ..."
-    javac -d bin --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml -cp "lib/*:src" src/*/*.java
+    javac -d bin --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml -cp "lib/*:src" src/*/*/*.java
+    cp -r src/app/view bin/app
 else
     echo "✅ Le dossier bin existe déjà."
 fi

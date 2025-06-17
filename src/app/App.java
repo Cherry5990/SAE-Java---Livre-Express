@@ -1,5 +1,13 @@
 package app;
 import BD.*;
+import app.Admin.PageAdmin;
+import app.Client.PageClient;
+import app.Client.PageClientCatalogue;
+import app.Client.PageConsultationCommande;
+import app.Client.PageConsultationLivre;
+import app.Menu.PageAcceuil;
+import app.Menu.PageConnexion;
+import app.Vendeur.PageVendeur;
 import app.Vendeur.PageVendeurAccueil;
 import app.Vendeur.PageVendeurAjouterLivre;
 import app.Vendeur.PageVendeurGererStocks;

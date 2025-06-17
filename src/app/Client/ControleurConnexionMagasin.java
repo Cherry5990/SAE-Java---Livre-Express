@@ -1,8 +1,9 @@
-package app;
+package app.Client;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
+import app.App;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;

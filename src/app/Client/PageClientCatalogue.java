@@ -1,8 +1,10 @@
-package app;
+package app.Client;
 
 import java.io.IOException;
 import java.util.List;
 
+import app.App;
+import app.Display.LivreDisplayLigne;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,7 +24,7 @@ public class PageClientCatalogue {
     private VBox lignes;
 
     public PageClientCatalogue(App app)throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("view/Client/PageClientCatalogue.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("../view/Client/PageClientCatalogue.fxml"));
         this.scene = new Scene(root);
         this.livres = App.magasinBD.getAllLivre(App.magasin.getIdMagasin());
         this.scroll = (ScrollPane) this.scene.lookup("#test");

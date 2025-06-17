@@ -1,10 +1,11 @@
-package app;
+package app.Menu;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import app.App;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,7 +17,7 @@ public class PageAcceuil {
 
     public PageAcceuil(App app){
         try{
-            Pane root = FXMLLoader.load(getClass().getResource("view/PageMenuPrincipal.fxml"));
+            Pane root = FXMLLoader.load(getClass().getResource("../view/PageMenuPrincipal.fxml"));
             this.scene = new Scene(root);
         }
         catch(IOException e){

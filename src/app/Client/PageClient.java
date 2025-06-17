@@ -1,4 +1,4 @@
-package app;
+package app.Client;
 import modele.Client;
 import modele.Commande;
 import modele.Livre;
@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
+import app.App;
+import app.Display.CommandeDisplay;
+import app.Display.LivreDisplay;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
@@ -39,7 +42,7 @@ public class PageClient {
     private String magasinChoix;
 
     public PageClient(App app)throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("view/Client/PageClientAccueil.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("../view/Client/PageClientAccueil.fxml"));
         this.scene = new Scene(root);
         this.app = app;
         this.magasinChoix = "";

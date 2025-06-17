@@ -1,7 +1,8 @@
-package app;
+package app.Menu;
 
 import java.io.IOException;
 
+import app.App;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
