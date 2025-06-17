@@ -140,7 +140,7 @@ public class PageClient {
         for (int j = 0; j < count; j++) {
             Commande dataCommande = commandes.get(positionCommande + j);
             if (dataCommande!= null) {
-                CommandeDisplay com = new CommandeDisplay(new ControleurConsulterCommande(app,this, dataCommande),dataCommande);
+                CommandeDisplay com = new CommandeDisplay(new ControleurConsulterCommande(app, dataCommande),dataCommande);
                 this.hBoxCommande.getChildren().add(com);
             }
         }

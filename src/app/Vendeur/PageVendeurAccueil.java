@@ -13,8 +13,7 @@ public class PageVendeurAccueil {
     private Scene scene;
     private Vendeur vendeur;
 
-    public PageVendeurAccueil(App app,Vendeur v)throws IOException{
-        this.vendeur = v;
+    public PageVendeurAccueil(App app)throws IOException{
         Pane root = FXMLLoader.load(getClass().getResource("../view/Vendeur/PageVendeurAccueil.fxml"));
         this.scene = new Scene(root);
 
@@ -40,7 +39,7 @@ public class PageVendeurAccueil {
             });
         gererStock.setOnAction(e -> {
             try {
-                app.scenePageVendeurGererStocks(this.vendeur);
+                app.scenePageVendeurGererStocks();
             } catch (IOException ex) {
                 System.out.println("Problème");
             }
