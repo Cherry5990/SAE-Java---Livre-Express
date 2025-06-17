@@ -18,6 +18,7 @@ public class App extends Application{
     public static ClientBD clientBD;
     public static VendeurBD vendeurBD;
     public static MagasinBD magasinBD;
+    public static CommandeBD commandeBD;
     private ConnexionMySQL con;
 
     @Override
@@ -40,6 +41,7 @@ public class App extends Application{
             App.clientBD = new ClientBD(this.con);
             App.vendeurBD = new VendeurBD(this.con);
             App.magasinBD = new MagasinBD(con);
+            App.commandeBD = new CommandeBD(con);
         }
         catch (Exception e) {
             System.out.println("Problème de connexion à la BD : "+e.getMessage());
@@ -56,13 +58,8 @@ public class App extends Application{
     }
 
     public void sceneAcceuil(){
-        try{
-            PageAcceuil acceuil = new PageAcceuil(this);
-            primaryStage.setScene(acceuil.getScene());
-        }
-        catch(IOException e){
-            System.out.println("problème scenAceuil()");
-        }
+        PageAcceuil acceuil = new PageAcceuil(this);
+        primaryStage.setScene(acceuil.getScene());
     }
 
     public void sceneConnexion(String utilisateur)throws IOException{

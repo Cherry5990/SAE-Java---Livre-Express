@@ -64,7 +64,7 @@ public class LivreDisplay extends Button {
         this.setOnAction(new ControleurConsulterLivre(vue));
     }
 
-    public LivreDisplay(Livre livre, EventHandler<ActionEvent> controleur){
+    public LivreDisplay(EventHandler<ActionEvent> controleur, Livre livre){
         super();
         this.livre = livre;
         ImageView imageLivre = new ImageView("file:img/icônes/livre.png");
