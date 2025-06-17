@@ -83,7 +83,7 @@ public class App extends Application{
     }
 
     public void sceneMagasin(Client c,Magasin mag)throws IOException{
-        PageMagasin page = new PageMagasin(this,c, mag);
+        PageClientCatalogue page = new PageClientCatalogue(this,c, mag);
         primaryStage.setScene(page.getScene());
     }
 

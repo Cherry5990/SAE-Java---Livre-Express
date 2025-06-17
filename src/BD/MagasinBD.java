@@ -3,6 +3,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import modele.Livre;
 import modele.Magasin;
 
 
@@ -161,29 +162,25 @@ public class MagasinBD {
      * @param like le mot-clé à rechercher dans les titres des livres
      * @return une chaîne de caractères contenant les informations sur les livres trouvés
      */
-    public String rechercheLivre(int mag,String like){
-        StringBuilder sb = new StringBuilder();
-        try (PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn,titre,prix,qte from MAGASIN natural join POSSEDER natural join LIVRE where idmag=? and titre LIKE ?")) {
+    public List<Livre> rechercheLivre(int mag,String like){
+        List<Livre> livres = new ArrayList<>();
+        try (PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn,titre,prix,nbpages,datepubli from MAGASIN natural join POSSEDER natural join LIVRE where idmag=? and titre LIKE ?")) {
             ps.setInt(1, mag);
             ps.setString(2, "%" + like + "%");
             ResultSet rs = ps.executeQuery();
-            sb.append(String.format("%-15s %-40s %-8s %-5s\n", "isbn", "titre", "prix", "qte"));
             while (rs.next()) {
                 String titre = rs.getString("titre");
-                if (titre.length() > 35) {
-                    titre = titre.substring(0, 35) + "...";
-                }
-                sb.append(String.format("%-15s %-40s %-8s %-5s\n",
-                        rs.getString("isbn"),
-                        titre,
-                        rs.getDouble("prix") + "€",
-                        rs.getString("qte")));
+                String isbn = rs.getString("isbn");
+                int nbPages = rs.getInt("nbpages");
+                double prix = rs.getDouble("prix");
+                String datePubli = rs.getString("datepubli");
+                livres.add(new Livre(isbn, titre,nbPages,datePubli,prix));
             }
         } 
         catch (SQLException e) {
-            sb.append("Erreur lors de l'affichage des magasins : ").append(e.getMessage());
+            System.out.println(e.getMessage());
         }
-        return sb.toString();
+        return livres;
     }
 
     /**
@@ -207,7 +204,6 @@ public class MagasinBD {
         try(PreparedStatement ps =laConnexion.prepareStatement("select idmag,nommag,villemag from MAGASIN where nommag=?;")){
             ps.setString(1, nomMag);
             ResultSet rs = ps.executeQuery();
-            rs.next();
             if (!rs.next()) {
                 return null;
             }
@@ -318,6 +314,26 @@ public class MagasinBD {
             System.out.println("Erreur lors de la vérification de l'existence du livre : " + e.getMessage());
             return false;
         }
+    }
+
+    public List<Livre> getAllLivre(int idmag){
+        List<Livre> livres = new ArrayList<>();
+        try (PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn,titre,prix,nbpages,datepubli from MAGASIN natural join POSSEDER natural join LIVRE where idmag=?;")) {
+            ps.setInt(1, idmag);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String titre = rs.getString("titre");
+                String isbn = rs.getString("isbn");
+                int nbPages = rs.getInt("nbpages");
+                double prix = rs.getDouble("prix");
+                String datePubli = rs.getString("datepubli");
+                livres.add(new Livre(isbn, titre,nbPages,datePubli,prix));
+            }
+        } 
+        catch (SQLException e) {
+            System.out.println("Erreur lors de l'affichage des magasins : "+e.getMessage());
+        }
+        return livres;
     }
 
     
