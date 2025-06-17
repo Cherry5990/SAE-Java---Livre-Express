@@ -58,8 +58,8 @@ public class App extends Application{
     }
 
     public void sceneAcceuil(){
-            PageAcceuil acceuil = new PageAcceuil(this);
-            primaryStage.setScene(acceuil.getScene());
+        PageAcceuil acceuil = new PageAcceuil(this);
+        primaryStage.setScene(acceuil.getScene());
     }
 
     public void sceneConnexion(String utilisateur)throws IOException{
