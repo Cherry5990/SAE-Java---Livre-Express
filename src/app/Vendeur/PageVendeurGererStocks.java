@@ -74,13 +74,13 @@ public class PageVendeurGererStocks {
                 majQteLivre.setScaleX(1.0);
                 majQteLivre.setScaleY(1.0);
             });
-        //majQteLivre.setOnAction(e -> {
-            //try {
-                //app.PageVendeurMajQte(this.vendeur);
-            //} catch (IOException ex) {
-                //System.out.println("Problème");
-            //}
-        //});
+        majQteLivre.setOnAction(e -> {
+            try {
+                app.scenePageVendeurMajQte(this.vendeur);
+            } catch (IOException ex) {
+                System.out.println("Problème");
+            }
+        });
 
         //Bouton Voir le stock du magasin
         Button voirStock = (Button) this.scene.lookup("#voirStock");

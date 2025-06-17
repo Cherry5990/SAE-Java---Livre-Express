@@ -3,6 +3,7 @@ import BD.*;
 import app.Vendeur.PageVendeurAccueil;
 import app.Vendeur.PageVendeurAjouterLivre;
 import app.Vendeur.PageVendeurGererStocks;
+import app.Vendeur.PageVendeurMajQte;
 import modele.*;
 
 import java.io.FileInputStream;
@@ -91,6 +92,10 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
 
+    public void scenePageVendeurMajQte(Vendeur v) throws IOException{
+        PageVendeurMajQte page = new PageVendeurMajQte(this,v);
+        primaryStage.setScene(page.getScene());
+    }
     
 
     public void sceneAdmin()throws IOException{
