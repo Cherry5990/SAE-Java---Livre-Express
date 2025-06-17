@@ -19,6 +19,12 @@ public class App extends Application{
     public static VendeurBD vendeurBD;
     public static MagasinBD magasinBD;
     public static CommandeBD commandeBD;
+    public static Client client;
+    public static Commande commande;
+    public static Magasin magasin;
+    public static Vendeur veudeur;
+    public static Livre livre;
+    public static Vendeur vendeur;
     private ConnexionMySQL con;
 
     @Override
@@ -42,6 +48,11 @@ public class App extends Application{
             App.vendeurBD = new VendeurBD(this.con);
             App.magasinBD = new MagasinBD(con);
             App.commandeBD = new CommandeBD(con);
+            App.commande = null;
+            App.client = null;
+            App.magasin = null;
+            App.livre = null;
+            App.veudeur = null;
         }
         catch (Exception e) {
             System.out.println("Problème de connexion à la BD : "+e.getMessage());
@@ -67,13 +78,13 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
 
-    public void sceneClient(Client c)throws IOException{
-        PageClient page = new PageClient(this,c);
+    public void sceneClient()throws IOException{
+        PageClient page = new PageClient(this);
         primaryStage.setScene(page.getScene());
     }
 
-    public void sceneVendeur(Vendeur v)throws IOException{
-        PageVendeur page = new PageVendeur(this,v);
+    public void sceneVendeur()throws IOException{
+        PageVendeur page = new PageVendeur(this);
         primaryStage.setScene(page.getScene());
     }
 
@@ -82,13 +93,18 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
 
-    public void sceneMagasin(Client c,Magasin mag)throws IOException{
-        PageClientCatalogue page = new PageClientCatalogue(this,c, mag);
+    public void sceneMagasin()throws IOException{
+        PageClientCatalogue page = new PageClientCatalogue(this);
         primaryStage.setScene(page.getScene());
     }
 
-    public void sceneConsultationLivre(Livre livre)throws IOException{
-        PageConsultationLivre page = new PageConsultationLivre(this, livre);
+    public void sceneConsultationLivre()throws IOException{
+        PageConsultationLivre page = new PageConsultationLivre(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+     public void sceneConsultationCommande()throws IOException{
+        PageConsultationCommande page = new PageConsultationCommande(this);
         primaryStage.setScene(page.getScene());
     }
 

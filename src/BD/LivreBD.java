@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import modele.Livre;
+
 public class LivreBD {
     ConnexionMySQL laConnexion;
     
@@ -156,6 +158,22 @@ public class LivreBD {
             return titre;
         }
     } 
+
+    public Livre getLivre(String isbn)throws SQLException{
+        Livre livre = null;
+        try(PreparedStatement ps = laConnexion.prepareStatement("select isbn,titre,nbpages,datepubli,prix from LIVRE where isbn=?;")){
+            ps.setString(1, isbn);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                String titre = rs.getString("titre");
+                int nbPages = rs.getInt("nbpages");
+                double prix = rs.getDouble("prix");
+                String datePubli = rs.getString("datepubli");
+                livre = new Livre(isbn, titre,nbPages,datePubli,prix);
+            }
+        }
+        return livre;
+    }
 
     
     

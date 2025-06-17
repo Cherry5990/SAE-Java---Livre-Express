@@ -25,13 +25,13 @@ public class ControleurConnexion implements EventHandler<ActionEvent>{
             Integer id = Integer.parseInt(vue.getId());
             switch (nom) {
                 case "client":
-                    Client c = App.clientBD.getClient(id);
-                    System.out.println(c.getPrenom());
-                    app.sceneClient(c);
+                    App.client = App.clientBD.getClient(id);
+                    System.out.println(App.client.getPrenom());
+                    app.sceneClient();
                     break;
                 case "vendeur":
-                    Vendeur v = App.vendeurBD.getVendeur(id);
-                    app.sceneVendeur(v);
+                    App.vendeur = App.vendeurBD.getVendeur(id);
+                    app.sceneVendeur();
                 case "admin":
                     app.sceneAdmin();
                     break;

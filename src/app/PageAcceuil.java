@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -37,6 +38,11 @@ public class PageAcceuil {
                 button.setScaleY(1.0);
             });
         }
+
+        Button quitter = (Button) scene.lookup("#retour");
+        quitter.setOnAction(e -> {
+            Platform.exit();
+        });
     }
 
     public Scene getScene(){

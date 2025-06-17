@@ -31,7 +31,7 @@ public class Test extends Application {
 
     public void pageConsultationLivre(Livre livre){
         try{
-            PageConsultationLivre consultationLivre = new PageConsultationLivre(this, livre);
+            PageConsultationLivre consultationLivre = new PageConsultationLivre(this);
             primaryStage.setScene(consultationLivre.getScene());
         } catch (IOException e){
             System.err.println(e.getMessage() + " erreur dans Test.java");

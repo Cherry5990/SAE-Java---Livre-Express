@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 public class PageVendeur {
     private Scene scene;
 
-    public PageVendeur(App app,Vendeur c)throws IOException{
+    public PageVendeur(App app)throws IOException{
         Pane root = FXMLLoader.load(getClass().getResource("view/PageVendeur.fxml"));
         this.scene = new Scene(root);
     }
