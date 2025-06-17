@@ -1,5 +1,7 @@
 package app;
 import BD.*;
+import app.Vendeur.PageVendeurAccueil;
+import app.Vendeur.PageVendeurGererStocks;
 import modele.*;
 
 import java.io.FileInputStream;
@@ -72,8 +74,14 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
 
-    public void sceneVendeur(Vendeur v)throws IOException{
-        PageVendeur page = new PageVendeur(this,v);
+    // Pages Vendeur
+    public void scenePageVendeurAccueil(Vendeur v)throws IOException{
+        PageVendeurAccueil page = new PageVendeurAccueil(this,v);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void scenePageVendeurGererStocks(Vendeur v) throws IOException{
+        PageVendeurGererStocks page = new PageVendeurGererStocks(this,v);
         primaryStage.setScene(page.getScene());
     }
 

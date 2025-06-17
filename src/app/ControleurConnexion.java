@@ -31,7 +31,7 @@ public class ControleurConnexion implements EventHandler<ActionEvent>{
                     break;
                 case "vendeur":
                     Vendeur v = App.vendeurBD.getVendeur(id);
-                    app.sceneVendeur(v);
+                    app.scenePageVendeurAccueil(v);
                 case "admin":
                     app.sceneAdmin();
                     break;
