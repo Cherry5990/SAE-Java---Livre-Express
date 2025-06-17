@@ -22,10 +22,11 @@ public class Test extends Application {
         LivreDisplay affichageLivre2 = new LivreDisplay(this.livreTest, this);
         affichageLivre2.setPrix();
         root.getChildren().addAll(affichageLivre, affichageLivre2);
-        primaryStage.setHeight(300);
-        primaryStage.setWidth(300);
+        primaryStage.setHeight(800);
+        primaryStage.setWidth(1200);
         primaryStage.setTitle("Test");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
