@@ -12,13 +12,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <BorderPane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <right>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Connexion" BorderPane.alignment="CENTER">
                <BorderPane.margin>
-                  <Insets bottom="30.0" right="30.0" />
+                  <Insets bottom="35.0" right="30.0" top="20.0" />
                </BorderPane.margin>
                <font>
                   <Font name="AccanthisADFStd-Regular" size="19.0" />
@@ -26,12 +26,12 @@
             </Text>
          </right>
          <left>
-            <ImageView fitHeight="125.0" fitWidth="200.0" style="-fx-scale-x: 0.5; -fx-scale-y: 0.5; -fx-scale-z: 0.5;">
+            <ImageView fitHeight="125.0" fitWidth="200.0" style="-fx-fit-height: 70; -fx-fit-width: 100;">
                <image>
                   <Image url="@../../../img/icone.png" />
                </image>
                <BorderPane.margin>
-                  <Insets />
+                  <Insets left="20.0" />
                </BorderPane.margin>
             </ImageView>
          </left>
