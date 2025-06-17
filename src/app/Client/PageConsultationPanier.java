@@ -11,7 +11,7 @@ public class PageConsultationPanier {
     private Scene scene;
 
     public PageConsultationPanier(App app) throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("../view/Client/PagePanierClient.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("../view/Client/PageClientPanier.fxml"));
         this.scene = new Scene(root);
     }
 
