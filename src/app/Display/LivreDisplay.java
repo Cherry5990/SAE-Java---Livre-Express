@@ -62,7 +62,7 @@ public class LivreDisplay extends Button {
         this.setWidth(120);
         this.setBackground(new Background(new BackgroundFill(Color.web("#e8e4df"), new CornerRadii(25), new Insets(0))));
         this.setTooltip(new Tooltip(this.titre));
-        this.setOnAction(new ControleurConsulterLivre(vue));
+        //this.setOnAction(new ControleurConsulterLivre(app));
     }
 
     public LivreDisplay(EventHandler<ActionEvent> controleur, Livre livre){
