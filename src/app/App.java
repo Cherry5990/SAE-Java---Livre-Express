@@ -1,5 +1,9 @@
 package app;
 import BD.*;
+import app.Vendeur.PageVendeurAccueil;
+import app.Vendeur.PageVendeurAjouterLivre;
+import app.Vendeur.PageVendeurGererStocks;
+import app.Vendeur.PageVendeurMajQte;
 import modele.*;
 
 import java.io.FileInputStream;
@@ -87,6 +91,7 @@ public class App extends Application{
         PageVendeur page = new PageVendeur(this);
         primaryStage.setScene(page.getScene());
     }
+    
 
     public void sceneAdmin()throws IOException{
         PageAdmin page = new PageAdmin(this);

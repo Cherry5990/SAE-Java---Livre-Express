@@ -88,7 +88,7 @@
             </ImageView>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-                  <Button fx:id="retourGestionStocks" alignment="CENTER" mnemonicParsing="false" prefHeight="77.0" prefWidth="288.0" style="-fx-background-color: transparent;" text="Retour à la page de &#10;gestion des stocks" textFill="WHITE" BorderPane.alignment="CENTER_LEFT">
+                  <Button fx:id="retour" alignment="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="208.0" style="-fx-background-color: transparent;" text="Retour" textFill="WHITE" BorderPane.alignment="CENTER_LEFT">
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -97,7 +97,7 @@
                         </ImageView>
                      </graphic>
                      <font>
-                        <Font name="Caladea Regular" size="24.0" />
+                        <Font name="Caladea Regular" size="30.0" />
                      </font>
                   </Button>
                </top>
@@ -150,7 +150,7 @@
                               </Pane>
                               <Pane layoutX="10.0" layoutY="10.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.columnIndex="1">
                                  <children>
-                                    <Label fx:id="isbnLivre" layoutX="93.0" layoutY="18.0" text="PlaceHolder" textFill="#e8e4df">
+                                    <Label fx:id="isbn" layoutX="93.0" layoutY="18.0" text="..." textFill="#e8e4df">
                                        <font>
                                           <Font name="Caladea Bold" size="30.0" />
                                        </font>
@@ -159,7 +159,7 @@
                               </Pane>
                               <Pane layoutX="360.0" layoutY="10.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <Label fx:id="isbnLivre1" layoutX="93.0" layoutY="18.0" text="PlaceHolder" textFill="#e8e4df">
+                                    <Label fx:id="prix" layoutX="93.0" layoutY="18.0" text="..." textFill="#e8e4df">
                                        <font>
                                           <Font name="Caladea Bold" size="30.0" />
                                        </font>
@@ -213,7 +213,7 @@
                               </Pane>
                               <Pane layoutX="360.0" layoutY="82.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <children>
-                                    <Label fx:id="isbnLivre12" layoutX="93.0" layoutY="18.0" text="PlaceHolder" textFill="#e8e4df">
+                                    <Label fx:id="nbPages" layoutX="93.0" layoutY="18.0" text="..." textFill="#e8e4df">
                                        <font>
                                           <Font name="Caladea Bold" size="30.0" />
                                        </font>
@@ -222,16 +222,16 @@
                               </Pane>
                               <Pane layoutX="360.0" layoutY="154.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
-                                    <Label fx:id="isbnLivre121" layoutX="93.0" layoutY="18.0" text="PlaceHolder" textFill="#e8e4df">
+                                    <Label fx:id="datePubli" layoutX="93.0" layoutY="18.0" text="..." textFill="#e8e4df">
                                        <font>
                                           <Font name="Caladea Bold" size="30.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </Pane>
-                              <Pane layoutX="360.0" layoutY="226.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                              <Pane fx:id="isbn" layoutX="360.0" layoutY="226.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <children>
-                                    <Label fx:id="isbnLivre1211" layoutX="93.0" layoutY="18.0" text="PlaceHolder" textFill="#e8e4df">
+                                    <Label fx:id="theme" layoutX="93.0" layoutY="18.0" text="..." textFill="#e8e4df">
                                        <font>
                                           <Font name="Caladea Bold" size="30.0" />
                                        </font>
@@ -240,7 +240,7 @@
                               </Pane>
                               <Pane layoutX="360.0" layoutY="298.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                  <children>
-                                    <Label fx:id="isbnLivre12111" layoutX="93.0" layoutY="18.0" text="PlaceHolder" textFill="#e8e4df">
+                                    <Label fx:id="auteur" layoutX="93.0" layoutY="18.0" text="..." textFill="#e8e4df">
                                        <font>
                                           <Font name="Caladea Bold" size="30.0" />
                                        </font>
@@ -258,7 +258,7 @@
                               </Pane>
                               <Pane layoutX="10.0" layoutY="381.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                  <children>
-                                    <Label fx:id="isbnLivre1211111" layoutX="93.0" layoutY="13.0" text="PlaceHolder" textFill="#e8e4df">
+                                    <Label fx:id="qte" layoutX="93.0" layoutY="13.0" text="..." textFill="#e8e4df">
                                        <font>
                                           <Font name="Caladea Bold" size="30.0" />
                                        </font>
@@ -293,7 +293,7 @@
                               </HBox>
                               <HBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="1200.0">
                                  <children>
-                                    <Button fx:id="resetLivre" mnemonicParsing="false" prefHeight="66.0" prefWidth="172.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Réinitialiser ">
+                                    <Button fx:id="reset" mnemonicParsing="false" prefHeight="66.0" prefWidth="172.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Réinitialiser ">
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin>
@@ -301,7 +301,7 @@
                                           <Font name="Caladea Regular" size="25.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="ajouterLivre" mnemonicParsing="false" prefHeight="56.0" prefWidth="172.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Ajouter">
+                                    <Button fx:id="ajouter" mnemonicParsing="false" prefHeight="56.0" prefWidth="172.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Ajouter">
                                        <HBox.margin>
                                           <Insets left="10.0" />
                                        </HBox.margin>

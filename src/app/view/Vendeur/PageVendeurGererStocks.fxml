@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: /../../img/Fond.jpg;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: /../../img/Fond.jpg;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <BorderPane prefHeight="150.0" prefWidth="120.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <right>
-            <Label prefHeight="52.0" prefWidth="211.0" text="Gérer les stocks" BorderPane.alignment="CENTER">
+            <Label prefHeight="52.0" prefWidth="231.0" text="Gérer les stocks" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Caladea" size="30.0" />
                </font>
@@ -27,12 +27,12 @@
          <left>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button contentDisplay="TOP" graphicTextGap="1.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="106.0" style="-fx-background-color: transparent;">
+                  <Button contentDisplay="TOP" graphicTextGap="1.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="168.0" style="-fx-background-color: transparent;">
                      <font>
                         <Font name="Caladea Regular" size="11.0" />
                      </font>
                      <graphic>
-                        <ImageView fx:id="termporaire" fitHeight="94.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="94.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../img/icone.png" />
                            </image>
@@ -82,16 +82,16 @@
             </ImageView>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-                  <Button fx:id="retour" alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Retour à l'accueil" textFill="WHITE" BorderPane.alignment="CENTER_LEFT">
+                  <Button fx:id="retour" alignment="CENTER" mnemonicParsing="false" prefHeight="56.0" prefWidth="208.0" style="-fx-background-color: transparent;" text="Retour" textFill="WHITE" BorderPane.alignment="CENTER_LEFT">
                      <graphic>
-                        <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../img/icônes/retour.png" />
                            </image>
                         </ImageView>
                      </graphic>
                      <font>
-                        <Font name="Caladea Regular" size="16.0" />
+                        <Font name="Caladea Regular" size="29.0" />
                      </font>
                   </Button>
                </top>
