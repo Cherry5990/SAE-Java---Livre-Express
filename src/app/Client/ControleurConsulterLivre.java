@@ -5,29 +5,28 @@ import java.io.IOException;
 import app.App;
 import app.Test;
 import app.Display.LivreDisplay;
+import app.Display.LivreDisplayLigne;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import modele.Livre;
 
 public class ControleurConsulterLivre implements EventHandler<ActionEvent> {
-    private Application vue;
+    private App app;
 
-    public ControleurConsulterLivre(Application vue){
-        this.vue = vue;
+    public ControleurConsulterLivre(App app){
+        this.app = app;
     }
 
     public void handle(ActionEvent event){
-        LivreDisplay boutonLivre = (LivreDisplay) event.getSource();
+        LivreDisplayLigne boutonLivre = (LivreDisplayLigne) event.getSource();
+        Livre l = boutonLivre.getLivre();
+        App.livre = l;
         try{
-            if (vue instanceof Test){
-                Test vueTest = (Test) vue;
-                vueTest.pageConsultationLivre(boutonLivre.getLivre());
-            } else if (vue instanceof App){
-                App vueTest = (App) vue;
-                vueTest.sceneConsultationLivre();
-            }
-        } catch (IOException e){
-            System.err.println(e.getMessage());
+            app.sceneConsultationLivre();
+        }
+        catch(IOException e){
+            System.out.println("Problème de fxml");
         }
     }
 }

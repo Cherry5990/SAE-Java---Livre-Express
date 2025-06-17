@@ -2,6 +2,7 @@ package app.Client;
 
 import java.io.IOException;
 
+import app.App;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -18,32 +19,19 @@ public class PageConsultationLivre {
     private Scene scene;
 
     public PageConsultationLivre(Application app) throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("../view/Client/PageConsultationLivre.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("../view/Client/PageClientConsultationLivre.fxml"));
         this.scene = new Scene(root);
+        Text isbn = (Text) this.scene.lookup("#isbn");
+        Text pages = (Text) this.scene.lookup("#pages");
+        Text prix = (Text) this.scene.lookup("#prix");
+        Text auteur = (Text) this.scene.lookup("#auteur");
+        Text theme = (Text) this.scene.lookup("#theme");
+        isbn.setText(App.livre.getIsbn());
+        pages.setText(App.livre.getNbPages()+"");
+        prix.setText(App.livre.getPrix()+"");
     }
 
     public Scene getScene(){
         return this.scene;
-    }
-
-    private void ajoutInfoLivre(){  
-        Text isbn = (Text) this.scene.lookup("#isbn");
-        //isbn.setText(livre.getIsbn());
-        Text pages = (Text) this.scene.lookup("#pages");
-        //pages.setText("" + livre.getNbPages());
-        Text prix = (Text) this.scene.lookup("#prix");
-        //prix.setText("" + livre.getPrix());
-        Text auteur = (Text) this.scene.lookup("#auteur");
-        Text theme = (Text) this.scene.lookup("#theme");
-        String auteurs = "";
-        String themes = "";
-        //for (Auteur unAuteur : livre.getAuteurs()){
-        //    auteurs += unAuteur.getNomAuteur() + " ";
-        //}
-        //for (Theme unTheme : livre.getThemes()){
-        //    auteurs += unTheme.getNom() + " ";
-        //}
-        auteur.setText(auteurs);
-        theme.setText(themes);
     }
 }

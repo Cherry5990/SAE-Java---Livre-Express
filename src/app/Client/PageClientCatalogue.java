@@ -1,6 +1,7 @@
 package app.Client;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import app.App;
@@ -14,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import modele.Client;
+import modele.Commande;
 import modele.Livre;
 import modele.Magasin;
 
@@ -26,12 +28,14 @@ public class PageClientCatalogue {
     public PageClientCatalogue(App app)throws IOException{
         Pane root = FXMLLoader.load(getClass().getResource("../view/Client/PageClientCatalogue.fxml"));
         this.scene = new Scene(root);
+        App.commande = new Commande(0, null, false, false, App.client, App.magasin);
         this.livres = App.magasinBD.getAllLivre(App.magasin.getIdMagasin());
         this.scroll = (ScrollPane) this.scene.lookup("#test");
         int i = 1;
         this.lignes = (VBox) this.scroll.getContent();
+        ControleurConsulterLivre controleur = new ControleurConsulterLivre(app);
         for(Livre livreMag:livres){
-            this.lignes.getChildren().add(new LivreDisplayLigne(null, livreMag,i));
+            this.lignes.getChildren().add(new LivreDisplayLigne(controleur, livreMag,i));
             i++;
         }
 
@@ -41,7 +45,7 @@ public class PageClientCatalogue {
             this.lignes.getChildren().clear();
             int j = 1;
             for(Livre livreMag:this.livres){
-                this.lignes.getChildren().add(new LivreDisplayLigne(null, livreMag, j));
+                this.lignes.getChildren().add(new LivreDisplayLigne(controleur, livreMag, j));
                 j++;
             }
             System.out.println("Recherche : " + newValue);
@@ -57,7 +61,6 @@ public class PageClientCatalogue {
             }
         });
     }
-
 
     public Scene getScene(){
         return this.scene;
