@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import modele.Commande;
 
 public class PageVendeurAccueil {
     private Scene scene;
@@ -51,7 +52,14 @@ public class PageVendeurAccueil {
                 commande.setScaleX(1.0);
                 commande.setScaleY(1.0);
             });
-        //gererStock.setOnAction(e -> app.scenePageVendeurCommande());
+        commande.setOnAction(e -> {
+            try {
+                App.commande = new Commande(0, null, false, false, null, App.vendeur.getMagasin());
+                app.scenePageVendeurCommande();
+            } catch (IOException e1) {
+                System.out.println(e1.getMessage());
+            }
+        });
 
 
 
