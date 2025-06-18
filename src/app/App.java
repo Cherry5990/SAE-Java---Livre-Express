@@ -12,6 +12,7 @@ import app.Vendeur.PageVendeurAccueil;
 import app.Vendeur.PageVendeurAjouterLivre;
 import app.Vendeur.PageVendeurGererStocks;
 import app.Vendeur.PageVendeurMajQte;
+import app.Vendeur.PageVendeurVoirStocks;
 import modele.*;
 
 import java.io.FileInputStream;
@@ -75,7 +76,7 @@ public class App extends Application{
     @Override
     public void start(Stage stage) throws Exception {
         this.primaryStage = stage;
-        primaryStage.setTitle("Librarie Livre Express");
+        primaryStage.setTitle("Librairie Livre Express");
         sceneAcceuil();
         primaryStage.show();
     }
@@ -97,6 +98,7 @@ public class App extends Application{
 
     //Scenes de Vendeur
     public void scenePageVendeurAccueil()throws IOException{
+        App.magasin = vendeur.getMagasin();
         PageVendeurAccueil page = new PageVendeurAccueil(this);
         primaryStage.setScene(page.getScene());
     }
@@ -110,6 +112,10 @@ public class App extends Application{
     }
     public void scenePageVendeurMajQte()throws IOException{
         PageVendeurMajQte page = new PageVendeurMajQte(this);
+        primaryStage.setScene(page.getScene());
+    }
+    public void scenePageVendeurVoirStocks()throws IOException{
+        PageVendeurVoirStocks page = new PageVendeurVoirStocks(this);
         primaryStage.setScene(page.getScene());
     }
 

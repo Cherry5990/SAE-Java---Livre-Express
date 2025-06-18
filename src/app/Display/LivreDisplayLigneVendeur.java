@@ -19,19 +19,20 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import modele.Livre;
 
-public class LivreDisplayLigne extends Button {
-    private Livre livre;
-    public LivreDisplayLigne(EventHandler<ActionEvent> controleur, Livre livre,int i){
+public class LivreDisplayLigneVendeur extends Button {
+    private Livre l;
+
+    public LivreDisplayLigneVendeur(EventHandler<ActionEvent> controleur, Livre livre,int i){
         super();
-        this.livre =livre;
+        this.l=livre;
         HBox ligne = new HBox();
         ImageView imageLivre = new ImageView("file:img/icônes/livre.png");
-        String prixString = ""+livre.getPrix();
+        String qte = "Quantité restante en magasin : " + String.valueOf(App.magasinBD.getQte(livre.getIsbn(), App.vendeur.getMagasin().getIdMagasin()));
         imageLivre.setFitHeight(25);
         imageLivre.setFitWidth(25);
 
         Label titreLivre = new Label(livre.getTitre());
-        Label prix = new Label(prixString+"€");
+        Label prix = new Label(qte);
         ligne.setPadding(new Insets(5));
         Label numero = new Label(i+". ");
         ligne.getChildren().addAll(numero,imageLivre, titreLivre,prix);
@@ -62,7 +63,8 @@ public class LivreDisplayLigne extends Button {
         this.setBackground(new Background(new BackgroundFill(Color.web("#e8e4df"), new CornerRadii(25), new Insets(0))));
         this.setOnAction(controleur);
     }
+
     public Livre getLivre(){
-        return this.livre;
+        return this.l;
     }
 }

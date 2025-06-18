@@ -1,4 +1,4 @@
-package app.Client;
+package app.Vendeur;
 
 import java.io.IOException;
 
@@ -11,19 +11,19 @@ import javafx.event.EventHandler;
 import javafx.scene.layout.BorderPane;
 import modele.Livre;
 
-public class ControleurConsulterLivre implements EventHandler<ActionEvent> {
+public class ControleurConsulterLivreVendeur implements EventHandler<ActionEvent> {
     private App app;
 
-    public ControleurConsulterLivre(App app){
+    public ControleurConsulterLivreVendeur(App app){
         this.app = app;
     }
 
     public void handle(ActionEvent event){
-        LivreDisplayLigne boutonLivre = (LivreDisplayLigne) event.getSource();
+        LivreDisplay boutonLivre = (LivreDisplay) event.getSource();
         Livre l = boutonLivre.getLivre();
         App.livre = l;
         try{
-            app.sceneConsultationLivre();
+            app.scenePageVendeurMajQte();
         }
         catch(IOException e){
             System.out.println("Problème de fxml");
