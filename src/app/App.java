@@ -1,6 +1,10 @@
 package app;
 import BD.*;
 import app.Admin.PageAdmin;
+import app.Admin.PageAdminAccueil;
+import app.Admin.PageAdminGererStock;
+import app.Admin.PageAdminTransfererLivre;
+import app.Admin.PageAdminVoirStock;
 import app.Client.PageClient;
 import app.Client.PageClientCatalogue;
 import app.Client.PageConsultationCommande;
@@ -131,6 +135,45 @@ public class App extends Application{
         PageAdmin page = new PageAdmin(this);
         primaryStage.setScene(page.getScene());
     }
+
+    public void sceneAdminAccueil() throws IOException {
+        PageAdminAccueil page = new PageAdminAccueil(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void scenePageAdminGererStock() throws IOException {
+        PageAdminGererStock page = new PageAdminGererStock(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void scenePageAdminTransfererLivre() throws IOException {
+        PageAdminTransfererLivre page = new PageAdminTransfererLivre(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void scenePageAdminVoirStock() throws IOException {
+        PageAdminVoirStock page = new PageAdminVoirStock(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void scenePageAdminAjouterLibrairie() throws IOException {
+        PageAdminAjouterLibrairie page = new PageAdminAjouterLibrairie(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void scenePageAdminCreeVendeur() throws IOException {
+        PageAdminCreerVendeur page = new PageAdminCreerVendeur(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void scenePageAdminStatistiques() throws IOException {
+        PageAdminStatistiques page = new PageAdminStatistiques(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+
+
+    
 
     public void sceneMagasin()throws IOException{
         PageClientCatalogue page = new PageClientCatalogue(this);
