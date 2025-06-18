@@ -19,6 +19,9 @@ public class PageAdmin {
 
         Button creerVendeur = (Button)scene.lookup("#creerVendeur");
         creerVendeur.setOnAction(e -> app.sceneAjouterVendeur());
+
+        Button ajouterLibrairie = (Button)scene.lookup("#ajouterLibrairie");
+        ajouterLibrairie.setOnAction(e -> app.sceneAjouterMagasin());
     }
 
     public Scene getScene(){
