@@ -7,7 +7,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -16,9 +20,9 @@
    <top>
       <BorderPane prefHeight="150.0" prefWidth="1200.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <right>
-            <Label prefHeight="66.0" prefWidth="222.0" text="Ajouter un livre" BorderPane.alignment="CENTER">
+            <Label prefHeight="66.0" prefWidth="197.0" text="Ajouter un livre&#10;" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Caladea" size="30.0" />
+                  <Font name="Caladea Regular" size="30.0" />
                </font>
                <BorderPane.margin>
                   <Insets bottom="25.0" right="10.0" />
@@ -59,12 +63,12 @@
             </HBox>
          </left>
          <center>
-            <Label prefHeight="80.0" prefWidth="200.0" text="Vendeur" BorderPane.alignment="CENTER">
+            <Label prefHeight="80.0" prefWidth="184.0" text="Vendeur" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Caladea" size="50.0" />
+                  <Font name="Caladea Regular" size="50.0" />
                </font>
                <BorderPane.margin>
-                  <Insets bottom="25.0" />
+                  <Insets bottom="25.0" right="15.0" />
                </BorderPane.margin>
             </Label>
          </center>
@@ -83,7 +87,7 @@
             </ImageView>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-                  <Button fx:id="retour" alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Retour" textFill="WHITE" BorderPane.alignment="CENTER_LEFT">
+                  <Button fx:id="retour" alignment="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="208.0" style="-fx-background-color: transparent;" text="Retour" textFill="WHITE" BorderPane.alignment="CENTER_LEFT">
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -96,89 +100,170 @@
                      </font>
                   </Button>
                </top>
+               <left>
+                  <Pane prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: e8e4df; -fx-background-radius: 40;" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets bottom="203.0" left="50.0" right="50.0" top="50.0" />
+                     </BorderPane.margin>
+                     <children>
+                        <ImageView fitHeight="360.0" fitWidth="360.0" layoutX="13.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../img/icônes/ajouterLivre.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </left>
                <center>
-                  <BorderPane prefHeight="697.0" prefWidth="1201.0" BorderPane.alignment="CENTER">
-                     <top>
-                        <Label style="-fx-background-color: a6897e; -fx-background-radius: 10;" text="Rentrer les informations du livre que vous souhaitez ajouter &#10;si des infos sont grisées, c'est que celles-ci sont déjà &#10;repertoriées dans la base de données" textAlignment="CENTER" textFill="WHITE" BorderPane.alignment="CENTER">
-                           <font>
-                              <Font name="Caladea Regular" size="26.0" />
-                           </font>
-                        </Label>
-                     </top>
+                  <BorderPane prefHeight="653.0" prefWidth="714.0" BorderPane.alignment="CENTER">
                      <center>
-                        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                        <GridPane BorderPane.alignment="CENTER">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
                            <children>
-                              <TextField fx:id="entrerNomLivre" prefHeight="50.0" prefWidth="605.0" promptText="Rentrez le nom du livre" style="-fx-background-color: e8e4df; -fx-background-radius: 10;">
-                                 <VBox.margin>
-                                    <Insets left="300.0" right="300.0" top="30.0" />
-                                 </VBox.margin>
+                              <Pane prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;">
+                                 <children>
+                                    <Label layoutX="143.0" layoutY="18.0" text="ISBN" textFill="#e8e4df">
+                                       <font>
+                                          <Font name="Caladea Bold" size="30.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+                              <Pane layoutX="360.0" layoutY="82.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label fx:id="isbnLivre11" layoutX="147.0" layoutY="18.0" text="Prix" textFill="#e8e4df">
+                                       <font>
+                                          <Font name="Caladea Bold" size="30.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+                              <Pane layoutX="10.0" layoutY="82.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.rowIndex="2">
+                                 <children>
+                                    <Label fx:id="isbnLivre111" layoutX="52.0" layoutY="18.0" text="Nombres de pages" textFill="#e8e4df">
+                                       <font>
+                                          <Font name="Caladea Bold" size="30.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+                              <Pane layoutX="10.0" layoutY="154.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.rowIndex="3">
+                                 <children>
+                                    <Label fx:id="isbnLivre1111" layoutX="44.0" layoutY="18.0" text="Date de publication" textFill="#e8e4df">
+                                       <font>
+                                          <Font name="Caladea Bold" size="30.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+                              <Pane layoutX="360.0" layoutY="320.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.rowIndex="4">
+                                 <children>
+                                    <Label fx:id="isbnLivre121111" layoutX="116.0" layoutY="13.0" text="Quantité" textFill="#e8e4df">
+                                       <font>
+                                          <Font name="Caladea Bold" size="30.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+                              <TextField fx:id="isbn" alignment="CENTER" prefHeight="117.0" prefWidth="350.0" promptText="Rentrez l'isbn" style="-fx-background-color: transparent; -fx-border-color: #e8e4df; -fx-border-width: 3;" GridPane.columnIndex="1">
                                  <font>
-                                    <Font name="Caladea Regular" size="20.0" />
+                                    <Font name="Caladea Regular" size="36.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="entrerNbPagesLivres" prefHeight="50.0" promptText="Rentrez le nombre de page du livre" style="-fx-background-color: e8e4df; -fx-background-radius: 10;">
-                                 <VBox.margin>
-                                    <Insets left="300.0" right="300.0" top="20.0" />
-                                 </VBox.margin>
+                              <TextField fx:id="prix" alignment="CENTER" layoutX="360.0" layoutY="10.0" prefHeight="117.0" prefWidth="350.0" promptText="Rentrez le prix" style="-fx-background-color: transparent; -fx-border-color: #e8e4df; -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <font>
-                                    <Font name="Caladea Regular" size="20.0" />
+                                    <Font name="Caladea Regular" size="36.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="entrerDatePubliLivre" prefHeight="50.0" promptText="Rentrez la date de publication du livre" style="-fx-background-color: e8e4df; -fx-background-radius: 10;">
-                                 <VBox.margin>
-                                    <Insets left="300.0" right="300.0" top="20.0" />
-                                 </VBox.margin>
+                              <TextField fx:id="qte" alignment="CENTER" layoutX="360.0" layoutY="88.0" prefHeight="117.0" prefWidth="350.0" promptText="Rentrez la quantité" style="-fx-background-color: transparent; -fx-border-color: #e8e4df; -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <font>
-                                    <Font name="Caladea Regular" size="20.0" />
+                                    <Font name="Caladea Regular" size="31.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="entrerPrixLivre" prefHeight="50.0" promptText="Rentrez le prix du livre" style="-fx-background-color: e8e4df; -fx-background-radius: 10;">
-                                 <VBox.margin>
-                                    <Insets left="300.0" right="300.0" top="20.0" />
-                                 </VBox.margin>
+                              <TextField fx:id="datePubli" alignment="CENTER" prefHeight="117.0" prefWidth="350.0" promptText="Rentrez la date de publi" style="-fx-background-color: transparent; -fx-border-color: #e8e4df; -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <font>
-                                    <Font name="Caladea Regular" size="20.0" />
+                                    <Font name="Caladea Regular" size="30.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="entrerQteLivre" prefHeight="50.0" promptText="Rentrez la quantité du livre" style="-fx-background-color: e8e4df; -fx-background-radius: 10;">
-                                 <VBox.margin>
-                                    <Insets left="300.0" right="300.0" top="20.0" />
-                                 </VBox.margin>
+                              <TextField fx:id="nbPages" alignment="CENTER" prefHeight="117.0" prefWidth="350.0" promptText="Rentrez le nombre de pages" style="-fx-background-color: transparent; -fx-border-color: #e8e4df; -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <font>
-                                    <Font name="Caladea Regular" size="20.0" />
+                                    <Font name="Caladea Regular" size="27.0" />
                                  </font>
                               </TextField>
                            </children>
-                           <BorderPane.margin>
-                              <Insets />
-                           </BorderPane.margin>
-                        </VBox>
+                        </GridPane>
                      </center>
                      <bottom>
-                        <HBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+                        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Button fx:id="resetLivre" mnemonicParsing="false" prefHeight="110.0" prefWidth="220.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Réinitialiser ">
-                                 <HBox.margin>
-                                    <Insets right="20.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font name="Caladea Regular" size="33.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="ajouterLivre" mnemonicParsing="false" prefHeight="110.0" prefWidth="220.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Ajouter">
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font name="Caladea Regular" size="35.0" />
-                                 </font>
-                              </Button>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label prefHeight="56.0" prefWidth="340.0" style="-fx-background-color: a6897e; -fx-background-radius: 10;" text="Rentrez la nouvelle quantité:" textFill="#e8e4df">
+                                       <font>
+                                          <Font name="Caladea Regular" size="28.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="10.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField fx:id="newQteLivre" alignment="CENTER" prefHeight="54.0" prefWidth="160.0" promptText="..." style="-fx-background-color: a6897e; -fx-background-radius: 10;">
+                                       <font>
+                                          <Font name="Caladea Bold" size="25.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="10.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="1200.0">
+                                 <children>
+                                    <Button fx:id="reset" mnemonicParsing="false" prefHeight="66.0" prefWidth="172.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Réinitialiser ">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="Caladea Regular" size="25.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="ajouter" mnemonicParsing="false" prefHeight="56.0" prefWidth="172.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Ajouter">
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="Caladea Regular" size="35.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
                            </children>
-                           <BorderPane.margin>
-                              <Insets />
-                           </BorderPane.margin>
-                        </HBox>
+                        </VBox>
                      </bottom>
+                     <top>
+                        <HBox alignment="TOP_CENTER" prefHeight="64.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <TextField fx:id="nom" prefHeight="60.0" prefWidth="360.0" promptText="Rentrez le nom du livre" style="-fx-background-radius: 20; -fx-background-color: a6897e;">
+                                 <font>
+                                    <Font name="Caladea Regular" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <Button fx:id="verif" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="132.0" style="-fx-background-color: a6897e; -fx-background-radius: 20;" text="Verifier l'existence&#10;du livre" textAlignment="CENTER" textFill="#e8e4df">
+                                 <font>
+                                    <Font name="Caladea Regular" size="14.0" />
+                                 </font></Button>
+                           </children>
+                        </HBox>
+                     </top>
                   </BorderPane>
                </center>
             </BorderPane>
