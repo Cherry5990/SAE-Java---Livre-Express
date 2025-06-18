@@ -47,30 +47,32 @@ public class ReseauBD {
      * Recherche les livres dont le titre contient la chaîne de caractères donnée en paramètre
      * @param like la chaîne de caractères à rechercher dans le titre des livres
      * @param idmag l'identifiant du magasin à exclure de la recherche
-     * @return les livres dont le titre contient la chaîne de caractères donnée
+     * @return une liste de livres dont le titre contient la chaîne de caractères donnée
      */
-    public String rechercheLivre(String like,int idmag){
-        StringBuilder sb = new StringBuilder();
-        try (PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn, titre, sum(qte) qte FROM LIVRE NATURAL JOIN POSSEDER where idmag!= ? group by isbn having titre LIKE ?;")) {
-            ps.setString(2, "%" + like + "%");
+    public List<Livre> rechercheLivre(String like, int idmag) {
+        List<Livre> livres = new ArrayList<>();
+        try (PreparedStatement ps = laConnexion.prepareStatement(
+                "SELECT isbn, titre, sum(qte) qte, prix, nbpages, datepubli " +
+                "FROM LIVRE NATURAL JOIN POSSEDER " +
+                "WHERE idmag != ? " +
+                "GROUP BY isbn, titre, prix, nbpages, datepubli " +
+                "HAVING titre LIKE ?;")) {
             ps.setInt(1, idmag);
+            ps.setString(2, "%" + like + "%");
             ResultSet rs = ps.executeQuery();
-            sb.append(String.format("%-15s %-40s %-5s\n", "isbn", "titre", "qte totale"));
             while (rs.next()) {
+                String isbn = rs.getString("isbn");
                 String titre = rs.getString("titre");
-                if (titre.length() > 35) {
-                    titre = titre.substring(0, 35) + "...";
-                }
-                sb.append(String.format("%-15s %-40s %-5s\n",
-                        rs.getString("isbn"),
-                        titre,
-                        rs.getString("qte")));
+                int nbPages = rs.getInt("nbpages");
+                String datePubli = rs.getString("datepubli");
+                double prix = rs.getDouble("prix");
+                // On ne stocke pas la quantité dans Livre, mais on pourrait l'ajouter si besoin
+                livres.add(new Livre(isbn, titre, nbPages, datePubli, prix));
             }
-        } 
-        catch (SQLException e) {
-            sb.append("Erreur lors de l'affichage des magasins : ").append(e.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la recherche des livres : " + e.getMessage());
         }
-        return sb.toString();
+        return livres;
     }
 
 
@@ -80,30 +82,26 @@ public class ReseauBD {
      * @param fin l'index de fin
      * @return le stock de livres du réseau
      */
-    public String voirStockReseau(int debut, int fin){
-        StringBuilder sb = new StringBuilder();
-        try(PreparedStatement ps = laConnexion.prepareStatement("select isbn,titre,prix,qte from LIVRE natural join POSSEDER LIMIT ? OFFSET ?;")){
-            int limit = fin-debut;
+    public List<Livre> voirStockReseau(int debut, int fin){
+        List<Livre> res = new ArrayList<>();
+        try(PreparedStatement ps = laConnexion.prepareStatement("select isbn, titre, prix, nbpages, datepubli from LIVRE natural join POSSEDER LIMIT ? OFFSET ?;")){
+            int limit = fin - debut;
             ps.setInt(1, limit);
             ps.setInt(2, debut);
             ResultSet rs = ps.executeQuery();
-            sb.append(String.format("%-15s %-40s %-13s %-5s\n", "isbn", "titre", "prix", "qte"));
             while(rs.next()){
-                String titre =rs.getString("titre");
-                if (titre.length() > 35){
-                    titre = titre.substring(0, 35) + "...";
-                }
-                sb.append(String.format("%-15s %-40s %-13s %-5s\n",
-                        rs.getString("isbn"),
-                        titre,
-                        rs.getDouble("prix") + " euros",
-                        rs.getString("qte")));
+                String isbn = rs.getString("isbn");
+                String titre = rs.getString("titre");
+                int nbPages = rs.getInt("nbpages");
+                double prix = rs.getDouble("prix");
+                String datePubli = rs.getString("datepubli");
+                res.add(new Livre(isbn, titre, nbPages, datePubli, prix));
             }
         }
         catch(SQLException e){
-            System.out.println("bug au niveau de voirStock");
+            System.out.println("bug au niveau de voirStockReseau (pagination)");
         }
-        return sb.toString();
+        return res;
     }
 
     /**

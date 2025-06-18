@@ -1,7 +1,5 @@
 package app.Admin;
-import modele.Client;
 
-import java.io.IOError;
 import java.io.IOException;
 
 import app.App;
