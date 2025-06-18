@@ -38,6 +38,26 @@ public class PageAdminAjouterVendeur {
 
         Button reset = (Button) scene.lookup("#reset");
         reset.setOnAction(e -> this.resetTextFields());
+
+        Button retirer = (Button) scene.lookup("#retirer");
+        retirer.setOnAction(e -> this.retirerVendeur());
+    }
+
+    public void retirerVendeur(){
+        try{
+            String prenom = this.tfPrenom.getText();
+            String nom = this.tfNom.getText();
+            Integer idMagasin = Integer.parseInt(this.tfMagasin.getText());
+            if (!App.vendeurBD.vendeurPresent(nom, prenom, idMagasin)){
+                this.popUpVendeurNonPresent();
+            } else {
+                App.vendeurBD.deleteVendeur(nom, prenom, idMagasin);
+            }
+        } catch (SQLException e){
+            System.err.println("Erreur dans PageAdminAjouterVendeur.retirerVendeur() " + e.getMessage());
+        } catch (NumberFormatException e2){
+            this.popUpValeursNonValides();
+        }
     }
 
     public void ajouterVendeur(){
@@ -74,6 +94,13 @@ public class PageAdminAjouterVendeur {
         Alert alert = new Alert(Alert.AlertType.INFORMATION,"Erreur : veuillez rentrer des valeurs valides", ButtonType.OK);
         alert.setTitle("Valeurs non valides");
         alert.setHeaderText("Valeurs non valides");
+        alert.showAndWait();
+    }
+
+    public void popUpVendeurNonPresent(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Erreur : ce vendeur n'est pas dans la base", ButtonType.OK);
+        alert.setTitle("Vendeur non présent");
+        alert.setHeaderText("Vendeur non présent");
         alert.showAndWait();
     }
 

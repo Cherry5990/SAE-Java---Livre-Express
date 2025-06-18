@@ -58,6 +58,16 @@ public class VendeurBD {
         }
     }
 
+    public void deleteVendeur(String nom, String prenom, int idMagasin)throws SQLException{
+        try(PreparedStatement ps =laConnexion.prepareStatement("delete from VENDEUR where nomVendeur = ? and prenomVendeur = ? and idmag = ?")){
+            ps.setString(1, nom);
+            ps.setString(2, prenom);
+            ps.setInt(3, idMagasin);
+            ps.executeUpdate();
+            ps.close();
+        }
+    }
+
     /**
      * Retourne les informations du vendeur correspondant à l'identifiant donné
      * @param id l'identifiant du vendeur
@@ -82,7 +92,9 @@ public class VendeurBD {
             ps.setString(2, prenom);
             ps.setInt(3, idMagasin);
             ResultSet rs = ps.executeQuery();
-            return rs.next();
+            boolean dedans = rs.next();
+            rs.close();
+            return dedans;
         }
     }
     
