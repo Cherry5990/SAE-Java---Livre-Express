@@ -17,6 +17,9 @@ import BD.VendeurBD;
 
 public class PageAdminAjouterVendeur {
     private Scene scene;
+    private TextField tfPrenom;
+    private TextField tfNom;
+    private TextField tfMagasin;
 
     public PageAdminAjouterVendeur(App app){
         try {
@@ -26,18 +29,22 @@ public class PageAdminAjouterVendeur {
             System.err.println("Problème d'ouverture du fichier PageAdminAjouterVendeur");
         }
 
+        this.tfPrenom = (TextField) scene.lookup("#entrerPrenomVendeur");
+        this.tfNom = (TextField) scene.lookup("#entrerNomVendeur");
+        this.tfMagasin = (TextField) scene.lookup("#entrerIdMagasin");
+
         Button ajouter = (Button) scene.lookup("#ajouter");
         ajouter.setOnAction(e -> this.ajouterVendeur());
+
+        Button reset = (Button) scene.lookup("#reset");
+        reset.setOnAction(e -> this.resetTextFields());
     }
 
     public void ajouterVendeur(){
-        TextField tfPrenom = (TextField) scene.lookup("#entrerPrenomVendeur");
-        TextField tfNom = (TextField) scene.lookup("#entrerNomVendeur");
-        TextField tfMagasin = (TextField) scene.lookup("#entrerIdMagasin");
-        String prenom = tfPrenom.getText();
-        String nom = tfNom.getText();
-        Integer idMagasin = Integer.parseInt(tfMagasin.getText());
         try{
+            String prenom = this.tfPrenom.getText();
+            String nom = this.tfNom.getText();
+            Integer idMagasin = Integer.parseInt(this.tfMagasin.getText());
             if (App.vendeurBD.vendeurPresent(nom, prenom, idMagasin)){
                 this.popUpVendeurDejaPresent();
             } else {
@@ -45,13 +52,28 @@ public class PageAdminAjouterVendeur {
             }
         } catch (SQLException e){
             System.err.println("Erreur dans PageAdminAjouterVendeur.ajouterVendeur() " + e.getMessage());
+        } catch (NumberFormatException e2){
+            this.popUpValeursNonValides();
         }
+    }
+
+    public void resetTextFields(){
+        this.tfPrenom.setText("");
+        this.tfNom.setText("");
+        this.tfMagasin.setText("");
     }
 
     public void popUpVendeurDejaPresent(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION,"Erreur : ce vendeur est déjà dans la base", ButtonType.OK);
         alert.setTitle("Vendeur déjà présent");
         alert.setHeaderText("Vendeur déjà présent");
+        alert.showAndWait();
+    }
+
+    public void popUpValeursNonValides(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Erreur : veuillez rentrer des valeurs valides", ButtonType.OK);
+        alert.setTitle("Valeurs non valides");
+        alert.setHeaderText("Valeurs non valides");
         alert.showAndWait();
     }
 
