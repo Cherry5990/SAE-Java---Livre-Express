@@ -26,7 +26,30 @@ public class Client extends Compte{
     public String getVille(){return this.ville;}
     public List<Commande> getCommandes(){return this.commandes;}
     
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Client client = (Client) obj;
+        return this.getId() == client.getId();
+    }
 
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(this.getId());
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + getId() +
+                ", nom='" + getNom() + '\'' +
+                ", prenom='" + getPrenom() + '\'' +
+                ", adresse='" + adresse + '\'' +
+                ", codePostal='" + codePostal + '\'' +
+                ", ville='" + ville + '\'' +
+                '}';
+    }
     
 }
 

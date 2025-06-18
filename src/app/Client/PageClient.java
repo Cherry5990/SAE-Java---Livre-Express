@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import app.App;
 import app.Display.CommandeDisplay;
@@ -16,7 +17,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.cell.ComboBoxListCell;
@@ -47,8 +50,6 @@ public class PageClient {
         this.magasinChoix = "";
 
         this.magasin = (ComboBox<String>) this.scene.lookup("#comboMag");
-        
-        App.commande = new Commande(0, null, false, false, App.client, null);
 
         List<Magasin> magasins = App.magasinBD.getAllMagasins();
         for(Magasin mag:magasins){
@@ -60,7 +61,12 @@ public class PageClient {
         });
 
         Button retour = (Button)scene.lookup("#retour");
-        retour.setOnAction(e -> app.sceneAcceuil());
+        retour.setOnAction(e -> {
+            Optional<ButtonType> reponse = popUpMessageDeconnexion().showAndWait();
+            if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){
+                    app.sceneAcceuil();
+                }
+        });
 
         Button connecter = (Button) this.scene.lookup("#connexion");
         connecter.setOnAction(new ControleurConnexionMagasin(this,app));
@@ -87,31 +93,25 @@ public class PageClient {
         avant1.setOnMouseEntered(e -> avant1.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-scale-x: 1.08; -fx-scale-y: 1.08; -fx-effect: dropshadow(gaussian, #1976D2, 10, 0.5, 0, 2);"));
         avant1.setOnMouseExited(e -> avant1.setStyle("-fx-background-color: transparent;"));
 
-        try{
-            this.positionLivre=0;
-            if(App.recomandation==null){
-                App.recomandation = App.clientBD.getRecommandationClient(App.client.getId());
-            }
-            this.livres = (HBox) this.scene.lookup("#livres");
-            int count = Math.min(7, App.recomandation.size());
-            for (int i = 0; i < count; i++) {
-                Livre livreData = App.recomandation.get(i);
-                if (livreData != null) {
-                    LivreDisplay livre = new LivreDisplay(new ControleurLivreRecommande(app,livreData), livreData);
-                    this.livres.getChildren().add(livre);
-                }
+        this.positionLivre=0;
+        
+        this.livres = (HBox) this.scene.lookup("#livres");
+        int count = Math.min(7, App.recoClient.get(App.client).size());
+        for (int i = 0; i < count; i++) {
+            Livre livreData = App.recoClient.get(App.client).get(i);
+            if (livreData != null) {
+                LivreDisplay livre = new LivreDisplay(new ControleurLivreRecommande(app,livreData), livreData);
+                this.livres.getChildren().add(livre);
             }
         }
-        catch(SQLException e){
-            System.out.println("Pas de recommandation"+e.getMessage());
-        }
+
 
         try{
             this.positionCommande=0;
             this.commandes= App.commandeBD.CommandeClient(App.client.getId());
             this.hBoxCommande = (HBox) this.scene.lookup("#commandes");
-            int count = Math.min(7, commandes.size());
-            for (int i = 0; i < count; i++) {
+            int count2 = Math.min(7, commandes.size());
+            for (int i = 0; i < count2; i++) {
                 Commande commandedata = commandes.get(i);
                 if (commandedata != null) {
                     CommandeDisplay com = new CommandeDisplay(new ControleurConsulterCommande(app,commandedata), commandedata);
@@ -130,9 +130,9 @@ public class PageClient {
 
     public void majRecommandation() {
         this.livres.getChildren().clear();
-        int count = Math.min(7, App.recomandation.size() - positionLivre);
+        int count = Math.min(7, App.recoClient.get(App.client).size() - positionLivre);
         for (int j = 0; j < count; j++) {
-            Livre livreData = App.recomandation.get(positionLivre + j);
+            Livre livreData = App.recoClient.get(App.client).get(positionLivre + j);
             if (livreData != null) {
                 LivreDisplay livre = new LivreDisplay(new ControleurLivreRecommande(app,livreData), livreData);
                 this.livres.getChildren().add(livre);
@@ -152,6 +152,13 @@ public class PageClient {
         }
     }
 
+    public Alert popUpMessageDeconnexion(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"",ButtonType.YES, ButtonType.NO);
+        alert.setHeaderText("Déconnextion"); 
+        alert.setContentText("êtes vous sur de vous déconnecter?");     
+        return alert;
+    }
+    
     public void setMagasinChoix(String mag){
         this.magasinChoix = mag;
     }
@@ -175,7 +182,7 @@ public class PageClient {
     }
 
     public int getNbLivre(){
-        return App.recomandation.size();
+        return App.recoClient.get(App.client).size();
     }
 
     public void setPositionCommande(int pos){

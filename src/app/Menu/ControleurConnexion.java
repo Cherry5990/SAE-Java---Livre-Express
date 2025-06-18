@@ -4,6 +4,7 @@ import modele.Vendeur;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import app.App;
 import javafx.event.ActionEvent;
@@ -27,8 +28,13 @@ public class ControleurConnexion implements EventHandler<ActionEvent>{
             switch (nom) {
                 case "client":
                     App.client = App.clientBD.getClient(id);
-                    App.recomandation = null;
-                    System.out.println(App.client.getPrenom());
+                    if(!App.recoClient.containsKey(App.client)){
+                        App.recoClient.put(App.client,App.clientBD.getRecommandationClient(App.client.getId()));
+                        System.out.println("Genération recommandation client "+App.client);
+                    }
+                    if(!App.memoiresCommandesClient.containsKey(App.client)){
+                        App.memoiresCommandesClient.put(App.client,new HashMap<>());
+                    }
                     app.sceneClient();
                     break;
                 case "vendeur":

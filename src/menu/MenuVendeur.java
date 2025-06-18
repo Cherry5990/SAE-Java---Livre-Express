@@ -719,8 +719,8 @@ public class MenuVendeur {
     }
 
     public static void transfererLivreDemandeIsbn(ConnexionMySQL con, String titre){
-            String reponse = MenuVendeur.reseauBD.rechercheLivre(titre,vendeur.getMagasin().getIdMagasin());
-            System.out.println(reponse);
+            //String reponse = MenuVendeur.reseauBD.rechercheLivre(titre,vendeur.getMagasin().getIdMagasin());
+            //System.out.println(reponse);
             System.out.println("┌───────────────────────────────────────────────────────┐"); 
             System.out.println("│Rentrez l'ISBN du livre que vous voulez transférer     │"); 
             System.out.println("│Rentrez les 13 chiffres sans espaces                   │"); 

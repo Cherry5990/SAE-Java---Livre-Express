@@ -45,6 +45,14 @@ public class Commande {
         this.magasin = mag;
     }
 
+    public Double getPrix(){
+        double somme = 0;
+        for(DetailCommande dc:this.detailCommandes){
+            somme+=dc.getPrixVente();
+        }
+        return somme;
+    }
+
     /**
      * Ajoute le livre dans la commande
      * @param livre le livre de la commande

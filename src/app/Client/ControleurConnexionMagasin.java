@@ -7,6 +7,7 @@ import app.App;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import modele.Commande;
 import modele.Magasin;
 
 public class ControleurConnexionMagasin implements EventHandler<ActionEvent>{
@@ -23,12 +24,14 @@ public class ControleurConnexionMagasin implements EventHandler<ActionEvent>{
         System.out.println("appuyer");
         try {
             String nommag = vue.getMagasinChoix();
-            System.out.println(nommag);
             App.magasin = App.magasinBD.getMagasin(nommag);
-            App.commande.setMagasin(App.magasin);
-            if (App.magasin!=null){
-                app.sceneMagasin();
+            if (App.memoiresCommandesClient.get(App.client).containsKey(App.magasin)){
+                App.commande = App.memoiresCommandesClient.get(App.client).get(App.magasin);
             }
+            else{
+                App.commande = new Commande(0, "", false, false, App.client, App.magasin);
+            }
+            app.sceneMagasin();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

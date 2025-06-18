@@ -17,6 +17,7 @@ import app.Menu.PageAcceuil;
 import app.Menu.PageConnexion;
 import app.Vendeur.PageVendeurAccueil;
 import app.Vendeur.PageVendeurAjouterLivre;
+import app.Vendeur.PageVendeurChoixClient;
 import app.Vendeur.PageVendeurGererStocks;
 import app.Vendeur.PageVendeurMajQte;
 import app.Vendeur.PageVendeurTransfererLivre;
@@ -26,7 +27,9 @@ import modele.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javafx.application.Application;
@@ -49,8 +52,9 @@ public class App extends Application{
     public static Magasin magasin;
     public static Livre livre;
     public static Vendeur vendeur;
-    public static List<Livre> recomandation;
     public static Reseau reseau;
+    public static Map<Client,Map<Magasin,Commande>> memoiresCommandesClient;
+    public static Map<Client,List<Livre>> recoClient;
     private ConnexionMySQL con;
 
     @Override
@@ -82,6 +86,8 @@ public class App extends Application{
             App.livre = null;
             App.vendeur = null;
             App.reseau = null;
+            App.memoiresCommandesClient = new HashMap<>();
+            App.recoClient = new HashMap<>();
         }
         catch (Exception e) {
             System.out.println("Problème de connexion à la BD : "+e.getMessage());
@@ -135,6 +141,10 @@ public class App extends Application{
     }
     public void scenePageVendeurTransfererLivre()throws IOException{
         PageVendeurTransfererLivre page = new PageVendeurTransfererLivre(this);
+        primaryStage.setScene(page.getScene());
+    }
+    public void scenePageVendeurChoixClient()throws IOException{
+        PageVendeurChoixClient page = new PageVendeurChoixClient(this);
         primaryStage.setScene(page.getScene());
     }
     
@@ -196,6 +206,7 @@ public class App extends Application{
 
     public void sceneConsultationRecommande()throws IOException{
         PageClientRecommande page = new PageClientRecommande(this);
+        primaryStage.setScene(page.getScene());
     }
      
     public void sceneAjouterVendeur(){
