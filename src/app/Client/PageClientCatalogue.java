@@ -1,7 +1,6 @@
 package app.Client;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 import app.App;
@@ -9,15 +8,12 @@ import app.Display.LivreDisplayLigne;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import modele.Client;
-import modele.Commande;
 import modele.Livre;
-import modele.Magasin;
 
 public class PageClientCatalogue {
     private Scene scene;
@@ -28,7 +24,6 @@ public class PageClientCatalogue {
     public PageClientCatalogue(App app)throws IOException{
         Pane root = FXMLLoader.load(getClass().getResource("../view/Client/PageClientCatalogue.fxml"));
         this.scene = new Scene(root);
-        App.commande = new Commande(0, null, false, false, App.client, App.magasin);
         this.livres = App.magasinBD.getAllLivre(App.magasin.getIdMagasin());
         this.scroll = (ScrollPane) this.scene.lookup("#test");
         int i = 1;
