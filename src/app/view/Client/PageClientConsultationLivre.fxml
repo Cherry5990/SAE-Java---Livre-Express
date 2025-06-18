@@ -7,15 +7,17 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="1200.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <right>
@@ -131,28 +133,46 @@
                      <center>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Label fx:id="titre" prefHeight="49.0" prefWidth="400.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 20;">
+                              <Label fx:id="titre" alignment="CENTER" contentDisplay="CENTER" prefHeight="49.0" prefWidth="400.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 20;" text="Titre">
                                  <VBox.margin>
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
                               </Label>
-                              <TilePane maxHeight="400.0" maxWidth="960.0" minHeight="400.0" minWidth="960.0" prefColumns="2" prefHeight="400.0" prefTileHeight="66.7" prefTileWidth="480.0" prefWidth="960.0" style="-fx-background-color: #e8e4df;">
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
+                              <GridPane gridLinesVisible="true" prefHeight="415.0" prefWidth="955.0" style="-fx-background-color: #e8e4df;">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN" />
-                                    <Text fx:id="isbn" strokeType="OUTSIDE" strokeWidth="0.0" text="[isbn]" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PRIX" />
-                                    <Text fx:id="prix" strokeType="OUTSIDE" strokeWidth="0.0" text="[prix]" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE DE PAGES" />
-                                    <Text fx:id="pages" strokeType="OUTSIDE" strokeWidth="0.0" text="[nombre de pages]" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="THEME" />
-                                    <Text fx:id="theme" strokeType="OUTSIDE" strokeWidth="0.0" text="[theme]" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="AUTEUR" />
-                                    <Text fx:id="auteur" strokeType="OUTSIDE" strokeWidth="0.0" text="[auteur]" />
+                                    <Label text="ISBN" />
+                                    <Label text="PRIX" GridPane.rowIndex="1" />
+                                    <Label text="NOMBRE PAGE" GridPane.rowIndex="2" />
+                                    <Label GridPane.rowIndex="3" />
+                                    <Label text="AUTEUR(S)" GridPane.rowIndex="3" />
+                                    <Label text="THEME(S)" GridPane.rowIndex="4" />
+                                    <Label text="EDITEUR(S)" GridPane.rowIndex="5" />
+                                    <Label fx:id="isbn" text="Label" GridPane.columnIndex="1" />
+                                    <Label fx:id="prix" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label fx:id="nbpage" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="auteur" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label fx:id="theme" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label fx:id="editeur" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                  </children>
-                              </TilePane>
+                              </GridPane>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
                                     <HBox prefHeight="100.0" prefWidth="974.0">
