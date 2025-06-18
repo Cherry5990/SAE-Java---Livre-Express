@@ -1,5 +1,12 @@
 package app.Display;
+import app.App;
+import app.Vendeur.PageVendeurCommande;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -11,37 +18,31 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import modele.DetailCommande;
 
-public class DetailCommandeDisplay extends GridPane{
-    public DetailCommandeDisplay(DetailCommande dc){
+public class DetailCommandeDisplay extends Pane{
+    private Label prixTotale;
+    private Label qte;
+    public DetailCommandeDisplay(PageVendeurCommande vue,DetailCommande dc)throws IOException{
+        Pane widget = FXMLLoader.load(getClass().getResource("../view/ViewDetailCommande.fxml"));
+        this.getChildren().add(widget);
+        Label prix = (Label)widget.lookup("#prix");
+        prix.setText(dc.getLivre().getPrix()+" €");
+        this.prixTotale= (Label)widget.lookup("#prixtotale");
+        this.prixTotale.setText(dc.getPrixVente()+"€");
+        this.qte = (Label)widget.lookup("#qte");
+        this.qte.setText(dc.getQte()+"");
+        Button delete = (Button)widget.lookup("#delete");
+        delete.setOnAction(e -> {
+            try {
+                App.magasinBD.ajouterQte(dc.getLivre().getIsbn(), dc.getQte(), App.magasin.getIdMagasin());
+            } catch (SQLException e1) {
+                System.out.println(e1.getMessage());
+            }
+            App.commande.enleveLivre(dc.getLivre());
+            vue.maj();
+        });
+        Label titre =(Label)widget.lookup("#titre");
+        titre.setText(dc.getLivre().getTitre());
 
-        //image
-        ImageView imageLivre = new ImageView(new Image("file:img/icônes/livre.png"));
-        VBox image = new VBox();
-        image.getChildren().addAll(imageLivre,new Label(dc.getLivre().getPrix()+"€"));
-        this.add(image,0,0,1,3);
-
-        //titre
-        Label titre = new Label(dc.getLivre().getTitre());
-        this.add(titre,1,0,2,1);
-
-        //sous-total
-        VBox sousTotal = new VBox();
-        Label mot = new Label("Sous-total");
-        Label prix = new Label(dc.getPrixVente()+"");
-        sousTotal.getChildren().addAll(mot,prix);
-        this.add(sousTotal,1,1);
-
-        //quantité
-        VBox boxQte = new VBox();
-        Label q = new Label("Quantité");
-        Label qte = new Label("...");
-        Spinner spinner = new Spinner<>();
-        boxQte.getChildren().addAll(q,qte,spinner);
-        this.add(boxQte,1,2);
-
-        //supprimer
-        Button supprimer = new Button();
-        supprimer.setGraphic(new ImageView(new Image("file:img/icône/poubelle_rouge.png")));
-        this.add(supprimer,2,1,1,2);
     }
+
 }

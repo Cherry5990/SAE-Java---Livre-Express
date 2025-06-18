@@ -1,7 +1,9 @@
 package app.Client;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import app.App;
 import app.Display.LivreDisplayLigne;
@@ -13,7 +15,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import modele.Commande;
 import modele.Livre;
+import modele.Magasin;
 
 public class PageClientCatalogue {
     private Scene scene;
@@ -29,11 +33,11 @@ public class PageClientCatalogue {
         this.app = app;
         Pane root = FXMLLoader.load(getClass().getResource("../view/Client/PageClientCatalogue.fxml"));
         this.scene = new Scene(root);
-        this.position = 1;
+        this.position = 0;
         this.like = "";
         this.livres = App.magasinBD.rechercheLivre(App.magasin.getIdMagasin(),like,position,20);
         this.scroll = (ScrollPane) this.scene.lookup("#test");
-        int i = position;
+        int i = position+1;
         this.lignes = (VBox) this.scroll.getContent();
         ControleurConsulterLivre controleur = new ControleurConsulterLivre(app);
         for(Livre livreMag:livres){
@@ -43,7 +47,7 @@ public class PageClientCatalogue {
 
         TextField recherche = (TextField)scene.lookup("#recherche");
         recherche.textProperty().addListener((observable, oldValue, newValue) -> {
-            position = 1;
+            position = 0;
             this.like = newValue;
             maj();
         });
@@ -52,6 +56,9 @@ public class PageClientCatalogue {
         retour.setOnAction(e -> {
             try {
                 app.sceneClient();
+                if(App.commande.getDetailCommandes().size()!=0){
+                    App.memoiresCommandesClient.get(App.client).put(App.magasin,App.commande);
+                }
             } 
             catch (IOException e1) {
                 System.out.println(e1.getMessage());
@@ -95,7 +102,7 @@ public class PageClientCatalogue {
     }
 
     public void maj(){
-        int i = position;
+        int i = position+1;
         this.livres = App.magasinBD.rechercheLivre(App.magasin.getIdMagasin(),like,position,20);
         this.lignes.getChildren().clear();
         ControleurConsulterLivre controleur = new ControleurConsulterLivre(app);
