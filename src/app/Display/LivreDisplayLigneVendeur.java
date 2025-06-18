@@ -47,11 +47,9 @@ public class LivreDisplayLigneVendeur extends LivreDisplay {
         ligne.setStyle("-fx-background-color: transparent;");
         imageLivre.setStyle("-fx-effect: dropshadow(gaussian, #bbb, 4, 0.5, 0, 1);");
 
-        // Spacer to push the price to the far right
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        // Remove prix from previous addAll and add after spacer
         ligne.getChildren().clear();
         ligne.getChildren().addAll(numero, imageLivre, titreLivre, spacer, prix);
         HBox.setMargin(imageLivre, new Insets(0, 10, 0, 10));
