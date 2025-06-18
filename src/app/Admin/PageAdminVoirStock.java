@@ -5,8 +5,6 @@ import java.util.List;
 
 import app.App;
 import app.Display.LivreDisplayLigne;
-import app.Display.LivreDisplayLigneVendeur;
-import app.Vendeur.ControleurConsulterLivreVendeur;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

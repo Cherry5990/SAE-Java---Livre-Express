@@ -5,7 +5,6 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import app.App;
-import javafx.beans.property.IntegerProperty;
 import javafx.event.ActionEvent;
 
 public class ControleurAdminTransferer implements EventHandler<ActionEvent>{

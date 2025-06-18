@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import app.App;
-import app.Vendeur.ControleurVendeurTransferer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,7 +12,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import modele.Livre;
 import modele.Magasin;
 
@@ -111,7 +109,7 @@ public class PageAdminTransfererLivre {
                     this.comboLivre.getItems().add(elt.getTitre());
                 }
                 this.nom.textProperty().addListener((obsNom, oldNom, newNom) -> {
-                    List<Livre> livres = app.magasinBD.rechercheLivre(this.idMag1, newNom);
+                    List<Livre> livres = App.magasinBD.rechercheLivre(this.idMag1, newNom);
                     this.comboLivre.getItems().clear();
                     for (Livre livre : livres) {
                         this.comboLivre.getItems().add(livre.getTitre());
