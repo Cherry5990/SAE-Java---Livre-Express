@@ -158,7 +158,7 @@
                               </Pane>
                               <Pane layoutX="10.0" layoutY="154.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.rowIndex="3">
                                  <children>
-                                    <Label fx:id="isbnLivre1111" layoutX="44.0" layoutY="18.0" text="Date de publication" textFill="#e8e4df">
+                                    <Label fx:id="isbnLivre1111" layoutX="44.0" layoutY="18.0" text="Date de publication\nUniquement l'année" textFill="#e8e4df">
                                        <font>
                                           <Font name="Caladea Bold" size="30.0" />
                                        </font>

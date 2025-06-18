@@ -1,6 +1,7 @@
 package app.Vendeur;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import app.App;
 import javafx.fxml.FXMLLoader;
@@ -10,18 +11,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import modele.Livre;
 import modele.Vendeur;
 
 public class PageVendeurAjouterLivre {
     private Scene scene;
     private TextField nom;
-    private TextField newQteLivre;
+    //Faire que l'isbn soit un lablel
     private TextField isbn;
+    //
     private TextField prix;
     private TextField nbPages;
     private TextField datePubli;
     private TextField qte;
     private boolean verif = true;
+    private boolean livreExiste = false;
 
     //A finir
     public PageVendeurAjouterLivre(App app)throws IOException{
@@ -79,7 +83,7 @@ public class PageVendeurAjouterLivre {
                 ajouter.setScaleX(1.0);
                 ajouter.setScaleY(1.0);
             });
-        //ajouter.setOnAction(new ControleurVendeurAjoute(app,this));
+        ajouter.setOnAction(new ControleurVendeurAjoute(app,this));
 
         //Les TextFields
         this.nom = (TextField) this.scene.lookup("#nom");
@@ -104,7 +108,7 @@ public class PageVendeurAjouterLivre {
         });
 
         //Initialisation des TextFields : desactiver les champs
-        this.isbn.setDisable(true);
+        
         this.prix.setDisable(true);
         this.nbPages.setDisable(true);
         this.datePubli.setDisable(true);
@@ -120,7 +124,6 @@ public class PageVendeurAjouterLivre {
     }
 
     public void verifierLivreExiste(){
-        System.out.println(this.nom.getText());
         this.verif = App.magasinBD.existeLivreTitre(this.nom.getText(), App.vendeur.getMagasin().getIdMagasin());
         if (this.verif){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -131,13 +134,43 @@ public class PageVendeurAjouterLivre {
             alert.showAndWait();
         }
         else{
-            this.majTextFields();
-
+            String isbnLivre = null;
+            try {
+            isbnLivre = App.livreBD.regardeSiISBNExiste(this.nom.getText());
+            } catch (SQLException e) {
+                System.out.println("Problème lors de la vérification de l'ISBN : " + e.getMessage());
+            }
+            if(isbnLivre != null){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Livre déjà existant");
+                alert.setHeaderText("Le livre existe déjà dans la base de données.");
+                alert.setContentText("Vous n'avez donc pas besoin de donner ses information\n" +
+                                 "Veuillez ainsi rentrer la quantité que vous souhaité ajouter à votre magasin\n ");
+                alert.showAndWait();
+                try {
+                    Livre livre = App.livreBD.getLivre(isbnLivre);
+                    this.isbn.setText(livre.getIsbn());
+                    this.prix.setText(String.valueOf(livre.getPrix()));
+                    this.nbPages.setText(String.valueOf(livre.getNbPages()));
+                    this.datePubli.setText(String.valueOf(livre.getDatePubli()));
+                    this.qte.setDisable(false);
+                    this.livreExiste = true;
+                } catch (SQLException e) {
+                    System.out.println("Problème lors de la récupération du livre : " + e.getMessage());
+                }
+            }
+            else{
+                this.majTextFields();
+                try {
+                    this.isbn.setText(App.livreBD.maxIsbnPlus1());
+                } catch (SQLException e) {
+                    System.out.println("Problème lors de la génération du nouvel ISBN : " + e.getMessage());
+                }
+            }
         }
     }
 
     public void majTextFields(){
-        this.isbn.setDisable(verif);
         this.prix.setDisable(verif);
         this.nbPages.setDisable(verif);
         this.datePubli.setDisable(verif);
@@ -154,4 +187,25 @@ public class PageVendeurAjouterLivre {
         this.majTextFields();
     }
 
+    public String getTitre() {
+        return this.nom.getText();
+    }
+    public String getIsbn() {
+        return this.isbn.getText();
+    }
+    public String getPrix() {
+        return this.prix.getText();
+    }
+    public String getNbPages() {
+        return this.nbPages.getText();
+    }
+    public String getDatePubli() {
+        return this.datePubli.getText();
+    }
+    public String getQte() {
+        return this.qte.getText();
+    }
+    public boolean livreExiste() {
+        return this.livreExiste;
+    }
 }
