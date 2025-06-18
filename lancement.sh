@@ -3,7 +3,8 @@
 MYCNF=".my.cnf"
 PROPERTIES_FILE="config.properties"
 MAIN_CLASS="app.App"
-
+CREATION="new_creationBD.sql"
+INSERTION="new_insertions.sql"
 # Fonction pour extraire une clé depuis .my.cnf
 get_value() {
     grep -E "^$1=" "$MYCNF" | cut -d'=' -f2
@@ -47,10 +48,10 @@ INSERT_EXISTS=$(mysql --defaults-file=$MYCNF $DBNAME -e "show tables;" | grep "C
 
 if [ -z "$INSERT_EXISTS" ]; then
     echo "🧱 Création des tables..."
-    mysql --defaults-file=$MYCNF $DBNAME < creationBD.sql
+    mysql --defaults-file=$MYCNF $DBNAME < $CREATION
 
     echo "📦 Insertion des données initiales..."
-    mysql --defaults-file=$MYCNF $DBNAME < insertions.sql
+    mysql --defaults-file=$MYCNF $DBNAME < $INSERTION
 else
     echo "✅ Les données ont déjà été insérées (table CLIENT existe)."
 fi
