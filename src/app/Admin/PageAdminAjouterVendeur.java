@@ -9,6 +9,7 @@ import app.App;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
@@ -52,6 +53,7 @@ public class PageAdminAjouterVendeur {
                 this.popUpVendeurNonPresent();
             } else {
                 App.vendeurBD.deleteVendeur(nom, prenom, idMagasin);
+                this.popUpVendeurRetire();
             }
         } catch (SQLException e){
             System.err.println("Erreur dans PageAdminAjouterVendeur.retirerVendeur() " + e.getMessage());
@@ -69,6 +71,7 @@ public class PageAdminAjouterVendeur {
                 this.popUpVendeurDejaPresent();
             } else {
                 App.vendeurBD.insererVendeur(prenom, nom, idMagasin);
+                this.popUpVendeurAjoute();
             }
         } catch (SQLException e){
             System.err.println("Erreur dans PageAdminAjouterVendeur.ajouterVendeur() " + e.getMessage());
@@ -101,6 +104,22 @@ public class PageAdminAjouterVendeur {
         Alert alert = new Alert(Alert.AlertType.INFORMATION,"Erreur : ce vendeur n'est pas dans la base", ButtonType.OK);
         alert.setTitle("Vendeur non présent");
         alert.setHeaderText("Vendeur non présent");
+        alert.showAndWait();
+    }
+
+    public void popUpVendeurAjoute(){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Succès");
+        alert.setHeaderText(null);
+        alert.setContentText("Le vendeur a bien été ajouté");
+        alert.showAndWait();
+    }
+
+    public void popUpVendeurRetire(){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Succès");
+        alert.setHeaderText(null);
+        alert.setContentText("Le vendeur a bien été retiré");
         alert.showAndWait();
     }
 
