@@ -98,6 +98,7 @@ public class App extends Application{
 
     //Scenes de Vendeur
     public void scenePageVendeurAccueil()throws IOException{
+        App.magasin = vendeur.getMagasin();
         PageVendeurAccueil page = new PageVendeurAccueil(this);
         primaryStage.setScene(page.getScene());
     }

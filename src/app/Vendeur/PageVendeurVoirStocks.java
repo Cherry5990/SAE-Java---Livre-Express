@@ -6,6 +6,7 @@ import java.util.List;
 import app.App;
 import app.Client.ControleurConsulterLivre;
 import app.Display.LivreDisplayLigne;
+import app.Display.LivreDisplayLigneVendeur;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -30,9 +31,9 @@ public class PageVendeurVoirStocks {
         this.scroll = (ScrollPane) this.scene.lookup("#test");
         int i = 1;
         this.lignes = (VBox) this.scroll.getContent();
-        ControleurConsulterLivre controleur = new ControleurConsulterLivre(app);
+        ControleurConsulterLivreVendeur controleur = new ControleurConsulterLivreVendeur(app);
         for(Livre livreMag:livres){
-            this.lignes.getChildren().add(new LivreDisplayLigne(controleur, livreMag,i));
+            this.lignes.getChildren().add(new LivreDisplayLigneVendeur(controleur, livreMag,i));
             i++;
         }
 
@@ -42,7 +43,7 @@ public class PageVendeurVoirStocks {
             this.lignes.getChildren().clear();
             int j = 1;
             for(Livre livreMag:this.livres){
-                this.lignes.getChildren().add(new LivreDisplayLigne(controleur, livreMag, j));
+                this.lignes.getChildren().add(new LivreDisplayLigneVendeur(controleur, livreMag, j));
                 j++;
             }
             System.out.println("Recherche : " + newValue);

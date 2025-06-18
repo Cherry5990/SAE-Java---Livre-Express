@@ -2,6 +2,7 @@ package app.Display;
 
 import java.security.PrivateKey;
 
+import app.App;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -18,20 +19,20 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import modele.Livre;
 
-public class LivreDisplayLigne extends LivreDisplay {
+public class LivreDisplayLigneVendeur extends LivreDisplay {
     private Livre l;
 
-    public LivreDisplayLigne(EventHandler<ActionEvent> controleur, Livre livre,int i){
+    public LivreDisplayLigneVendeur(EventHandler<ActionEvent> controleur, Livre livre,int i){
         super();
         this.l=livre;
         HBox ligne = new HBox();
         ImageView imageLivre = new ImageView("file:img/icônes/livre.png");
-        String prixString = ""+livre.getPrix();
+        String qte = "Quantité restante en magasin : " + String.valueOf(App.magasinBD.getQte(livre.getIsbn(), App.vendeur.getMagasin().getIdMagasin()));
         imageLivre.setFitHeight(25);
         imageLivre.setFitWidth(25);
 
         Label titreLivre = new Label(livre.getTitre());
-        Label prix = new Label(prixString+"€");
+        Label prix = new Label(qte);
         ligne.setPadding(new Insets(5));
         Label numero = new Label(i+". ");
         ligne.getChildren().addAll(numero,imageLivre, titreLivre,prix);
