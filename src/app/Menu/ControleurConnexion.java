@@ -22,23 +22,29 @@ public class ControleurConnexion implements EventHandler<ActionEvent>{
 
     @Override
     public void handle(ActionEvent e) {
-        String nom = vue.getUtilisateur();
+        String typeutilisateur = vue.getUtilisateur();
         try{
-            Integer id = Integer.parseInt(vue.getId());
-            switch (nom) {
+            String nom = vue.getNom();
+            String mdp = vue.getMdp();
+            switch (typeutilisateur) {
                 case "client":
-                    App.client = App.clientBD.getClient(id);
-                    if(!App.recoClient.containsKey(App.client)){
-                        App.recoClient.put(App.client,App.clientBD.getRecommandationClient(App.client.getId()));
-                        System.out.println("Genération recommandation client "+App.client);
+                    App.client = App.clientBD.connexionClient(nom, mdp);
+                    if(App.client!=null){
+                        if(!App.recoClient.containsKey(App.client)){
+                            App.recoClient.put(App.client,App.clientBD.getRecommandationClient(App.client.getId()));
+                            System.out.println("Genération recommandation client "+App.client);
+                        }
+                        if(!App.memoiresCommandesClient.containsKey(App.client)){
+                            App.memoiresCommandesClient.put(App.client,new HashMap<>());
+                        }
+                        app.sceneClient();
                     }
-                    if(!App.memoiresCommandesClient.containsKey(App.client)){
-                        App.memoiresCommandesClient.put(App.client,new HashMap<>());
+                    else{
+                        vue.idInvalide();
                     }
-                    app.sceneClient();
                     break;
                 case "vendeur":
-                    App.vendeur = App.vendeurBD.getVendeur(id);
+                    App.vendeur = App.vendeurBD.getVendeur(1);
                     App.magasin = App.vendeur.getMagasin();
                     app.scenePageVendeurAccueil();
                     break;

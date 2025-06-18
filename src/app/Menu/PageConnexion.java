@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -17,7 +18,8 @@ public class PageConnexion {
     private Label titre;
     private Button con;
     private String utilisateur;
-    private TextField id;
+    private TextField nom;
+    private PasswordField mdp;
 
     public PageConnexion(App app,String utilisateur)throws IOException{
         this.utilisateur = utilisateur;
@@ -30,14 +32,20 @@ public class PageConnexion {
         Button con = (Button) this.scene.lookup("#connexion");
         con.setOnAction(new ControleurConnexion(app,this));
 
-        this.id = (TextField) this.scene.lookup("#id");
+        this.nom = (TextField) this.scene.lookup("#nom");
+
+        this.mdp = (PasswordField) this.scene.lookup("#mdp");
 
         Button retour = (Button) this.scene.lookup("#retour");
         retour.setOnAction(e -> app.sceneAcceuil());
     }
 
-    public String getId(){
-        return id.getText();
+    public String getNom(){
+        return nom.getText();
+    }
+
+    public String getMdp(){
+        return mdp.getText();
     }
 
     public String getUtilisateur(){

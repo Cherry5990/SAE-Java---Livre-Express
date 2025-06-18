@@ -207,4 +207,19 @@ public class ClientBD {
         }
         return 0;
     }
+
+    public Client connexionClient(String nom,String mdp){
+        try(PreparedStatement ps =laConnexion.prepareStatement("select idcli,nomcompte,mdpcompte from CLIENT where nomcompte=? and mdpcompte=?")){
+            ps.setString(1, nom);
+            ps.setString(2, mdp);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return getClient(rs.getInt("idcli"));
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }
