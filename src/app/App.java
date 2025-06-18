@@ -195,6 +195,11 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
 
+    public void sceneAjouterMagasin(){
+        PageAdminAjouterVendeurMagasin page = new PageAdminAjouterMagasin(this);
+        primaryStage.setScene(page.getScene());
+    }
+
 
     public static void main(String[] args) {
         launch(args);
