@@ -38,11 +38,11 @@ public class PageVendeurAccueil {
                 gererStock.setScaleY(1.0);
             });
         gererStock.setOnAction(e -> {
-            //try {
-            //    app.scenePageVendeurGererStocks();
-            //} catch (IOException ex) {
-            //    System.out.println("Problème");
-            //}
+            try {
+               app.scenePageVendeurGererStocks();
+            } catch (IOException ex) {
+                System.out.println("Problème");
+            }
         });
 
         Button commande = (Button) this.scene.lookup("#commande");

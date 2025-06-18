@@ -8,7 +8,6 @@ import app.Client.PageConsultationLivre;
 import app.Client.PageConsultationPanier;
 import app.Menu.PageAcceuil;
 import app.Menu.PageConnexion;
-import app.Vendeur.PageVendeur;
 import app.Vendeur.PageVendeurAccueil;
 import app.Vendeur.PageVendeurAjouterLivre;
 import app.Vendeur.PageVendeurGererStocks;
@@ -96,10 +95,27 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
 
-    public void sceneVendeur()throws IOException{
-        PageVendeur page = new PageVendeur(this);
+    //Scenes de Vendeur
+    public void scenePageVendeurAccueil()throws IOException{
+        PageVendeurAccueil page = new PageVendeurAccueil(this);
         primaryStage.setScene(page.getScene());
     }
+    public void scenePageVendeurGererStocks()throws IOException{
+        PageVendeurGererStocks page = new PageVendeurGererStocks(this);
+        primaryStage.setScene(page.getScene());
+    }
+    public void scenePageVendeurAjouterLivre()throws IOException{
+        PageVendeurAjouterLivre page = new PageVendeurAjouterLivre(this);
+        primaryStage.setScene(page.getScene());
+    }
+    public void scenePageVendeurMajQte()throws IOException{
+        PageVendeurMajQte page = new PageVendeurMajQte(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+    
+
+    
     
 
     public void sceneAdmin()throws IOException{

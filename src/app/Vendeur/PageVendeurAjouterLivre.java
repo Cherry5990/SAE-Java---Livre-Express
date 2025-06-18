@@ -11,11 +11,9 @@ import modele.Vendeur;
 
 public class PageVendeurAjouterLivre {
     private Scene scene;
-    private Vendeur vendeur;
 
     //A finir
-    public PageVendeurAjouterLivre(App app, Vendeur v)throws IOException{
-        this.vendeur = v;
+    public PageVendeurAjouterLivre(App app)throws IOException{
         Pane root = FXMLLoader.load(getClass().getResource("../view/Vendeur/PageVendeurAjouterLivre.fxml"));
         this.scene = new Scene(root);
 
@@ -40,11 +38,11 @@ public class PageVendeurAjouterLivre {
                 retour.setScaleY(1.0);
             });
         retour.setOnAction(e -> {
-            //try {
-            //    app.scenePageVendeurGererStocks();
-            //} catch (IOException ex) {
-            //    System.out.println("Problème");
-            //}
+            try {
+                app.scenePageVendeurGererStocks();
+            } catch (IOException ex) {
+                System.out.println("Problème");
+            }
         });
 
     
