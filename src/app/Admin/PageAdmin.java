@@ -13,7 +13,7 @@ public class PageAdmin {
     private Scene scene;
 
     public PageAdmin(App app)throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("view/PageClient.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("../view/Admin/PageAdminAccueil.fxml"));
         this.scene = new Scene(root);
     }
 
