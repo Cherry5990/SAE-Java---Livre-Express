@@ -14,7 +14,6 @@ public class PageVendeurAccueil {
     public PageVendeurAccueil(App app)throws IOException{
         Pane root = FXMLLoader.load(getClass().getResource("../view/Vendeur/PageVendeurAccueil.fxml"));
         this.scene = new Scene(root);
-
         Button deconnexion = (Button) this.scene.lookup("#deconnexion");
         deconnexion.setOnMouseEntered(e -> {
                 deconnexion.setScaleX(1.1);
