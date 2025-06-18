@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import app.App;
+import app.Display.LivreDisplayLigne;
 import app.Display.LivreDisplayLigneVendeur;
 import app.Vendeur.ControleurConsulterLivreVendeur;
 import javafx.fxml.FXMLLoader;
@@ -30,10 +31,10 @@ public class PageAdminVoirStock {
         this.livres = App.reseauBD.voirStockReseau();
         int i = 1;
         this.lignes = (VBox) this.scroll.getContent();
-
+        ControleurConsulterLivreAdmin controleur = new ControleurConsulterLivreAdmin(app);
         for(Livre livreMag:livres){
-            this.lignes.getChildren().add(new LivreDisplayLigneAdmin(controleur, livreMag,i));
-            i++;f
+            this.lignes.getChildren().add(new LivreDisplayLigne(controleur, livreMag,i));
+            i++;
         }
 
         TextField recherche = (TextField)scene.lookup("#recherche");
@@ -42,7 +43,7 @@ public class PageAdminVoirStock {
             this.lignes.getChildren().clear();
             int j = 1;
             for(Livre livreMag:this.livres){
-                this.lignes.getChildren().add(new LivreDisplayLigneAdmin(controleur, livreMag, j));
+                this.lignes.getChildren().add(new LivreDisplayLigne(controleur, livreMag, j));
                 j++;
             }
             System.out.println("Recherche : " + newValue);
@@ -52,15 +53,13 @@ public class PageAdminVoirStock {
         Button retour = (Button)scene.lookup("#retour");
         retour.setOnAction(e -> {
             try {
-                app.scenePageVendeurGererStocks();
+                app.scenePageAdminGererStock();
             } 
             catch (IOException e1) {
                 System.out.println(e1.getMessage());
             }
-    
-    
+        });
     }
-
     public Scene getScene(){
         return this.scene;
     }
