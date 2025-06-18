@@ -5,6 +5,7 @@ import app.Admin.PageAdminAccueil;
 import app.Admin.PageAdminGererStock;
 import app.Admin.PageAdminTransfererLivre;
 import app.Admin.PageAdminVoirStock;
+import app.Admin.PageAdminAjouterVendeur;
 import app.Client.PageClient;
 import app.Client.PageClientCatalogue;
 import app.Client.PageConsultationCommande;
@@ -18,6 +19,7 @@ import app.Vendeur.PageVendeurGererStocks;
 import app.Vendeur.PageVendeurMajQte;
 import app.Vendeur.PageVendeurTransfererLivre;
 import app.Vendeur.PageVendeurVoirStocks;
+import app.Vendeur.PageVendeurCommande;
 import modele.*;
 
 import java.io.FileInputStream;
@@ -180,6 +182,16 @@ public class App extends Application{
 
     public void sceneConsultationPanier()throws IOException{
         PageConsultationPanier page = new PageConsultationPanier(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void scenePageVendeurCommande()throws IOException{
+        PageVendeurCommande page = new PageVendeurCommande(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void sceneAjouterVendeur(){
+        PageAdminAjouterVendeur page = new PageAdminAjouterVendeur(this);
         primaryStage.setScene(page.getScene());
     }
 

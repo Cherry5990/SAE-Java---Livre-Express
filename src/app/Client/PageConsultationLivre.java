@@ -41,7 +41,7 @@ public class PageConsultationLivre {
         titre.setText(App.livre.getTitre());
 
         this.qte = (Spinner<Integer>) scene.lookup("#quantite");
-        this.qte.setValueFactory(new javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory(0, App.magasinBD.getQte(App.livre.getIsbn(),App.magasin.getIdMagasin()), 0));
+        this.qte.setValueFactory(new javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory(1, App.magasinBD.getQte(App.livre.getIsbn(),App.magasin.getIdMagasin()), 1));
     }
 
     public Scene getScene(){
