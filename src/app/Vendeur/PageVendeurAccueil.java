@@ -1,5 +1,4 @@
 package app.Vendeur;
-import modele.Vendeur;
 
 import java.io.IOException;
 
@@ -11,12 +10,10 @@ import javafx.scene.layout.Pane;
 
 public class PageVendeurAccueil {
     private Scene scene;
-    private Vendeur vendeur;
 
     public PageVendeurAccueil(App app)throws IOException{
         Pane root = FXMLLoader.load(getClass().getResource("../view/Vendeur/PageVendeurAccueil.fxml"));
         this.scene = new Scene(root);
-
         Button deconnexion = (Button) this.scene.lookup("#deconnexion");
         deconnexion.setOnMouseEntered(e -> {
                 deconnexion.setScaleX(1.1);

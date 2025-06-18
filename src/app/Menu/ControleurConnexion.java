@@ -32,7 +32,9 @@ public class ControleurConnexion implements EventHandler<ActionEvent>{
                     break;
                 case "vendeur":
                     App.vendeur = App.vendeurBD.getVendeur(id);
+                    App.magasin = App.vendeur.getMagasin();
                     app.scenePageVendeurAccueil();
+                    break;
                 case "admin":
                     app.sceneAdmin();
                     break;
