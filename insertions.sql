@@ -11,11 +11,11 @@ insert into MAGASIN(idmag, nommag, villemag) values
 insert into VENDEUR(idVendeur, nomVendeur, prenomVendeur, idmag) values
 		(1, "Matthieu", "Jérôme", 3),
 		(2, "Erika", "De Jesus Pinto", 7),
-		(3, "Maelyss", "Fronton", 6),
+		(3, "Maelyss", "Fronton", 1),
 		(4, "Nathan", "Joubert", 4),
 		(5, "Alexandre", "Dias", 5),
 		(6, "Leni", "Doe", 1),
-		(7, "Lisa", "Doe", 5);
+		(7, "Lisa", "Doe", 1);
 
 -- La classification
 insert into CLASSIFICATION(iddewey, nomclass) values

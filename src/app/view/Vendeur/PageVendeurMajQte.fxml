@@ -117,12 +117,6 @@
                </left>
                <center>
                   <BorderPane prefHeight="653.0" prefWidth="714.0" BorderPane.alignment="CENTER">
-                     <top>
-                        <ComboBox fx:id="nomLivre" prefHeight="61.0" prefWidth="460.0" promptText="Rentrez le nom du Livre" style="-fx-background-color: a6897e; -fx-background-radius: 20;" BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
-                              <Insets bottom="10.0" />
-                           </BorderPane.margin></ComboBox>
-                     </top>
                      <center>
                         <GridPane BorderPane.alignment="CENTER">
                           <columnConstraints>
@@ -133,8 +127,6 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
@@ -193,24 +185,6 @@
                                     </Label>
                                  </children>
                               </Pane>
-                              <Pane layoutX="10.0" layoutY="226.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.rowIndex="4">
-                                 <children>
-                                    <Label fx:id="isbnLivre11111" layoutX="128.0" layoutY="18.0" text="Theme" textFill="#e8e4df">
-                                       <font>
-                                          <Font name="Caladea Bold" size="30.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
-                              <Pane layoutX="10.0" layoutY="298.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.rowIndex="5">
-                                 <children>
-                                    <Label fx:id="isbnLivre111111" layoutX="128.0" layoutY="18.0" text="Auteurs" textFill="#e8e4df">
-                                       <font>
-                                          <Font name="Caladea Bold" size="30.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
                               <Pane layoutX="360.0" layoutY="82.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <children>
                                     <Label fx:id="nbPages" layoutX="93.0" layoutY="18.0" text="..." textFill="#e8e4df">
@@ -229,25 +203,7 @@
                                     </Label>
                                  </children>
                               </Pane>
-                              <Pane fx:id="isbn" layoutX="360.0" layoutY="226.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                 <children>
-                                    <Label fx:id="theme" layoutX="93.0" layoutY="18.0" text="..." textFill="#e8e4df">
-                                       <font>
-                                          <Font name="Caladea Bold" size="30.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
-                              <Pane layoutX="360.0" layoutY="298.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                                 <children>
-                                    <Label fx:id="auteur" layoutX="93.0" layoutY="18.0" text="..." textFill="#e8e4df">
-                                       <font>
-                                          <Font name="Caladea Bold" size="30.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
-                              <Pane layoutX="360.0" layoutY="320.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.rowIndex="6">
+                              <Pane layoutX="360.0" layoutY="320.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.rowIndex="4">
                                  <children>
                                     <Label fx:id="isbnLivre121111" layoutX="116.0" layoutY="13.0" text="Quantité" textFill="#e8e4df">
                                        <font>
@@ -256,7 +212,7 @@
                                     </Label>
                                  </children>
                               </Pane>
-                              <Pane layoutX="10.0" layoutY="381.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                              <Pane layoutX="10.0" layoutY="381.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <children>
                                     <Label fx:id="qte" layoutX="93.0" layoutY="13.0" text="..." textFill="#e8e4df">
                                        <font>
@@ -314,6 +270,18 @@
                            </children>
                         </VBox>
                      </bottom>
+                     <top>
+                        <HBox prefHeight="64.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <TextField fx:id="nom" prefHeight="60.0" prefWidth="360.0" promptText="Rentrez le nom du livre" style="-fx-background-radius: 20; -fx-background-color: a6897e;">
+                                 <font>
+                                    <Font name="Caladea Regular" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <ComboBox fx:id="comboBox" prefHeight="60.0" prefWidth="360.0" promptText="Selectionez le livre" style="-fx-background-color: a6897e; -fx-background-radius: 20;" />
+                           </children>
+                        </HBox>
+                     </top>
                   </BorderPane>
                </center>
             </BorderPane>

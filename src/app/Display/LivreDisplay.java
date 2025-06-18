@@ -22,6 +22,10 @@ public class LivreDisplay extends Button {
     private Livre livre;
     private String titre;
 
+    public LivreDisplay(){
+        super();
+    }
+
     public LivreDisplay(Livre livre){
         super();
         this.livre = livre;

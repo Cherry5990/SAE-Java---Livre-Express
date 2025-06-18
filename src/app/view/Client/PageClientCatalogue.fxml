@@ -78,7 +78,7 @@
                         <Insets />
                      </BorderPane.margin>
                      <children>
-                        <Button fx:id="retour" mnemonicParsing="false" style="-fx-background-color: transparet;">
+                        <Button fx:id="retour" mnemonicParsing="false" style="-fx-background-color: transparent;">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0">
                                  <image>
