@@ -12,10 +12,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import modele.Auteur;
 import modele.Livre;
-import modele.Theme;
-import modele.Vendeur;
+
 
 public class PageVendeurMajQte {
     private Scene scene;
@@ -76,7 +74,10 @@ public class PageVendeurMajQte {
         this.nom.textProperty().addListener((obs, oldVal, newVal) -> {
             // Filtrage dynamique
             List<Livre> livres = App.magasinBD.rechercheLivre(App.vendeur.getMagasin().getIdMagasin(), newVal);
-            this.comboBox.getItems().setAll(livres.stream().map(Livre::getTitre).toList());
+            this.comboBox.getItems().clear();
+            for (Livre livre : livres) {
+                this.comboBox.getItems().add(livre.getTitre());
+            }
             // Montre le menu déroulant
             this.comboBox.show();
         });
@@ -86,10 +87,8 @@ public class PageVendeurMajQte {
 
         });
         
-
         //Nouvelle quantité
         this.newQteLivre = (TextField) this.scene.lookup("#newQteLivre");
-
 
         //Bouton réinitialisé
         Button reset = (Button) this.scene.lookup("#reset");
