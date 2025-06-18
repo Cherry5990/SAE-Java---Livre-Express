@@ -147,6 +147,10 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
 
+    public void sceneAjouterVendeur() throws IOException{
+
+    }
+
 
     public static void main(String[] args) {
         launch(args);
