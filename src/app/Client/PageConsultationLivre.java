@@ -40,6 +40,15 @@ public class PageConsultationLivre {
         Label titre = (Label)scene.lookup("#titre");
         titre.setText(App.livre.getTitre());
 
+        Button retour = (Button)scene.lookup("#retour");
+        retour.setOnAction(e ->{
+            try {
+                app.sceneMagasin();
+            } catch (IOException e1) {
+                System.out.println(e1.getMessage());
+            }
+        });
+
         this.qte = (Spinner<Integer>) scene.lookup("#quantite");
         this.qte.setValueFactory(new javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory(1, App.magasinBD.getQte(App.livre.getIsbn(),App.magasin.getIdMagasin()), 1));
     }

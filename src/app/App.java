@@ -7,6 +7,7 @@ import app.Admin.PageAdminTransfererLivre;
 import app.Admin.PageAdminVoirStock;
 import app.Client.PageClient;
 import app.Client.PageClientCatalogue;
+import app.Client.PageClientRecommande;
 import app.Client.PageConsultationCommande;
 import app.Client.PageConsultationLivre;
 import app.Client.PageConsultationPanier;
@@ -23,6 +24,7 @@ import modele.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 import javafx.application.Application;
@@ -45,6 +47,7 @@ public class App extends Application{
     public static Vendeur veudeur;
     public static Livre livre;
     public static Vendeur vendeur;
+    public static List<Livre> recomandation;
     private ConnexionMySQL con;
 
     @Override
@@ -198,6 +201,11 @@ public class App extends Application{
 
     public void scenePageVendeurCommande()throws IOException{
         PageVendeurCommande page = new PageVendeurCommande(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void sceneConsultationRecommande()throws IOException{
+        PageClientRecommande page = new PageClientRecommande(this);
         primaryStage.setScene(page.getScene());
     }
 

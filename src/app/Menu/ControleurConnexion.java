@@ -27,6 +27,7 @@ public class ControleurConnexion implements EventHandler<ActionEvent>{
             switch (nom) {
                 case "client":
                     App.client = App.clientBD.getClient(id);
+                    App.recomandation = null;
                     System.out.println(App.client.getPrenom());
                     app.sceneClient();
                     break;

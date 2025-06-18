@@ -183,6 +183,29 @@ public class MagasinBD {
         return livres;
     }
 
+    public List<Livre> rechercheLivre(int mag,String like,int debut,int nb){
+        List<Livre> livres = new ArrayList<>();
+        try (PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn,titre,prix,nbpages,datepubli from MAGASIN natural join POSSEDER natural join LIVRE where idmag=? and titre LIKE ? LIMIT ? OFFSET ?")) {
+            ps.setInt(1, mag);
+            ps.setString(2, "%" + like + "%");
+            ps.setInt(3, nb);
+            ps.setInt(4, debut);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String titre = rs.getString("titre");
+                String isbn = rs.getString("isbn");
+                int nbPages = rs.getInt("nbpages");
+                double prix = rs.getDouble("prix");
+                String datePubli = rs.getString("datepubli");
+                livres.add(new Livre(isbn, titre,nbPages,datePubli,prix));
+            }
+        } 
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return livres;
+    }
+
     /**
      * Cette méthode permet de récupérer un objet Magasin à partir de son identifiant
      * @param mag l'identifiant du magasin
@@ -334,6 +357,22 @@ public class MagasinBD {
             System.out.println("Erreur lors de l'affichage des magasins : "+e.getMessage());
         }
         return livres;
+    }
+
+   public int nbLivreLike(int mag,String like){
+        List<Livre> livres = new ArrayList<>();
+        try (PreparedStatement ps = laConnexion.prepareStatement("SELECT count(*) nb from MAGASIN natural join POSSEDER natural join LIVRE where idmag=? and titre LIKE ?")) {
+            ps.setInt(1, mag);
+            ps.setString(2, "%" + like + "%");
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt("nb");
+            }
+        } 
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
     }
 
     public void enleveQteLivre(String isbn,int idmag,int qte){
