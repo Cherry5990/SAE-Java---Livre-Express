@@ -19,7 +19,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import modele.Livre;
 
-public class LivreDisplayLigneVendeur extends Button {
+public class LivreDisplayLigneVendeur extends LivreDisplay {
     private Livre l;
 
     public LivreDisplayLigneVendeur(EventHandler<ActionEvent> controleur, Livre livre,int i){
