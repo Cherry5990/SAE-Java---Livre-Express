@@ -13,6 +13,7 @@ import app.Vendeur.PageVendeurAjouterLivre;
 import app.Vendeur.PageVendeurGererStocks;
 import app.Vendeur.PageVendeurMajQte;
 import app.Vendeur.PageVendeurVoirStocks;
+import app.Vendeur.PageVendeurCommande;
 import modele.*;
 
 import java.io.FileInputStream;
@@ -143,6 +144,11 @@ public class App extends Application{
 
     public void sceneConsultationPanier()throws IOException{
         PageConsultationPanier page = new PageConsultationPanier(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void scenePageVendeurCommande()throws IOException{
+        PageVendeurCommande page = new PageVendeurCommande(this);
         primaryStage.setScene(page.getScene());
     }
 
