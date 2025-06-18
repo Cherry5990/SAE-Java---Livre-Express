@@ -4,8 +4,11 @@ import java.beans.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import modele.Livre;
+import modele.Theme;
 
 public class LivreBD {
     ConnexionMySQL laConnexion;
@@ -175,6 +178,20 @@ public class LivreBD {
         return livre;
     }
 
-    
+    public Livre getLivreParTitre(String titre)throws SQLException{
+        Livre livre = null;
+        try(PreparedStatement ps = laConnexion.prepareStatement("select isbn,titre,nbpages,datepubli,prix from LIVRE where titre=?;")){
+            ps.setString(1, titre);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                String isbn = rs.getString("isbn");
+                int nbPages = rs.getInt("nbpages");
+                double prix = rs.getDouble("prix");
+                String datePubli = rs.getString("datepubli");
+                livre = new Livre(isbn, titre,nbPages,datePubli,prix);
+            }
+        }
+        return livre;
+    }
     
 }
