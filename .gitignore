@@ -1,3 +1,5 @@
 *.class
 doc/
 bin/
+config*properties
+sources.txt
