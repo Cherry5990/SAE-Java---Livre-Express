@@ -7,12 +7,12 @@ import javafx.scene.control.Alert.AlertType;
 import app.App;
 import javafx.event.ActionEvent;
 
-public class ControleurVendeurAjoute implements EventHandler<ActionEvent>{
+public class ControleurVendeurMajQte implements EventHandler<ActionEvent>{
     
     private App app;
     private PageVendeurMajQte vue;
 
-    public ControleurVendeurAjoute(App app, PageVendeurMajQte vue) {
+    public ControleurVendeurMajQte(App app, PageVendeurMajQte vue) {
         this.app = app;
         this.vue = vue;
     }
