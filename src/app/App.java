@@ -2,6 +2,7 @@ package app;
 import BD.*;
 import app.Admin.PageAdmin;
 import app.Admin.PageAdminAccueil;
+import app.Admin.PageAdminAjouterLibrairie;
 import app.Admin.PageAdminGererStock;
 import app.Admin.PageAdminTransfererLivre;
 import app.Admin.PageAdminVoirStock;
@@ -192,6 +193,11 @@ public class App extends Application{
 
     public void sceneAjouterVendeur(){
         PageAdminAjouterVendeur page = new PageAdminAjouterVendeur(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void sceneAjouterMagasin(){
+        PageAdminAjouterLibrairie page = new PageAdminAjouterLibrairie(this);
         primaryStage.setScene(page.getScene());
     }
 
