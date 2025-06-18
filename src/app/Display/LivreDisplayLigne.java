@@ -2,6 +2,7 @@ package app.Display;
 
 import java.security.PrivateKey;
 
+import app.App;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -19,11 +20,10 @@ import javafx.scene.paint.Color;
 import modele.Livre;
 
 public class LivreDisplayLigne extends Button {
-    private Livre l;
-
+    private Livre livre;
     public LivreDisplayLigne(EventHandler<ActionEvent> controleur, Livre livre,int i){
         super();
-        this.l=livre;
+        this.livre =livre;
         HBox ligne = new HBox();
         ImageView imageLivre = new ImageView("file:img/livre.png");
         String prixString = ""+livre.getPrix();
@@ -62,8 +62,7 @@ public class LivreDisplayLigne extends Button {
         this.setBackground(new Background(new BackgroundFill(Color.web("#e8e4df"), new CornerRadii(25), new Insets(0))));
         this.setOnAction(controleur);
     }
-
     public Livre getLivre(){
-        return this.l;
+        return this.livre;
     }
 }

@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -35,6 +36,9 @@ public class PageConsultationLivre {
 
         Button ajouter = (Button) scene.lookup("#ajouter");
         ajouter.setOnAction(new ControleurAjouterPanier(app, this));
+
+        Label titre = (Label)scene.lookup("#titre");
+        titre.setText(App.livre.getTitre());
 
         this.qte = (Spinner<Integer>) scene.lookup("#quantite");
         this.qte.setValueFactory(new javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory(0, App.magasinBD.getQte(App.livre.getIsbn(),App.magasin.getIdMagasin()), 0));

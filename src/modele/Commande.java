@@ -41,6 +41,10 @@ public class Commande {
         this.enLigne = enLigne;
     }
 
+    public void setMagasin(Magasin mag){
+        this.magasin = mag;
+    }
+
     /**
      * Ajoute le livre dans la commande
      * @param livre le livre de la commande
@@ -49,6 +53,10 @@ public class Commande {
     public void ajouteLivre(Livre livre,int qte){
         this.detailCommandes.add(new DetailCommande(this.ligne, qte, livre));
         this.ligne +=1;
+    }
+
+    public void enleveLivre(Livre livre){
+        detailCommandes.removeIf(dc -> dc.getLivre().equals(livre));
     }
 
     @Override
