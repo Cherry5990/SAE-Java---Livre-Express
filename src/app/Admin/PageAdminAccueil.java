@@ -45,59 +45,59 @@ public class PageAdminAccueil {
             }
         });
 
-        Button statistiques = (Button) this.scene.lookup("#statistiques");
-        statistiques.setOnMouseEntered(e -> {
-                statistiques.setScaleX(1.1);
-                statistiques.setScaleY(1.1);
-            });
-            statistiques.setOnMouseExited(e -> {
-                statistiques.setScaleX(1.0);
-                statistiques.setScaleY(1.0);
-            });
+        // Button statistiques = (Button) this.scene.lookup("#statistiques");
+        // statistiques.setOnMouseEntered(e -> {
+        //         statistiques.setScaleX(1.1);
+        //         statistiques.setScaleY(1.1);
+        //     });
+        //     statistiques.setOnMouseExited(e -> {
+        //         statistiques.setScaleX(1.0);
+        //         statistiques.setScaleY(1.0);
+        //     });
 
-        statistiques.setOnAction(e -> {
-            try {
-               app.scenePageAdminStatistiques();
-            } catch (IOException ex) {
-                System.out.println("Problème");
-            }
-        });
+        // statistiques.setOnAction(e -> {
+        //     try {
+        //        app.scenePageAdminStatistiques();
+        //     } catch (IOException ex) {
+        //         System.out.println("Problème");
+        //     }
+        // });
 
-        Button ajouterLibrairie = (Button) this.scene.lookup("#ajouterLibrairie");
-        ajouterLibrairie.setOnMouseEntered(e -> {
-                ajouterLibrairie.setScaleX(1.1);
-                ajouterLibrairie.setScaleY(1.1);
-            });
-            ajouterLibrairie.setOnMouseExited(e -> {
-                ajouterLibrairie.setScaleX(1.0);
-                ajouterLibrairie.setScaleY(1.0);
-            });
+        // Button ajouterLibrairie = (Button) this.scene.lookup("#ajouterLibrairie");
+        // ajouterLibrairie.setOnMouseEntered(e -> {
+        //         ajouterLibrairie.setScaleX(1.1);
+        //         ajouterLibrairie.setScaleY(1.1);
+        //     });
+        //     ajouterLibrairie.setOnMouseExited(e -> {
+        //         ajouterLibrairie.setScaleX(1.0);
+        //         ajouterLibrairie.setScaleY(1.0);
+        //     });
 
-        ajouterLibrairie.setOnAction(e -> {
-            try {
-               app.scenePageAdminAjouterLibrairie();
-            } catch (IOException ex) {
-                System.out.println("Problème");
-            }
-        });
+        // ajouterLibrairie.setOnAction(e -> {
+        //     try {
+        //        app.scenePageAdminAjouterLibrairie();
+        //     } catch (IOException ex) {
+        //         System.out.println("Problème");
+        //     }
+        // });
 
-        Button creerVendeur = (Button) this.scene.lookup("#creerVendeur");
-        creerVendeur.setOnMouseEntered(e -> {
-                creerVendeur.setScaleX(1.1);
-                creerVendeur.setScaleY(1.1);
-            });
-            creerVendeur.setOnMouseExited(e -> {
-                creerVendeur.setScaleX(1.0);
-                creerVendeur.setScaleY(1.0);
-            });
+        // Button creerVendeur = (Button) this.scene.lookup("#creerVendeur");
+        // creerVendeur.setOnMouseEntered(e -> {
+        //         creerVendeur.setScaleX(1.1);
+        //         creerVendeur.setScaleY(1.1);
+        //     });
+        //     creerVendeur.setOnMouseExited(e -> {
+        //         creerVendeur.setScaleX(1.0);
+        //         creerVendeur.setScaleY(1.0);
+        //     });
 
-        creerVendeur.setOnAction(e -> {
-            try {
-               app.scenePageAdminCreeVendeur();
-            } catch (IOException ex) {
-                System.out.println("Problème");
-            }
-        });
+        // creerVendeur.setOnAction(e -> {
+        //     try {
+        //        app.scenePageAdminCreeVendeur();
+        //     } catch (IOException ex) {
+        //         System.out.println("Problème");
+        //     }
+        // });
     }
 
     public Scene getScene(){

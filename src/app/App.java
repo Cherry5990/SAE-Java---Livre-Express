@@ -38,12 +38,13 @@ public class App extends Application{
     public static MagasinBD magasinBD;
     public static CommandeBD commandeBD;
     public static LivreBD livreBD;
+    public static ReseauBD reseauBD;
     public static Client client;
     public static Commande commande;
     public static Magasin magasin;
-    public static Vendeur veudeur;
     public static Livre livre;
     public static Vendeur vendeur;
+    public static Reseau reseau;
     private ConnexionMySQL con;
 
     @Override
@@ -68,11 +69,13 @@ public class App extends Application{
             App.magasinBD = new MagasinBD(con);
             App.commandeBD = new CommandeBD(con);
             App.livreBD = new LivreBD(con);
+            App.reseauBD = new ReseauBD(con);
             App.commande = null;
             App.client = null;
             App.magasin = null;
             App.livre = null;
-            App.veudeur = null;
+            App.vendeur = null;
+            App.reseau = null;
         }
         catch (Exception e) {
             System.out.println("Problème de connexion à la BD : "+e.getMessage());
@@ -156,24 +159,9 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
 
-    public void scenePageAdminAjouterLibrairie() throws IOException {
-        PageAdminAjouterLibrairie page = new PageAdminAjouterLibrairie(this);
-        primaryStage.setScene(page.getScene());
-    }
-
-    public void scenePageAdminCreeVendeur() throws IOException {
-        PageAdminCreerVendeur page = new PageAdminCreerVendeur(this);
-        primaryStage.setScene(page.getScene());
-    }
-
-    public void scenePageAdminStatistiques() throws IOException {
-        PageAdminStatistiques page = new PageAdminStatistiques(this);
-        primaryStage.setScene(page.getScene());
-    }
 
 
 
-    
 
     public void sceneMagasin()throws IOException{
         PageClientCatalogue page = new PageClientCatalogue(this);

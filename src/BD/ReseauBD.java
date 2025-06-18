@@ -1,5 +1,9 @@
 package BD;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import modele.Livre;
 
 
 public class ReseauBD {
@@ -100,8 +104,31 @@ public class ReseauBD {
             System.out.println("bug au niveau de voirStock");
         }
         return sb.toString();
-
     }
+
+    /**
+     * Affiche le stock de livres du réseau
+     * @return le stock de livres du réseau
+     */
+    public List<Livre> voirStockReseau(){
+        List<Livre> res = new ArrayList<>();
+        try(PreparedStatement ps = laConnexion.prepareStatement("select isbn,titre,prix,nbpages,datepubli from LIVRE natural join POSSEDER;")){
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                String titre =rs.getString("titre");
+                String isbn = rs.getString("isbn");
+                int nbPages = rs.getInt("nbpages");
+                double prix = rs.getDouble("prix");
+                String datePubli = rs.getString("datepubli");
+                res.add(new Livre(isbn,titre,nbPages,datePubli,prix));
+            }
+        }
+        catch(SQLException e){
+            System.out.println("bug au niveau de voirStock");
+        }
+        return res;
+    }
+
 
     /**
      * Retourne le nombre maximum de livres du réseau
