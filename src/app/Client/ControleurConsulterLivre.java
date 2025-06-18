@@ -19,8 +19,7 @@ public class ControleurConsulterLivre implements EventHandler<ActionEvent> {
 
     public void handle(ActionEvent event){
         LivreDisplayLigne boutonLivre = (LivreDisplayLigne) event.getSource();
-        Livre l = boutonLivre.getLivre();
-        App.livre = l;
+        App.livre = boutonLivre.getLivre();
         try{
             app.sceneConsultationLivre();
         }
