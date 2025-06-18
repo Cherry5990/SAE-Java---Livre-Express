@@ -76,6 +76,14 @@ public class VendeurBD {
         }
     }
 
-
+    public boolean vendeurPresent(String nom, String prenom, int idMagasin)throws SQLException{
+        try(PreparedStatement ps =laConnexion.prepareStatement("select * from VENDEUR where nomVendeur = ? and prenomVendeur = ? and idmag = ?")){
+            ps.setString(1, nom);
+            ps.setString(2, prenom);
+            ps.setInt(3, idMagasin);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        }
+    }
     
 }
