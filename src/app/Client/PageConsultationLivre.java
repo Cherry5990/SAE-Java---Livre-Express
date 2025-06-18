@@ -1,6 +1,7 @@
 package app.Client;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import app.App;
 import javafx.application.Application;
@@ -13,7 +14,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.text.Text;
 import modele.Auteur;
 import modele.Livre;
 import modele.Theme;
@@ -25,15 +25,23 @@ public class PageConsultationLivre {
     public PageConsultationLivre(App app) throws IOException{
         Pane root = FXMLLoader.load(getClass().getResource("../view/Client/PageClientConsultationLivre.fxml"));
         this.scene = new Scene(root);
-        Text isbn = (Text) this.scene.lookup("#isbn");
-        Text pages = (Text) this.scene.lookup("#pages");
-        Text prix = (Text) this.scene.lookup("#prix");
-        Text auteur = (Text) this.scene.lookup("#auteur");
-        Text theme = (Text) this.scene.lookup("#theme");
+        Label isbn = (Label) this.scene.lookup("#isbn");
+        Label pages = (Label) this.scene.lookup("#nbpage");
+        Label prix = (Label) this.scene.lookup("#prix");
+        Label auteur = (Label) this.scene.lookup("#auteur");
+        Label theme = (Label) this.scene.lookup("#theme");
+        Label editeur = (Label) this.scene.lookup("#editeur");
         isbn.setText(App.livre.getIsbn());
         pages.setText(App.livre.getNbPages()+"");
         prix.setText(App.livre.getPrix()+"");
-
+        try{
+            auteur.setText(App.livreBD.getAuteur(App.livre.getIsbn()));
+            theme.setText(App.livreBD.getTheme(App.livre.getIsbn()));
+            editeur.setText(App.livreBD.getEditeur(App.livre.getIsbn()));
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
         Button ajouter = (Button) scene.lookup("#ajouter");
         ajouter.setOnAction(new ControleurAjouterPanier(app, this));
 
