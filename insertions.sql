@@ -8,7 +8,7 @@ insert into MAGASIN(idmag, nommag, villemag) values
        (6,'Rhône à lire','Lyon'),
        (7,'Loire et livres','Orléans');
 
-insert into VENDEUR(idVendeur, nomVendeur, prenomVendeur, idmag) values
+insert into VENDEUR(idVendeur, prenomVendeur, nomVendeur, idmag) values
 		(1, "Matthieu", "Jérôme", 3),
 		(2, "Erika", "De Jesus Pinto", 7),
 		(3, "Maelyss", "Fronton", 1),

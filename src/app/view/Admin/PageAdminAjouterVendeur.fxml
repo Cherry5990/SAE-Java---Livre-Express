@@ -141,7 +141,7 @@
                      <bottom>
                         <HBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Button fx:id="reset" mnemonicParsing="false" prefHeight="110.0" prefWidth="237.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Réinitialiser ">
+                              <Button fx:id="reset" mnemonicParsing="false" prefHeight="110.0" prefWidth="237.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Réinitialiser">
                                  <HBox.margin>
                                     <Insets right="20.0" />
                                  </HBox.margin>
@@ -150,6 +150,14 @@
                                  </font>
                               </Button>
                               <Button fx:id="ajouter" mnemonicParsing="false" prefHeight="110.0" prefWidth="220.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Ajouter">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="Caladea Regular" size="35.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="retirer" mnemonicParsing="false" prefHeight="110.0" prefWidth="220.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Retirer">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
