@@ -19,14 +19,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import modele.Livre;
 
-<<<<<<< HEAD
-public class LivreDisplayLigne extends LivreDisplay {
-    private Livre l;
-
-=======
 public class LivreDisplayLigne extends Button {
     private Livre livre;
->>>>>>> origin/main
     public LivreDisplayLigne(EventHandler<ActionEvent> controleur, Livre livre,int i){
         super();
         this.livre =livre;
