@@ -316,6 +316,18 @@ public class MagasinBD {
         }
     }
 
+    public boolean existeLivreTitre(String titre, int idmag){
+        try(PreparedStatement ps = laConnexion.prepareStatement("select * from POSSEDER natural join LIVRE where titre = ? and idmag = ?;")){
+            ps.setString(1, titre);
+            ps.setInt(2, idmag);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        }catch(SQLException e){
+            System.out.println("Erreur lors de la vérification de l'existence du livre : " + e.getMessage());
+            return false;
+        }
+    }
+
     public List<Livre> getAllLivre(int idmag){
         List<Livre> livres = new ArrayList<>();
         try (PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn,titre,prix,nbpages,datepubli from MAGASIN natural join POSSEDER natural join LIVRE where idmag=?;")) {
