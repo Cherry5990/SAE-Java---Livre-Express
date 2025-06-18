@@ -15,7 +15,7 @@
    <top>
       <BorderPane prefHeight="150.0" prefWidth="1200.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <right>
-            <Label prefHeight="66.0" prefWidth="112.0" text="Accueil" BorderPane.alignment="CENTER">
+            <Label prefHeight="66.0" prefWidth="171.0" text="Gérer stock" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Caladea" size="30.0" />
                </font>
@@ -44,7 +44,7 @@
                         <Font name="Caladea Regular" size="19.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="deconnexion" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../img/icônes/deconnexion.png" />
                            </image>
@@ -92,7 +92,7 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="gererStock" alignment="CENTER" contentDisplay="TOP" minHeight="300.0" mnemonicParsing="false" prefWidth="300.0" style="-fx-background-color: e8e4df; -fx-background-radius: 40;" text="Transférer un&#10;livre" textAlignment="CENTER">
+                        <Button fx:id="transfererLivre" alignment="CENTER" contentDisplay="TOP" minHeight="300.0" mnemonicParsing="false" prefWidth="300.0" style="-fx-background-color: e8e4df; -fx-background-radius: 40;" text="Transférer un&#10;livre" textAlignment="CENTER">
                            <font>
                               <Font name="Caladea" size="33.0" />
                            </font>
@@ -107,7 +107,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="statistiques" contentDisplay="TOP" layoutX="470.0" layoutY="10.0" minHeight="300.0" mnemonicParsing="false" prefWidth="300.0" style="-fx-background-color: e8e4df; -fx-background-radius: 40;" text="Consulter statisitques">
+                        <Button fx:id="statistiques" alignment="CENTER" contentDisplay="TOP" layoutX="470.0" layoutY="10.0" minHeight="300.0" mnemonicParsing="false" prefWidth="300.0" style="-fx-background-color: e8e4df; -fx-background-radius: 40;" text="Voir les stocks &#10;d'un magasin" textAlignment="CENTER">
                            <font>
                               <Font name="Caladea" size="28.0" />
                            </font>
@@ -117,7 +117,7 @@
                            <graphic>
                               <ImageView fitHeight="200.0" fitWidth="200.0">
                                  <image>
-                                    <Image url="@../../../../img/icônes/statistique.png" />
+                                    <Image url="@../../../../img/icônes/voirStock.png" />
                                  </image>
                               </ImageView>
                            </graphic>
