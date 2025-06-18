@@ -1,6 +1,7 @@
 package app;
 import BD.*;
 import app.Admin.PageAdmin;
+import app.Admin.PageAdminAjouterVendeur;
 import app.Client.PageClient;
 import app.Client.PageClientCatalogue;
 import app.Client.PageConsultationCommande;
@@ -152,8 +153,9 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
 
-    public void sceneAjouterVendeur() throws IOException{
-
+    public void sceneAjouterVendeur(){
+        PageAdminAjouterVendeur page = new PageAdminAjouterVendeur(this);
+        primaryStage.setScene(page.getScene());
     }
 
 
