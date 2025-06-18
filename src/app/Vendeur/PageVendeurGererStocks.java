@@ -90,13 +90,13 @@ public class PageVendeurGererStocks {
                 voirStock.setScaleX(1.0);
                 voirStock.setScaleY(1.0);
             });
-        //voirStock.setOnAction(e -> {
-            //try {
-                //app.PageVendeurVoirStocks(this.vendeur);
-            //} catch (IOException ex) {
-                //System.out.println("Problème");
-            //}
-        //});
+        voirStock.setOnAction(e -> {
+            try {
+                app.scenePageVendeurVoirStocks();
+            } catch (IOException ex) {
+                System.out.println("Problème avec PageVendeurVoirStocks");
+            }
+        });
 
         //Bouton transferer livre depuis un magasin
         Button transfererLivre = (Button) this.scene.lookup("#transfererLivre");

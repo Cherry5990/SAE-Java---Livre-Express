@@ -25,6 +25,7 @@ public class ControleurConnexionMagasin implements EventHandler<ActionEvent>{
             String nommag = vue.getMagasinChoix();
             System.out.println(nommag);
             App.magasin = App.magasinBD.getMagasin(nommag);
+            App.commande.setMagasin(App.magasin);
             if (App.magasin!=null){
                 app.sceneMagasin();
             }

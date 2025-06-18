@@ -1,36 +1,39 @@
-package app.Client;
+package app.Vendeur;
 
 import java.io.IOException;
 import java.util.List;
 
 import app.App;
+import app.Client.ControleurConsulterLivre;
 import app.Display.LivreDisplayLigne;
+import app.Display.LivreDisplayLigneVendeur;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import modele.Commande;
 import modele.Livre;
 
-public class PageClientCatalogue {
+public class PageVendeurVoirStocks {
     private Scene scene;
     private ScrollPane scroll;
     private List<Livre> livres;
     private VBox lignes;
 
-    public PageClientCatalogue(App app)throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("../view/Client/PageClientCatalogue.fxml"));
+    public PageVendeurVoirStocks(App app)throws IOException{
+        Pane root = FXMLLoader.load(getClass().getResource("../view/Vendeur/PageVendeurVoirStocks.fxml"));
         this.scene = new Scene(root);
-        this.livres = App.magasinBD.getAllLivre(App.magasin.getIdMagasin());
+        App.commande = new Commande(0, null, false, false, App.client, App.magasin);
+        this.livres = App.magasinBD.getAllLivre(App.vendeur.getMagasin().getIdMagasin());
         this.scroll = (ScrollPane) this.scene.lookup("#test");
         int i = 1;
         this.lignes = (VBox) this.scroll.getContent();
-        ControleurConsulterLivre controleur = new ControleurConsulterLivre(app);
+        ControleurConsulterLivreVendeur controleur = new ControleurConsulterLivreVendeur(app);
         for(Livre livreMag:livres){
-            this.lignes.getChildren().add(new LivreDisplayLigne(controleur, livreMag,i));
+            this.lignes.getChildren().add(new LivreDisplayLigneVendeur(controleur, livreMag,i));
             i++;
         }
 
@@ -40,7 +43,7 @@ public class PageClientCatalogue {
             this.lignes.getChildren().clear();
             int j = 1;
             for(Livre livreMag:this.livres){
-                this.lignes.getChildren().add(new LivreDisplayLigne(controleur, livreMag, j));
+                this.lignes.getChildren().add(new LivreDisplayLigneVendeur(controleur, livreMag, j));
                 j++;
             }
             System.out.println("Recherche : " + newValue);
@@ -49,21 +52,12 @@ public class PageClientCatalogue {
         Button retour = (Button)scene.lookup("#retour");
         retour.setOnAction(e -> {
             try {
-                app.sceneClient();
+                app.scenePageVendeurGererStocks();
             } 
             catch (IOException e1) {
                 System.out.println(e1.getMessage());
             }
         });
-
-        Button panier = (Button)scene.lookup("#panier");
-        panier.setOnAction(e -> {
-			try {
-				app.sceneConsultationPanier();
-			} catch (IOException ex) {
-				System.out.println(ex.getMessage());
-			}
-		});
     }
 
     public Scene getScene(){

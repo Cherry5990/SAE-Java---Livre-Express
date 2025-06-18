@@ -13,7 +13,7 @@ get_value() {
 USER=$(get_value user)
 PASSWORD=$(get_value password)
 HOST=$(get_value host)
-DBNAME=$"java"
+DBNAME=$"DBfronton"
 
 # Vérification que .my.cnf existe
 if [ ! -f "$MYCNF" ]; then  #-f Si le chemin existe ET si c'est un fichier régulier 
@@ -59,7 +59,7 @@ echo "🛠 Vérification de l'existence du dossier bin..."
 if [ ! -d "bin" ]; then
     echo "🧮 Compilation du projet ..."
     find src -name "*.java" > sources.txt
-    javac -d bin --module-path lib/javafx/ --add-modules javafx.controls,javafx.fxml -cp "lib/*:src" @sources.txt
+    javac -d bin --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml -cp "lib/*:src" @sources.txt
     cp -r src/app/view bin/app/view
 else
     echo "✅ Le dossier bin existe déjà."
@@ -74,4 +74,4 @@ fi
 #fi
 
 echo "🚀 Lancement de l'application..."
-java --module-path lib/javafx/ --add-modules javafx.controls,javafx.fxml -cp "lib/*:bin" app.App
+java --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml -cp "lib/*:bin" app.App

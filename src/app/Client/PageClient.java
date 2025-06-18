@@ -49,6 +49,8 @@ public class PageClient {
 
         this.magasin = (ComboBox<String>) this.scene.lookup("#comboMag");
         
+        App.commande = new Commande(0, null, false, false, App.client, null);
+
         List<Magasin> magasins = App.magasinBD.getAllMagasins();
         for(Magasin mag:magasins){
             this.magasin.getItems().add(mag.getNomMagasin());

@@ -12,6 +12,7 @@ import app.Vendeur.PageVendeurAccueil;
 import app.Vendeur.PageVendeurAjouterLivre;
 import app.Vendeur.PageVendeurGererStocks;
 import app.Vendeur.PageVendeurMajQte;
+import app.Vendeur.PageVendeurVoirStocks;
 import modele.*;
 
 import java.io.FileInputStream;
@@ -31,6 +32,7 @@ public class App extends Application{
     public static VendeurBD vendeurBD;
     public static MagasinBD magasinBD;
     public static CommandeBD commandeBD;
+    public static LivreBD livreBD;
     public static Client client;
     public static Commande commande;
     public static Magasin magasin;
@@ -60,6 +62,7 @@ public class App extends Application{
             App.vendeurBD = new VendeurBD(this.con);
             App.magasinBD = new MagasinBD(con);
             App.commandeBD = new CommandeBD(con);
+            App.livreBD = new LivreBD(con);
             App.commande = null;
             App.client = null;
             App.magasin = null;
@@ -75,7 +78,7 @@ public class App extends Application{
     @Override
     public void start(Stage stage) throws Exception {
         this.primaryStage = stage;
-        primaryStage.setTitle("Librarie Livre Express");
+        primaryStage.setTitle("Librairie Livre Express");
         sceneAcceuil();
         primaryStage.show();
     }
@@ -97,6 +100,7 @@ public class App extends Application{
 
     //Scenes de Vendeur
     public void scenePageVendeurAccueil()throws IOException{
+        App.magasin = vendeur.getMagasin();
         PageVendeurAccueil page = new PageVendeurAccueil(this);
         primaryStage.setScene(page.getScene());
     }
@@ -112,12 +116,12 @@ public class App extends Application{
         PageVendeurMajQte page = new PageVendeurMajQte(this);
         primaryStage.setScene(page.getScene());
     }
+    public void scenePageVendeurVoirStocks()throws IOException{
+        PageVendeurVoirStocks page = new PageVendeurVoirStocks(this);
+        primaryStage.setScene(page.getScene());
+    }
 
     
-
-    
-    
-
     public void sceneAdmin()throws IOException{
         PageAdmin page = new PageAdmin(this);
         primaryStage.setScene(page.getScene());

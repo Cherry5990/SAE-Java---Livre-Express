@@ -364,5 +364,34 @@ public class MagasinBD {
         }
     }
 
+    public void ajouteQteLivre(String isbn,int idmag,int qte){
+        try(PreparedStatement ps = laConnexion.prepareStatement("select qte from LIVRE natural left join POSSEDER where isbn=? and idmag=?")){
+            ps.setString(1, isbn);
+            ps.setInt(2, idmag);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                Integer nouvelleQte = rs.getInt("qte")+qte;
+                PreparedStatement ps2 = laConnexion.prepareStatement("UPDATE POSSEDER set qte=? WHERE isbn=? and idmag=?;");
+                ps2.setInt(1, nouvelleQte);
+                ps2.setString(2, isbn);
+                ps2.setInt(3, idmag);
+                ps2.executeUpdate();
+                ps2.close();
+            }
+            else {
+                Integer nouvelleQte = qte;
+                PreparedStatement ps2 = laConnexion.prepareStatement("insert into POSSEDER values(?,?,?);");
+                ps2.setInt(3, nouvelleQte);
+                ps2.setString(2, isbn);
+                ps2.setInt(1, idmag);
+                ps2.executeUpdate();
+                ps2.close();
+            }
+        }
+        catch(SQLException e){
+            System.out.println("Modification impossible : "+e.getMessage());
+        }
+    }
+
     
 }
