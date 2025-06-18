@@ -122,10 +122,6 @@ public class App extends Application{
     }
 
     
-
-    
-    
-
     public void sceneAdmin()throws IOException{
         PageAdmin page = new PageAdmin(this);
         primaryStage.setScene(page.getScene());
