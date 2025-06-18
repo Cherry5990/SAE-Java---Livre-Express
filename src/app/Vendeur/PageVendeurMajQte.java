@@ -14,10 +14,8 @@ import modele.Vendeur;
 
 public class PageVendeurMajQte {
     private Scene scene;
-    private Vendeur vendeur;
     
-    public PageVendeurMajQte(App app, Vendeur v)throws IOException{
-        this.vendeur = v;
+    public PageVendeurMajQte(App app)throws IOException{
         Pane root = FXMLLoader.load(getClass().getResource("../view/Vendeur/PageVendeurMajQte.fxml"));
         this.scene = new Scene(root);
 
@@ -42,11 +40,11 @@ public class PageVendeurMajQte {
                 retour.setScaleY(1.0);
             });
         retour.setOnAction(e -> {
-            //try {
-            //    app.scenePageVendeurGererStocks();
-            //} catch (IOException ex) {
-            //    System.out.println("Problème");
-            //}
+            try {
+                app.scenePageVendeurGererStocks();
+            } catch (IOException ex) {
+                System.out.println("Problème");
+            }
         });
 
 
