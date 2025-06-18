@@ -32,7 +32,6 @@ import javafx.scene.shape.Rectangle;
 public class PageClient {
     private Scene scene;
     private ComboBox<String> magasin;
-    private List<Livre> recomandation;
     private HBox livres;
     private int positionLivre; 
     private List<Commande> commandes;
@@ -90,13 +89,15 @@ public class PageClient {
 
         try{
             this.positionLivre=0;
-            this.recomandation = App.clientBD.getRecommandationClient(App.client.getId());
+            if(App.recomandation==null){
+                App.recomandation = App.clientBD.getRecommandationClient(App.client.getId());
+            }
             this.livres = (HBox) this.scene.lookup("#livres");
-            int count = Math.min(4, recomandation.size());
+            int count = Math.min(7, App.recomandation.size());
             for (int i = 0; i < count; i++) {
-                Livre livreData = recomandation.get(i);
+                Livre livreData = App.recomandation.get(i);
                 if (livreData != null) {
-                    LivreDisplay livre = new LivreDisplay(new ControleurConsulterLivre(app), livreData);
+                    LivreDisplay livre = new LivreDisplay(new ControleurLivreRecommande(app,livreData), livreData);
                     this.livres.getChildren().add(livre);
                 }
             }
@@ -109,7 +110,7 @@ public class PageClient {
             this.positionCommande=0;
             this.commandes= App.commandeBD.CommandeClient(App.client.getId());
             this.hBoxCommande = (HBox) this.scene.lookup("#commandes");
-            int count = Math.min(4, commandes.size());
+            int count = Math.min(7, commandes.size());
             for (int i = 0; i < count; i++) {
                 Commande commandedata = commandes.get(i);
                 if (commandedata != null) {
@@ -129,11 +130,11 @@ public class PageClient {
 
     public void majRecommandation() {
         this.livres.getChildren().clear();
-        int count = Math.min(4, recomandation.size() - positionLivre);
+        int count = Math.min(7, App.recomandation.size() - positionLivre);
         for (int j = 0; j < count; j++) {
-            Livre livreData = recomandation.get(positionLivre + j);
+            Livre livreData = App.recomandation.get(positionLivre + j);
             if (livreData != null) {
-                LivreDisplay livre = new LivreDisplay(new ControleurConsulterLivre(app), livreData);
+                LivreDisplay livre = new LivreDisplay(new ControleurLivreRecommande(app,livreData), livreData);
                 this.livres.getChildren().add(livre);
             }
         }
@@ -141,7 +142,7 @@ public class PageClient {
 
     public void majCommande() {
         this.hBoxCommande.getChildren().clear();
-        int count = Math.min(4, commandes.size() - positionCommande);
+        int count = Math.min(7, commandes.size() - positionCommande);
         for (int j = 0; j < count; j++) {
             Commande dataCommande = commandes.get(positionCommande + j);
             if (dataCommande!= null) {
@@ -174,7 +175,7 @@ public class PageClient {
     }
 
     public int getNbLivre(){
-        return this.recomandation.size();
+        return App.recomandation.size();
     }
 
     public void setPositionCommande(int pos){

@@ -13,11 +13,11 @@ public class ControleurAvant1 implements EventHandler<ActionEvent>{
 
     @Override
     public void handle(ActionEvent e) {
-        if(vue.getPositionCommande()-4<0){
+        if(vue.getPositionCommande()-7<0){
             vue.setPositionCommande(0);
         }
         else{
-            vue.setPositionCommande(vue.getPositionCommande()-4);
+            vue.setPositionCommande(vue.getPositionCommande()-7);
         }
         vue.majCommande();
     }

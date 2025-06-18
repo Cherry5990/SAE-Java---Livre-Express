@@ -3,14 +3,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -113,82 +114,100 @@
                   </HBox>
                </top>
                <center>
-                  <BorderPane prefHeight="200.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                  <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" BorderPane.alignment="TOP_CENTER">
                      <left>
                         <Pane maxHeight="220.0" prefHeight="220.0" prefWidth="220.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 30;" BorderPane.alignment="CENTER">
-                           <children>
-                              <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="7.0" layoutY="5.0" preserveRatio="true" style="-fx-scale-x: 0.8; -fx-scale-y: 0.8;">
-                                 <image>
-                                    <Image url="@../../../../img/commande.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
                            <BorderPane.margin>
                               <Insets bottom="30.0" left="5.0" top="30.0" />
                            </BorderPane.margin>
+                           <children>
+                              <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="10.0" layoutY="10.0">
+                                 <image>
+                                    <Image url="@../../../../img/livre.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
                         </Pane>
                      </left>
                      <center>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_CENTER">
                            <children>
-                              <Label fx:id="titre" prefHeight="49.0" prefWidth="400.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 20;">
+                              <Label fx:id="titre" alignment="TOP_CENTER" prefHeight="49.0" prefWidth="400.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 20;">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets bottom="15.0" />
                                  </VBox.margin>
                               </Label>
-                              <TilePane maxHeight="400.0" maxWidth="960.0" minHeight="400.0" minWidth="960.0" prefColumns="2" prefHeight="400.0" prefTileHeight="66.7" prefTileWidth="480.0" prefWidth="960.0" style="-fx-background-color: #e8e4df;">
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
+                              <GridPane fx:id="tab" alignment="CENTER" gridLinesVisible="true" prefHeight="400.0" prefWidth="975.0" style="-fx-background-color: #e8e4df;">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="466.0" minWidth="10.0" prefWidth="189.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="761.0" minWidth="10.0" prefWidth="756.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN" />
-                                    <Text fx:id="isbn" strokeType="OUTSIDE" strokeWidth="0.0" text="[isbn]" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PRIX" />
-                                    <Text fx:id="prix" strokeType="OUTSIDE" strokeWidth="0.0" text="[prix]" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE DE PAGES" />
-                                    <Text fx:id="pages" strokeType="OUTSIDE" strokeWidth="0.0" text="[nombre de pages]" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="THEME" />
-                                    <Text fx:id="theme" strokeType="OUTSIDE" strokeWidth="0.0" text="[theme]" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="AUTEUR" />
-                                    <Text fx:id="auteur" strokeType="OUTSIDE" strokeWidth="0.0" text="[auteur]" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" text="ISBN">
+                                       <GridPane.margin>
+                                          <Insets left="60.0" />
+                                       </GridPane.margin>
+                                       <font>
+                                          <Font name="Andika" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Prix" GridPane.rowIndex="1">
+                                       <GridPane.margin>
+                                          <Insets left="60.0" />
+                                       </GridPane.margin>
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label prefHeight="29.0" prefWidth="176.0" text="Nombre de pages" GridPane.rowIndex="2">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" />
+                                       </GridPane.margin>
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Auteur(s)" GridPane.rowIndex="3">
+                                       <GridPane.margin>
+                                          <Insets left="60.0" />
+                                       </GridPane.margin>
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Thème(s)" GridPane.rowIndex="4">
+                                       <GridPane.margin>
+                                          <Insets left="60.0" />
+                                       </GridPane.margin>
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Editeur(s)" GridPane.rowIndex="5">
+                                       <padding>
+                                          <Insets left="60.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="AccanthisADFStd-Regular" size="20.0" />
+                                       </font>
+                                    </Label>
                                  </children>
-                              </TilePane>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <HBox prefHeight="100.0" prefWidth="974.0">
-                                       <children>
-                                          <Spinner fx:id="quantite" prefHeight="49.0" prefWidth="103.0">
-                                             <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                             </HBox.margin>
-                                          </Spinner>
-                                          <Label text="Quantité" textFill="WHITE">
-                                             <padding>
-                                                <Insets left="3.0" top="25.0" />
-                                             </padding>
-                                          </Label>
-                                          <Button fx:id="ajouter" mnemonicParsing="false" prefHeight="58.0" prefWidth="194.0" style="-fx-background-color: #e8e4df;" text="Ajouter au panier">
-                                             <graphic>
-                                                <ImageView fitHeight="50.0" fitWidth="50.0">
-                                                   <image>
-                                                      <Image url="@../../../../img/icônes/ajouterLivre.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                             <opaqueInsets>
-                                                <Insets top="10.0" />
-                                             </opaqueInsets>
-                                             <HBox.margin>
-                                                <Insets left="25.0" top="10.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                       </children></HBox>
-                                 </children>
-                              </HBox>
+                              </GridPane>
                            </children>
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
+                           <BorderPane.margin>
+                              <Insets left="10.0" right="20.0" />
+                           </BorderPane.margin>
                         </VBox>
                      </center></BorderPane>
                </center>

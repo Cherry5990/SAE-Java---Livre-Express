@@ -96,7 +96,7 @@ public class PageConsultationPanier {
             tableau.add(supprimer, 5, ligne);
         }
         this.prixTotale = (Label) scene.lookup("#prix");
-        somme = Math.round(somme);
+        somme = Math.round(somme * 100.0) / 100.0;
         prixTotale.setText("Prix totale : "+somme + "€");
     }
 
