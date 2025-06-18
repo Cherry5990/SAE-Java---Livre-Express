@@ -12,6 +12,7 @@ import app.Vendeur.PageVendeurAccueil;
 import app.Vendeur.PageVendeurAjouterLivre;
 import app.Vendeur.PageVendeurGererStocks;
 import app.Vendeur.PageVendeurMajQte;
+import app.Vendeur.PageVendeurTransfererLivre;
 import app.Vendeur.PageVendeurVoirStocks;
 import modele.*;
 
@@ -119,8 +120,13 @@ public class App extends Application{
         PageVendeurVoirStocks page = new PageVendeurVoirStocks(this);
         primaryStage.setScene(page.getScene());
     }
-
+    public void scenePageVendeurTransfererLivre()throws IOException{
+        PageVendeurTransfererLivre page = new PageVendeurTransfererLivre(this);
+        primaryStage.setScene(page.getScene());
+    }
     
+
+    //Scenes d'Admin
     public void sceneAdmin()throws IOException{
         PageAdmin page = new PageAdmin(this);
         primaryStage.setScene(page.getScene());

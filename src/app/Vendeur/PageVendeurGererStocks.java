@@ -108,13 +108,13 @@ public class PageVendeurGererStocks {
                 transfererLivre.setScaleX(1.0);
                 transfererLivre.setScaleY(1.0);
             });
-        //transfererLivre.setOnAction(e -> {
-            //try {
-                //app.PageVendeurTransfererLivre(this.vendeur);
-            //} catch (IOException ex) {
-                //System.out.println("Problème");
-            //}
-        //});
+        transfererLivre.setOnAction(e -> {
+            try {
+                app.scenePageVendeurTransfererLivre();
+            } catch (IOException ex) {
+                System.out.println("Problème");
+            }
+        });
 
 
         
