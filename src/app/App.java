@@ -32,6 +32,7 @@ public class App extends Application{
     public static VendeurBD vendeurBD;
     public static MagasinBD magasinBD;
     public static CommandeBD commandeBD;
+    public static LivreBD livreBD;
     public static Client client;
     public static Commande commande;
     public static Magasin magasin;
@@ -61,6 +62,7 @@ public class App extends Application{
             App.vendeurBD = new VendeurBD(this.con);
             App.magasinBD = new MagasinBD(con);
             App.commandeBD = new CommandeBD(con);
+            App.livreBD = new LivreBD(con);
             App.commande = null;
             App.client = null;
             App.magasin = null;
