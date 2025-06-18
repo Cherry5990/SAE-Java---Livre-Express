@@ -89,48 +89,47 @@ public class PageVendeurTransfererLivre {
         this.comboMag.valueProperty().addListener((obs, oldVal, newVal) -> {
             this.idMagasin = null;
             for (Magasin mag : App.magasinBD.getAllMagasins()) {
-            if (mag.getNomMagasin().equals(newVal)) {
-                this.idMagasin = mag.getIdMagasin();
-                break;
-            }
+                if (mag.getNomMagasin().equals(newVal)) {
+                    this.idMagasin = mag.getIdMagasin();
+                    break;
+                }
             }
             if (this.idMagasin == null) {
-            this.comboLivre.setPromptText("Selectionner un magasin");
-            this.comboLivre.setDisable(true);
-            this.nom.setDisable(true);
-            this.comboLivre.getItems().clear();
-            } else {
-            this.comboLivre.setPromptText("Selectionner un livre");
-            this.comboLivre.setDisable(false);
-            this.nom.setDisable(false);
-            List<Livre> livresInit = App.magasinBD.rechercheLivre(this.idMagasin, "");
-            this.comboLivre.getItems().clear();
-            for (Livre elt : livresInit) {
-                this.comboLivre.getItems().add(elt.getTitre());
-            }
-
-            this.nom.textProperty().addListener((obsNom, oldNom, newNom) -> {
-                // Filtrage dynamique
-                List<Livre> livres = App.magasinBD.rechercheLivre(this.idMagasin, newNom);
+                this.comboLivre.setPromptText("Selectionnez un magasin");
+                this.comboLivre.setDisable(true);
+                this.nom.setDisable(true);
                 this.comboLivre.getItems().clear();
-                for (Livre livre : livres) {
-                this.comboLivre.getItems().add(livre.getTitre());
+            } else {
+                this.comboLivre.setPromptText("Selectionnez un livre");
+                this.comboLivre.setDisable(false);
+                this.nom.setDisable(false);
+                List<Livre> livresInit = App.magasinBD.rechercheLivre(this.idMagasin, "");
+                this.comboLivre.getItems().clear();
+                for (Livre elt : livresInit) {
+                    this.comboLivre.getItems().add(elt.getTitre());
                 }
-                // Montre le menu déroulant
-                this.comboLivre.show();
-            });
-            this.comboLivre.setOnAction(e -> {
-                this.modifValeurs();
-            });
-            }
-        });
 
-        // Initialiser l'état de comboLivre au démarrage
-        if (this.comboMag.getValue() == null) {
-            this.comboLivre.setPromptText("Selectionner un magasin");
-            this.comboLivre.setDisable(true);
-        }
-        
+                this.nom.textProperty().addListener((obsNom, oldNom, newNom) -> {
+                    // Filtrage dynamique
+                    List<Livre> livres = App.magasinBD.rechercheLivre(this.idMagasin, newNom);
+                    this.comboLivre.getItems().clear();
+                    for (Livre livre : livres) {
+                        this.comboLivre.getItems().add(livre.getTitre());
+                    }
+                    // Montre le menu déroulant
+                    this.comboLivre.show();
+                    });
+                    this.comboLivre.setOnAction(e -> {
+                        this.modifValeurs();
+                    });
+            }
+            });
+
+            // Initialiser l'état de comboLivre au démarrage
+            if (this.comboMag.getValue() == null) {
+                this.comboLivre.setPromptText("Sélectionnez un magasin");
+                this.comboLivre.setDisable(true);
+            }
 
         
         //Nouvelle quantité
