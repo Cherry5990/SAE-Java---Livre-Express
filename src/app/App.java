@@ -13,6 +13,7 @@ import app.Client.PageClientRecommande;
 import app.Client.PageConsultationCommande;
 import app.Client.PageConsultationLivre;
 import app.Client.PageConsultationPanier;
+import app.Menu.PageClientCreerCompte;
 import app.Menu.PageAcceuil;
 import app.Menu.PageConnexion;
 import app.Vendeur.PageVendeurAccueil;
@@ -128,6 +129,11 @@ public class App extends Application{
 
     public void sceneClient()throws IOException{
         PageClient page = new PageClient(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void sceneCreation()throws IOException{
+        PageClientCreerCompte page = new PageClientCreerCompte(this);
         primaryStage.setScene(page.getScene());
     }
 

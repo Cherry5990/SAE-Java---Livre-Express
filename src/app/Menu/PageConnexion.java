@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -25,6 +26,24 @@ public class PageConnexion {
         this.utilisateur = utilisateur;
         Pane root = FXMLLoader.load(getClass().getResource("../view/PageConnexion.fxml"));
         this.scene = new Scene(root);
+
+        if (utilisateur.equals("client")){
+            HBox creation = (HBox)scene.lookup("#creation");
+            Button inscription = new Button("Inscription");
+            inscription.setPrefWidth(220);
+            inscription.setPrefHeight(50);
+            creation.setSpacing(10);
+            creation.setStyle("-fx-alignment: center;");
+            inscription.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 50; -fx-padding: 8 20; -fx-font-size: 18px;");
+            inscription.setOnAction(e -> {
+                try {
+                    app.sceneCreation();
+                } catch (IOException e1) {
+                    System.out.println(e1.getMessage());
+                }
+            });
+            creation.getChildren().add(inscription);
+        }
 
         this.titre = (Label) this.scene.lookup("#titre");
         titre.setText(titre.getText() + utilisateur);

@@ -1,7 +1,11 @@
 package BD;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import app.App;
 import modele.Client;
+import modele.Livre;
 
 public class AdminBD {
     ConnexionMySQL laConnexion;
@@ -107,28 +111,19 @@ public class AdminBD {
      * Affiche les 10 livres les plus vendus de tous les temps
      * @return une chaîne de caractères contenant les 10 livres les plus vendus
      */
-    public String livresLesPlusVendusTotalToutTemps(){
-        StringBuilder sb = new StringBuilder();
+    public List<Livre> livresLesPlusVendusTotalToutTemps(){
+        List<Livre> recos = new ArrayList<>();
         try(PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn, titre, SUM(qte) qte FROM LIVRE NATURAL JOIN DETAILCOMMANDE GROUP BY isbn, titre ORDER BY qte DESC LIMIT 10;")){
             ResultSet rs = ps.executeQuery();
-            sb.append(String.format("%-15s %-40s %-5s\n", "isbn", "titre", "qte"));
             while(rs.next()){
                 String titre =rs.getString("titre");
-                if (titre.length() > 35){
-                    titre = titre.substring(0, 35) + "...";
-                }
-                sb.append(String.format("%-15s %-40s %-5s\n",
-                        rs.getString("isbn"),
-                        
-                        titre ,
-                        rs.getInt("qte")+ " exemplaires"));
+                recos.add(App.livreBD.getLivre(rs.getString("isbn")));
             }
-        return sb.toString();
 
         }catch(SQLException e){
             System.out.println(e.getMessage());
-            return "Pas de livres vendus";
         }
+        return recos;
     }
 
     /**
