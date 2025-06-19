@@ -20,6 +20,17 @@ public class PageAdmin {
 
         Button ajouterLibrairie = (Button)scene.lookup("#ajouterLibrairie");
         ajouterLibrairie.setOnAction(e -> app.sceneAjouterMagasin());
+
+        Button deconnexion = (Button) this.scene.lookup("#deconnexion");
+        deconnexion.setOnMouseEntered(e -> {
+                deconnexion.setScaleX(1.1);
+                deconnexion.setScaleY(1.1);
+            });
+            deconnexion.setOnMouseExited(e -> {
+                deconnexion.setScaleX(1.0);
+                deconnexion.setScaleY(1.0);
+            });
+        deconnexion.setOnAction(e -> app.sceneAcceuil());
     }
 
     public Scene getScene(){

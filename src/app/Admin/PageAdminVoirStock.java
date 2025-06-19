@@ -51,12 +51,23 @@ public class PageAdminVoirStock {
         Button retour = (Button)scene.lookup("#retour");
         retour.setOnAction(e -> {
             try {
-                app.scenePageAdminGererStock();
+                app.sceneAdmin();
             } 
             catch (IOException e1) {
                 System.out.println(e1.getMessage());
             }
         });
+
+        Button deconnexion = (Button) this.scene.lookup("#deconnexion");
+        deconnexion.setOnMouseEntered(e -> {
+                deconnexion.setScaleX(1.1);
+                deconnexion.setScaleY(1.1);
+            });
+            deconnexion.setOnMouseExited(e -> {
+                deconnexion.setScaleX(1.0);
+                deconnexion.setScaleY(1.0);
+            });
+        deconnexion.setOnAction(e -> app.sceneAcceuil());
     }
     public Scene getScene(){
         return this.scene;
