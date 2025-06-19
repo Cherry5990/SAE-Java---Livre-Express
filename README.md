@@ -7,7 +7,16 @@ Bienvenue dans **Livre Express**, une application Java de gestion de librairie. 
 
 ## 🗂️ Structure du projet
 
-- `src/` : Code source Java, organisé en packages (`modele`, `BD`, `menu`, etc.).
+- `src/` : Code source Java, organisé en packages :
+  - **app**:
+    - **Admin** : Page et controleur du la page Admin
+    - **Client** : Page et controleur du la page Client
+    - **Display** : Différent fichier java qui sont des affichage dans l'application
+    - **Menu** : Page et controleur de la page Menu et Connexion
+    - **Vendeur** : Page et controleur du la page Vendeur
+    - **view** : Tous les fichiers fxml qui répresentent les interfaces des utilisateurs 
+  - **BD** : La connexion entre les métiers et la BD
+  - **modele** : les métiers
 - `lib/` : Bibliothèques externes requises (JDBC, JUnit, Hamcrest).
 - `bin/` : Fichiers compilés `.class`.
 - `test/` : Tests unitaires (JUnit).
@@ -20,9 +29,10 @@ Bienvenue dans **Livre Express**, une application Java de gestion de librairie. 
 ## ✅ Prérequis
 
 - **Java**
-- [**MariaDB**](https://mariadb.org/) ou **MySQL**
+- **MariaDB** ou **MySQL**
 - Le bibliothèque du dossier `lib/` :
   - `mariadb-java-client`
+- **javafx**
 - **un bash linux** pour le script
 
 ---
@@ -49,7 +59,7 @@ Bienvenue dans **Livre Express**, une application Java de gestion de librairie. 
     - Exécute les scripts SQL
     - Compile le projet
     - Génère la **Javadoc**
-    - Lance l'application dans le terminal
+    - Lance l'application
 
 ---
 
