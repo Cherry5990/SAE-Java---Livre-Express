@@ -60,12 +60,9 @@ public class PageClient {
             this.setMagasinChoix(selectedMagasin);
         });
 
-        Button retour = (Button)scene.lookup("#deconnexion");
-        retour.setOnAction(e -> {
-            Optional<ButtonType> reponse = popUpMessageDeconnexion().showAndWait();
-            if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){
-                    app.sceneAcceuil();
-                }
+        Button deco = (Button)scene.lookup("#deconnexion");
+        deco.setOnAction(e -> {
+            app.popUpMessageDeconnexion();
         });
 
         Button connecter = (Button) this.scene.lookup("#connexion");
@@ -152,13 +149,6 @@ public class PageClient {
         }
     }
 
-    public Alert popUpMessageDeconnexion(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"",ButtonType.YES, ButtonType.NO);
-        alert.setHeaderText("Déconnextion"); 
-        alert.setContentText("êtes vous sur de vous déconnecter?");     
-        return alert;
-    }
-    
     public void setMagasinChoix(String mag){
         this.magasinChoix = mag;
     }

@@ -50,6 +50,17 @@ public class PageVendeurChoixClient {
             }
         });
 
+        Button deconnexion = (Button) this.scene.lookup("#deconnexion");
+        deconnexion.setOnMouseEntered(e -> {
+                deconnexion.setScaleX(1.1);
+                deconnexion.setScaleY(1.1);
+            });
+            deconnexion.setOnMouseExited(e -> {
+                deconnexion.setScaleX(1.0);
+                deconnexion.setScaleY(1.0);
+            });
+        deconnexion.setOnAction(e -> app.popUpMessageDeconnexion());
+
         TextField nom =(TextField)scene.lookup("#nom");
         nom.textProperty().addListener((observable, oldValue, newValue) -> {
             position = 0;
