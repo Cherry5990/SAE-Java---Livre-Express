@@ -35,7 +35,9 @@ CREATE TABLE CLIENT (
   prenomcli  varchar(30),
   adressecli varchar(100),
   codepostal varchar(5),
-  villecli   varchar(100)
+  villecli   varchar(100),
+  nomcompte varchar(30),
+  mdpcompte varchar(30)
 );
 
 CREATE TABLE COMMANDE (
@@ -109,8 +111,17 @@ CREATE TABLE VENDEUR(
     nomVendeur varchar(50),
     prenomVendeur varchar(50),
     idmag varchar(42),
+    nomcompte varchar(30),
+    mdpcompte varchar(30),
     PRIMARY KEY (idVendeur),
     CONSTRAINT fkMagasin FOREIGN KEY(idmag) REFERENCES MAGASIN(idmag)
+);
+
+CREATE TABLE ADMIN(
+  PRIMARY KEY(idadmin),
+  idadmin int NOT NULL,
+  nomcompte varchar(30),
+  mdpcompte varchar(30)
 );
 
 ALTER TABLE COMMANDE ADD FOREIGN KEY (idmag) REFERENCES MAGASIN (idmag);

@@ -50,6 +50,7 @@ public class App extends Application{
     public static CommandeBD commandeBD;
     public static LivreBD livreBD;
     public static ReseauBD reseauBD;
+    public static AdminBD adminBD;
     public static Client client;
     public static Commande commande;
     public static Magasin magasin;
@@ -83,6 +84,7 @@ public class App extends Application{
             App.commandeBD = new CommandeBD(con);
             App.livreBD = new LivreBD(con);
             App.reseauBD = new ReseauBD(con);
+            App.adminBD = new AdminBD(con);
             App.commande = null;
             App.client = null;
             App.magasin = null;
