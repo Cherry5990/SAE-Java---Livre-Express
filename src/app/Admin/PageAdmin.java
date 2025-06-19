@@ -31,6 +31,9 @@ public class PageAdmin {
                 deconnexion.setScaleY(1.0);
             });
         deconnexion.setOnAction(e -> app.sceneAcceuil());
+
+        Button statistiques = (Button)scene.lookup("#statistiques");
+        statistiques.setOnAction(e -> app.scenePageAdminConsulterStat());
     }
 
     public Scene getScene(){
