@@ -10,7 +10,9 @@ import app.Display.LivreDisplayLigne;
 import app.Display.LivreDisplayLigneVendeur;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -37,11 +39,13 @@ public class PageVendeurCommande {
         Pane root = FXMLLoader.load(getClass().getResource("../view/Vendeur/PageVendeurCommande.fxml"));
         this.scene = new Scene(root);
         this.dcs = App.commande.getDetailCommandes();
-        this.ligne = (VBox)scene.lookup("#dc");
+        ScrollPane scroll = (ScrollPane)scene.lookup("#scroll");
+        scroll.setFitToWidth(true);
         this.nbArticle = (Label)scene.lookup("#article");
         this.nbArticle.setText("0 Article");
         this.prixTotal = (Label)scene.lookup("#total");
         this.prixTotal.setText("0€");
+        this.ligne = (VBox)scroll.getContent();
         for(DetailCommande dc:dcs){
             ligne.getChildren().add(new DetailCommandeDisplay(this,dc));
         }
@@ -58,7 +62,7 @@ public class PageVendeurCommande {
                 App.magasinBD.ajouteQteLivre(dc.getLivre().getIsbn(), App.magasin.getIdMagasin(), dc.getQte());
             }
             try {
-                app.scenePageVendeurAccueil();
+                app.scenePageVendeurChoixClient();
             } catch (IOException e1) {
                 System.out.println(e1.getMessage());
             }
@@ -144,15 +148,14 @@ public class PageVendeurCommande {
     }
 
     public void maj(){
-        if (!this.ligne.getChildren().isEmpty()) {
-            this.ligne.getChildren().remove(1, this.ligne.getChildren().size());
-        }
+        ligne.getChildren().clear();
         this.dcs = App.commande.getDetailCommandes();
         if(this.dcs.size()!=0){
             this.valider.setDisable(false);
         }
         try{
             for(DetailCommande dc:dcs){
+                System.out.println(dc);
                 ligne.getChildren().add(new DetailCommandeDisplay(this,dc));
             }
         this.nbArticle.setText(dcs.size()+" Article(s)");
@@ -161,6 +164,20 @@ public class PageVendeurCommande {
         catch(IOException ex){
             System.out.println(ex.getMessage());
         }
-
     }
+
+    public Alert alertDeleteDetailCommandeMoins(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"",ButtonType.YES, ButtonType.NO);
+        alert.setHeaderText("Suppresion livre"); 
+        alert.setContentText("êtes vous sur de supprimer ce livre de la commande?");     
+        return alert;
+    }
+
+    public Alert alertDeleteDetailCommandePlus(){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setHeaderText("Impossible"); 
+        alert.setContentText("Nous n'avons pas plus d'exemplaire de ce livre");     
+        return alert;
+    }
+    
 }

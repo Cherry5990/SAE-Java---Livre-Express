@@ -54,7 +54,6 @@ public class PageVendeurAccueil {
             });
         commande.setOnAction(e -> {
             try {
-                App.commande = new Commande(0, null, false, false, null, App.vendeur.getMagasin());
                 app.scenePageVendeurChoixClient();
             } catch (IOException e1) {
                 System.out.println(e1.getMessage());
