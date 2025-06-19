@@ -56,7 +56,7 @@ public class PageAdminTransfererLivre {
             });
         retour.setOnAction(e -> {
             try {
-                app.scenePageVendeurGererStocks();
+                app.scenePageAdminGererStock();
             } catch (IOException ex) {
                 System.out.println("Problème");
             }
@@ -74,7 +74,6 @@ public class PageAdminTransfererLivre {
         }
 
         this.nom = (TextField) this.scene.lookup("#nom");
-        this.nom.setDisable(true);
 
         this.comboMag1.valueProperty().addListener((obs, oldVal, newVal) -> {
             this.idMag1 = -1;
@@ -96,13 +95,9 @@ public class PageAdminTransfererLivre {
 
             if (magSource == null || magDest == null) {
                 this.comboLivre.setPromptText("Selectionnez un magasin");
-                this.comboLivre.setDisable(true);
-                this.nom.setDisable(true);
                 this.comboLivre.getItems().clear();
             } else {
                 this.comboLivre.setPromptText("Selectionnez un livre");
-                this.comboLivre.setDisable(false);
-                this.nom.setDisable(false);
                 List<Livre> livresInit = App.reseauBD.rechercheLivre("", this.idMag1);
                 this.comboLivre.getItems().clear();
                 for (Livre elt : livresInit) {
@@ -122,8 +117,7 @@ public class PageAdminTransfererLivre {
             }
         });
         if (this.comboMag1.getValue() == null || this.comboMag2.getValue() == null){
-            this.comboLivre.setPromptText("Sélectionnez deux magasins");
-            this.comboLivre.setDisable(true);
+            this.comboLivre.setPromptText("Sélectionnez un livre");
         }
 
         this.qteTransfere = (TextField) this.scene.lookup("#qteTransfere");

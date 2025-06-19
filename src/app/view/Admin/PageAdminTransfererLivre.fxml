@@ -17,11 +17,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: /../../img/Fond.jpg;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: /../../img/Fond.jpg;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <BorderPane prefHeight="150.0" prefWidth="1200.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <right>
-            <Label prefHeight="66.0" prefWidth="157.0" text="Transférer&#10;un Livre" BorderPane.alignment="CENTER">
+            <Label prefHeight="66.0" prefWidth="281.0" text="Transférer un Livre" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Caladea Regular" size="30.0" />
                </font>
@@ -35,7 +35,7 @@
                <children>
                   <Button fx:id="temporaire" mnemonicParsing="false" style="-fx-background-color: transparent;">
                      <graphic>
-                        <ImageView fx:id="pageChoixCompte" fitHeight="94.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="94.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../img/icone.png" />
                            </image>
@@ -64,7 +64,7 @@
             </HBox>
          </left>
          <center>
-            <Label prefHeight="80.0" prefWidth="184.0" text="Vendeur" BorderPane.alignment="CENTER">
+            <Label alignment="CENTER" prefHeight="80.0" prefWidth="184.0" text="Admin" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Caladea Regular" size="50.0" />
                </font>
@@ -232,7 +232,7 @@
                            <children>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Label prefHeight="56.0" prefWidth="351.0" style="-fx-background-color: a6897e; -fx-background-radius: 10;" text="Rentrez la quantité transférée:" textFill="#e8e4df">
+                                    <Label prefHeight="56.0" prefWidth="351.0" style="-fx-background-color: a6897e; -fx-background-radius: 10;" text="Rentrez la quantité :" textFill="#e8e4df">
                                        <font>
                                           <Font name="Caladea Regular" size="28.0" />
                                        </font>
@@ -252,7 +252,7 @@
                               </HBox>
                               <HBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="1200.0">
                                  <children>
-                                    <Button fx:id="reset" mnemonicParsing="false" prefHeight="66.0" prefWidth="172.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Réinitialiser ">
+                                    <Button fx:id="reset" mnemonicParsing="false" prefHeight="66.0" prefWidth="209.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Réinitialiser ">
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin>
@@ -260,7 +260,7 @@
                                           <Font name="Caladea Regular" size="25.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="transferer" mnemonicParsing="false" prefHeight="66.0" prefWidth="172.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Transférer">
+                                    <Button fx:id="transferer" mnemonicParsing="false" prefHeight="66.0" prefWidth="191.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Transférer">
                                        <HBox.margin>
                                           <Insets left="10.0" />
                                        </HBox.margin>
