@@ -155,11 +155,6 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
 
-    public void sceneAdminAccueil() throws IOException {
-        PageAdminAccueil page = new PageAdminAccueil(this);
-        primaryStage.setScene(page.getScene());
-    }
-
     public void scenePageAdminGererStock() throws IOException {
         PageAdminGererStock page = new PageAdminGererStock(this);
         primaryStage.setScene(page.getScene());
@@ -175,7 +170,15 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
 
+    public void sceneAjouterVendeur(){
+        PageAdminAjouterVendeur page = new PageAdminAjouterVendeur(this);
+        primaryStage.setScene(page.getScene());
+    }
 
+    public void sceneAjouterMagasin(){
+        PageAdminAjouterLibrairie page = new PageAdminAjouterLibrairie(this);
+        primaryStage.setScene(page.getScene());
+    }
 
 
 
@@ -209,15 +212,7 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
      
-    public void sceneAjouterVendeur(){
-        PageAdminAjouterVendeur page = new PageAdminAjouterVendeur(this);
-        primaryStage.setScene(page.getScene());
-    }
-
-    public void sceneAjouterMagasin(){
-        PageAdminAjouterLibrairie page = new PageAdminAjouterLibrairie(this);
-        primaryStage.setScene(page.getScene());
-    }
+    
 
 
     public static void main(String[] args) {

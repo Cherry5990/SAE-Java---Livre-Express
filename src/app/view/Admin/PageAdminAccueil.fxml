@@ -27,11 +27,11 @@
          <left>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent;">
+                  <Button fx:id="retour" mnemonicParsing="false" style="-fx-background-color: transparent;">
                      <graphic>
                         <ImageView fitHeight="94.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../img/icone.png" />
+                              <Image url="@../../../../img/icônes/retour.png" />
                            </image>
                         </ImageView>
                      </graphic>
