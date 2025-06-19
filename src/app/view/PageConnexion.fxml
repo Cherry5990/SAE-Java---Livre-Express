@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <BorderPane prefHeight="150.0" prefWidth="1200.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <left>
@@ -73,7 +74,7 @@
                   </Label>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="611.0">
                      <children>
-                        <TextField fx:id="id" alignment="CENTER" prefHeight="60.0" prefWidth="840.0" promptText="Identifiant utilisateur" style="-fx-background-color: #e8e4df; -fx-background-radius: 50;">
+                        <TextField fx:id="nom" alignment="CENTER" prefHeight="60.0" prefWidth="840.0" promptText="Nom du compte" style="-fx-background-color: #e8e4df; -fx-background-radius: 50;">
                            <VBox.margin>
                               <Insets bottom="10.0" left="180.0" right="180.0" />
                            </VBox.margin>
@@ -84,17 +85,14 @@
                               <Font name="Caladea" size="30.0" />
                            </font>
                         </TextField>
-                        <TextField alignment="CENTER" prefHeight="60.0" prefWidth="840.0" promptText="Mot de passe" style="-fx-background-color: #e8e4df; -fx-background-radius: 50;">
-                           <padding>
-                              <Insets bottom="5.0" top="5.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="180.0" right="180.0" />
-                           </VBox.margin>
+                        <PasswordField fx:id="mdp" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="840.0" promptText="Mot de passe" style="-fx-background-color: #e8e4df; -fx-background-radius: 50;">
                            <font>
                               <Font size="30.0" />
                            </font>
-                        </TextField>
+                           <VBox.margin>
+                              <Insets bottom="25.0" top="10.0" />
+                           </VBox.margin>
+                        </PasswordField>
                         <Button fx:id="connexion" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="240.0" style="-fx-background-color: #a6897e; -fx-text-fill: white; -fx-background-radius: 50;" text="Se connecter">
                            <font>
                               <Font size="24.0" />

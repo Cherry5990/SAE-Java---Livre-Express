@@ -12,8 +12,8 @@ public class ControleurSuivant implements EventHandler<ActionEvent>{
 
     @Override
     public void handle(ActionEvent e) {
-        if(vue.getPositionLivre()+4<vue.getNbLivre()){
-            vue.setPositionLivre(vue.getPositionLivre()+4);
+        if(vue.getPositionLivre()+7<vue.getNbLivre()){
+            vue.setPositionLivre(vue.getPositionLivre()+7);
         }
         vue.majRecommandation();
     }

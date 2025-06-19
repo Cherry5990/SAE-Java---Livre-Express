@@ -23,8 +23,6 @@ public class ControleurAjouterPanier implements EventHandler<ActionEvent> {
         Integer qte = vue.getQte();
         App.magasinBD.enleveQteLivre(App.livre.getIsbn(),App.magasin.getIdMagasin(),qte);
         App.commande.ajouteLivre(App.livre, qte);
-        System.out.println(App.commande.getDetailCommandes());
-        System.out.println("test");
         try{
             app.sceneMagasin();
         }
