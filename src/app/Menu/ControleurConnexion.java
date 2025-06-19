@@ -45,9 +45,15 @@ public class ControleurConnexion implements EventHandler<ActionEvent>{
                     }
                     break;
                 case "vendeur":
-                    App.vendeur = App.vendeurBD.getVendeur(1);
-                    App.magasin = App.vendeur.getMagasin();
-                    app.scenePageVendeurAccueil();
+                    App.vendeur = App.vendeurBD.connexionVendeur(nom,mdp);
+                    if(App.vendeur!=null){
+                        App.magasin = App.vendeur.getMagasin();
+                        app.scenePageVendeurAccueil();;
+                    }
+                    else{
+                        vue.idInvalide().showAndWait();
+                        vue.reset();
+                    }
                     break;
                 case "admin":
                     app.sceneAdmin();
