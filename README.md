@@ -1,7 +1,7 @@
 # 📚 Livre Express
 
 [`lien git`](https://github.com/Cherry5990/SAE-Java---Livre-Express)  
-Bienvenue dans **Livre Express**, une application Java de gestion de librairie. Elle permet de gérer les **stocks**, **commandes**, **clients**, **vendeurs** et **administrateurs** à travers une interface en ligne de commande.
+Bienvenue dans **Livre Express**, une application Java de gestion de librairie. Elle permet de gérer les **stocks**, **commandes**, **clients**, **vendeurs** et **administrateurs** à travers une application en javafx
 
 ---
 
