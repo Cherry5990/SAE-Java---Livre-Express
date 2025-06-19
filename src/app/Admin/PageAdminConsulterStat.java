@@ -8,6 +8,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
@@ -18,8 +20,9 @@ import modele.Magasin;
 public class PageAdminConsulterStat {
     private Scene scene;
     private ComboBox<String> typeStat;
+    private ComboBox<String> filtres;
     private ComboBox<String> parMagasin;
-    private ComboBox<Integer> parAnnee;
+    private ComboBox<String> parAnnee;
 
     public PageAdminConsulterStat(App app){
         try {
@@ -30,24 +33,35 @@ public class PageAdminConsulterStat {
         }
 
         this.typeStat = (ComboBox<String>) scene.lookup("#typeStat");
+        this.filtres = (ComboBox<String>) scene.lookup("#filtres");
         this.parMagasin = (ComboBox<String>) scene.lookup("#parMagasin");
-        this.parAnnee = (ComboBox<Integer>) scene.lookup("#parAnnee");
+        this.parAnnee = (ComboBox<String>) scene.lookup("#parAnnee");
 
         ObservableList<String> lstTypeStat = FXCollections.observableArrayList("Chiffre d'affaire", "Livre les plus vendus", "Comparer ventes en ligne et ventes en magasin", "Valeur du stock par magasin");
         this.typeStat.setItems(lstTypeStat);
         this.typeStat.setValue(lstTypeStat.get(0));
+
+        ObservableList<String> lstFiltres = FXCollections.observableArrayList("Par année", "Par magasin");
+        this.typeStat.setItems(lstFiltres);
+        this.typeStat.setValue(lstFiltres.get(0));
 
         List<Magasin> magasins = App.magasinBD.getAllMagasins();
         ObservableList<String> lstParMagasin = FXCollections.observableArrayList();
         for (Magasin magasin : magasins){
             lstParMagasin.add(magasin.getNomMagasin());
         }
+        lstParMagasin.add("Sur tous les magasins");
         this.parMagasin.setItems(lstParMagasin);
-        this.parMagasin.setValue(lstParMagasin.get(0));
+        this.parMagasin.setValue(lstParMagasin.get(lstParMagasin.size() - 1));
 
-        ObservableList<Integer> lstParAnnees = FXCollections.observableArrayList(App.reseauBD.getAnnees());
+        List<Integer> annees = App.reseauBD.getAnnees();
+        ObservableList<String> lstParAnnees = FXCollections.observableArrayList();
+        for (Integer annee : annees){
+            lstParAnnees.add(String.valueOf(annee));
+        }
+        lstParAnnees.add("Sur toutes les années");
         this.parAnnee.setItems(lstParAnnees);
-        this.parAnnee.setValue(lstParAnnees.get(0));
+        this.parAnnee.setValue(lstParAnnees.get(lstParAnnees.size() - 1));
 
         Button deconnexion = (Button) this.scene.lookup("#deconnexion");
         deconnexion.setOnMouseEntered(e -> {
@@ -76,6 +90,38 @@ public class PageAdminConsulterStat {
                 System.out.println("Problème");
             }
         });
+
+        Button consulter = (Button) this.scene.lookup("#consulter");
+        consulter.setOnAction(e -> this.appuiBouton());
+    }
+
+    public void setGraphiqueChiffreDAffaire(){
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("");
+
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Nb Message");
+    }
+
+    public void appuiBouton(){
+        String stat = this.typeStat.getValue();
+        switch (stat) {
+            case "Chiffre d'affaire":
+                System.out.println(stat);
+                break;
+            case "Livre les plus vendus":
+                System.out.println(stat);
+                break;
+            case "Comparer ventes en ligne et ventes en magasin":
+                System.out.println(stat);
+                break;
+            case "Valeur du stock par magasin":
+                System.out.println(stat);
+                break;
+            default:
+                System.err.println("Problème dans la sélection du ComboBox typeStat");
+                break;
+        }
     }
 
     public Scene getScene(){
