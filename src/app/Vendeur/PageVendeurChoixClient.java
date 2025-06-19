@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import modele.Client;
+import modele.Commande;
 import modele.Livre;
 
 public class PageVendeurChoixClient {
@@ -38,6 +39,7 @@ public class PageVendeurChoixClient {
         this.position = 0;
         this.nomLike = "";
         this.prenomLike="";
+        App.commande = new Commande(0, null, false, false, null, App.vendeur.getMagasin());
 
         Button retour = (Button)scene.lookup("#retour");
         retour.setOnAction(e -> {

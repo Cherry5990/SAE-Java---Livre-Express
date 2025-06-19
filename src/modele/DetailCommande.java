@@ -21,6 +21,10 @@ public class DetailCommande {
 
     public Livre getLivre(){return this.livre;}
 
+    public void setQte(int qte){this.qte=qte;}
+
+    public void setPrix(Double prix){this.prixVente=prix;}
+
     @Override
     public String toString(){
         return "Ligne " + this.numlig + ": commande du livre " + this.livre.getTitre() + " au prix de " + this.prixVente + " en " + this.qte + " exemplaires.";
