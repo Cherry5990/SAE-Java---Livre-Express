@@ -33,7 +33,7 @@ Bienvenue dans **Livre Express**, une application Java de gestion de librairie. 
 - **MariaDB** ou **MySQL**
 - Le bibliothèque du dossier `lib/` :
   - `mariadb-java-client`
-- **javafx**
+- **javafx** : dans `/usr/share/openjfx/lib/` par préférence
 - **un bash linux** pour le script
 
 ---
@@ -76,9 +76,17 @@ Si vous **n'avez pas les droits** pour créer une base de données :
     ```
 
 3. Remplacez `"java"` par le nom de **votre** base de données existante.
+   
 
-4. Relancez le script avec :
+### ⚠️ Cas particulier : javfx n'est pas dans le dossier `/usr/share/openjfx/lib/` 
+
+Si javafx est dans un autre dossier que celui recommandé alors:
+
+1. Ouvrez le fichier `lancement.sh`
+2. Repérez la ligne suivante :
 
     ```bash
-    ./lancement.sh
+    JAVAFX="/usr/share/openjfx/lib/"
     ```
+
+3. Remplacez `/usr/share/openjfx/lib/` par le nom de **votre** dossier ou est stocké votre javafx.
