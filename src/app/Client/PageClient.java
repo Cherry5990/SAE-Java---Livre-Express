@@ -59,7 +59,12 @@ public class PageClient {
         });
 
         this.page1 = (Label)scene.lookup("#page1");
-        this.page1.setText("Page "+(positionLivre/7+1)+"/"+(App.recoClient.get(App.client).size()/7+1));
+        if(App.recoClient.get(App.client).size()%7>0){
+            this.page1.setText("Page "+(positionLivre/7+1)+"/"+(App.recoClient.get(App.client).size()/7+1));
+        }
+        else{
+            this.page1.setText("Page "+(positionLivre/7+1)+"/"+(App.recoClient.get(App.client).size()/7));
+        }
         this.page2 =(Label)scene.lookup("#page2");
 
         Button connecter = (Button) this.scene.lookup("#connexion");
@@ -129,7 +134,12 @@ public class PageClient {
         try{
             this.positionCommande=0;
             this.commandes= App.commandeBD.CommandeClient(App.client.getId());
-            this.page2.setText("Page "+(positionCommande/7+1)+"/"+(commandes.size()/7+1));
+            if(commandes.size()%7>0){
+                this.page2.setText("Page "+(positionCommande/7+1)+"/"+(commandes.size()/7+1));
+            }
+            else{
+                this.page2.setText("Page "+(positionCommande/7+1)+"/"+(commandes.size()/7));
+            }
             this.hBoxCommande = (HBox) this.scene.lookup("#commandes");
             int count2 = Math.min(7, commandes.size());
             for (int i = 0; i < count2; i++) {
@@ -150,7 +160,12 @@ public class PageClient {
     }
 
     public void majRecommandation() {
-        this.page1.setText("Page "+(positionLivre/7+1)+"/"+(App.recoClient.get(App.client).size()/7+1));
+        if(App.recoClient.get(App.client).size()%7>0){
+            this.page1.setText("Page "+(positionLivre/7+1)+"/"+(App.recoClient.get(App.client).size()/7+1));
+        }
+        else{
+            this.page1.setText("Page "+(positionLivre/7+1)+"/"+(App.recoClient.get(App.client).size()/7));
+        }
         this.livres.getChildren().clear();
         int count = Math.min(7, App.recoClient.get(App.client).size() - positionLivre);
         for (int j = 0; j < count; j++) {
@@ -164,7 +179,12 @@ public class PageClient {
 
     public void majCommande() {
         this.hBoxCommande.getChildren().clear();
-        this.page2.setText("Page "+(positionCommande/7+1)+"/"+(commandes.size()/7+1));
+        if(commandes.size()%7>0){
+            this.page2.setText("Page "+(positionCommande/7+1)+"/"+(commandes.size()/7+1));
+        }
+        else{
+            this.page2.setText("Page "+(positionCommande/7+1)+"/"+(commandes.size()/7));
+        }
         int count = Math.min(7, commandes.size() - positionCommande);
         for (int j = 0; j < count; j++) {
             Commande dataCommande = commandes.get(positionCommande + j);
