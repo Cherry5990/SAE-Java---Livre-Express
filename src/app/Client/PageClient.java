@@ -60,7 +60,7 @@ public class PageClient {
             this.setMagasinChoix(selectedMagasin);
         });
 
-        Button retour = (Button)scene.lookup("#retour");
+        Button retour = (Button)scene.lookup("#deconnexion");
         retour.setOnAction(e -> {
             Optional<ButtonType> reponse = popUpMessageDeconnexion().showAndWait();
             if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){

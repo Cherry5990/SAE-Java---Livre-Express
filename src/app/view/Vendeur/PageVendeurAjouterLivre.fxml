@@ -158,7 +158,7 @@
                               </Pane>
                               <Pane layoutX="10.0" layoutY="154.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.rowIndex="3">
                                  <children>
-                                    <Label fx:id="isbnLivre1111" layoutX="44.0" layoutY="18.0" text="Date de publication\nUniquement l'année" textFill="#e8e4df">
+                                    <Label fx:id="isbnLivre1111" layoutX="49.0" layoutY="6.0" text="Date de publication&#10;Uniquement l'année" textFill="#e8e4df">
                                        <font>
                                           <Font name="Caladea Bold" size="30.0" />
                                        </font>
@@ -167,18 +167,13 @@
                               </Pane>
                               <Pane layoutX="360.0" layoutY="320.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.rowIndex="4">
                                  <children>
-                                    <Label fx:id="isbnLivre121111" layoutX="116.0" layoutY="13.0" text="Quantité" textFill="#e8e4df">
+                                    <Label fx:id="isbnLivre121111" layoutX="113.0" layoutY="24.0" text="Quantité" textFill="#e8e4df">
                                        <font>
                                           <Font name="Caladea Bold" size="30.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </Pane>
-                              <TextField fx:id="isbn" alignment="CENTER" prefHeight="117.0" prefWidth="350.0" promptText="Rentrez l'isbn" style="-fx-background-color: e8e4df; -fx-border-color: a6897e; -fx-border-width: 3;" GridPane.columnIndex="1">
-                                 <font>
-                                    <Font name="Caladea Regular" size="36.0" />
-                                 </font>
-                              </TextField>
                               <TextField fx:id="prix" alignment="CENTER" layoutX="360.0" layoutY="10.0" prefHeight="117.0" prefWidth="350.0" promptText="Rentrez le prix" style="-fx-background-color: e8e4df; -fx-border-color: a6897e; -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <font>
                                     <Font name="Caladea Regular" size="36.0" />
@@ -199,7 +194,18 @@
                                     <Font name="Caladea Regular" size="27.0" />
                                  </font>
                               </TextField>
+                              <Label fx:id="isbn" alignment="CENTER" contentDisplay="RIGHT" prefHeight="90.0" prefWidth="368.0" style="-fx-background-color: e8e4df; -fx-border-color: a6897e; -fx-border-width: 3;" text="..." GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="Caladea Regular" size="30.0" />
+                                 </font>
+                              </Label>
                            </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <BorderPane.margin>
+                              <Insets right="10.0" />
+                           </BorderPane.margin>
                         </GridPane>
                      </center>
                      <top>
