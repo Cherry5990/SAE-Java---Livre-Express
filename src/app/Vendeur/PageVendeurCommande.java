@@ -2,6 +2,7 @@ package app.Vendeur;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import app.App;
@@ -98,8 +99,11 @@ public class PageVendeurCommande {
         }
 
         textLivre.textProperty().addListener((obs, oldVal, newVal) -> {
-            // Filtrage dynamique
-            List<Livre> livres = App.magasinBD.rechercheLivre(App.vendeur.getMagasin().getIdMagasin(), newVal);
+            List<Livre> livresCommande = new ArrayList<>();
+            for(DetailCommande dc:dcs){
+                livresCommande.add(dc.getLivre());
+            } 
+            List<Livre> livres = App.magasinBD.rechercheLivre(App.vendeur.getMagasin().getIdMagasin(), newVal,livresCommande);
             comboLivre.getItems().clear();
             for (Livre livre : livres) {
                 comboLivre.getItems().add(livre.getTitre());
