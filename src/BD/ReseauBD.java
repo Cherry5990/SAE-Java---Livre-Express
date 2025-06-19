@@ -145,5 +145,24 @@ public class ReseauBD {
         return maxLivre;
     }
 
-
+    /**
+     * Obtient les années
+     * @return Une liste des années
+     * @throws SQLException
+     */
+    public List<Integer> getAnnees(){
+        List<Integer> annees = new ArrayList<>();
+        try{
+            Statement st = this.laConnexion.createStatement();
+            ResultSet result = st.executeQuery("select YEAR(datecom) annee from COMMANDE group by YEAR(datecom)");
+            while(result.next()){
+                annees.add(result.getInt(1));
+            }
+            result.close();
+            return annees;
+        } catch (SQLException e){
+            System.err.println("Erreur dans ReseauBD.getAnnees : " + e.getMessage());
+            return annees;
+        }
+    } 
 }

@@ -83,7 +83,7 @@
             </ImageView>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-                  <Button fx:id="retourGestionStocks" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="77.0" prefWidth="288.0" style="-fx-background-color: transparent;" text="Retour" textFill="WHITE" BorderPane.alignment="CENTER_LEFT">
+                  <Button fx:id="retour" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="77.0" prefWidth="288.0" style="-fx-background-color: transparent;" text="Retour" textFill="WHITE" BorderPane.alignment="CENTER_LEFT">
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -114,7 +114,7 @@
                                     <Insets left="20.0" right="20.0" />
                                  </HBox.margin>
                               </ComboBox>
-                              <ComboBox fx:id="parAnnée" prefHeight="50.0" prefWidth="300.0" promptText="Par année" style="-fx-background-color: #a6897e; -fx-background-radius: 30;">
+                              <ComboBox fx:id="parAnnee" prefHeight="50.0" prefWidth="300.0" promptText="Par année" style="-fx-background-color: #a6897e; -fx-background-radius: 30;">
                                  <HBox.margin>
                                     <Insets left="20.0" right="20.0" />
                                  </HBox.margin>

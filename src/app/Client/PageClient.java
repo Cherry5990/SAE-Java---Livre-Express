@@ -154,7 +154,7 @@ public class PageClient {
 
     public Alert popUpMessageDeconnexion(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"",ButtonType.YES, ButtonType.NO);
-        alert.setHeaderText("Déconnextion"); 
+        alert.setHeaderText("Déconnection"); 
         alert.setContentText("êtes vous sur de vous déconnecter?");     
         return alert;
     }
