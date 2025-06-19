@@ -122,6 +122,11 @@ public class PageVendeurMajQte {
         this.nbPages = (Label) this.scene.lookup("#nbPages");
         this.datePubli = (Label) this.scene.lookup("#datePubli");
         this.qte = (Label) this.scene.lookup("#qte");
+
+        if (App.livre != null) {
+            this.comboBox.getSelectionModel().select(App.livre.getTitre());
+            this.modifValeurs();
+        } 
     }
 
     public Scene getScene(){
