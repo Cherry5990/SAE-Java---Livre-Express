@@ -21,7 +21,6 @@ public class ControleurConnexionMagasin implements EventHandler<ActionEvent>{
 
     @Override
     public void handle(ActionEvent e){
-        System.out.println("appuyer");
         try {
             String nommag = vue.getMagasinChoix();
             App.magasin = App.magasinBD.getMagasin(nommag);
