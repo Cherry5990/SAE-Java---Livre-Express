@@ -46,7 +46,7 @@
                         <Insets bottom="25.0" />
                      </HBox.margin>
                      <graphic>
-                        <ImageView fx:id="deconnexion" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../img/icônes/deconnexion.png" />
                            </image>
@@ -89,9 +89,9 @@
                         <Insets />
                      </BorderPane.margin>
                      <children>
-                        <Button fx:id="retour" mnemonicParsing="false" style="-fx-background-color: transparet;" text="Retour " textFill="WHITE">
+                        <Button fx:id="retour" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Retour " textFill="WHITE">
                            <graphic>
-                              <ImageView fx:id="retour" fitHeight="60.0" fitWidth="80.0">
+                              <ImageView fitHeight="60.0" fitWidth="80.0">
                                  <image>
                                     <Image url="@../../../../img/icônes/retour.png" />
                                  </image>

@@ -43,23 +43,6 @@ public class PageAdminGererStock{
             });
         deconnexion.setOnAction(e -> app.sceneAcceuil());
 
-        Button retour = (Button) this.scene.lookup("#retour");
-        retour.setOnMouseEntered(e -> {
-                retour.setScaleX(1.1);
-                retour.setScaleY(1.1);
-            });
-            retour.setOnMouseExited(e -> {
-                retour.setScaleX(1.0);
-                retour.setScaleY(1.0);
-            });
-        retour.setOnAction(e -> {
-            try {
-                app.sceneAdmin();
-            } catch (IOException ex) {
-                System.out.println("Problème");
-            }
-        });
-
         // Bouton Transférer un livre
         Button transfererLivre = (Button) this.scene.lookup("#transfererLivre");
         transfererLivre.setOnMouseEntered(e -> {
