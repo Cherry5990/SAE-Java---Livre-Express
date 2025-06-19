@@ -176,14 +176,14 @@ public class MenuAdmin {
                 MenuAdmin.menuAdmin(con);
                 break;
             case "c":
-                try {
-                    vendeurBD.insererVendeur(Prenom, Nom, idmag);
-                    System.out.println( "Le compte de " + Nom + " " + Prenom + " à bien été crée et associé au magasin d'id "+ idmag );
-                    String saut = scan.nextLine();
-                    MenuAdmin.sousMenuCreeCompteVendeur(con);
-                } catch (java.sql.SQLException e) {
-                    System.out.println("Erreur lors de l'insertion du vendeur : " + e.getMessage());
-                }
+                //try {
+                //    vendeurBD.insererVendeur(Prenom, Nom, idmag);
+                //    System.out.println( "Le compte de " + Nom + " " + Prenom + " à bien été crée et associé au magasin d'id "+ idmag );
+                //    String saut = scan.nextLine();
+                //    MenuAdmin.sousMenuCreeCompteVendeur(con);
+                //} catch (java.sql.SQLException e) {
+                //    System.out.println("Erreur lors de l'insertion du vendeur : " + e.getMessage());
+                //}
                 break;
             default:
                 System.out.println("Veuillez rentrer une commande valide");

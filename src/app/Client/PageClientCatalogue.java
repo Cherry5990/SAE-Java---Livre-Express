@@ -1,6 +1,7 @@
 package app.Client;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import app.App;
@@ -13,6 +14,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import modele.DetailCommande;
 import modele.Livre;
 
 public class PageClientCatalogue {
@@ -31,7 +33,11 @@ public class PageClientCatalogue {
         this.scene = new Scene(root);
         this.position = 0;
         this.like = "";
-        this.livres = App.magasinBD.rechercheLivre(App.magasin.getIdMagasin(),like,position,20);
+        List<Livre> livresCommande = new ArrayList<>();
+            for(DetailCommande dc:App.commande.getDetailCommandes()){
+                livresCommande.add(dc.getLivre());
+            }
+        this.livres = App.magasinBD.rechercheLivre(App.magasin.getIdMagasin(),like,position,20,livresCommande);
         this.scroll = (ScrollPane) this.scene.lookup("#test");
         this.scroll.setStyle("-fx-background-color: transparent;");
         int i = position+1;
