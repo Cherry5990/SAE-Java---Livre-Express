@@ -43,7 +43,6 @@ public class PageAdminGererStock{
             });
         deconnexion.setOnAction(e -> app.sceneAcceuil());
 
-
         // Bouton Transférer un livre
         Button transfererLivre = (Button) this.scene.lookup("#transfererLivre");
         transfererLivre.setOnMouseEntered(e -> {
