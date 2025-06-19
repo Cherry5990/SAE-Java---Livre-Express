@@ -64,4 +64,9 @@ public class PageConnexion {
     public Scene getScene(){
         return this.scene;
     }
+
+    public void reset(){
+        this.nom.setText("");
+        this.mdp.setText("");
+    }
 }

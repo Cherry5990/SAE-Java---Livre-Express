@@ -122,7 +122,7 @@ insert into CLASSIFICATION(iddewey, nomclass) values
 
 -- client
 insert into CLIENT (idcli, nomcli, prenomcli, adressecli, codepostal, villecli, nomcompte, mdpcompte)  values
- (1, 'Rodriguez', 'Fatima', '188 chemin de la Forêt', '45000', 'Orléans', 'fatrod391', '*J4b16k3SIdi'),
+ (1, 'Rodriguez', 'Fatima', '188 chemin de la Forêt', '45000', 'Orléans', 'fat', 'rodri'),
  (2, 'Garcia', 'Hugo', '167 avenue de la Forêt', '06000', 'Nice', 'huggar971', 'NYbAbIo3pfDs'),
  (3, 'Martin', 'Julie', '133 boulevard de l''Université', '45000', 'Orléans', 'julmar201', 'FUTb0ymfZgM7'),
  (4, 'Dubois', 'Lucas', '45 place de la Paix', '34000', 'Montpellier', 'lucdub614', 'vFZP4yn0Qk$m'),

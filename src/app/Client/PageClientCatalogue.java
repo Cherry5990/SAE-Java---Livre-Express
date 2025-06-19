@@ -37,6 +37,7 @@ public class PageClientCatalogue {
         this.like = "";
         this.livres = App.magasinBD.rechercheLivre(App.magasin.getIdMagasin(),like,position,20);
         this.scroll = (ScrollPane) this.scene.lookup("#test");
+        this.scroll.setStyle("-fx-background-color: transparent;");
         int i = position+1;
         this.lignes = (VBox) this.scroll.getContent();
         ControleurConsulterLivre controleur = new ControleurConsulterLivre(app);
