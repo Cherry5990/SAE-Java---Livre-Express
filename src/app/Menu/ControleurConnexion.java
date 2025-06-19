@@ -56,7 +56,12 @@ public class ControleurConnexion implements EventHandler<ActionEvent>{
                     }
                     break;
                 case "admin":
-                    app.sceneAdmin();
+                    if (App.adminBD.connexionAdmin(nom, mdp)){
+                        app.sceneAdmin();
+                    }
+                    else{
+                        vue.idInvalide().showAndWait();
+                    }
                     break;
             }
         }

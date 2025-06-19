@@ -3,8 +3,8 @@
 MYCNF=".my.cnf"
 PROPERTIES_FILE="config.properties"
 MAIN_CLASS="app.App"
-CREATION="new_creationBD.sql"
-INSERTION="new_insertions.sql"
+CREATION="creationBD.sql"
+INSERTION="insertions.sql"
 JAVAFX="/usr/share/openjfx/lib/"
 # Fonction pour extraire une clé depuis .my.cnf
 get_value() {
@@ -15,7 +15,7 @@ get_value() {
 USER=$(get_value user)
 PASSWORD=$(get_value password)
 HOST=$(get_value host)
-DBNAME=$"DBjoubert"
+DBNAME=$"java"
 
 # Vérification que .my.cnf existe
 if [ ! -f "$MYCNF" ]; then  #-f Si le chemin existe ET si c'est un fichier régulier 

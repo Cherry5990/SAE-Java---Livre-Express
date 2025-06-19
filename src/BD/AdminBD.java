@@ -1,6 +1,8 @@
 package BD;
 import java.sql.*;
 
+import modele.Client;
+
 public class AdminBD {
     ConnexionMySQL laConnexion;
 	public AdminBD(ConnexionMySQL laConnexion){
@@ -389,7 +391,20 @@ public class AdminBD {
         }
     }
 
-    
+    public boolean connexionAdmin(String nom,String mdp){
+        try(PreparedStatement ps =laConnexion.prepareStatement("select idadmin,nomcompte,mdpcompte from ADMIN where nomcompte=? and mdpcompte=?")){
+            ps.setString(1, nom);
+            ps.setString(2, mdp);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 
 
 
