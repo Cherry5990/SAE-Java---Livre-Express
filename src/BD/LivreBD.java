@@ -179,7 +179,6 @@ public class LivreBD {
     }
 
     public Livre getLivreParTitre(String titre)throws SQLException{
-        Livre livre = null;
         try(PreparedStatement ps = laConnexion.prepareStatement("select isbn,titre,nbpages,datepubli,prix from LIVRE where titre=?;")){
             ps.setString(1, titre);
             ResultSet rs = ps.executeQuery();
@@ -188,10 +187,46 @@ public class LivreBD {
                 int nbPages = rs.getInt("nbpages");
                 double prix = rs.getDouble("prix");
                 String datePubli = rs.getString("datepubli");
-                livre = new Livre(isbn, titre,nbPages,datePubli,prix);
+                return new Livre(isbn, titre,nbPages,datePubli,prix);
             }
         }
-        return livre;
+        return null;
+    }
+
+    public String getAuteur(String isbn)throws SQLException{
+        String res = "";
+        try(PreparedStatement ps = laConnexion.prepareStatement("select nomauteur from AUTEUR natural join ECRIRE where isbn=?;")){
+            ps.setString(1, isbn);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                res+=rs.getString("nomauteur")+"  ";
+            }
+        }
+        return res;    
+    }
+
+    public String getEditeur(String isbn)throws SQLException{
+        String res = "";
+        try(PreparedStatement ps = laConnexion.prepareStatement("select nomedit from EDITEUR natural join EDITER where isbn=?;")){
+            ps.setString(1, isbn);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                res+=rs.getString("nomedit")+"  ";
+            }
+        }
+        return res;
+    }
+
+    public String getTheme(String isbn)throws SQLException{
+        String res = "";
+        try(PreparedStatement ps = laConnexion.prepareStatement("select nomclass from CLASSIFICATION natural join THEMES where isbn=?;")){
+            ps.setString(1, isbn);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                res+=rs.getString("nomclass")+"  ";
+            }
+        }
+        return res;
     }
     
 }

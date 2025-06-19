@@ -169,22 +169,57 @@ public class ClientBD {
      * @return une chaîne de caractères contenant les informations du client trouvé ou null si aucun client n'est trouvé
      * @throws SQLException
      */
-    public String rechercheClient(String prenom,String nom)throws SQLException{
-        StringBuilder sb = new StringBuilder(nom);
-        try(PreparedStatement ps =laConnexion.prepareStatement("select idcli,nomcli,prenomcli from CLIENT where nomcli LIKE ? and prenomcli LIKE ?;")){
+    public List<Client> rechercheClient(String prenom,String nom,int nb,int offset){
+        List<Client> clients = new ArrayList<>();
+        try(PreparedStatement ps =laConnexion.prepareStatement("select idcli,nomcli,prenomcli,adressecli,codepostal,villecli from CLIENT where nomcli LIKE ? and prenomcli LIKE ? LIMIT ? OFFSET ?;")){
             ps.setString(1, "%" + nom + "%");
             ps.setString(2, "%" + prenom + "%");
+            ps.setInt(3, nb);
+            ps.setInt(4, offset);
             ResultSet rs = ps.executeQuery();
-            if (!rs.isBeforeFirst()) {
-                return null;
-            }
-            while(rs.next()){
-                sb.append("\n" + rs.getInt("idcli") + ", " + rs.getString("nomcli") + ", " + rs.getString("prenomcli"));
+            while(rs.next()) {
+                int idcli = rs.getInt("idcli");
+                String nomcli = rs.getString("nomcli");
+                String prenomcli = rs.getString("prenomcli");
+                String addressecli = rs.getString("adressecli");
+                String codepostal = rs.getString("codepostal");
+                String villicli = rs.getString("villecli");
+                clients.add(new Client(idcli, nomcli, prenomcli, addressecli, codepostal, villicli));
             }
         }
         catch(SQLException e){
             System.out.println("problème de nom et prenom : " +e.getMessage());
         }
-        return sb.toString();
+        return clients;
+    }
+
+    public Integer getNbClientLike(String prenom,String nom){
+        try(PreparedStatement ps =laConnexion.prepareStatement("select count(*) nb from CLIENT where nomcli LIKE ? and prenomcli LIKE ?;")){
+            ps.setString(1, "%" + nom + "%");
+            ps.setString(2, "%" + prenom + "%");
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt("nb");
+            }
+        }
+        catch(SQLException e){
+            System.out.println("problème de nom et prenom : " +e.getMessage());
+        }
+        return 0;
+    }
+
+    public Client connexionClient(String nom,String mdp){
+        try(PreparedStatement ps =laConnexion.prepareStatement("select idcli,nomcompte,mdpcompte from CLIENT where nomcompte=? and mdpcompte=?")){
+            ps.setString(1, nom);
+            ps.setString(2, mdp);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return getClient(rs.getInt("idcli"));
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }

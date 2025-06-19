@@ -22,4 +22,17 @@ public class Magasin {
     public String getVille(){
         return this.ville;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Magasin magasin = (Magasin) obj;
+        return idMagasin == magasin.idMagasin;
+    }
+
+    @Override
+    public int hashCode() {
+        return idMagasin;
+    }
 }

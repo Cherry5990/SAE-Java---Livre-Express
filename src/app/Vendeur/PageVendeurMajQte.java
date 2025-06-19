@@ -114,7 +114,7 @@ public class PageVendeurMajQte {
                 ajouter.setScaleX(1.0);
                 ajouter.setScaleY(1.0);
             });
-        ajouter.setOnAction(new ControleurVendeurAjoute(app,this));
+        ajouter.setOnAction(new ControleurVendeurMajQte(app,this));
 
         //Les labels
         this.isbn = (Label) this.scene.lookup("#isbn");

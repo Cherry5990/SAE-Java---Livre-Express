@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Toggle;
+import modele.Commande;
 
 public class ControleurCommander implements EventHandler<ActionEvent>{
     private App app;
@@ -24,6 +25,8 @@ public class ControleurCommander implements EventHandler<ActionEvent>{
             App.commande.setEnLigne(true);
             App.commande.setLivraison(vue.getLivraison());
             App.commandeBD.insererCommande(App.commande);
+            App.commande = new Commande(0, "", false, false, App.client, App.magasin);
+            App.memoiresCommandesClient.get(App.client).put(App.magasin,App.commande);
             app.sceneMagasin();
         }
         catch(SQLException ex){

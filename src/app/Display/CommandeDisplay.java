@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -15,27 +16,25 @@ import javafx.scene.text.Text;
 import modele.Commande;
 
 public class CommandeDisplay extends Button{
-    private Text texte;
-    private Commande commande;
-    private String numcom;
 
     public CommandeDisplay(EventHandler<ActionEvent> controleur, Commande commande){
         super();
-        this.commande = commande;
         ImageView imageLivre = new ImageView("file:img/commande.png");
-        this.numcom = "Commande n°"+String.valueOf(commande.getNumCom());
-        this.texte = new Text(numcom);
+        Label labelCommande = new Label("Commande");
+        Label numero = new Label(String.valueOf(commande.getNumCom()));
+        labelCommande.setStyle("-fx-font-size: 18px;");
+        numero.setStyle("-fx-font-size: 23px;");
         imageLivre.setFitHeight(100);
         imageLivre.setFitWidth(100);
-        VBox interieurBouton = new VBox(5);
+        VBox interieurBouton = new VBox();
         interieurBouton.setPadding(new Insets(5));
-        interieurBouton.getChildren().addAll(imageLivre, texte);
+        interieurBouton.getChildren().addAll(imageLivre, labelCommande,numero);
         interieurBouton.setAlignment(Pos.CENTER);
         interieurBouton.setPrefHeight(120);
         interieurBouton.setPrefWidth(120);
         this.setGraphic(interieurBouton);
-        this.setHeight(120);
-        this.setWidth(120);
+        this.setHeight(200);
+        this.setWidth(200);
         this.setBackground(new Background(new BackgroundFill(Color.web("#e8e4df"), new CornerRadii(25), new Insets(0))));
         this.setOnAction(controleur);
     }
