@@ -40,7 +40,8 @@ public class ControleurConnexion implements EventHandler<ActionEvent>{
                         app.sceneClient();
                     }
                     else{
-                        vue.idInvalide();
+                        vue.idInvalide().showAndWait();
+                        vue.reset();
                     }
                     break;
                 case "vendeur":
