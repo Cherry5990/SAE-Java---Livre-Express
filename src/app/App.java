@@ -7,6 +7,7 @@ import app.Admin.PageAdminGererStock;
 import app.Admin.PageAdminTransfererLivre;
 import app.Admin.PageAdminVoirStock;
 import app.Admin.PageAdminAjouterVendeur;
+import app.Admin.PageAdminConsulterStat;
 import app.Client.PageClient;
 import app.Client.PageClientCatalogue;
 import app.Client.PageClientRecommande;
@@ -172,6 +173,11 @@ public class App extends Application{
 
     public void scenePageAdminVoirStock() throws IOException {
         PageAdminVoirStock page = new PageAdminVoirStock(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void scenePageAdminConsulterStat(){
+        PageAdminConsulterStat page = new PageAdminConsulterStat(this);
         primaryStage.setScene(page.getScene());
     }
 

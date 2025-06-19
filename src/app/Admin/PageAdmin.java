@@ -20,6 +20,9 @@ public class PageAdmin {
 
         Button ajouterLibrairie = (Button)scene.lookup("#ajouterLibrairie");
         ajouterLibrairie.setOnAction(e -> app.sceneAjouterMagasin());
+
+        Button statistiques = (Button)scene.lookup("#statistiques");
+        statistiques.setOnAction(e -> app.scenePageAdminConsulterStat());
     }
 
     public Scene getScene(){
