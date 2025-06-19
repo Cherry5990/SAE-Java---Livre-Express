@@ -68,6 +68,7 @@ public class MagasinBD {
         }
 	}
 
+
     /**
      * Cette méthode permet de voir le stock d'un magasin
      * @param mag l'id du magasin
@@ -84,6 +85,31 @@ public class MagasinBD {
             }
         }
         return sb.toString();
+    }
+
+    
+    /**
+     * Cette méthode permet de voir le stock d'un magasin et retourne une liste de Livre
+     * @param mag l'id du magasin
+     * @return une liste de Livre présents en stock dans le magasin
+     * @throws SQLException
+     */
+    public List<Livre> voirStockLivres(int mag) throws SQLException {
+        List<Livre> livres = new ArrayList<>();
+        try (PreparedStatement ps = laConnexion.prepareStatement(
+                "select isbn, titre, prix, nbpages, datepubli from MAGASIN natural join POSSEDER natural join LIVRE where idmag=?;")) {
+            ps.setInt(1, mag);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String isbn = rs.getString("isbn");
+                String titre = rs.getString("titre");
+                double prix = rs.getDouble("prix");
+                int nbPages = rs.getInt("nbpages");
+                String datePubli = rs.getString("datepubli");
+                livres.add(new Livre(isbn, titre, nbPages, datePubli, prix));
+            }
+        }
+        return livres;
     }
 
     /**
@@ -175,6 +201,30 @@ public class MagasinBD {
                 double prix = rs.getDouble("prix");
                 String datePubli = rs.getString("datepubli");
                 livres.add(new Livre(isbn, titre,nbPages,datePubli,prix));
+            }
+        } 
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return livres;
+    }
+
+    public List<Livre> rechercheLivre(int mag,String like,List<Livre> livresCommander){
+        List<Livre> livres = new ArrayList<>();
+        try (PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn,titre,prix,nbpages,datepubli from MAGASIN natural join POSSEDER natural join LIVRE where idmag=? and titre LIKE ?")) {
+            ps.setInt(1, mag);
+            ps.setString(2, "%" + like + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String titre = rs.getString("titre");
+                String isbn = rs.getString("isbn");
+                int nbPages = rs.getInt("nbpages");
+                double prix = rs.getDouble("prix");
+                String datePubli = rs.getString("datepubli");
+                Livre livre = new Livre(isbn, titre,nbPages,datePubli,prix);
+                if(!livresCommander.contains(livre)){
+                    livres.add(livre);
+                }
             }
         } 
         catch (SQLException e) {
