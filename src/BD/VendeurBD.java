@@ -97,5 +97,20 @@ public class VendeurBD {
             return dedans;
         }
     }
+
+    public Vendeur connexionVendeur(String nom,String mdp){
+        try(PreparedStatement ps =laConnexion.prepareStatement("select idVendeur,nomcompte,mdpcompte from VENDEUR where nomcompte=? and mdpcompte=?")){
+            ps.setString(1, nom);
+            ps.setString(2, mdp);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return getVendeur(rs.getInt("idVendeur"));
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
     
 }
