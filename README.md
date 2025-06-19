@@ -19,10 +19,11 @@ Bienvenue dans **Livre Express**, une application Java de gestion de librairie. 
   - `modele` : les métiers
 - `lib/` : Bibliothèques externes requises (JDBC, JUnit, Hamcrest).
 - `bin/` : Fichiers compilés `.class`.
-- `test/` : Tests unitaires (JUnit).
 - `.vscode/` : Configuration pour Visual Studio Code.
 - `creationBD.sql` & `insertions.sql` : Scripts SQL pour créer et remplir la base de données.
 - `README.md` : Ce fichier.
+- `lancement.sh` : Script pour lancer l'application
+- `.my.cnf` : Fichier qui stock le nom,mot de passe,serveur mysql/mariadb de l'utilisateur
 
 ---
 
