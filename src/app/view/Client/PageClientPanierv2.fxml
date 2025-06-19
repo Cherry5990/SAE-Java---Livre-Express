@@ -63,7 +63,7 @@
             </HBox>
          </left>
          <center>
-            <Label prefHeight="80.0" prefWidth="335.0" text="Vendeur" BorderPane.alignment="CENTER">
+            <Label prefHeight="80.0" prefWidth="159.0" text="Client" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Caladea Regular" size="50.0" />
                </font>
