@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <BorderPane prefHeight="150.0" prefWidth="1200.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <left>
@@ -93,10 +93,15 @@
                               <Insets bottom="25.0" top="10.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <Button fx:id="connexion" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="240.0" style="-fx-background-color: #a6897e; -fx-text-fill: white; -fx-background-radius: 50;" text="Se connecter">
-                           <font>
-                              <Font name="Caladea Regular" size="30.0" />
-                           </font></Button>
+                        <HBox fx:id="creation" alignment="CENTER">
+                           <children>
+                              <Button fx:id="connexion" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="240.0" style="-fx-background-color: #a6897e; -fx-text-fill: white; -fx-background-radius: 50;" text="Se connecter">
+                                 <font>
+                                    <Font name="Caladea Regular" size="30.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>

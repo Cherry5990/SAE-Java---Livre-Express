@@ -37,14 +37,16 @@ public class ClientBD {
      * @param ville sa ville
      * @throws SQLException
      */
-	public void insererClient(String prenom,String nom,String adresse,int codePostal,String ville) throws SQLException{
-        try(PreparedStatement ps = laConnexion.prepareStatement("insert into CLIENT values(?,?,?,?,?,?);")){
+	public void insererClient(String prenom,String nom,String adresse,String codePostal,String ville,String nomCompte,String mdp) throws SQLException{
+        try(PreparedStatement ps = laConnexion.prepareStatement("insert into CLIENT values(?,?,?,?,?,?,?,?);")){
             ps.setInt(1, maxIdClient()+1);
             ps.setString(2, nom);
             ps.setString(3, prenom);
             ps.setString(4, adresse);
-            ps.setInt(5, codePostal);
+            ps.setString(5, codePostal);
             ps.setString(6, ville);
+            ps.setString(7, nomCompte);
+            ps.setString(8, mdp);
             ps.executeUpdate();
             ps.close();
         }
@@ -221,5 +223,19 @@ public class ClientBD {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    public boolean NomCompteClientExiste(String nomCompte){
+        try(PreparedStatement ps =laConnexion.prepareStatement("select nomcompte from CLIENT where nomcompte=?")){
+            ps.setString(1, nomCompte);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 }
