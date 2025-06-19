@@ -59,7 +59,6 @@ public class App extends Application{
     public static Reseau reseau;
     public static Map<Client,Map<Magasin,Commande>> memoiresCommandesClient;
     public static Map<Client,List<Livre>> recoClient;
-    private ConnexionMySQL con;
 
     @Override
     public void init(){
@@ -76,10 +75,10 @@ public class App extends Application{
             String host = props.getProperty("db.host");
             String database = props.getProperty("db.database");
 
-            this.con = new ConnexionMySQL();
-            this.con.connecter(host, database, user,password);
-            App.clientBD = new ClientBD(this.con);
-            App.vendeurBD = new VendeurBD(this.con);
+            ConnexionMySQL con = new ConnexionMySQL();
+            con.connecter(host, database, user,password);
+            App.clientBD = new ClientBD(con);
+            App.vendeurBD = new VendeurBD(con);
             App.magasinBD = new MagasinBD(con);
             App.commandeBD = new CommandeBD(con);
             App.livreBD = new LivreBD(con);

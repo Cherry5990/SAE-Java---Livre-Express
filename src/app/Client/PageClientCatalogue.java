@@ -1,9 +1,7 @@
 package app.Client;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import app.App;
 import app.Display.LivreDisplayLigne;
@@ -15,9 +13,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import modele.Commande;
 import modele.Livre;
-import modele.Magasin;
 
 public class PageClientCatalogue {
     private Scene scene;

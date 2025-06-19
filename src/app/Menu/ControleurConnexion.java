@@ -32,7 +32,6 @@ public class ControleurConnexion implements EventHandler<ActionEvent>{
                     if(App.client!=null){
                         if(!App.recoClient.containsKey(App.client)){
                             App.recoClient.put(App.client,App.clientBD.getRecommandationClient(App.client.getId()));
-                            System.out.println("Genération recommandation client "+App.client);
                         }
                         if(!App.memoiresCommandesClient.containsKey(App.client)){
                             App.memoiresCommandesClient.put(App.client,new HashMap<>());
