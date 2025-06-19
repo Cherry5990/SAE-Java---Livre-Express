@@ -165,7 +165,10 @@ public class PageVendeurCommande {
     public void maj(){
         ligne.getChildren().clear();
         this.dcs = App.commande.getDetailCommandes();
-        if(this.dcs.size()!=0){
+        if(this.dcs.size()==0){
+            this.valider.setDisable(true);
+        }
+        else{
             this.valider.setDisable(false);
         }
         try{

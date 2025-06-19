@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
@@ -173,6 +174,13 @@ public class PageClient {
 
     public int getNbCommande(){
         return this.commandes.size();
+    }
+
+    public Alert choisirMagasin(){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setHeaderText("Magasin manquant"); 
+        alert.setContentText("Veillez choisir un magasin");     
+        return alert;
     }
 
 }
