@@ -133,7 +133,7 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <Label fx:id="pagereco" alignment="CENTER" prefHeight="56.0" prefWidth="95.0" text="page 1/4" textFill="WHITE">
+                                    <Label fx:id="page1" alignment="CENTER" prefHeight="56.0" prefWidth="127.0" text="page 1/4" textFill="WHITE">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
@@ -190,7 +190,7 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <Label fx:id="pagecom" contentDisplay="CENTER" prefHeight="55.0" prefWidth="95.0" text="Page 1/4" textFill="WHITE">
+                                    <Label fx:id="page2" contentDisplay="CENTER" prefHeight="55.0" prefWidth="95.0" text="Page 1/4" textFill="WHITE">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
