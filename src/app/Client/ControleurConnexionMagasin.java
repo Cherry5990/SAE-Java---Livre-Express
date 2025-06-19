@@ -23,14 +23,19 @@ public class ControleurConnexionMagasin implements EventHandler<ActionEvent>{
     public void handle(ActionEvent e){
         try {
             String nommag = vue.getMagasinChoix();
-            App.magasin = App.magasinBD.getMagasin(nommag);
-            if (App.memoiresCommandesClient.get(App.client).containsKey(App.magasin)){
-                App.commande = App.memoiresCommandesClient.get(App.client).get(App.magasin);
+            if (nommag.equals("")){
+                vue.choisirMagasin().showAndWait();
             }
             else{
-                App.commande = new Commande(0, "", false, false, App.client, App.magasin);
+                App.magasin = App.magasinBD.getMagasin(nommag);
+                if (App.memoiresCommandesClient.get(App.client).containsKey(App.magasin)){
+                    App.commande = App.memoiresCommandesClient.get(App.client).get(App.magasin);
+                }
+                else{
+                    App.commande = new Commande(0, "", false, false, App.client, App.magasin);
+                }
+                app.sceneMagasin();
             }
-            app.sceneMagasin();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
