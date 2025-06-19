@@ -25,7 +25,7 @@ public class PageVendeurAccueil {
                 deconnexion.setScaleX(1.0);
                 deconnexion.setScaleY(1.0);
             });
-        deconnexion.setOnAction(e -> app.sceneAcceuil());
+        deconnexion.setOnAction(e -> app.popUpMessageDeconnexion());
 
         Button gererStock = (Button) this.scene.lookup("#gererStock");
         gererStock.setOnMouseEntered(e -> {

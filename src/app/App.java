@@ -30,10 +30,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -93,6 +96,15 @@ public class App extends Application{
             System.out.println("Problème de connexion à la BD : "+e.getMessage());
         }
 
+    }
+    public void popUpMessageDeconnexion(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"",ButtonType.YES, ButtonType.NO);
+        alert.setHeaderText("Déconnextion"); 
+        alert.setContentText("êtes vous sur de vous déconnecter?"); 
+        Optional<ButtonType> reponse = alert.showAndWait();
+            if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){
+                    sceneAcceuil();
+        } 
     }
 
     @Override
