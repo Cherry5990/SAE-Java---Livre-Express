@@ -74,7 +74,6 @@ public class PageConsultationPanier {
         double somme = 0;
         for(DetailCommande dc:dcs){
             int ligne = dc.getNumlig();
-            System.out.println(ligne);
             Label numLigne = new Label(dc.getNumlig()+"");
             Label titre = new Label(dc.getLivre().getTitre());
             Label qte = new Label(dc.getQte()+"");
@@ -113,7 +112,6 @@ public class PageConsultationPanier {
         supprimer.setGraphic(suprimmerImage);
         for(DetailCommande dc:dcs){
             int ligne = dc.getNumlig();
-            System.out.println(ligne);
             Label numLigne = new Label(dc.getNumlig()+"");
             Label titre = new Label(dc.getLivre().getTitre());
             Label qte = new Label(dc.getQte()+"");
