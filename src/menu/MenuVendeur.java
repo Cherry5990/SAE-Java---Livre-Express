@@ -133,22 +133,22 @@ public class MenuVendeur {
         System.out.println("│ Veuillez rentrer le prenom de la personne   │");
         System.out.println("└─────────────────────────────────────────────┘"); 
         String prenom = scan.nextLine().trim();
-        try{
-            String recherche = clientBD.rechercheClient(prenom, nom);
-            if(recherche ==null){
-                System.out.println("Aucun utilisateur avec ce nom et prénom");
-                String skip= scan.nextLine();
-                MenuVendeur.sousMenuCommande(con);
-            }
-            else{
-                System.out.println(recherche);
-            }
-        }
-        catch(SQLException e){
-            System.out.println("Recherche invalide");
-            String skip = scan.nextLine();
-            MenuVendeur.sousMenuCommande(con);
-        }
+        //try{
+        //    String recherche = clientBD.rechercheClient(prenom, nom);
+        //    if(recherche ==null){
+        //        System.out.println("Aucun utilisateur avec ce nom et prénom");
+        //        String skip= scan.nextLine();
+        //        MenuVendeur.sousMenuCommande(con);
+        //    }
+        //    else{
+        //        System.out.println(recherche);
+        //    }
+        //}
+        //catch(SQLException e){
+        //    System.out.println("Recherche invalide");
+        //    String skip = scan.nextLine();
+        //    MenuVendeur.sousMenuCommande(con);
+        //}
         System.out.println("┌─────────────────────────────────────────────┐");        
         System.out.println("│ Veuillez rentrer l'id de la personne        │");
         System.out.println("└─────────────────────────────────────────────┘"); 

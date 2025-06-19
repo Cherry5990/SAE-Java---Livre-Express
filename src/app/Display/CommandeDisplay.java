@@ -27,13 +27,12 @@ public class CommandeDisplay extends Button{
         imageLivre.setFitHeight(100);
         imageLivre.setFitWidth(100);
         VBox interieurBouton = new VBox();
-        interieurBouton.setPadding(new Insets(5));
         interieurBouton.getChildren().addAll(imageLivre, labelCommande,numero);
         interieurBouton.setAlignment(Pos.CENTER);
         interieurBouton.setPrefHeight(120);
         interieurBouton.setPrefWidth(120);
         this.setGraphic(interieurBouton);
-        this.setHeight(200);
+        this.setHeight(175);
         this.setWidth(200);
         this.setBackground(new Background(new BackgroundFill(Color.web("#e8e4df"), new CornerRadii(25), new Insets(0))));
         this.setOnAction(controleur);
