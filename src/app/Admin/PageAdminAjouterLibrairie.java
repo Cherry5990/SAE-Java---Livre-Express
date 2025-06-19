@@ -37,6 +37,34 @@ public class PageAdminAjouterLibrairie {
 
         Button reset = (Button) scene.lookup("#reset");
         reset.setOnAction(e -> this.resetTextFields());
+
+        Button deconnexion = (Button) this.scene.lookup("#deconnexion");
+        deconnexion.setOnMouseEntered(e -> {
+                deconnexion.setScaleX(1.1);
+                deconnexion.setScaleY(1.1);
+            });
+            deconnexion.setOnMouseExited(e -> {
+                deconnexion.setScaleX(1.0);
+                deconnexion.setScaleY(1.0);
+            });
+        deconnexion.setOnAction(e -> app.sceneAcceuil());
+
+        Button retour = (Button) this.scene.lookup("#retour");
+        retour.setOnMouseEntered(e -> {
+                retour.setScaleX(1.1);
+                retour.setScaleY(1.1);
+            });
+            retour.setOnMouseExited(e -> {
+                retour.setScaleX(1.0);
+                retour.setScaleY(1.0);
+            });
+        retour.setOnAction(e -> {
+            try {
+                app.sceneAdmin();
+            } catch (IOException ex) {
+                System.out.println("Problème");
+            }
+        });
     }
 
     public void ajouterMagasin(){

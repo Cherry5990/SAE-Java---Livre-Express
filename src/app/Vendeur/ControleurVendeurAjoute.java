@@ -50,7 +50,7 @@ public class ControleurVendeurAjoute implements EventHandler<ActionEvent> {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText(null);
-            alert.setContentText("Veuillez entrer une quantité et un prix valides.\nLa quantité doit être un nombre entier et le prix un nombre décimal.");
+            alert.setContentText("Veuillez entrer une quantité et un prix valides.\nLa quantité doit être un nombre entier et\nle prix un nombre décimal.\nMettez un point et non une virgule pour les décimales.");
             alert.showAndWait();
         } catch (Exception e) {
             Alert alert = new Alert(AlertType.ERROR);
