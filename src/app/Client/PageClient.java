@@ -1,36 +1,23 @@
 package app.Client;
+
+import app.App;
 import modele.Client;
 import modele.Commande;
 import modele.Livre;
 import modele.Magasin;
+import app.Display.CommandeDisplay;
+import app.Display.LivreDisplay;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-
-import app.App;
-import app.Display.CommandeDisplay;
-import app.Display.LivreDisplay;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Orientation;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.cell.ComboBoxListCell;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+
 
 public class PageClient {
     private Scene scene;
@@ -60,12 +47,9 @@ public class PageClient {
             this.setMagasinChoix(selectedMagasin);
         });
 
-        Button retour = (Button)scene.lookup("#retour");
-        retour.setOnAction(e -> {
-            Optional<ButtonType> reponse = popUpMessageDeconnexion().showAndWait();
-            if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){
-                    app.sceneAcceuil();
-                }
+        Button deco = (Button)scene.lookup("#deconnexion");
+        deco.setOnAction(e -> {
+            app.popUpMessageDeconnexion();
         });
 
         Button connecter = (Button) this.scene.lookup("#connexion");
@@ -158,7 +142,7 @@ public class PageClient {
         alert.setContentText("êtes vous sur de vous déconnecter?");     
         return alert;
     }
-    
+  
     public void setMagasinChoix(String mag){
         this.magasinChoix = mag;
     }

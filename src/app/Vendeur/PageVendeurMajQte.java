@@ -40,7 +40,7 @@ public class PageVendeurMajQte {
                 deconnexion.setScaleX(1.0);
                 deconnexion.setScaleY(1.0);
             });
-        deconnexion.setOnAction(e -> app.sceneAcceuil());
+        deconnexion.setOnAction(e -> app.popUpMessageDeconnexion());
 
         Button retour = (Button) this.scene.lookup("#retour");
         retour.setOnMouseEntered(e -> {
@@ -122,6 +122,11 @@ public class PageVendeurMajQte {
         this.nbPages = (Label) this.scene.lookup("#nbPages");
         this.datePubli = (Label) this.scene.lookup("#datePubli");
         this.qte = (Label) this.scene.lookup("#qte");
+
+        if (App.livre != null) {
+            this.comboBox.getSelectionModel().select(App.livre.getTitre());
+            this.modifValeurs();
+        } 
     }
 
     public Scene getScene(){

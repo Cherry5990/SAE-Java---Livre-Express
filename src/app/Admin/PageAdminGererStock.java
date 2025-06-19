@@ -15,19 +15,8 @@ public class PageAdminGererStock{
         Pane root = FXMLLoader.load(getClass().getResource("../view/Admin/PageAdminGererStock.fxml"));
         this.scene = new Scene(root);
 
-        Button deconnexion = (Button) this.scene.lookup("#deconnexion");
-        deconnexion.setOnMouseEntered(e -> {
-                deconnexion.setScaleX(1.1);
-                deconnexion.setScaleY(1.1);
-            });
-            deconnexion.setOnMouseExited(e -> {
-                deconnexion.setScaleX(1.0);
-                deconnexion.setScaleY(1.0);
-            });
-        deconnexion.setOnAction(e -> app.sceneAcceuil());
-
         Button retour = (Button) this.scene.lookup("#retour");
-        retour.setOnMouseEntered(e -> {
+        retour.setOnAction(e -> {
                 retour.setScaleX(1.1);
                 retour.setScaleY(1.1);
             });
@@ -42,6 +31,17 @@ public class PageAdminGererStock{
                 System.out.println("Problème");
             }
         });
+
+        Button deconnexion = (Button) this.scene.lookup("#deconnexion");
+        deconnexion.setOnMouseEntered(e -> {
+                deconnexion.setScaleX(1.1);
+                deconnexion.setScaleY(1.1);
+            });
+            deconnexion.setOnMouseExited(e -> {
+                deconnexion.setScaleX(1.0);
+                deconnexion.setScaleY(1.0);
+            });
+        deconnexion.setOnAction(e -> app.sceneAcceuil());
 
         // Bouton Transférer un livre
         Button transfererLivre = (Button) this.scene.lookup("#transfererLivre");

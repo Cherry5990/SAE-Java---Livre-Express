@@ -16,10 +16,18 @@ public class PageAdmin {
         this.scene = new Scene(root);
 
         Button creerVendeur = (Button)scene.lookup("#creerVendeur");
-        creerVendeur.setOnAction(e -> app.sceneAjouterVendeur());
+        creerVendeur.setOnMouseEntered(e -> {
+                creerVendeur.setScaleX(1.1);
+                creerVendeur.setScaleY(1.1);
+            });
+            creerVendeur.setOnMouseExited(e -> {
+                creerVendeur.setScaleX(1.0);
+                creerVendeur.setScaleY(1.0);
+            });
 
-        Button ajouterLibrairie = (Button)scene.lookup("#ajouterLibrairie");
-        ajouterLibrairie.setOnAction(e -> app.sceneAjouterMagasin());
+        creerVendeur.setOnAction(e -> {
+            app.sceneAjouterVendeur();
+        });
 
         Button deconnexion = (Button) this.scene.lookup("#deconnexion");
         deconnexion.setOnMouseEntered(e -> {
@@ -31,6 +39,26 @@ public class PageAdmin {
                 deconnexion.setScaleY(1.0);
             });
         deconnexion.setOnAction(e -> app.sceneAcceuil());
+
+        Button gererStock = (Button) this.scene.lookup("#gererStock");
+        gererStock.setOnMouseEntered(e -> {
+                gererStock.setScaleX(1.1);
+                gererStock.setScaleY(1.1);
+            });
+            gererStock.setOnMouseExited(e -> {
+                gererStock.setScaleX(1.0);
+                gererStock.setScaleY(1.0);
+            });
+        gererStock.setOnAction(e -> {
+            try {
+               app.scenePageAdminGererStock();
+            } catch (IOException ex) {
+                System.out.println("Problème");
+            }
+        });
+
+        Button ajouterLibrairie = (Button)scene.lookup("#ajouterLibrairie");
+        ajouterLibrairie.setOnAction(e -> app.sceneAjouterMagasin());
 
         Button statistiques = (Button)scene.lookup("#statistiques");
         statistiques.setOnAction(e -> app.scenePageAdminConsulterStat());

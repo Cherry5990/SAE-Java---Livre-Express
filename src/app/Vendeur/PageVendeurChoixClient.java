@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import modele.Client;
+import modele.Commande;
 import modele.Livre;
 
 public class PageVendeurChoixClient {
@@ -38,6 +39,7 @@ public class PageVendeurChoixClient {
         this.position = 0;
         this.nomLike = "";
         this.prenomLike="";
+        App.commande = new Commande(0, null, false, false, null, App.vendeur.getMagasin());
 
         Button retour = (Button)scene.lookup("#retour");
         retour.setOnAction(e -> {
@@ -47,6 +49,17 @@ public class PageVendeurChoixClient {
                 System.out.println(e1.getMessage());
             }
         });
+
+        Button deconnexion = (Button) this.scene.lookup("#deconnexion");
+        deconnexion.setOnMouseEntered(e -> {
+                deconnexion.setScaleX(1.1);
+                deconnexion.setScaleY(1.1);
+            });
+            deconnexion.setOnMouseExited(e -> {
+                deconnexion.setScaleX(1.0);
+                deconnexion.setScaleY(1.0);
+            });
+        deconnexion.setOnAction(e -> app.popUpMessageDeconnexion());
 
         TextField nom =(TextField)scene.lookup("#nom");
         nom.textProperty().addListener((observable, oldValue, newValue) -> {

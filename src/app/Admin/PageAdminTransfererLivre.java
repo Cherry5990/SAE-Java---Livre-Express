@@ -56,7 +56,7 @@ public class PageAdminTransfererLivre {
             });
         retour.setOnAction(e -> {
             try {
-                app.scenePageVendeurGererStocks();
+                app.scenePageAdminGererStock();
             } catch (IOException ex) {
                 System.out.println("Problème");
             }
@@ -66,6 +66,8 @@ public class PageAdminTransfererLivre {
         this.comboMag1 = (ComboBox<String>) this.scene.lookup("#comboMagD");
         this.comboMag2 = (ComboBox<String>) this.scene.lookup("#comboMagR");
         this.comboLivre = (ComboBox<String>) this.scene.lookup("#comboLivre");
+        this.nom = (TextField) this.scene.lookup("#nom");
+
         this.qteTransfere = (TextField) this.scene.lookup("#qteTransfere");
 
         for (Magasin mag : App.magasinBD.getAllMagasins()) {
@@ -73,29 +75,25 @@ public class PageAdminTransfererLivre {
             this.comboMag2.getItems().add(mag.getNomMagasin());
         }
 
-        this.nom = (TextField) this.scene.lookup("#nom");
-        this.nom.setDisable(true);
 
-        this.comboMag1.valueProperty().addListener((obs, oldVal, newVal) -> {
-            this.idMag1 = -1;
-            this.idMag2 = -1;
+        this.comboMag2.valueProperty().addListener((obs, oldVal, newVal) -> {
             Magasin magSource = null;
             Magasin magDest = null;
             String nomMagSource = this.comboMag1.getValue();
             String nomMagDest = this.comboMag2.getValue();
             for (Magasin mag : App.magasinBD.getAllMagasins()) {
-                if (nomMagSource != null && mag.getNomMagasin().equals(nomMagSource)) {
+                if (mag.getNomMagasin().equals(nomMagSource)) {
                     magSource = mag;
                     this.idMag1 = mag.getIdMagasin();
                 }
-                if (nomMagDest != null && mag.getNomMagasin().equals(nomMagDest)) {
+                if (mag.getNomMagasin().equals(nomMagDest)) {
                     magDest = mag;
                     this.idMag2 = mag.getIdMagasin();
                 }
             }
 
-            if (magSource == null || magDest == null) {
-                this.comboLivre.setPromptText("Selectionnez un magasin");
+            if (magSource == null || magDest == null || this.idMag1 == this.idMag2) {
+                this.comboLivre.setPromptText("Selectionnez 2 magasins différents");
                 this.comboLivre.setDisable(true);
                 this.nom.setDisable(true);
                 this.comboLivre.getItems().clear();
@@ -103,11 +101,12 @@ public class PageAdminTransfererLivre {
                 this.comboLivre.setPromptText("Selectionnez un livre");
                 this.comboLivre.setDisable(false);
                 this.nom.setDisable(false);
-                List<Livre> livresInit = App.reseauBD.rechercheLivre("", this.idMag1);
+                List<Livre> livresInit = App.magasinBD.rechercheLivre(this.idMag1, "");
                 this.comboLivre.getItems().clear();
                 for (Livre elt : livresInit) {
                     this.comboLivre.getItems().add(elt.getTitre());
                 }
+
                 this.nom.textProperty().addListener((obsNom, oldNom, newNom) -> {
                     List<Livre> livres = App.magasinBD.rechercheLivre(this.idMag1, newNom);
                     this.comboLivre.getItems().clear();
@@ -115,14 +114,14 @@ public class PageAdminTransfererLivre {
                         this.comboLivre.getItems().add(livre.getTitre());
                     }
                     this.comboLivre.show();
-                });
-                this.comboLivre.setOnAction(e -> {
-                    this.modifValeurs();
+                    });
+                    this.comboLivre.setOnAction(e -> {
+                        this.modifValeurs();
                 });
             }
         });
         if (this.comboMag1.getValue() == null || this.comboMag2.getValue() == null){
-            this.comboLivre.setPromptText("Sélectionnez deux magasins");
+            this.comboLivre.setPromptText("Sélectionnez 2 magasins");
             this.comboLivre.setDisable(true);
         }
 

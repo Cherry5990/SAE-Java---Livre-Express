@@ -28,8 +28,8 @@ public class PageVendeurVoirStocks {
         this.scene = new Scene(root);
         App.commande = new Commande(0, null, false, false, App.client, App.magasin);
         this.livres = App.magasinBD.getAllLivre(App.vendeur.getMagasin().getIdMagasin());
-        this.scroll = (ScrollPane) this.scene.lookup("#test");
         int i = 1;
+        this.scroll = (ScrollPane) this.scene.lookup("#test");
         this.lignes = (VBox) this.scroll.getContent();
         ControleurConsulterLivreVendeur controleur = new ControleurConsulterLivreVendeur(app);
         for(Livre livreMag:livres){
@@ -58,6 +58,17 @@ public class PageVendeurVoirStocks {
                 System.out.println(e1.getMessage());
             }
         });
+
+        Button deconnexion = (Button) this.scene.lookup("#deconnexion");
+        deconnexion.setOnMouseEntered(e -> {
+                deconnexion.setScaleX(1.1);
+                deconnexion.setScaleY(1.1);
+            });
+            deconnexion.setOnMouseExited(e -> {
+                deconnexion.setScaleX(1.0);
+                deconnexion.setScaleY(1.0);
+            });
+        deconnexion.setOnAction(e -> app.popUpMessageDeconnexion());
     }
 
     public Scene getScene(){

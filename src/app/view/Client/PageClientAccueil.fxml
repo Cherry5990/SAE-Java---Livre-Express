@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -18,7 +19,7 @@
          <right>
             <Label prefHeight="45.0" prefWidth="116.0" text="Accueil" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Caladea" size="30.0" />
+                  <Font name="Caladea Regular" size="30.0" />
                </font>
                <BorderPane.margin>
                   <Insets bottom="25.0" />
@@ -44,20 +45,13 @@
                      </HBox.margin>
                   </Button>
                   <Button mnemonicParsing="false" style="-fx-background-color: transparent;">
-                     <graphic>
-                        <ImageView fx:id="panier" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../img/icônes/panier.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
                      <HBox.margin>
                         <Insets bottom="25.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+                  <Button fx:id="deconnexion" mnemonicParsing="false" prefHeight="33.0" prefWidth="40.0" style="-fx-background-color: transparent;">
                      <graphic>
-                        <ImageView fx:id="deconnexion" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../img/icônes/deconnexion.png" />
                            </image>
@@ -76,7 +70,7 @@
                   <Insets bottom="25.0" right="150.0" />
                </BorderPane.margin>
                <font>
-                  <Font size="50.0" />
+                  <Font name="Caladea Regular" size="50.0" />
                </font>
             </Label>
          </center>
@@ -94,20 +88,6 @@
                </StackPane.margin>
             </ImageView>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
-               <top>
-                  <Button fx:id="retour" alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Retour à l'accueil" textFill="WHITE" BorderPane.alignment="CENTER_LEFT">
-                     <graphic>
-                        <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../img/icônes/retour.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="Caladea Regular" size="16.0" />
-                     </font>
-                  </Button>
-               </top>
                <center>
                   <VBox alignment="TOP_CENTER" prefHeight="592.0" prefWidth="855.0" BorderPane.alignment="CENTER">
                      <children>
@@ -118,26 +98,20 @@
                         </Label>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <ComboBox id="comboMag" prefHeight="52.0" prefWidth="240.0" promptText="Choisir un magasin" style="-fx-background-color: a6897e; -fx-background-radius: 10;">
+                              <ComboBox id="comboMag" prefHeight="56.0" prefWidth="240.0" promptText="Choisir un magasin" style="-fx-background-color: a6897e; -fx-background-radius: 10;">
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin>
                               </ComboBox>
-                              <Button id="connexion" mnemonicParsing="false" prefHeight="52.0" prefWidth="240.0" style="-fx-background-color: a6897e; -fx-background-radius: 10;" text="Se connecter" textFill="WHITE">
+                              <Button id="connexion" mnemonicParsing="false" prefHeight="56.0" prefWidth="240.0" style="-fx-background-color: a6897e; -fx-background-radius: 10;" text="Se connecter" textFill="WHITE">
                                  <font>
-                                    <Font name="Caladea" size="28.0" />
+                                    <Font name="Caladea Regular" size="30.0" />
                                  </font></Button>
                            </children>
                         </HBox>
                         <BorderPane prefHeight="254.0" prefWidth="1200.0">
-                           <center>
-                              <HBox fx:id="livres" prefHeight="100.0" prefWidth="1200.0" spacing="25.0" BorderPane.alignment="CENTER">
-                                 <BorderPane.margin>
-                                    <Insets bottom="10.0" left="20.0" />
-                                 </BorderPane.margin></HBox>
-                           </center>
                            <top>
-                              <HBox alignment="TOP_CENTER" prefHeight="65.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+                              <HBox alignment="TOP_CENTER" prefHeight="56.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
                                  <children>
                                     <Button fx:id="avant" mnemonicParsing="false" prefHeight="44.0" prefWidth="44.0" style="-fx-background-color: transparent;">
                                        <graphic>
@@ -148,9 +122,9 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <Label prefHeight="52.0" prefWidth="419.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 20;" text="Vos Recommandations">
+                                    <Label alignment="CENTER" prefHeight="52.0" prefWidth="419.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 20;" text="Vos Recommandations">
                                        <font>
-                                          <Font name="Caladea" size="36.0" />
+                                          <Font name="Caladea Regular" size="39.0" />
                                        </font>
                                        <HBox.margin>
                                           <Insets />
@@ -171,16 +145,22 @@
                                  </children>
                               </HBox>
                            </top>
+                           <bottom>
+                              <HBox fx:id="livres" prefHeight="174.0" prefWidth="1180.0" spacing="25.0" BorderPane.alignment="CENTER">
+                                 <BorderPane.margin>
+                                    <Insets bottom="10.0" left="50.0" />
+                                 </BorderPane.margin></HBox>
+                           </bottom>
+                           <center>
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="3.0" prefWidth="1100.0" style="-fx-background-color: a6897e; -fx-background-radius: 50;" BorderPane.alignment="CENTER">
+                                 <BorderPane.margin>
+                                    <Insets bottom="5.0" />
+                                 </BorderPane.margin></Pane>
+                           </center>
                         </BorderPane>
                         <BorderPane layoutX="10.0" layoutY="159.0" prefHeight="252.0" prefWidth="1200.0">
-                           <center>
-                              <HBox fx:id="commandes" prefHeight="186.0" prefWidth="1200.0" spacing="25.0" BorderPane.alignment="CENTER">
-                                 <BorderPane.margin>
-                                    <Insets bottom="10.0" left="20.0" />
-                                 </BorderPane.margin></HBox>
-                           </center>
                            <top>
-                              <HBox alignment="TOP_CENTER" prefHeight="62.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+                              <HBox alignment="TOP_CENTER" prefHeight="55.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
                                  <children>
                                     <Button fx:id="avant1" mnemonicParsing="false" prefHeight="44.0" prefWidth="44.0" style="-fx-background-color: transparent;">
                                        <graphic>
@@ -191,9 +171,9 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <Label prefHeight="52.0" prefWidth="314.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 20;" text="Vos Commandes">
+                                    <Label alignment="CENTER" prefHeight="52.0" prefWidth="314.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 20;" text="Vos Commandes">
                                        <font>
-                                          <Font name="Caladea" size="36.0" />
+                                          <Font name="Caladea Regular" size="40.0" />
                                        </font>
                                        <padding>
                                           <Insets left="17.0" />
@@ -211,8 +191,23 @@
                                  </children>
                               </HBox>
                            </top>
+                           <bottom>
+                              <HBox fx:id="commandes" prefHeight="175.0" prefWidth="1180.0" spacing="25.0" BorderPane.alignment="CENTER">
+                                 <BorderPane.margin>
+                                    <Insets bottom="10.0" left="50.0" />
+                                 </BorderPane.margin></HBox>
+                           </bottom>
+                           <center>
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="3.0" prefWidth="1100.0" style="-fx-background-color: a6897e; -fx-background-radius: 50;" BorderPane.alignment="CENTER">
+                                 <BorderPane.margin>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </BorderPane.margin></Pane>
+                           </center>
                         </BorderPane>
                      </children>
+                     <BorderPane.margin>
+                        <Insets top="50.0" />
+                     </BorderPane.margin>
                   </VBox>
                </center>
             </BorderPane>

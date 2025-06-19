@@ -15,6 +15,7 @@ public class PageVendeurAccueil {
     public PageVendeurAccueil(App app)throws IOException{
         Pane root = FXMLLoader.load(getClass().getResource("../view/Vendeur/PageVendeurAccueil.fxml"));
         this.scene = new Scene(root);
+        App.livre = null;
         Button deconnexion = (Button) this.scene.lookup("#deconnexion");
         deconnexion.setOnMouseEntered(e -> {
                 deconnexion.setScaleX(1.1);
@@ -24,7 +25,7 @@ public class PageVendeurAccueil {
                 deconnexion.setScaleX(1.0);
                 deconnexion.setScaleY(1.0);
             });
-        deconnexion.setOnAction(e -> app.sceneAcceuil());
+        deconnexion.setOnAction(e -> app.popUpMessageDeconnexion());
 
         Button gererStock = (Button) this.scene.lookup("#gererStock");
         gererStock.setOnMouseEntered(e -> {
@@ -54,7 +55,6 @@ public class PageVendeurAccueil {
             });
         commande.setOnAction(e -> {
             try {
-                App.commande = new Commande(0, null, false, false, null, App.vendeur.getMagasin());
                 app.scenePageVendeurChoixClient();
             } catch (IOException e1) {
                 System.out.println(e1.getMessage());

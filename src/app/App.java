@@ -1,7 +1,6 @@
 package app;
 import BD.*;
 import app.Admin.PageAdmin;
-import app.Admin.PageAdminAccueil;
 import app.Admin.PageAdminAjouterLibrairie;
 import app.Admin.PageAdminGererStock;
 import app.Admin.PageAdminTransfererLivre;
@@ -31,10 +30,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -48,6 +50,7 @@ public class App extends Application{
     public static CommandeBD commandeBD;
     public static LivreBD livreBD;
     public static ReseauBD reseauBD;
+    public static AdminBD adminBD;
     public static Client client;
     public static Commande commande;
     public static Magasin magasin;
@@ -56,7 +59,6 @@ public class App extends Application{
     public static Reseau reseau;
     public static Map<Client,Map<Magasin,Commande>> memoiresCommandesClient;
     public static Map<Client,List<Livre>> recoClient;
-    private ConnexionMySQL con;
 
     @Override
     public void init(){
@@ -73,14 +75,15 @@ public class App extends Application{
             String host = props.getProperty("db.host");
             String database = props.getProperty("db.database");
 
-            this.con = new ConnexionMySQL();
-            this.con.connecter(host, database, user,password);
-            App.clientBD = new ClientBD(this.con);
-            App.vendeurBD = new VendeurBD(this.con);
+            ConnexionMySQL con = new ConnexionMySQL();
+            con.connecter(host, database, user,password);
+            App.clientBD = new ClientBD(con);
+            App.vendeurBD = new VendeurBD(con);
             App.magasinBD = new MagasinBD(con);
             App.commandeBD = new CommandeBD(con);
             App.livreBD = new LivreBD(con);
             App.reseauBD = new ReseauBD(con);
+            App.adminBD = new AdminBD(con);
             App.commande = null;
             App.client = null;
             App.magasin = null;
@@ -94,6 +97,15 @@ public class App extends Application{
             System.out.println("Problème de connexion à la BD : "+e.getMessage());
         }
 
+    }
+    public void popUpMessageDeconnexion(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"",ButtonType.YES, ButtonType.NO);
+        alert.setHeaderText("Déconnextion"); 
+        alert.setContentText("êtes vous sur de vous déconnecter?"); 
+        Optional<ButtonType> reponse = alert.showAndWait();
+            if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){
+                    sceneAcceuil();
+        } 
     }
 
     @Override
@@ -156,11 +168,6 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
 
-    public void sceneAdminAccueil() throws IOException {
-        PageAdminAccueil page = new PageAdminAccueil(this);
-        primaryStage.setScene(page.getScene());
-    }
-
     public void scenePageAdminGererStock() throws IOException {
         PageAdminGererStock page = new PageAdminGererStock(this);
         primaryStage.setScene(page.getScene());
@@ -176,14 +183,24 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
 
+    public void sceneAjouterVendeur(){
+        PageAdminAjouterVendeur page = new PageAdminAjouterVendeur(this);
+        primaryStage.setScene(page.getScene());
+    }
+
     public void scenePageAdminConsulterStat(){
         PageAdminConsulterStat page = new PageAdminConsulterStat(this);
         primaryStage.setScene(page.getScene());
     }
 
+    public void sceneAjouterMagasin(){
+        PageAdminAjouterLibrairie page = new PageAdminAjouterLibrairie(this);
+        primaryStage.setScene(page.getScene());
+    }
 
 
-
+  
+  
 
     public void sceneMagasin()throws IOException{
         PageClientCatalogue page = new PageClientCatalogue(this);
@@ -215,15 +232,7 @@ public class App extends Application{
         primaryStage.setScene(page.getScene());
     }
      
-    public void sceneAjouterVendeur(){
-        PageAdminAjouterVendeur page = new PageAdminAjouterVendeur(this);
-        primaryStage.setScene(page.getScene());
-    }
-
-    public void sceneAjouterMagasin(){
-        PageAdminAjouterLibrairie page = new PageAdminAjouterLibrairie(this);
-        primaryStage.setScene(page.getScene());
-    }
+    
 
 
     public static void main(String[] args) {

@@ -27,11 +27,11 @@
          <left>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent;">
+                  <Button fx:id="retour" mnemonicParsing="false" style="-fx-background-color: transparent;">
                      <graphic>
-                        <ImageView fitHeight="94.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="retour" fitHeight="94.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../img/icone.png" />
+                              <Image url="@../../../../img/icônes/retour.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -70,7 +70,7 @@
       </BorderPane>
    </top>
    <center>
-      <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-image: page_accueil.jpg;" BorderPane.alignment="CENTER">
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="700.0" fitWidth="1200.0" nodeOrientation="INHERIT">
                <image>

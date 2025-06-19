@@ -16,7 +16,7 @@
    <top>
       <BorderPane prefHeight="150.0" prefWidth="1200.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <right>
-            <Label prefHeight="66.0" prefWidth="346.0" text="Consulter les statistiques" BorderPane.alignment="CENTER">
+            <Label prefHeight="66.0" prefWidth="364.0" text="Consulter les statistiques" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Caladea Regular" size="30.0" />
                </font>
@@ -71,7 +71,7 @@
       </BorderPane>
    </top>
    <center>
-      <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-image: page_accueil.jpg;" BorderPane.alignment="CENTER">
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="700.0" fitWidth="1200.0" nodeOrientation="INHERIT">
                <image>
@@ -85,7 +85,7 @@
                <top>
                   <Button fx:id="retour" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="77.0" prefWidth="288.0" style="-fx-background-color: transparent;" text="Retour" textFill="WHITE" BorderPane.alignment="CENTER_LEFT">
                      <graphic>
-                        <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="retour" fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../img/icônes/retour.png" />
                            </image>

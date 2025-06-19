@@ -15,7 +15,7 @@
    <top>
       <BorderPane prefHeight="150.0" prefWidth="1200.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <right>
-            <Label prefHeight="66.0" prefWidth="212.0" text="Gérer les stocks" BorderPane.alignment="CENTER">
+            <Label prefHeight="66.0" prefWidth="236.0" text="Gérer les stocks" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Caladea" size="30.0" />
                </font>
@@ -58,7 +58,7 @@
             </HBox>
          </left>
          <center>
-            <Label prefHeight="80.0" prefWidth="200.0" text="Admin" BorderPane.alignment="CENTER">
+            <Label alignment="CENTER" prefHeight="80.0" prefWidth="200.0" text="Admin" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Caladea" size="50.0" />
                </font>
@@ -70,7 +70,7 @@
       </BorderPane>
    </top>
    <center>
-      <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-image: page_accueil.jpg;" BorderPane.alignment="CENTER">
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="700.0" fitWidth="1200.0" nodeOrientation="INHERIT">
                <image>
@@ -80,52 +80,70 @@
                   <Insets bottom="30.0" />
                </StackPane.margin>
             </ImageView>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Label text="Gérer les stocks du réseau" textFill="WHITE">
-                     <font>
-                        <Font name="Caladea" size="71.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </Label>
-                  <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+            <BorderPane>
+               <center>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Button fx:id="gererStock" alignment="CENTER" contentDisplay="TOP" minHeight="300.0" mnemonicParsing="false" prefWidth="300.0" style="-fx-background-color: e8e4df; -fx-background-radius: 40;" text="Transférer un&#10;livre" textAlignment="CENTER">
+                        <Label text="Gérer les stocks du réseau" textFill="WHITE">
                            <font>
-                              <Font name="Caladea" size="33.0" />
+                              <Font name="Caladea" size="71.0" />
                            </font>
-                           <HBox.margin>
-                              <Insets left="10.0" right="50.0" />
-                           </HBox.margin>
-                           <graphic>
-                              <ImageView fitHeight="200.0" fitWidth="200.0">
-                                 <image>
-                                    <Image url="@../../../../img/icônes/transferStock.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="voirStock" contentDisplay="TOP" layoutX="470.0" layoutY="10.0" minHeight="300.0" mnemonicParsing="false" prefWidth="300.0" style="-fx-background-color: e8e4df; -fx-background-radius: 40;" text="Voir les stocks&#10;des magasins">
-                           <font>
-                              <Font name="Caladea" size="28.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="50.0" right="10.0" />
-                           </HBox.margin>
-                           <graphic>
-                              <ImageView fitHeight="200.0" fitWidth="200.0">
-                                 <image>
-                                    <Image url="@../../../../img/icônes/voirStock.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="transfererLivre" alignment="CENTER" contentDisplay="TOP" minHeight="300.0" mnemonicParsing="false" prefWidth="300.0" style="-fx-background-color: e8e4df; -fx-background-radius: 40;" text="Transférer un&#10;livre" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Caladea" size="33.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="50.0" />
+                                 </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="200.0" fitWidth="200.0">
+                                       <image>
+                                          <Image url="@../../../../img/icônes/transferStock.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="voirStock" contentDisplay="TOP" layoutX="470.0" layoutY="10.0" minHeight="300.0" mnemonicParsing="false" prefWidth="300.0" style="-fx-background-color: e8e4df; -fx-background-radius: 40;" text="Voir les stocks&#10;des magasins">
+                                 <font>
+                                    <Font name="Caladea" size="28.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="50.0" right="10.0" />
+                                 </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="200.0" fitWidth="200.0">
+                                       <image>
+                                          <Image url="@../../../../img/icônes/voirStock.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
-               </children>
-            </VBox>
+                  </VBox>
+               </center>
+               <top>
+                  <Button fx:id="retour" mnemonicParsing="false" prefHeight="80.0" prefWidth="224.0" style="-fx-background-color: transprarent;" text="Retour" textFill="WHITE" BorderPane.alignment="TOP_LEFT">
+                     <graphic>
+                        <ImageView fitHeight="60.0" fitWidth="80.0">
+                           <image>
+                              <Image url="@../../../../img/icônes/retour.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Button>
+               </top>
+            </BorderPane>
          </children>
       </StackPane>
    </center>
