@@ -12,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import modele.Livre;
-import modele.Vendeur;
 
 public class PageVendeurAjouterLivre {
     private Scene scene;
@@ -24,8 +23,7 @@ public class PageVendeurAjouterLivre {
     private TextField qte;
     private boolean verif = true;
     private boolean livreExiste = false;
-
-    //A finir
+    
     public PageVendeurAjouterLivre(App app)throws IOException{
         Pane root = FXMLLoader.load(getClass().getResource("../view/Vendeur/PageVendeurAjouterLivre.fxml"));
         this.scene = new Scene(root);
@@ -110,13 +108,11 @@ public class PageVendeurAjouterLivre {
             this.verifierLivreExiste();
         });
 
-        //Initialisation des TextFields : desactiver les champs
-        
+        //Initialisation des TextFields : desactiver les champs        
         this.prix.setDisable(true);
         this.nbPages.setDisable(true);
         this.datePubli.setDisable(true);
         this.qte.setDisable(true);
-
 
     }
 
@@ -126,6 +122,7 @@ public class PageVendeurAjouterLivre {
         return this.scene;
     }
 
+    //Vérification si le livre existe déjà dans le stock du magasin ou dans la base de données
     public void verifierLivreExiste(){
         if (this.nom.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -136,7 +133,6 @@ public class PageVendeurAjouterLivre {
             return;
         }
         this.verif = App.magasinBD.existeLivreTitre(this.nom.getText(), App.vendeur.getMagasin().getIdMagasin());
-
         if (this.verif){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Livre déjà existant");
@@ -148,9 +144,7 @@ public class PageVendeurAjouterLivre {
         else{
             try {
                 String isbnLivre = null;
-            
                 isbnLivre = App.livreBD.regardeSiISBNExiste(this.nom.getText());
-            
                 if(isbnLivre != null){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Livre déjà existant");
@@ -165,7 +159,6 @@ public class PageVendeurAjouterLivre {
                     this.datePubli.setText(String.valueOf(livre.getDatePubli()));
                     this.qte.setDisable(false);
                     this.livreExiste = true;
-            
                 }
                 else{
                     this.majTextFields();
@@ -178,6 +171,7 @@ public class PageVendeurAjouterLivre {
         }
     }
 
+    //Mise à jour des TextFields en fonction de la vérification
     public void majTextFields(){
         this.prix.setDisable(verif);
         this.nbPages.setDisable(verif);
@@ -185,6 +179,7 @@ public class PageVendeurAjouterLivre {
         this.qte.setDisable(verif);
     }
 
+    //Réinitialisation des champs
     public void reset(){
         this.nom.clear();
         this.isbn.setText("...");
