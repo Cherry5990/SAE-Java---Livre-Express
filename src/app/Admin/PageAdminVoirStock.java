@@ -23,11 +23,12 @@ public class PageAdminVoirStock {
     private VBox lignes;
 
     public PageAdminVoirStock(App app) throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("../view/Admin/PageAdminVoirStock.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("../view/Admin/PageAdminVoirStocks.fxml"));
         this.scene = new Scene(root);
         App.commande = new Commande(0, null, false, false, App.client, App.magasin);
         this.livres = App.reseauBD.voirStockReseau();
         int i = 1;
+        this.scroll = (ScrollPane) this.scene.lookup("#test");
         this.lignes = (VBox) this.scroll.getContent();
         ControleurConsulterLivreAdmin controleur = new ControleurConsulterLivreAdmin(app);
         for(Livre livreMag:livres){

@@ -28,8 +28,8 @@ public class PageVendeurVoirStocks {
         this.scene = new Scene(root);
         App.commande = new Commande(0, null, false, false, App.client, App.magasin);
         this.livres = App.magasinBD.getAllLivre(App.vendeur.getMagasin().getIdMagasin());
-        this.scroll = (ScrollPane) this.scene.lookup("#test");
         int i = 1;
+        this.scroll = (ScrollPane) this.scene.lookup("#test");
         this.lignes = (VBox) this.scroll.getContent();
         ControleurConsulterLivreVendeur controleur = new ControleurConsulterLivreVendeur(app);
         for(Livre livreMag:livres){

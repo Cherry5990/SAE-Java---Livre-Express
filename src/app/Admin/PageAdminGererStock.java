@@ -15,6 +15,23 @@ public class PageAdminGererStock{
         Pane root = FXMLLoader.load(getClass().getResource("../view/Admin/PageAdminGererStock.fxml"));
         this.scene = new Scene(root);
 
+        Button retour = (Button) this.scene.lookup("#retour");
+        retour.setOnAction(e -> {
+                retour.setScaleX(1.1);
+                retour.setScaleY(1.1);
+            });
+            retour.setOnMouseExited(e -> {
+                retour.setScaleX(1.0);
+                retour.setScaleY(1.0);
+            });
+        retour.setOnAction(e -> {
+            try {
+                app.sceneAdmin();
+            } catch (IOException ex) {
+                System.out.println("Problème");
+            }
+        });
+
         Button deconnexion = (Button) this.scene.lookup("#deconnexion");
         deconnexion.setOnMouseEntered(e -> {
                 deconnexion.setScaleX(1.1);
