@@ -111,6 +111,8 @@ CREATE TABLE VENDEUR(
     nomVendeur varchar(50),
     prenomVendeur varchar(50),
     idmag varchar(42),
+    nomcompte varchar(30),
+    mdpcompte varchar(30),
     PRIMARY KEY (idVendeur),
     CONSTRAINT fkMagasin FOREIGN KEY(idmag) REFERENCES MAGASIN(idmag)
 );
