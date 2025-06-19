@@ -9,6 +9,7 @@ import app.Admin.PageAdminAjouterVendeur;
 import app.Admin.PageAdminConsulterStat;
 import app.Client.PageClient;
 import app.Client.PageClientCatalogue;
+import app.Client.PageClientPanierv2;
 import app.Client.PageClientRecommande;
 import app.Client.PageConsultationCommande;
 import app.Client.PageConsultationLivre;
@@ -224,7 +225,7 @@ public class App extends Application{
     }
 
     public void sceneConsultationPanier()throws IOException{
-        PageConsultationPanier page = new PageConsultationPanier(this);
+        PageClientPanierv2 page = new PageClientPanierv2(this);
         primaryStage.setScene(page.getScene());
     }
 

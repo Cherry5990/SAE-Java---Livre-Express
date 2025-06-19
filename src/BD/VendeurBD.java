@@ -34,12 +34,14 @@ public class VendeurBD {
      * @param mag l'identifiant du magasin auquel le vendeur est associé
      * @throws SQLException
      */
-	public void insererVendeur(String prenom,String nom,int mag) throws SQLException{
-        try(PreparedStatement ps = laConnexion.prepareStatement("insert into VENDEUR values(?,?,?,?);")){
+	public void insererVendeur(String prenom,String nom,int mag,String nomcompte,String mdp) throws SQLException{
+        try(PreparedStatement ps = laConnexion.prepareStatement("insert into VENDEUR values(?,?,?,?,?,?);")){
             ps.setInt(1, maxIdVendeur()+1);
             ps.setString(2, nom);
             ps.setString(3, prenom);
             ps.setInt(4,mag);
+            ps.setString(5, nomcompte);
+            ps.setString(6, mdp);
             ps.executeUpdate();
             ps.close();
         }
@@ -86,11 +88,13 @@ public class VendeurBD {
         }
     }
 
-    public boolean vendeurPresent(String nom, String prenom, int idMagasin)throws SQLException{
-        try(PreparedStatement ps =laConnexion.prepareStatement("select * from VENDEUR where nomVendeur = ? and prenomVendeur = ? and idmag = ?")){
+    public boolean vendeurPresent(String nom, String prenom,String nomcompte,String mdp, int idMagasin)throws SQLException{
+        try(PreparedStatement ps =laConnexion.prepareStatement("select * from VENDEUR where nomVendeur = ? and prenomVendeur = ? and idmag = ? and nomcompte=? and mdpcompte=?;")){
             ps.setString(1, nom);
             ps.setString(2, prenom);
             ps.setInt(3, idMagasin);
+            ps.setString(4, nomcompte);
+            ps.setString(5, mdp);
             ResultSet rs = ps.executeQuery();
             boolean dedans = rs.next();
             rs.close();
@@ -99,7 +103,7 @@ public class VendeurBD {
     }
 
     public Vendeur connexionVendeur(String nom,String mdp){
-        try(PreparedStatement ps =laConnexion.prepareStatement("select idVendeur,nomcompte,mdpcompte from VENDEUR where nomcompte=? and mdpcompte=?")){
+        try(PreparedStatement ps =laConnexion.prepareStatement("select idVendeur,nomcompte,mdpcompte from VENDEUR where nomcompte=? and mdpcompte=?;")){
             ps.setString(1, nom);
             ps.setString(2, mdp);
             ResultSet rs = ps.executeQuery();
@@ -111,6 +115,20 @@ public class VendeurBD {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    public boolean NomCompteVendeurExiste(String nomCompte){
+        try(PreparedStatement ps =laConnexion.prepareStatement("select nomcompte from VENDEUR where nomcompte=?")){
+            ps.setString(1, nomCompte);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
     
 }
