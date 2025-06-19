@@ -12,22 +12,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import modele.Livre;
-import modele.Vendeur;
 
 public class PageVendeurAjouterLivre {
     private Scene scene;
     private TextField nom;
-    //Faire que l'isbn soit un lablel
-    private TextField isbn;
-    //
+    private Label isbn;
     private TextField prix;
     private TextField nbPages;
     private TextField datePubli;
     private TextField qte;
     private boolean verif = true;
     private boolean livreExiste = false;
-
-    //A finir
+    
     public PageVendeurAjouterLivre(App app)throws IOException{
         Pane root = FXMLLoader.load(getClass().getResource("../view/Vendeur/PageVendeurAjouterLivre.fxml"));
         this.scene = new Scene(root);
@@ -87,7 +83,8 @@ public class PageVendeurAjouterLivre {
 
         //Les TextFields
         this.nom = (TextField) this.scene.lookup("#nom");
-        this.isbn = (TextField) this.scene.lookup("#isbn");
+        this.isbn = (Label) this.scene.lookup("#isbn");
+        this.isbn.setDisable(true);
         this.prix = (TextField) this.scene.lookup("#prix");
         this.nbPages = (TextField) this.scene.lookup("#nbPages");
         this.datePubli = (TextField) this.scene.lookup("#datePubli");
@@ -104,16 +101,18 @@ public class PageVendeurAjouterLivre {
                 verifier.setScaleY(1.0);
             });
         verifier.setOnAction(e -> {
+            this.prix.clear();
+            this.nbPages.clear();
+            this.datePubli.clear();
+            this.qte.clear();
             this.verifierLivreExiste();
         });
 
-        //Initialisation des TextFields : desactiver les champs
-        
+        //Initialisation des TextFields : desactiver les champs        
         this.prix.setDisable(true);
         this.nbPages.setDisable(true);
         this.datePubli.setDisable(true);
         this.qte.setDisable(true);
-
 
     }
 
@@ -123,31 +122,36 @@ public class PageVendeurAjouterLivre {
         return this.scene;
     }
 
+    //Vérification si le livre existe déjà dans le stock du magasin ou dans la base de données
     public void verifierLivreExiste(){
+        if (this.nom.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de saisie");
+            alert.setHeaderText("Le titre du livre est vide.");
+            alert.setContentText("Veuillez entrer un titre pour le livre.");
+            alert.showAndWait();
+            return;
+        }
         this.verif = App.magasinBD.existeLivreTitre(this.nom.getText(), App.vendeur.getMagasin().getIdMagasin());
         if (this.verif){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Livre déjà existant");
             alert.setHeaderText("Le livre existe déjà dans le stock de votre magasin.");
             alert.setContentText("Veuillez aller sur la page de mise à jour de la quantité pour modifier le stock.\n " +
-                                 "Si vous souhaitez ajouter un nouveau livre, veuillez changer le titre du livre.\n ");
+                                 "Si vous souhaitez ajouter un nouveau livre,\nveuillez changer le titre du livre rentré.\n ");
             alert.showAndWait();
         }
         else{
-            String isbnLivre = null;
             try {
-            isbnLivre = App.livreBD.regardeSiISBNExiste(this.nom.getText());
-            } catch (SQLException e) {
-                System.out.println("Problème lors de la vérification de l'ISBN : " + e.getMessage());
-            }
-            if(isbnLivre != null){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Livre déjà existant");
-                alert.setHeaderText("Le livre existe déjà dans la base de données.");
-                alert.setContentText("Vous n'avez donc pas besoin de donner ses information\n" +
-                                 "Veuillez ainsi rentrer la quantité que vous souhaité ajouter à votre magasin\n ");
-                alert.showAndWait();
-                try {
+                String isbnLivre = null;
+                isbnLivre = App.livreBD.regardeSiISBNExiste(this.nom.getText());
+                if(isbnLivre != null){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Livre déjà existant");
+                    alert.setHeaderText("Le livre existe déjà dans la base de données.");
+                    alert.setContentText("Vous n'avez donc pas besoin de donner ses information\n" +
+                                 "Veuillez ainsi rentrer la quantité\n que vous souhaité ajouter à votre magasin");
+                    alert.showAndWait();
                     Livre livre = App.livreBD.getLivre(isbnLivre);
                     this.isbn.setText(livre.getIsbn());
                     this.prix.setText(String.valueOf(livre.getPrix()));
@@ -155,30 +159,30 @@ public class PageVendeurAjouterLivre {
                     this.datePubli.setText(String.valueOf(livre.getDatePubli()));
                     this.qte.setDisable(false);
                     this.livreExiste = true;
-                } catch (SQLException e) {
-                    System.out.println("Problème lors de la récupération du livre : " + e.getMessage());
                 }
-            }
-            else{
-                this.majTextFields();
-                try {
+                else{
+                    this.majTextFields();
                     this.isbn.setText(App.livreBD.maxIsbnPlus1());
-                } catch (SQLException e) {
-                    System.out.println("Problème lors de la génération du nouvel ISBN : " + e.getMessage());
+                 
                 }
+            } catch (SQLException e) {
+                System.out.println("Problème lors de la vérification de l'ISBN : " + e.getMessage());
             }
         }
     }
 
+    //Mise à jour des TextFields en fonction de la vérification
     public void majTextFields(){
         this.prix.setDisable(verif);
         this.nbPages.setDisable(verif);
         this.datePubli.setDisable(verif);
         this.qte.setDisable(verif);
     }
+
+    //Réinitialisation des champs
     public void reset(){
         this.nom.clear();
-        this.isbn.clear();
+        this.isbn.setText("...");
         this.prix.clear();
         this.nbPages.clear();
         this.datePubli.clear();
