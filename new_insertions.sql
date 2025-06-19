@@ -8,14 +8,14 @@ insert into MAGASIN(idmag, nommag, villemag) values
        (6,'Rhône à lire','Lyon'),
        (7,'Loire et livres','Orléans');
 
-insert into VENDEUR(idVendeur, prenomVendeur, nomVendeur, idmag) values
-		(1, "Matthieu", "Jérôme", 3),
-		(2, "Erika", "De Jesus Pinto", 7),
-		(3, "Maelyss", "Fronton", 1),
-		(4, "Nathan", "Joubert", 4),
-		(5, "Alexandre", "Dias", 5),
-		(6, "Leni", "Doe", 1),
-		(7, "Lisa", "Doe", 1);
+insert into VENDEUR(idVendeur, prenomVendeur, nomVendeur, idmag,nomcompte,mdpcompte) values
+		(1, "Matthieu", "Jérôme", 3,"mat","chaise"),
+		(2, "Erika", "De Jesus Pinto", 7,"erik","portugal"),
+		(3, "Maelyss", "Fronton", 1,"mama","designer"),
+		(4, "Nathan", "Joubert", 4,"nat","git"),
+		(5, "Alexandre", "Dias", 5,"alex","lol"),
+		(6, "Leni", "Doe", 1,"leni","doe"),
+		(7, "Lisa", "Doe", 1,"lisa","doe");
 
 -- La classification
 insert into CLASSIFICATION(iddewey, nomclass) values
