@@ -114,6 +114,7 @@ public class App extends Application{
     public void start(Stage stage) throws Exception {
         this.primaryStage = stage;
         primaryStage.setTitle("Librairie Livre Express");
+        primaryStage.setResizable(false);
         sceneAcceuil();
         primaryStage.show();
     }
