@@ -2,19 +2,23 @@ package app.Admin;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import app.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import modele.Magasin;
 
 public class PageAdminConsulterStat {
@@ -23,6 +27,8 @@ public class PageAdminConsulterStat {
     private ComboBox<String> filtres;
     private ComboBox<String> parMagasin;
     private ComboBox<String> parAnnee;
+    private VBox espaceGraphiques;
+    private BarChart<String, Number> graphiqueCA;
 
     public PageAdminConsulterStat(App app){
         try {
@@ -36,14 +42,14 @@ public class PageAdminConsulterStat {
         this.filtres = (ComboBox<String>) scene.lookup("#filtres");
         this.parMagasin = (ComboBox<String>) scene.lookup("#parMagasin");
         this.parAnnee = (ComboBox<String>) scene.lookup("#parAnnee");
+        this.espaceGraphiques = (VBox) scene.lookup("#espaceGraphiques");
 
         ObservableList<String> lstTypeStat = FXCollections.observableArrayList("Chiffre d'affaire", "Livre les plus vendus", "Comparer ventes en ligne et ventes en magasin", "Valeur du stock par magasin");
         this.typeStat.setItems(lstTypeStat);
         this.typeStat.setValue(lstTypeStat.get(0));
 
         ObservableList<String> lstFiltres = FXCollections.observableArrayList("Par année", "Par magasin");
-        this.typeStat.setItems(lstFiltres);
-        this.typeStat.setValue(lstFiltres.get(0));
+        this.filtres.setItems(lstFiltres);
 
         List<Magasin> magasins = App.magasinBD.getAllMagasins();
         ObservableList<String> lstParMagasin = FXCollections.observableArrayList();
@@ -93,14 +99,34 @@ public class PageAdminConsulterStat {
 
         Button consulter = (Button) this.scene.lookup("#consulter");
         consulter.setOnAction(e -> this.appuiBouton());
+
+        this.creerGraphiqueChiffreDAffaire();
+    }
+
+    public void creerGraphiqueChiffreDAffaire(){
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Année");
+
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("CA (en euro)");
+
+        // Création du graphique
+        this.graphiqueCA = new BarChart<>(xAxis, yAxis);
+        this.graphiqueCA.setTitle("Chiffre d'affaire par année");
     }
 
     public void setGraphiqueChiffreDAffaire(){
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("");
+        this.espaceGraphiques.getChildren().clear();
+        this.graphiqueCA.getData().clear();
+        // Série de données
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        for (Map.Entry<String,Integer> entree : App.adminBD.chiffreDAffaireTotalParAnsGraphique()){
+            series.getData().add(new XYChart.Data<>(entree.getKey(),entree.getValue()));
+        }
 
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Nb Message");
+        // Ajout de la série au graphique
+        this.graphiqueCA.getData().add(series);
+        this.espaceGraphiques.getChildren().add(this.graphiqueCA);
     }
 
     public void appuiBouton(){
@@ -108,6 +134,7 @@ public class PageAdminConsulterStat {
         switch (stat) {
             case "Chiffre d'affaire":
                 System.out.println(stat);
+                this.setGraphiqueChiffreDAffaire();
                 break;
             case "Livre les plus vendus":
                 System.out.println(stat);

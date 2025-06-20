@@ -1,7 +1,9 @@
 package BD;
 import java.sql.*;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import app.App;
 import modele.Client;
@@ -78,6 +80,27 @@ public class AdminBD {
         }catch(SQLException e){
             System.out.println(e.getMessage());
             return "Pas de chiffre d'affaire";
+        }
+    }
+    /**
+     * Calcul le chiffre d'affaire total par an
+     * @return le chiffre d'affaire total par an
+     */
+    public ArrayList<Map.Entry<String,Integer>> chiffreDAffaireTotalParAnsGraphique(){
+        ArrayList<Map.Entry<String, Integer>> lstResult = new ArrayList<>();
+        String annee;
+        Integer CA;
+        try(PreparedStatement ps = laConnexion.prepareStatement("SELECT YEAR(datecom) annee, SUM(qte * prixvente) CA FROM DETAILCOMMANDE natural join COMMANDE GROUP BY annee ORDER BY annee;")){
+            ResultSet result = ps.executeQuery();
+            while(result.next()){
+                annee = "" + result.getInt(1);
+                CA = result.getInt(2);
+                lstResult.add(new AbstractMap.SimpleEntry<>(annee, CA));
+            }
+            return lstResult;
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 
