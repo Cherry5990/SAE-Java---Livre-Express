@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import BD.VendeurBD;
@@ -21,6 +22,9 @@ public class PageAdminAjouterVendeur {
     private TextField tfPrenom;
     private TextField tfNom;
     private TextField tfMagasin;
+    private TextField nomcompte;
+    private PasswordField mdp;
+    private PasswordField mdpC;
 
     public PageAdminAjouterVendeur(App app){
         try {
@@ -33,6 +37,9 @@ public class PageAdminAjouterVendeur {
         this.tfPrenom = (TextField) scene.lookup("#entrerPrenomVendeur");
         this.tfNom = (TextField) scene.lookup("#entrerNomVendeur");
         this.tfMagasin = (TextField) scene.lookup("#entrerIdMagasin");
+        this.nomcompte = (TextField)scene.lookup("#nomcompte");
+        this.mdp = (PasswordField)scene.lookup("#mdp");
+        this.mdpC = (PasswordField)scene.lookup("#mdpconfirmation");
 
         Button ajouter = (Button) scene.lookup("#ajouter");
         ajouter.setOnAction(e -> this.ajouterVendeur());
@@ -77,11 +84,19 @@ public class PageAdminAjouterVendeur {
             String prenom = this.tfPrenom.getText();
             String nom = this.tfNom.getText();
             Integer idMagasin = Integer.parseInt(this.tfMagasin.getText());
-            if (!App.vendeurBD.vendeurPresent(nom, prenom, idMagasin)){
-                this.popUpVendeurNonPresent();
-            } else {
-                App.vendeurBD.deleteVendeur(nom, prenom, idMagasin);
-                this.popUpVendeurRetire();
+            String nomcompte = this.nomcompte.getText();
+            String mdp = this.mdp.getText();
+            String mdpC = this.mdpC.getText();
+            if(mdp.equals(mdpC)){
+                if (!App.vendeurBD.vendeurPresent(nom, prenom,nomcompte,mdp,idMagasin)){
+                    this.popUpVendeurNonPresent();
+                } else {
+                    App.vendeurBD.deleteVendeur(nom, prenom, idMagasin);
+                    this.popUpVendeurRetire();
+                }
+            }
+            else{
+                alertMDP();
             }
         } catch (SQLException e){
             System.err.println("Erreur dans PageAdminAjouterVendeur.retirerVendeur() " + e.getMessage());
@@ -95,11 +110,19 @@ public class PageAdminAjouterVendeur {
             String prenom = this.tfPrenom.getText();
             String nom = this.tfNom.getText();
             Integer idMagasin = Integer.parseInt(this.tfMagasin.getText());
-            if (App.vendeurBD.vendeurPresent(nom, prenom, idMagasin)){
+            String nomcompte = this.nomcompte.getText();
+            String mdp = this.mdp.getText();
+            String mdpC = this.mdpC.getText();
+            if (App.vendeurBD.vendeurPresent(nom, prenom,nomcompte,mdpC, idMagasin)){
                 this.popUpVendeurDejaPresent();
             } else {
-                App.vendeurBD.insererVendeur(prenom, nom, idMagasin);
+                if(mdp.equals(mdpC)){
+                    App.vendeurBD.insererVendeur(prenom, nom, idMagasin,nomcompte,mdp);
                 this.popUpVendeurAjoute();
+                }
+                else{
+                    this.alertMDP();
+                }
             }
         } catch (SQLException e){
             System.err.println("Erreur dans PageAdminAjouterVendeur.ajouterVendeur() " + e.getMessage());
@@ -112,12 +135,22 @@ public class PageAdminAjouterVendeur {
         this.tfPrenom.setText("");
         this.tfNom.setText("");
         this.tfMagasin.setText("");
+        this.nomcompte.setText("");
+        this.mdp.setText("");
+        this.mdpC.setText("");
     }
 
     public void popUpVendeurDejaPresent(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION,"Erreur : ce vendeur est déjà dans la base", ButtonType.OK);
         alert.setTitle("Vendeur déjà présent");
         alert.setHeaderText("Vendeur déjà présent");
+        alert.showAndWait();
+    }
+
+    public void alertMDP(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Erreur : ce vendeur est déjà dans la base", ButtonType.OK);
+        alert.setTitle("Erreur création");
+        alert.setHeaderText("Le mot de passe doit être identique");
         alert.showAndWait();
     }
 

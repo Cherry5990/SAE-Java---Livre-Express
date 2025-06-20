@@ -45,10 +45,8 @@ public class PageConsultationCommande {
             List<DetailCommande> dcs = App.commandeBD.getDetailCommande(App.commande.getNumCom());
             GridPane tableau = (GridPane) scene.lookup("#tab");
             double somme = 0;
-            System.out.println("test");
             for(DetailCommande dc:dcs){
                 int ligne = dc.getNumlig();
-                System.out.println(ligne);
                 Label numLigne = new Label(dc.getNumlig()+"");
                 Label titre = new Label(dc.getLivre().getTitre());
                 Label qte = new Label(dc.getQte()+"");

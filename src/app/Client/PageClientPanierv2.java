@@ -1,4 +1,4 @@
-package app.Vendeur;
+package app.Client;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
@@ -24,20 +25,20 @@ import javafx.scene.layout.VBox;
 import modele.Client;
 import modele.DetailCommande;
 import modele.Livre;
+import javafx.scene.control.ToggleGroup;
 
-public class PageVendeurCommande {
+public class PageClientPanierv2 {
     private Scene scene;
     private List<DetailCommande> dcs;
     private VBox ligne;
-    private Spinner<Integer> spinner;
-    private Button ajouter;
-    private TextField textLivre;
     private Button valider;
     private Label nbArticle;
     private Label prixTotal;
+    private RadioButton livraison;
+    private RadioButton magasin;
 
-    public PageVendeurCommande(App app)throws IOException{
-        Pane root = FXMLLoader.load(getClass().getResource("../view/Vendeur/PageVendeurCommande.fxml"));
+    public PageClientPanierv2(App app)throws IOException{
+        Pane root = FXMLLoader.load(getClass().getResource("../view/Client/PageClientPanierv2.fxml"));
         this.scene = new Scene(root);
         this.dcs = App.commande.getDetailCommandes();
         ScrollPane scroll = (ScrollPane)scene.lookup("#scroll");
@@ -47,96 +48,45 @@ public class PageVendeurCommande {
         this.prixTotal = (Label)scene.lookup("#total");
         this.prixTotal.setText("0€");
         this.ligne = (VBox)scroll.getContent();
+        this.valider = (Button)scene.lookup("#valider");
+        this.valider.setDisable(true);
         for(DetailCommande dc:dcs){
             ligne.getChildren().add(new DetailCommandeDisplay(this,dc));
         }
-        this.valider = (Button)scene.lookup("#valider");
-        this.valider.setDisable(true);
-        this.textLivre = (TextField)scene.lookup("#livre");
-        ComboBox<String> comboLivre = (ComboBox<String>)scene.lookup("#comboLivre");
-        this.spinner = (Spinner<Integer>)scene.lookup("#qte");
-        spinner.setDisable(true);
-        this.ajouter =(Button)scene.lookup("#ajouter");
-        Button retour = (Button)scene.lookup("#retour");
-        retour.setOnAction(e -> {
-            for(DetailCommande dc:dcs){
-                App.magasinBD.ajouteQteLivre(dc.getLivre().getIsbn(), App.magasin.getIdMagasin(), dc.getQte());
-            }
-            try {
-                app.scenePageVendeurChoixClient();
-            } catch (IOException e1) {
-                System.out.println(e1.getMessage());
+        this.livraison = (RadioButton)scene.lookup("#livraison");
+        this.livraison.setOnAction(e -> {
+            if(this.dcs.size()!=0){
+                this.valider.setDisable(false);
             }
         });
-        ajouter.setDisable(true);
-        ajouter.setOnAction(e -> {
-            if (App.livre != null) {
-                App.magasinBD.enleveQteLivre(App.livre.getIsbn(), App.magasin.getIdMagasin(), spinner.getValue());
-                App.commande.ajouteLivre(App.livre, spinner.getValue());
-                maj();
-                reset();
-            } else {
-                System.out.println("Error: No book selected");
+        this.magasin = (RadioButton)scene.lookup("#magasin");
+        this.magasin.setOnAction(e -> {
+            if(this.dcs.size()!=0){
+                this.valider.setDisable(false);
+            }
+        });
+        ToggleGroup group = new ToggleGroup();
+        this.livraison.setToggleGroup(group);
+        this.magasin.setToggleGroup(group);
+        Button retour = (Button)scene.lookup("#retour");
+        retour.setOnAction(e -> {
+            try {
+                app.sceneMagasin();
+            } catch (IOException e1) {
+                System.out.println(e1.getMessage());
             }
         });
 
         valider.setOnAction(e -> {
             try {
+                App.commande.setEnLigne(this.livraison.isSelected());
                 App.commandeBD.insererCommande(App.commande);
                 //faire alert
-                app.scenePageVendeurChoixClient();
+                app.sceneClient();
             } catch (SQLException e1) {
                 System.out.println(e1.getMessage());
             } catch (IOException e2) {
                 System.out.println(e2.getMessage());
-            }
-        });
-
-        List<Livre> livresInit = App.magasinBD.rechercheLivre(App.vendeur.getMagasin().getIdMagasin(), "");
-        comboLivre.getItems().clear();
-        for (Livre elt : livresInit) {
-            comboLivre.getItems().add(elt.getTitre());
-        }
-
-        textLivre.textProperty().addListener((obs, oldVal, newVal) -> {
-            List<Livre> livresCommande = new ArrayList<>();
-            for(DetailCommande dc:dcs){
-                livresCommande.add(dc.getLivre());
-            } 
-            List<Livre> livres = App.magasinBD.rechercheLivre(App.vendeur.getMagasin().getIdMagasin(), newVal,livresCommande);
-            comboLivre.getItems().clear();
-            for (Livre livre : livres) {
-                comboLivre.getItems().add(livre.getTitre());
-            }
-            // Montre le menu déroulant
-            if(!this.textLivre.getText().equals("")){
-                comboLivre.show();
-            }
-            else{
-                reset();
-            }
-        });
-
-        comboLivre.setOnAction(e ->{ 
-            try {
-                String selectedTitre = comboLivre.getSelectionModel().getSelectedItem();
-                // Add null check here
-                if (selectedTitre != null && !selectedTitre.isEmpty()) {
-                    System.out.println(selectedTitre);
-                    App.livre = App.livreBD.getLivreParTitre(selectedTitre);
-                    spinner.setValueFactory(new javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory(1, App.magasinBD.getQte(App.livre.getIsbn(),App.magasin.getIdMagasin()), 1));
-                    spinner.setDisable(false);
-                    ajouter.setDisable(false);
-
-                } else {
-                    // Reset the controls if no valid selection
-                    spinner.setDisable(true);
-                    ajouter.setDisable(true);
-                    App.livre = null;
-                }
-            }
-            catch (SQLException ex) {
-                System.out.println(ex.getMessage());
             }
         });
 
@@ -156,24 +106,14 @@ public class PageVendeurCommande {
         return this.scene;
     }
 
-    public void reset(){
-        this.spinner.setDisable(true);
-        this.ajouter.setDisable(true);
-        this.textLivre.setText("");
-    }
-
     public void maj(){
         ligne.getChildren().clear();
         this.dcs = App.commande.getDetailCommandes();
         if(this.dcs.size()==0){
             this.valider.setDisable(true);
         }
-        else{
-            this.valider.setDisable(false);
-        }
         try{
             for(DetailCommande dc:dcs){
-                System.out.println(dc);
                 ligne.getChildren().add(new DetailCommandeDisplay(this,dc));
             }
         this.nbArticle.setText(dcs.size()+" Article(s)");

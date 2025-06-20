@@ -125,7 +125,7 @@ public class CommandeBD {
 
     public List<Commande> CommandeClient(int id) throws SQLException{
         List<Commande> commandes = new ArrayList<>();
-        String sql = "SELECT numcom,datecom,enligne,livraison,idmag from COMMANDE natural join MAGASIN where idcli = ? group by numcom";
+        String sql = "SELECT numcom,datecom,enligne,livraison,idmag from COMMANDE natural join MAGASIN where idcli = ? order by datecom DESC;";
         try (PreparedStatement ps = laConnexion.prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();

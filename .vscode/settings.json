@@ -4,11 +4,10 @@
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/javafx/javafx.base.jar",
-        "lib/javafx/javafx.controls.jar",
-        "lib/javafx/javafx.fxml.jar",
-        "lib/javafx/javafx.graphics.jar",
-        "lib/javafx/javafx.media.jar",
-        "lib/javafx/mariadb-java-client-3.3.3.jar"
+        "/usr/share/openjfx/lib/javafx.base.jar",
+        "/usr/share/openjfx/lib/javafx.controls.jar",
+        "/usr/share/openjfx/lib/javafx.fxml.jar",
+        "/usr/share/openjfx/lib/javafx.graphics.jar",
+        "/usr/share/openjfx/lib/javafx.media.jar"
     ]
 }

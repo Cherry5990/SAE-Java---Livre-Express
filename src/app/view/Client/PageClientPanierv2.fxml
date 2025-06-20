@@ -2,11 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -65,7 +63,7 @@
             </HBox>
          </left>
          <center>
-            <Label prefHeight="80.0" prefWidth="335.0" text="Vendeur" BorderPane.alignment="CENTER">
+            <Label prefHeight="80.0" prefWidth="159.0" text="Client" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Caladea Regular" size="50.0" />
                </font>
@@ -157,18 +155,10 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="284.0" prefWidth="506.0" spacing="20.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 20;">
                            <children>
-                              <TextField fx:id="livre" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="300.0" promptText="Nom livre" style="-fx-background-color: #a6897e; -fx-background-radius: 20;" />
-                              <ComboBox fx:id="comboLivre" prefWidth="300.0" promptText="Livre" style="-fx-background-color: #a6897e; -fx-background-radius: 20;" />
-                              <HBox alignment="CENTER" prefHeight="51.0" prefWidth="506.0" spacing="15.0">
-                                 <children>
-                                    <Spinner fx:id="qte" prefHeight="40.0" prefWidth="100.0" />
-                                    <Button fx:id="ajouter" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #a6897e; -fx-background-radius: 20;" text="Ajouter" textFill="WHITE">
-                                       <font>
-                                          <Font name="Caladea Regular" size="18.0" />
-                                       </font></Button>
-                                 </children>
-                              </HBox>
-                              <Button fx:id="valider" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #7ea693; -fx-background-radius: 20;" text="Valider commande">
+                              <RadioButton fx:id="livraison" mnemonicParsing="false" text="Livrasion" />
+                              <RadioButton fx:id="magasin" layoutX="211.0" layoutY="73.0" mnemonicParsing="false" text="Retrait en magasin" />
+                              <HBox alignment="CENTER" prefHeight="51.0" prefWidth="506.0" spacing="15.0" />
+                              <Button fx:id="valider" mnemonicParsing="false" prefHeight="50.0" prefWidth="190.0" style="-fx-background-color: #7ea693; -fx-background-radius: 20;" text="Valider commande">
                                  <font>
                                     <Font name="Caladea Regular" size="16.0" />
                                  </font></Button>

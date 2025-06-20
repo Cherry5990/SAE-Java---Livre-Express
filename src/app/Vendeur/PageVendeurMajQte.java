@@ -40,7 +40,7 @@ public class PageVendeurMajQte {
                 deconnexion.setScaleX(1.0);
                 deconnexion.setScaleY(1.0);
             });
-        deconnexion.setOnAction(e -> app.sceneAcceuil());
+        deconnexion.setOnAction(e -> app.popUpMessageDeconnexion());
 
         Button retour = (Button) this.scene.lookup("#retour");
         retour.setOnMouseEntered(e -> {

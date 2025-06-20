@@ -58,6 +58,17 @@ public class PageVendeurVoirStocks {
                 System.out.println(e1.getMessage());
             }
         });
+
+        Button deconnexion = (Button) this.scene.lookup("#deconnexion");
+        deconnexion.setOnMouseEntered(e -> {
+                deconnexion.setScaleX(1.1);
+                deconnexion.setScaleY(1.1);
+            });
+            deconnexion.setOnMouseExited(e -> {
+                deconnexion.setScaleX(1.0);
+                deconnexion.setScaleY(1.0);
+            });
+        deconnexion.setOnAction(e -> app.popUpMessageDeconnexion());
     }
 
     public Scene getScene(){

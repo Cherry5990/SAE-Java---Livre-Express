@@ -3,8 +3,9 @@
 MYCNF=".my.cnf"
 PROPERTIES_FILE="config.properties"
 MAIN_CLASS="app.App"
-CREATION="new_creationBD.sql"
-INSERTION="new_insertions.sql"
+CREATION="creationBD.sql"
+INSERTION="insertions.sql"
+JAVAFX="/usr/share/openjfx/lib/"
 # Fonction pour extraire une clé depuis .my.cnf
 get_value() {
     grep -E "^$1=" "$MYCNF" | cut -d'=' -f2
@@ -60,7 +61,7 @@ echo "🛠 Vérification de l'existence du dossier bin..."
 if [ ! -d "bin" ]; then
     echo "🧮 Compilation du projet ..."
     find src -name "*.java" > sources.txt
-    javac -d bin --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml -cp "lib/*:src" @sources.txt
+    javac -d bin --module-path $JAVAFX --add-modules javafx.controls,javafx.fxml -cp "lib/*:src" @sources.txt
     cp -r src/app/view bin/app/view
 else
     echo "✅ Le dossier bin existe déjà."
@@ -75,4 +76,4 @@ fi
 #fi
 
 echo "🚀 Lancement de l'application..."
-java --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml -cp "lib/*:bin" app.App
+java --module-path $JAVAFX --add-modules javafx.controls,javafx.fxml -cp "lib/*:bin" app.App

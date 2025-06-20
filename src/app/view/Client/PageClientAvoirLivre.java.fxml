@@ -16,16 +16,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="1200.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <right>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Livre" BorderPane.alignment="CENTER">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="VoirLivre" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="25.0" right="10.0" />
                </BorderPane.margin>
                <font>
-                  <Font name="Caladea" size="29.0" />
+                  <Font name="C059-Bold" size="30.0" />
                </font>
             </Text>
          </right>
@@ -44,24 +44,12 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="boutonPanier" mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" style="-fx-background-color: transparent;">
-                     <HBox.margin>
-                        <Insets bottom="25.0" />
-                     </HBox.margin>
-                     <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../img/icônes/panier.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                   <Button mnemonicParsing="false" style="-fx-background-color: transparent;">
                      <HBox.margin>
                         <Insets bottom="40.0" />
                      </HBox.margin>
                      <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../img/icônes/deconnexion.png" />
                            </image>
@@ -74,10 +62,10 @@
          <center>
             <Label prefHeight="80.0" prefWidth="200.0" text="Client" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Caladea" size="60.0" />
+                  <Font name="Cantarell Extra Bold" size="60.0" />
                </font>
                <BorderPane.margin>
-                  <Insets bottom="50.0" right="400.0" />
+                  <Insets bottom="33.0" right="280.0" />
                </BorderPane.margin>
             </Label>
          </center>
@@ -132,10 +120,13 @@
                      <center>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_CENTER">
                            <children>
-                              <Label fx:id="titre" alignment="TOP_CENTER" prefHeight="49.0" prefWidth="400.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 20;">
+                              <Label fx:id="titre" alignment="CENTER" prefHeight="49.0" prefWidth="519.0" style="-fx-background-color: #e8e4df; -fx-background-radius: 20;" text="BLABLABLA">
                                  <VBox.margin>
                                     <Insets bottom="15.0" />
                                  </VBox.margin>
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
                               </Label>
                               <GridPane fx:id="tab" alignment="CENTER" gridLinesVisible="true" prefHeight="400.0" prefWidth="975.0" style="-fx-background-color: #e8e4df;">
                                 <columnConstraints>
@@ -151,52 +142,79 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" text="ISBN">
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="193.0" text="ISBN">
                                        <GridPane.margin>
-                                          <Insets left="60.0" />
+                                          <Insets />
                                        </GridPane.margin>
                                        <font>
                                           <Font name="Andika" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label text="Prix" GridPane.rowIndex="1">
+                                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="196.0" text="Prix" GridPane.rowIndex="1">
                                        <GridPane.margin>
-                                          <Insets left="60.0" />
+                                          <Insets />
                                        </GridPane.margin>
                                        <font>
                                           <Font size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label prefHeight="29.0" prefWidth="176.0" text="Nombre de pages" GridPane.rowIndex="2">
+                                    <Label alignment="CENTER" prefHeight="29.0" prefWidth="196.0" text="Nombre de pages" GridPane.rowIndex="2">
                                        <GridPane.margin>
-                                          <Insets left="10.0" />
+                                          <Insets />
                                        </GridPane.margin>
                                        <font>
                                           <Font size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label text="Auteur(s)" GridPane.rowIndex="3">
+                                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="209.0" text="Auteur(s)" GridPane.rowIndex="3">
                                        <GridPane.margin>
-                                          <Insets left="60.0" />
+                                          <Insets />
                                        </GridPane.margin>
                                        <font>
                                           <Font size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label text="Thème(s)" GridPane.rowIndex="4">
+                                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="215.0" text="Thème(s)" GridPane.rowIndex="4">
                                        <GridPane.margin>
-                                          <Insets left="60.0" />
+                                          <Insets />
                                        </GridPane.margin>
                                        <font>
                                           <Font size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label text="Editeur(s)" GridPane.rowIndex="5">
-                                       <padding>
-                                          <Insets left="60.0" />
-                                       </padding>
+                                    <Label alignment="CENTER" prefHeight="41.0" prefWidth="189.0" text="Editeur(s)" GridPane.rowIndex="5">
                                        <font>
                                           <Font name="AccanthisADFStd-Regular" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="isbn" alignment="CENTER" prefHeight="67.0" prefWidth="756.0" text="Label" GridPane.columnIndex="1">
+                                       <font>
+                                          <Font size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="prix" alignment="CENTER" layoutX="199.0" layoutY="10.0" prefHeight="67.0" prefWidth="756.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="nbpage" alignment="CENTER" layoutX="199.0" layoutY="77.0" prefHeight="67.0" prefWidth="756.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="auteur" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="67.0" prefWidth="756.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="theme" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="67.0" prefWidth="756.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                       <font>
+                                          <Font size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="editeur" alignment="CENTER" layoutX="199.0" layoutY="278.0" prefHeight="67.0" prefWidth="756.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                       <font>
+                                          <Font size="30.0" />
                                        </font>
                                     </Label>
                                  </children>

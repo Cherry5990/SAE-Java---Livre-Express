@@ -27,6 +27,7 @@ public class PageConsultationPanier {
     private Label prixTotale;
     private RadioButton livraison;
     private RadioButton magasin;
+    private Button commander;
 
 
     public PageConsultationPanier(App app) throws IOException{
@@ -65,8 +66,14 @@ public class PageConsultationPanier {
             }
         });
         
-        Button commander = (Button)scene.lookup("#commander");
+        this.commander = (Button)scene.lookup("#commander");
         commander.setOnAction(new ControleurCommander(this,app));
+        if(App.commande.getDetailCommandes().size()==0){
+            commander.setDisable(true);
+        }
+        else{
+            commander.setDisable(false);
+        }
 
         this.app=app;
         List<DetailCommande> dcs = App.commande.getDetailCommandes();
@@ -74,7 +81,6 @@ public class PageConsultationPanier {
         double somme = 0;
         for(DetailCommande dc:dcs){
             int ligne = dc.getNumlig();
-            System.out.println(ligne);
             Label numLigne = new Label(dc.getNumlig()+"");
             Label titre = new Label(dc.getLivre().getTitre());
             Label qte = new Label(dc.getQte()+"");
@@ -113,7 +119,6 @@ public class PageConsultationPanier {
         supprimer.setGraphic(suprimmerImage);
         for(DetailCommande dc:dcs){
             int ligne = dc.getNumlig();
-            System.out.println(ligne);
             Label numLigne = new Label(dc.getNumlig()+"");
             Label titre = new Label(dc.getLivre().getTitre());
             Label qte = new Label(dc.getQte()+"");
@@ -131,6 +136,13 @@ public class PageConsultationPanier {
         // Arrondir la somme à 2 chiffres après la virgule
         somme = Math.round(somme);
         prixTotale.setText("Prix totale : "+somme + "€");
+
+        if(App.commande.getDetailCommandes().size()==0){
+            commander.setDisable(true);
+        }
+        else{
+            commander.setDisable(false);
+        }
     }
 
     public Scene getScene(){

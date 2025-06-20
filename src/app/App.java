@@ -9,10 +9,12 @@ import app.Admin.PageAdminAjouterVendeur;
 import app.Admin.PageAdminConsulterStat;
 import app.Client.PageClient;
 import app.Client.PageClientCatalogue;
+import app.Client.PageClientPanierv2;
 import app.Client.PageClientRecommande;
 import app.Client.PageConsultationCommande;
 import app.Client.PageConsultationLivre;
 import app.Client.PageConsultationPanier;
+import app.Menu.PageClientCreerCompte;
 import app.Menu.PageAcceuil;
 import app.Menu.PageConnexion;
 import app.Vendeur.PageVendeurAccueil;
@@ -30,10 +32,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -47,6 +52,7 @@ public class App extends Application{
     public static CommandeBD commandeBD;
     public static LivreBD livreBD;
     public static ReseauBD reseauBD;
+    public static AdminBD adminBD;
     public static Client client;
     public static Commande commande;
     public static Magasin magasin;
@@ -55,7 +61,6 @@ public class App extends Application{
     public static Reseau reseau;
     public static Map<Client,Map<Magasin,Commande>> memoiresCommandesClient;
     public static Map<Client,List<Livre>> recoClient;
-    private ConnexionMySQL con;
 
     @Override
     public void init(){
@@ -72,14 +77,15 @@ public class App extends Application{
             String host = props.getProperty("db.host");
             String database = props.getProperty("db.database");
 
-            this.con = new ConnexionMySQL();
-            this.con.connecter(host, database, user,password);
-            App.clientBD = new ClientBD(this.con);
-            App.vendeurBD = new VendeurBD(this.con);
+            ConnexionMySQL con = new ConnexionMySQL();
+            con.connecter(host, database, user,password);
+            App.clientBD = new ClientBD(con);
+            App.vendeurBD = new VendeurBD(con);
             App.magasinBD = new MagasinBD(con);
             App.commandeBD = new CommandeBD(con);
             App.livreBD = new LivreBD(con);
             App.reseauBD = new ReseauBD(con);
+            App.adminBD = new AdminBD(con);
             App.commande = null;
             App.client = null;
             App.magasin = null;
@@ -93,6 +99,15 @@ public class App extends Application{
             System.out.println("Problème de connexion à la BD : "+e.getMessage());
         }
 
+    }
+    public void popUpMessageDeconnexion(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"",ButtonType.YES, ButtonType.NO);
+        alert.setHeaderText("Déconnextion"); 
+        alert.setContentText("êtes vous sur de vous déconnecter?"); 
+        Optional<ButtonType> reponse = alert.showAndWait();
+            if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){
+                    sceneAcceuil();
+        } 
     }
 
     @Override
@@ -115,6 +130,11 @@ public class App extends Application{
 
     public void sceneClient()throws IOException{
         PageClient page = new PageClient(this);
+        primaryStage.setScene(page.getScene());
+    }
+
+    public void sceneCreation()throws IOException{
+        PageClientCreerCompte page = new PageClientCreerCompte(this);
         primaryStage.setScene(page.getScene());
     }
 
@@ -205,7 +225,7 @@ public class App extends Application{
     }
 
     public void sceneConsultationPanier()throws IOException{
-        PageConsultationPanier page = new PageConsultationPanier(this);
+        PageClientPanierv2 page = new PageClientPanierv2(this);
         primaryStage.setScene(page.getScene());
     }
 

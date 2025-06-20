@@ -37,19 +37,19 @@ public class PageClientRecommande {
             tab.add(label, 1, row);
         }
         tab.getChildren().removeIf(node -> node instanceof Label && ((Label) node).getText().isEmpty());
-        Label l1 =new Label(App.livre.getIsbn());
-        Label l2 =new Label(App.livre.getPrix()+"");
-        Label l3 =new Label(App.livre.getNbPages()+"");
+        Label l1=(Label)scene.lookup("#isbn");
+        l1.setText(App.livre.getIsbn());
+        Label l2=(Label)scene.lookup("#prix");
+        l2.setText(App.livre.getPrix()+"€");
+        Label l3=(Label)scene.lookup("#nbpage");
+        l3.setText(App.livre.getNbPages()+"");
         try{
-            Label l4 =new Label(App.livreBD.getAuteur(App.livre.getIsbn()));
-            Label l5 =new Label(App.livreBD.getTheme(App.livre.getIsbn()));
-            Label l6 = new Label(App.livreBD.getEditeur(App.livre.getIsbn()));
-            tab.add(l1, 1, 0);
-            tab.add(l2, 1, 1);
-            tab.add(l3, 1, 2);
-            tab.add(l4, 1, 3);
-            tab.add(l5, 1, 4);
-            tab.add(l6, 1, 5);
+            Label l4=(Label)scene.lookup("#auteur");
+            l4.setText(App.livreBD.getAuteur(App.livre.getIsbn()));
+            Label l5=(Label)scene.lookup("#theme");
+            l5.setText(App.livreBD.getTheme(App.livre.getIsbn()));
+            Label l6=(Label)scene.lookup("#editeur");
+            l6.setText(App.livreBD.getEditeur(App.livre.getIsbn()));
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
