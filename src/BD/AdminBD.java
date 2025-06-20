@@ -456,5 +456,38 @@ public class AdminBD {
             return null;
         }
     }
+    
+    /**
+     * Affiche les ventes en ligne contre les ventes en magasin par magasin pour une année donnée
+     * @param annee l'année pour laquelle on veut les ventes
+     * @return une chaîne de caractères contenant les ventes en ligne contre en magasin par magasin pour l'année donnée
+     */
+    public ArrayList<Map.Entry<String,Integer>> ventesLigneContreMagasinParMagasinParAnsGraphique(Integer annee){
+        ArrayList<Map.Entry<String, Integer>> lstResult = new ArrayList<>();
+        String modeachat = "";
+        Integer CA;
+        try(PreparedStatement ps = laConnexion.prepareStatement("SELECT enligne, SUM(qte * prixvente) CA FROM DETAILCOMMANDE NATURAL JOIN COMMANDE NATURAL JOIN MAGASIN WHERE YEAR(datecom) = ? GROUP BY enligne")){
+            ps.setInt(1, annee); 
+            ResultSet result = ps.executeQuery();
+            while(result.next()){
+                CA = result.getInt(2);
+                switch (result.getString(1)) {
+                    case "O":
+                        modeachat = "En ligne (" + CA + " € de CA)";
+                        break;
+                    case "N":
+                        modeachat = "En magasin (" + CA + " € de CA)";
+                        break;
+                    default:
+                        break;
+                }
+                lstResult.add(new AbstractMap.SimpleEntry<>(modeachat, CA));
+            }
+            return lstResult;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }
 

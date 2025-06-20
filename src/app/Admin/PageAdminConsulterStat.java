@@ -34,7 +34,7 @@ public class PageAdminConsulterStat {
 
     private BarChart<String, Number> graphiqueCA;
     private BarChart<String, Number> graphiqueVenteLivres;
-    private PieChart graphiqueVentesLigne;
+    private PieChart graphiqueVentesLigneMagasin;
 
     public PageAdminConsulterStat(App app){
         try {
@@ -108,6 +108,7 @@ public class PageAdminConsulterStat {
 
         this.creerGraphiqueChiffreDAffaire();
         this.creerGraphiqueVenteLivres();
+        this.creerGraphiqueVenteLigneMagasin();
     }
 
     // ------------------- Graphique pour CA -------------------
@@ -175,6 +176,33 @@ public class PageAdminConsulterStat {
         this.espaceGraphiques.getChildren().add(this.graphiqueVenteLivres);
     }
 
+    // ------------------- Graphique pour ventes en ligne vs en magasin -------------------
+
+    public void creerGraphiqueVenteLigneMagasin(){
+        this.graphiqueVentesLigneMagasin = new PieChart();
+        this.graphiqueVentesLigneMagasin.setTitle("CA ventes en ligne et en magasin");
+    }
+
+    public void setGraphiqueVenteLigneMagasin(){
+        this.espaceGraphiques.getChildren().clear();
+        this.graphiqueVentesLigneMagasin.getData().clear();
+
+        try{
+            Integer annee = Integer.parseInt(this.parAnnee.getValue());
+            this.graphiqueVentesLigneMagasin.setTitle("CA ventes en ligne et en magasin " + annee);
+
+            // Série de données
+            for (Map.Entry<String,Integer> entree : App.adminBD.ventesLigneContreMagasinParMagasinParAnsGraphique(annee)){
+                this.graphiqueVentesLigneMagasin.getData().add(new PieChart.Data(entree.getKey(),entree.getValue()));
+            }
+        } catch (NumberFormatException e){
+            System.out.println("Toutes les années choisies");
+        }
+
+        // Ajout de la série au graphique
+        this.espaceGraphiques.getChildren().add(this.graphiqueVentesLigneMagasin);
+    }
+
     public void appuiBouton(){
         String stat = this.typeStat.getValue();
         switch (stat) {
@@ -188,6 +216,7 @@ public class PageAdminConsulterStat {
                 break;
             case "Comparer ventes en ligne et ventes en magasin":
                 System.out.println(stat);
+                this.setGraphiqueVenteLigneMagasin();
                 break;
             case "Valeur du stock par magasin":
                 System.out.println(stat);
