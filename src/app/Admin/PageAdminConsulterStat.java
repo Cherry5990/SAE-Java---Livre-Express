@@ -32,7 +32,8 @@ public class PageAdminConsulterStat {
     private ComboBox<String> parAnnee;
     private VBox espaceGraphiques;
 
-    private BarChart<String, Number> graphiqueCA;
+    private BarChart<String, Number> graphiqueCAAnnee;
+    private BarChart<String, Number> graphiqueCAMagasin;
     private BarChart<String, Number> graphiqueVenteLivres;
     private PieChart graphiqueVentesLigneMagasin;
     private BarChart<String, Number> graphiqueStock;
@@ -107,7 +108,8 @@ public class PageAdminConsulterStat {
         Button consulter = (Button) this.scene.lookup("#consulter");
         consulter.setOnAction(e -> this.appuiBouton());
 
-        this.creerGraphiqueChiffreDAffaire();
+        this.creerGraphiqueChiffreDAffaireAnnee();
+        this.creerGraphiqueChiffreDAffaireMagasin();
         this.creerGraphiqueVenteLivres();
         this.creerGraphiqueVenteLigneMagasin();
         this.creerGraphiqueStock();
@@ -115,7 +117,7 @@ public class PageAdminConsulterStat {
 
     // ------------------- Graphique pour CA -------------------
 
-    public void creerGraphiqueChiffreDAffaire(){
+    public void creerGraphiqueChiffreDAffaireAnnee(){
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Année");
 
@@ -123,22 +125,50 @@ public class PageAdminConsulterStat {
         yAxis.setLabel("CA (en €)");
 
         // Création du graphique
-        this.graphiqueCA = new BarChart<>(xAxis, yAxis);
-        this.graphiqueCA.setTitle("Chiffre d'affaire par année");
+        this.graphiqueCAAnnee = new BarChart<>(xAxis, yAxis);
+        this.graphiqueCAAnnee.setTitle("Chiffre d'affaire par année");
+    }
+
+    public void creerGraphiqueChiffreDAffaireMagasin(){
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Magasin");
+
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("CA (en €)");
+
+        // Création du graphique
+        this.graphiqueCAMagasin = new BarChart<>(xAxis, yAxis);
+        this.graphiqueCAMagasin.setTitle("Chiffre d'affaire par magasin");
     }
 
     public void setGraphiqueChiffreDAffaire(){
         this.espaceGraphiques.getChildren().clear();
-        this.graphiqueCA.getData().clear();
+        this.graphiqueCAMagasin.getData().clear();
+        this.graphiqueCAAnnee.getData().clear();
+
+        String filtre = this.filtres.getValue();
         // Série de données
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        for (Map.Entry<String,Integer> entree : App.adminBD.chiffreDAffaireTotalParAnsGraphique()){
-            series.getData().add(new XYChart.Data<>(entree.getKey(),entree.getValue()));
-        }
 
-        // Ajout de la série au graphique
-        this.graphiqueCA.getData().add(series);
-        this.espaceGraphiques.getChildren().add(this.graphiqueCA);
+        switch (filtre) {
+            case "Par année":
+                for (Map.Entry<String,Integer> entree : App.adminBD.chiffreDAffaireTotalParAnsGraphique()){
+                    series.getData().add(new XYChart.Data<>(entree.getKey(),entree.getValue()));
+                }
+                this.graphiqueCAAnnee.getData().add(series);
+                this.espaceGraphiques.getChildren().add(this.graphiqueCAAnnee);
+                break;
+            case "Par magasin":
+                for (Map.Entry<String,Integer> entree : App.adminBD.chiffreDAffaireTotalParMagasinGraphique()){
+                    series.getData().add(new XYChart.Data<>(entree.getKey(),entree.getValue()));
+                }
+                this.graphiqueCAMagasin.getData().add(series);
+                this.espaceGraphiques.getChildren().add(this.graphiqueCAMagasin);
+                break;
+        
+            default:
+                break;
+        }
     }
 
     // ------------------- Graphique pour livres les plus vendus -------------------

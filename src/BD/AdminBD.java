@@ -426,6 +426,28 @@ public class AdminBD {
             return null;
         }
     }
+    
+    /**
+     * Calcul le chiffre d'affaire total par an
+     * @return le chiffre d'affaire total par an
+     */
+    public ArrayList<Map.Entry<String,Integer>> chiffreDAffaireTotalParMagasinGraphique(){
+        ArrayList<Map.Entry<String, Integer>> lstResult = new ArrayList<>();
+        String magasin;
+        Integer CA;
+        try(PreparedStatement ps = laConnexion.prepareStatement("SELECT nommag, SUM(qte * prixvente) CA FROM DETAILCOMMANDE natural join COMMANDE natural join MAGASIN GROUP BY nommag ORDER BY nommag")){
+            ResultSet result = ps.executeQuery();
+            while(result.next()){
+                magasin = result.getString(1);
+                CA = result.getInt(2);
+                lstResult.add(new AbstractMap.SimpleEntry<>(magasin, CA));
+            }
+            return lstResult;
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 
     /**
      * Affiche les 10 livres les plus vendus pour une année donnée
