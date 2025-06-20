@@ -35,6 +35,7 @@ public class PageAdminConsulterStat {
     private BarChart<String, Number> graphiqueCA;
     private BarChart<String, Number> graphiqueVenteLivres;
     private PieChart graphiqueVentesLigneMagasin;
+    private BarChart<String, Number> graphiqueStock;
 
     public PageAdminConsulterStat(App app){
         try {
@@ -109,6 +110,7 @@ public class PageAdminConsulterStat {
         this.creerGraphiqueChiffreDAffaire();
         this.creerGraphiqueVenteLivres();
         this.creerGraphiqueVenteLigneMagasin();
+        this.creerGraphiqueStock();
     }
 
     // ------------------- Graphique pour CA -------------------
@@ -118,7 +120,7 @@ public class PageAdminConsulterStat {
         xAxis.setLabel("Année");
 
         NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("CA (en euro)");
+        yAxis.setLabel("CA (en €)");
 
         // Création du graphique
         this.graphiqueCA = new BarChart<>(xAxis, yAxis);
@@ -199,8 +201,35 @@ public class PageAdminConsulterStat {
             System.out.println("Toutes les années choisies");
         }
 
-        // Ajout de la série au graphique
         this.espaceGraphiques.getChildren().add(this.graphiqueVentesLigneMagasin);
+    }
+
+    // ------------------- Graphique pour valeur du stock -------------------
+
+    public void creerGraphiqueStock(){
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Librairie");
+
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Valeur du stock (en €)");
+
+        // Création du graphique
+        this.graphiqueStock = new BarChart<>(xAxis, yAxis);
+        this.graphiqueStock.setTitle("Valeur du stock par magasin");
+    }
+
+    public void setGraphiqueStock(){
+        this.espaceGraphiques.getChildren().clear();
+        this.graphiqueStock.getData().clear();
+        // Série de données
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        for (Map.Entry<String,Integer> entree : App.adminBD.valeurStockParMagasinGraphique()){
+            series.getData().add(new XYChart.Data<>(entree.getKey(),entree.getValue()));
+        }
+
+        // Ajout de la série au graphique
+        this.graphiqueStock.getData().add(series);
+        this.espaceGraphiques.getChildren().add(this.graphiqueStock);
     }
 
     public void appuiBouton(){
@@ -220,6 +249,7 @@ public class PageAdminConsulterStat {
                 break;
             case "Valeur du stock par magasin":
                 System.out.println(stat);
+                this.setGraphiqueStock();
                 break;
             default:
                 System.err.println("Problème dans la sélection du ComboBox typeStat");

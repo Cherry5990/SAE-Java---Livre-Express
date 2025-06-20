@@ -489,5 +489,27 @@ public class AdminBD {
             return null;
         }
     }
+
+    /**
+     * Calcule la valeur du stock de chaque magasin
+     * @return une chaîne de caractères contenant la valeur du stock par magasin
+     */
+    public ArrayList<Map.Entry<String,Integer>> valeurStockParMagasinGraphique(){
+        ArrayList<Map.Entry<String, Integer>> lstResult = new ArrayList<>();
+        String nommag;
+        Integer valeur;
+        try(PreparedStatement ps = laConnexion.prepareStatement("SELECT nommag, SUM(qte * prix) stock FROM POSSEDER NATURAL JOIN MAGASIN NATURAL JOIN LIVRE GROUP BY nommag ORDER BY nommag")){
+            ResultSet result = ps.executeQuery();
+            while(result.next()){
+                nommag = result.getString(1);
+                valeur = result.getInt(2);
+                lstResult.add(new AbstractMap.SimpleEntry<>(nommag, valeur));
+            }
+            return lstResult;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }
 
