@@ -115,8 +115,12 @@ public class PageClientCatalogue {
     }
 
     public void maj(){
+        List<Livre> livresCommande = new ArrayList<>();
+            for(DetailCommande dc:App.commande.getDetailCommandes()){
+                livresCommande.add(dc.getLivre());
+            }
         int i = position+1;
-        this.livres = App.magasinBD.rechercheLivre(App.magasin.getIdMagasin(),like,position,20);
+        this.livres = App.magasinBD.rechercheLivre(App.magasin.getIdMagasin(),like,position,20,livresCommande);
         this.lignes.getChildren().clear();
         ControleurConsulterLivre controleur = new ControleurConsulterLivre(app);
         for(Livre livreMag:livres){
