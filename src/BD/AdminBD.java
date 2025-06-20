@@ -463,12 +463,42 @@ public class AdminBD {
             ResultSet result = ps.executeQuery();
             while(result.next()){
                 String titre = result.getString(2);
-                if (titre.length() > 21){
-                    livre = /*result.getString(1) + " - " + */titre.substring(0, 20);
+                if (titre.length() > 16){
+                    livre = /*result.getString(1) + " - " + */titre.substring(0, 15);
                 } else {
                     livre = /*result.getString(1) + " - " +*/ titre;
                 }
                 qte = result.getInt(3);
+                lstResult.add(new AbstractMap.SimpleEntry<>(livre, qte));
+            }
+            return lstResult;
+
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Affiche les 10 livres les plus vendus pour une année donnée
+     * @param annee 
+     * @return une chaîne de caractères contenant les 10 livres les plus vendus pour l'année donnée
+     */
+    public ArrayList<Map.Entry<String,Integer>> livresLesPlusVendusTotalParMagasinGraphique(String magasin){
+        ArrayList<Map.Entry<String, Integer>> lstResult = new ArrayList<>();
+        String livre;
+        Integer qte;
+        try(PreparedStatement ps = laConnexion.prepareStatement("SELECT titre, SUM(qte) qte FROM LIVRE NATURAL JOIN DETAILCOMMANDE NATURAL JOIN COMMANDE natural join MAGASIN WHERE nommag = ? GROUP BY titre ORDER BY qte DESC LIMIT 10;")){
+            ps.setString(1, magasin);
+            ResultSet result = ps.executeQuery();
+            while(result.next()){
+                String titre = result.getString(1);
+                if (titre.length() > 16){
+                    livre = /*result.getString(1) + " - " + */titre.substring(0, 15);
+                } else {
+                    livre = /*result.getString(1) + " - " +*/ titre;
+                }
+                qte = result.getInt(2);
                 lstResult.add(new AbstractMap.SimpleEntry<>(livre, qte));
             }
             return lstResult;
@@ -490,6 +520,39 @@ public class AdminBD {
         Integer CA;
         try(PreparedStatement ps = laConnexion.prepareStatement("SELECT enligne, SUM(qte * prixvente) CA FROM DETAILCOMMANDE NATURAL JOIN COMMANDE NATURAL JOIN MAGASIN WHERE YEAR(datecom) = ? GROUP BY enligne")){
             ps.setInt(1, annee); 
+            ResultSet result = ps.executeQuery();
+            while(result.next()){
+                CA = result.getInt(2);
+                switch (result.getString(1)) {
+                    case "O":
+                        modeachat = "En ligne (" + CA + " € de CA)";
+                        break;
+                    case "N":
+                        modeachat = "En magasin (" + CA + " € de CA)";
+                        break;
+                    default:
+                        break;
+                }
+                lstResult.add(new AbstractMap.SimpleEntry<>(modeachat, CA));
+            }
+            return lstResult;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    
+    /**
+     * Affiche les ventes en ligne contre les ventes en magasin par magasin pour une année donnée
+     * @param annee l'année pour laquelle on veut les ventes
+     * @return une chaîne de caractères contenant les ventes en ligne contre en magasin par magasin pour l'année donnée
+     */
+    public ArrayList<Map.Entry<String,Integer>> ventesLigneContreMagasinParMagasinParMagasinGraphique(String magasin){
+        ArrayList<Map.Entry<String, Integer>> lstResult = new ArrayList<>();
+        String modeachat = "";
+        Integer CA;
+        try(PreparedStatement ps = laConnexion.prepareStatement("SELECT enligne, SUM(qte * prixvente) CA FROM DETAILCOMMANDE NATURAL JOIN COMMANDE NATURAL JOIN MAGASIN WHERE nommag = ? GROUP BY enligne")){
+            ps.setString(1, magasin); 
             ResultSet result = ps.executeQuery();
             while(result.next()){
                 CA = result.getInt(2);

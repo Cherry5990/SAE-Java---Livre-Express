@@ -34,8 +34,10 @@ public class PageAdminConsulterStat {
 
     private BarChart<String, Number> graphiqueCAAnnee;
     private BarChart<String, Number> graphiqueCAMagasin;
-    private BarChart<String, Number> graphiqueVenteLivres;
-    private PieChart graphiqueVentesLigneMagasin;
+    private BarChart<String, Number> graphiqueVenteLivresAnnee;
+    private BarChart<String, Number> graphiqueVenteLivresMagasin;
+    private PieChart graphiqueVentesLigneMagasinAnnee;
+    private PieChart graphiqueVentesLigneMagasinMagasin;
     private BarChart<String, Number> graphiqueStock;
 
     public PageAdminConsulterStat(App app){
@@ -58,6 +60,7 @@ public class PageAdminConsulterStat {
 
         ObservableList<String> lstFiltres = FXCollections.observableArrayList("Par année", "Par magasin");
         this.filtres.setItems(lstFiltres);
+        this.filtres.setValue(lstFiltres.get(0));
 
         List<Magasin> magasins = App.magasinBD.getAllMagasins();
         ObservableList<String> lstParMagasin = FXCollections.observableArrayList();
@@ -110,9 +113,13 @@ public class PageAdminConsulterStat {
 
         this.creerGraphiqueChiffreDAffaireAnnee();
         this.creerGraphiqueChiffreDAffaireMagasin();
-        this.creerGraphiqueVenteLivres();
-        this.creerGraphiqueVenteLigneMagasin();
+        this.creerGraphiqueVenteLivresAnnee();
+        this.creerGraphiqueVenteLivresMagasin();
+        this.creerGraphiqueVenteLigneMagasinAnnee();
+        this.creerGraphiqueVenteLigneMagasinMagasin();
         this.creerGraphiqueStock();
+
+        this.setGraphiqueChiffreDAffaire();
     }
 
     // ------------------- Graphique pour CA -------------------
@@ -173,65 +180,137 @@ public class PageAdminConsulterStat {
 
     // ------------------- Graphique pour livres les plus vendus -------------------
 
-    public void creerGraphiqueVenteLivres(){
+    public void creerGraphiqueVenteLivresAnnee(){
         CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Titre et ISBN du livre");
+        xAxis.setLabel("Titre du livre");
 
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Quantité vendue");
 
         // Création du graphique
-        this.graphiqueVenteLivres = new BarChart<>(xAxis, yAxis);
-        this.graphiqueVenteLivres.setTitle("Les 10 livres les plus vendus pour l'année...");
+        this.graphiqueVenteLivresAnnee = new BarChart<>(xAxis, yAxis);
+        this.graphiqueVenteLivresAnnee.setTitle("Les 10 livres les plus vendus pour l'année...");
+    }
+
+    public void creerGraphiqueVenteLivresMagasin(){
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Titre du livre");
+
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Quantité vendue");
+
+        // Création du graphique
+        this.graphiqueVenteLivresMagasin = new BarChart<>(xAxis, yAxis);
+        this.graphiqueVenteLivresMagasin.setTitle("Les 10 livres les plus vendus pour le magasin...");
     }
 
     public void setGraphiqueVenteLivres(){
         this.espaceGraphiques.getChildren().clear();
-        this.graphiqueVenteLivres.getData().clear();
+        this.graphiqueVenteLivresAnnee.getData().clear();
+        this.graphiqueVenteLivresMagasin.getData().clear();
 
+        String filtre = this.filtres.getValue();
+        // Série de données
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
-        try{
-            Integer annee = Integer.parseInt(this.parAnnee.getValue());
-            this.graphiqueVenteLivres.setTitle("Les 10 livres les plus vendus pour l'année " + annee);
+        switch (filtre) {
+            case "Par année":
+                try{
+                    Integer annee = Integer.parseInt(this.parAnnee.getValue());
+                    this.graphiqueVenteLivresAnnee.setTitle("Les 10 livres les plus vendus pour l'année " + annee);
 
-            // Série de données
-            for (Map.Entry<String,Integer> entree : App.adminBD.livresLesPlusVendusTotalParAnsGraphique(annee)){
-                series.getData().add(new XYChart.Data<>(entree.getKey(),entree.getValue()));
-            }
-        } catch (NumberFormatException e){
-            System.out.println("Toutes les années choisies");
+                    // Série de données
+                    for (Map.Entry<String,Integer> entree : App.adminBD.livresLesPlusVendusTotalParAnsGraphique(annee)){
+                        series.getData().add(new XYChart.Data<>(entree.getKey(),entree.getValue()));
+                    }
+                } catch (NumberFormatException e){
+                    System.out.println("Toutes les années choisies");
+                }
+
+                // Ajout de la série au graphique
+                this.graphiqueVenteLivresAnnee.getData().add(series);
+                this.espaceGraphiques.getChildren().add(this.graphiqueVenteLivresAnnee);
+                break;
+
+            case "Par magasin":
+                String magasinChoisi = this.parMagasin.getValue();
+                if (magasinChoisi != "Sur tous les magasins"){
+                    this.graphiqueVenteLivresMagasin.setTitle("Les 10 livres les plus vendus pour le magasin " + magasinChoisi);
+
+                    // Série de données
+                    for (Map.Entry<String,Integer> entree : App.adminBD.livresLesPlusVendusTotalParMagasinGraphique(magasinChoisi)){
+                        series.getData().add(new XYChart.Data<>(entree.getKey(),entree.getValue()));
+                    }
+                } else {
+                    System.out.println("Tous les magasins choisis");
+                }
+
+                // Ajout de la série au graphique
+                this.graphiqueVenteLivresMagasin.getData().add(series);
+                this.espaceGraphiques.getChildren().add(this.graphiqueVenteLivresMagasin);
+                break;
+
+            default:
+                break;
         }
-
-        // Ajout de la série au graphique
-        this.graphiqueVenteLivres.getData().add(series);
-        this.espaceGraphiques.getChildren().add(this.graphiqueVenteLivres);
     }
 
     // ------------------- Graphique pour ventes en ligne vs en magasin -------------------
 
-    public void creerGraphiqueVenteLigneMagasin(){
-        this.graphiqueVentesLigneMagasin = new PieChart();
-        this.graphiqueVentesLigneMagasin.setTitle("CA ventes en ligne et en magasin");
+    public void creerGraphiqueVenteLigneMagasinAnnee(){
+        this.graphiqueVentesLigneMagasinAnnee = new PieChart();
+        this.graphiqueVentesLigneMagasinAnnee.setTitle("CA ventes en ligne et en magasin");
+    }
+
+    public void creerGraphiqueVenteLigneMagasinMagasin(){
+        this.graphiqueVentesLigneMagasinMagasin = new PieChart();
+        this.graphiqueVentesLigneMagasinMagasin.setTitle("CA ventes en ligne et en magasin");
     }
 
     public void setGraphiqueVenteLigneMagasin(){
         this.espaceGraphiques.getChildren().clear();
-        this.graphiqueVentesLigneMagasin.getData().clear();
+        this.graphiqueVentesLigneMagasinAnnee.getData().clear();
+        this.graphiqueVentesLigneMagasinMagasin.getData().clear();
 
-        try{
-            Integer annee = Integer.parseInt(this.parAnnee.getValue());
-            this.graphiqueVentesLigneMagasin.setTitle("CA ventes en ligne et en magasin " + annee);
+        String filtre = this.filtres.getValue();
 
-            // Série de données
-            for (Map.Entry<String,Integer> entree : App.adminBD.ventesLigneContreMagasinParMagasinParAnsGraphique(annee)){
-                this.graphiqueVentesLigneMagasin.getData().add(new PieChart.Data(entree.getKey(),entree.getValue()));
-            }
-        } catch (NumberFormatException e){
-            System.out.println("Toutes les années choisies");
+        switch (filtre) {
+            case "Par année":
+                try{
+                    Integer annee = Integer.parseInt(this.parAnnee.getValue());
+                    this.graphiqueVentesLigneMagasinAnnee.setTitle("CA ventes en ligne et en magasin " + annee);
+
+                    // Série de données
+                    for (Map.Entry<String,Integer> entree : App.adminBD.ventesLigneContreMagasinParMagasinParAnsGraphique(annee)){
+                        this.graphiqueVentesLigneMagasinAnnee.getData().add(new PieChart.Data(entree.getKey(),entree.getValue()));
+                    }
+                } catch (NumberFormatException e){
+                    System.out.println("Toutes les années choisies");
+                }
+
+                this.espaceGraphiques.getChildren().add(this.graphiqueVentesLigneMagasinAnnee);
+                break;
+
+            case "Par magasin":
+                String magasinChoisi = this.parMagasin.getValue();
+                if (magasinChoisi != "Sur tous les magasins"){
+                    this.graphiqueVentesLigneMagasinMagasin.setTitle("CA ventes en ligne et en magasin pour le magasin " + magasinChoisi);
+                    
+                    // Série de données
+                    for (Map.Entry<String,Integer> entree : App.adminBD.ventesLigneContreMagasinParMagasinParMagasinGraphique(magasinChoisi)){
+                        this.graphiqueVentesLigneMagasinMagasin.getData().add(new PieChart.Data(entree.getKey(),entree.getValue()));
+                    }
+                } else {
+                    System.out.println("Tous les magasins choisis");
+                }
+
+                // Ajout de la série au graphique
+                this.espaceGraphiques.getChildren().add(this.graphiqueVentesLigneMagasinMagasin);
+                break;
+
+            default:
+                break;
         }
-
-        this.espaceGraphiques.getChildren().add(this.graphiqueVentesLigneMagasin);
     }
 
     // ------------------- Graphique pour valeur du stock -------------------
