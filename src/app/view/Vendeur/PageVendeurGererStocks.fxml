@@ -17,7 +17,7 @@
          <right>
             <Label prefHeight="52.0" prefWidth="231.0" text="Gérer les stocks" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Caladea" size="30.0" />
+                  <Font name="Caladea Regular" size="35.0" />
                </font>
                <BorderPane.margin>
                   <Insets bottom="25.0" right="10.0" />
@@ -60,7 +60,7 @@
          <center>
             <Label text="Vendeur" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Caladea" size="50.0" />
+                  <Font name="Caladea Regular" size="50.0" />
                </font>
                <BorderPane.margin>
                   <Insets bottom="25.0" />

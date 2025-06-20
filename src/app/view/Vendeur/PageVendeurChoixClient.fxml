@@ -17,7 +17,7 @@
    <top>
       <BorderPane prefHeight="150.0" prefWidth="1200.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <right>
-            <Label prefHeight="66.0" prefWidth="155.0" text="Connexion" BorderPane.alignment="CENTER">
+            <Label prefHeight="66.0" prefWidth="155.0" text="Choix client" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Caladea Regular" size="30.0" />
                </font>
@@ -59,7 +59,7 @@
             </HBox>
          </left>
          <center>
-            <Label prefHeight="80.0" prefWidth="376.0" text="Menu Principal" BorderPane.alignment="CENTER">
+            <Label prefHeight="80.0" prefWidth="224.0" text="Vendeur" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Caladea Regular" size="50.0" />
                </font>

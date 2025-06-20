@@ -47,6 +47,16 @@ public class PageClientCatalogue {
             this.lignes.getChildren().add(new LivreDisplayLigne(controleur, livreMag,i));
             i++;
         }
+        Button deconnexion = (Button) this.scene.lookup("#deconnexion");
+        deconnexion.setOnMouseEntered(e -> {
+                deconnexion.setScaleX(1.1);
+                deconnexion.setScaleY(1.1);
+            });
+            deconnexion.setOnMouseExited(e -> {
+                deconnexion.setScaleX(1.0);
+                deconnexion.setScaleY(1.0);
+            });
+        deconnexion.setOnAction(e -> app.popUpMessageDeconnexion());
 
         TextField recherche = (TextField)scene.lookup("#recherche");
         recherche.textProperty().addListener((observable, oldValue, newValue) -> {

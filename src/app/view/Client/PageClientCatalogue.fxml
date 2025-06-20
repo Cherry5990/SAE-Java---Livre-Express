@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="885.0" prefWidth="1209.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <BorderPane prefHeight="70.0" prefWidth="1209.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="150.0" prefWidth="1200.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <right>
             <Label prefHeight="66.0" prefWidth="155.0" text="Connexion" BorderPane.alignment="CENTER">
                <font>
@@ -34,7 +34,7 @@
                         <Image url="@../../../../img/icone.png" />
                      </image>
                      <HBox.margin>
-                        <Insets />
+                        <Insets bottom="25.0" />
                      </HBox.margin>
                   </ImageView>
                   <Button fx:id="deconnexion" contentDisplay="TOP" graphicTextGap="1.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" style="-fx-background-color: transparent;">
@@ -44,6 +44,13 @@
                      <HBox.margin>
                         <Insets bottom="25.0" />
                      </HBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../img/icônes/deconnexion.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                </children>
                <BorderPane.margin>
@@ -52,9 +59,9 @@
             </HBox>
          </left>
          <center>
-            <Label prefHeight="80.0" prefWidth="417.0" text="Menu Principal" BorderPane.alignment="CENTER">
+            <Label prefHeight="79.0" prefWidth="158.0" text="Client" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Caladea" size="50.0" />
+                  <Font name="Caladea Regular" size="55.0" />
                </font>
                <BorderPane.margin>
                   <Insets bottom="25.0" />
@@ -66,16 +73,19 @@
    <center>
       <StackPane prefHeight="740.0" prefWidth="1213.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="782.0" fitWidth="1213.0" nodeOrientation="INHERIT">
+            <ImageView fitHeight="700.0" fitWidth="1200.0" nodeOrientation="INHERIT">
                <image>
                   <Image url="@../../../../img/FondFloute.png" />
                </image>
+               <StackPane.margin>
+                  <Insets bottom="30.0" />
+               </StackPane.margin>
             </ImageView>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
                   <HBox alignment="CENTER_LEFT" prefWidth="1213.0" BorderPane.alignment="BOTTOM_CENTER">
                      <BorderPane.margin>
-                        <Insets />
+                        <Insets top="25.0" />
                      </BorderPane.margin>
                      <children>
                         <Button fx:id="retour" mnemonicParsing="false" style="-fx-background-color: transparent;">
