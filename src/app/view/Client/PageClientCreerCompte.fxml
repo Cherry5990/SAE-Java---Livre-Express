@@ -174,34 +174,6 @@
                                     <Insets />
                                  </GridPane.margin>
                               </Pane>
-                              <TextField fx:id="nom" alignment="CENTER" prefHeight="10.0" prefWidth="369.0" promptText="..." style="-fx-background-color: e8e4df; -fx-border-color: a6897e; -fx-border-width: 3;" GridPane.columnIndex="1">
-                                 <font>
-                                    <Font size="30.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets />
-                                 </GridPane.margin>
-                              </TextField>
-                              <TextField fx:id="prenom" alignment="CENTER" layoutX="360.0" layoutY="10.0" prefHeight="117.0" prefWidth="350.0" promptText="..." style="-fx-background-color: e8e4df; -fx-border-color: a6897e; -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font size="30.0" />
-                                 </font>
-                              </TextField>
-                              <TextField fx:id="ville" alignment="CENTER" layoutX="360.0" layoutY="88.0" prefHeight="117.0" prefWidth="350.0" promptText="..." style="-fx-background-color: e8e4df; -fx-border-color: a6897e; -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                 <font>
-                                    <Font size="30.0" />
-                                 </font>
-                              </TextField>
-                              <TextField fx:id="codepostal" alignment="CENTER" prefHeight="117.0" prefWidth="350.0" promptText="..." style="-fx-background-color: e8e4df; -fx-border-color: a6897e; -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                 <font>
-                                    <Font name="Caladea Regular" size="30.0" />
-                                 </font>
-                              </TextField>
-                              <TextField fx:id="adresse" alignment="CENTER" prefHeight="87.0" prefWidth="332.0" promptText="..." style="-fx-background-color: e8e4df; -fx-border-color: a6897e; -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font size="30.0" />
-                                 </font>
-                              </TextField>
                               <Pane layoutX="10.0" layoutY="69.0" prefHeight="120.0" prefWidth="350.0" style="-fx-border-color: e8e4df;  -fx-border-width: 3;" GridPane.rowIndex="5">
                                  <children>
                                     <Label fx:id="isbnLivre112" layoutX="23.0" layoutY="11.0" text="Nom du compte" textFill="#e8e4df">
@@ -220,6 +192,34 @@
                                     </Label>
                                  </children>
                               </Pane>
+                              <TextField fx:id="nom" alignment="CENTER" prefHeight="10.0" prefWidth="369.0" promptText="..." style="-fx-background-color: e8e4df; -fx-border-color: a6897e; -fx-border-width: 3;" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </TextField>
+                              <TextField fx:id="prenom" alignment="CENTER" layoutX="360.0" layoutY="10.0" prefHeight="117.0" prefWidth="350.0" promptText="..." style="-fx-background-color: e8e4df; -fx-border-color: a6897e; -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="adresse" alignment="CENTER" prefHeight="87.0" prefWidth="332.0" promptText="..." style="-fx-background-color: e8e4df; -fx-border-color: a6897e; -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="codepostal" alignment="CENTER" prefHeight="117.0" prefWidth="350.0" promptText="..." style="-fx-background-color: e8e4df; -fx-border-color: a6897e; -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font name="Caladea Regular" size="30.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="ville" alignment="CENTER" layoutX="360.0" layoutY="88.0" prefHeight="117.0" prefWidth="350.0" promptText="..." style="-fx-background-color: e8e4df; -fx-border-color: a6897e; -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                              </TextField>
                               <TextField fx:id="nomcompte" alignment="CENTER" layoutX="296.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="0.0" prefWidth="394.0" promptText="..." style="-fx-background-color: e8e4df; -fx-border-color: a6897e; -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                  <font>
                                     <Font size="30.0" />
