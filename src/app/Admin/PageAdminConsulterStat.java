@@ -54,6 +54,70 @@ public class PageAdminConsulterStat {
         this.parAnnee = (ComboBox<String>) scene.lookup("#parAnnee");
         this.espaceGraphiques = (VBox) scene.lookup("#espaceGraphiques");
 
+        this.typeStat.valueProperty().addListener((obs, oldVal, newVal) -> {
+            switch (newVal) {
+                case "Chiffre d'affaire":
+                    this.filtres.setDisable(false);
+                    this.parAnnee.setDisable(true);
+                    this.parMagasin.setDisable(true);
+                    this.parAnnee.disarm();
+                    this.parMagasin.disarm();
+                    break;
+
+                case "Livres les plus vendus":
+                    this.filtres.setDisable(false);
+                    this.parAnnee.setDisable(false);
+                    this.parMagasin.setDisable(false);
+                    this.parAnnee.arm();
+                    this.parMagasin.arm();
+                    break;
+            
+                case "Comparer ventes en ligne et ventes en magasin":
+                    this.filtres.setDisable(false);
+                    this.parAnnee.setDisable(false);
+                    this.parMagasin.setDisable(false);
+                    this.parAnnee.arm();
+                    this.parMagasin.arm();
+                    break;
+
+                case "Valeur du stock par magasin":
+                    this.filtres.setDisable(true);
+                    this.parAnnee.setDisable(true);
+                    this.parMagasin.setDisable(true);
+                    this.parAnnee.disarm();
+                    this.parMagasin.disarm();
+                    break;
+                    
+                default:
+                    break;
+            }
+        });
+
+        this.filtres.valueProperty().addListener((obs, oldVal, newVal) -> {
+            switch (newVal) {
+                case "Par année":
+                if (!this.typeStat.getValue().equals("Chiffre d'affaire")){
+                    this.parAnnee.setDisable(false);
+                    this.parMagasin.setDisable(true);
+                    this.parAnnee.arm();
+                    this.parMagasin.disarm();
+                }
+                    break;
+
+                case "Par magasin":
+                if (!this.typeStat.getValue().equals("Chiffre d'affaire")){
+                    this.parAnnee.setDisable(true);
+                    this.parMagasin.setDisable(false);
+                    this.parAnnee.disarm();
+                    this.parMagasin.arm();
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        });
+
         ObservableList<String> lstTypeStat = FXCollections.observableArrayList("Chiffre d'affaire", "Livre les plus vendus", "Comparer ventes en ligne et ventes en magasin", "Valeur du stock par magasin");
         this.typeStat.setItems(lstTypeStat);
         this.typeStat.setValue(lstTypeStat.get(0));

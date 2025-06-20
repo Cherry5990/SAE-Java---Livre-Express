@@ -119,8 +119,10 @@
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
-                              </ComboBox>
-                              <Button fx:id="consulter" mnemonicParsing="false" text="Consulter">
+                              </ComboBox><Button fx:id="consulter" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="150.0" style="-fx-background-color: #a6897e; -fx-text-fill: white; -fx-background-radius: 50;" text="Consulter">
+                                 <font>
+                                    <Font name="Caladea Regular" size="20.0" />
+                                 </font>
                                  <HBox.margin>
                                     <Insets left="40.0" />
                                  </HBox.margin>
@@ -129,7 +131,7 @@
                         </HBox>
                      </top>
                      <center>
-                        <VBox fx:id="espaceGraphiques" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" style="-fx-background-color: #e8e4df;"/>
+                        <VBox fx:id="espaceGraphiques" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" style="-fx-background-color:rgba(232, 228, 223, 0.8);"/>
                      </center>
                   </BorderPane>
                </center>
