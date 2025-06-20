@@ -95,11 +95,7 @@ public class ClientBD {
         List<Livre> recommandation = new ArrayList<>();
         List<Livre> livreClient = new ArrayList<>();
         try (PreparedStatement ps = laConnexion.prepareStatement(
-            "SELECT l.isbn, l.titre, l.nbpages, l.datepubli, l.prix " +
-            "FROM LIVRE l " +
-            "JOIN DETAILCOMMANDE dc ON l.isbn = dc.isbn " +
-            "JOIN COMMANDE c ON dc.numcom = c.numcom " +
-            "WHERE c.idcli = ?")) {
+            "SELECT isbn, titre, nbpages, datepubli, prix FROM LIVRE NATURAL JOIN DETAILCOMMANDE NATURAL JOIN COMMANDE where idcli = ?")) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -121,24 +117,21 @@ public class ClientBD {
                     continue;
                 }
                 List<Livre> listClient = new ArrayList<>();
-                PreparedStatement ps2 =laConnexion.prepareStatement("select numcom from COMMANDE where idcli=?;");
+                try (PreparedStatement ps2 = laConnexion.prepareStatement(
+            "SELECT isbn, titre, nbpages, datepubli, prix FROM LIVRE NATURAL JOIN DETAILCOMMANDE NATURAL JOIN COMMANDE where idcli = ?")) {
                 ps2.setInt(1, rs.getInt("idcli"));
                 ResultSet rs2 = ps2.executeQuery();
-                while(rs2.next()){
-                    PreparedStatement ps3 =laConnexion.prepareStatement("select isbn,titre,nbpages,datepubli,prix from DETAILCOMMANDE natural join LIVRE where numcom=?;");
-                    ps3.setInt(1, rs2.getInt("numcom"));
-                    ResultSet rs3 = ps3.executeQuery();
-                    while (rs3.next()) {
-                        listClient.add(new Livre(
-                            rs3.getString("isbn"),
-                            rs3.getString("titre"),
-                            rs3.getInt("nbpages"),
-                            rs3.getString("datepubli"),
-                            rs3.getDouble("prix")
-                        ));
-                    }
-                    rs3.close();
-                    ps3.close();
+                while (rs2.next()) {
+                    listClient.add(new Livre(
+                        rs2.getString("isbn"),
+                        rs2.getString("titre"),
+                        rs2.getInt("nbpages"),
+                        rs2.getString("datepubli"),
+                        rs2.getDouble("prix")
+                    ));
+                }
+                rs2.close();
+                ps2.close();
                 }
                 int commun = 0;
                 for (Livre livre : livreClient) {
