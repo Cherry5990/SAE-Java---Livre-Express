@@ -85,7 +85,7 @@ public class AdminBD {
 
     /**
      * Calcul le chiffre d'affaire total pour un magasin à une année donnée
-     * @param idmag l'identifiant du magasin
+     * @param anne l'anne qu'on veut regarder
      * @return le chiffre d'affaire total du magasin à l'année donnée
      */
     public String chiffreDAffaireMagasinParAns(Integer anne){
@@ -273,7 +273,6 @@ public class AdminBD {
 
     /**
      * Affiche les ventes en ligne contre les ventes en magasin par année
-     * @param annee l'année pour laquelle on veut les ventes
      * @return une chaîne de caractères contenant les ventes en ligne contre en magasin par an
      */
     public String ventesLigneContreMagasinParAns(){
@@ -481,7 +480,7 @@ public class AdminBD {
 
     /**
      * Affiche les 10 livres les plus vendus pour une année donnée
-     * @param annee 
+     * @param magasin le nom du magasin qu'on veut
      * @return une chaîne de caractères contenant les 10 livres les plus vendus pour l'année donnée
      */
     public ArrayList<Map.Entry<String,Integer>> livresLesPlusVendusTotalParMagasinGraphique(String magasin){
@@ -544,7 +543,7 @@ public class AdminBD {
     
     /**
      * Affiche les ventes en ligne contre les ventes en magasin par magasin pour une année donnée
-     * @param annee l'année pour laquelle on veut les ventes
+     * @param magasin le nom du magasin qu'on veut
      * @return une chaîne de caractères contenant les ventes en ligne contre en magasin par magasin pour l'année donnée
      */
     public ArrayList<Map.Entry<String,Integer>> ventesLigneContreMagasinParMagasinParMagasinGraphique(String magasin){

@@ -15,7 +15,7 @@ get_value() {
 USER=$(get_value user)
 PASSWORD=$(get_value password)
 HOST=$(get_value host)
-DBNAME=$"java"
+DBNAME=$"DBjoubert"
 
 # Vérification que .my.cnf existe
 if [ ! -f "$MYCNF" ]; then  #-f Si le chemin existe ET si c'est un fichier régulier 
@@ -67,13 +67,13 @@ else
     echo "✅ Le dossier bin existe déjà."
 fi
 
-#echo "🛠 Vérification de l'existence du dossier doc..."
-#if [ ! -d "doc" ]; then
-#    echo "📃 génération de la javadoc..."
-#    javadoc -d doc src/*/*.java --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml
-#else
-#    echo "✅ Le dossier doc existe déjà."
-#fi
+echo "🛠 Vérification de l'existence du dossier doc..."
+if [ ! -d "doc" ]; then
+    echo "📃 génération de la javadoc..."
+    javadoc -quiet -Xdoclint:none -d doc --module-path $JAVAFX --add-modules javafx.controls,javafx.fxml -cp "lib/*:src" src/*/*.java
+else
+    echo "✅ Le dossier doc existe déjà."
+fi
 
 echo "🚀 Lancement de l'application..."
 java --module-path $JAVAFX --add-modules javafx.controls,javafx.fxml -cp "lib/*:bin" app.App
