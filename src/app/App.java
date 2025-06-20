@@ -102,7 +102,7 @@ public class App extends Application{
     }
     public void popUpMessageDeconnexion(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"",ButtonType.YES, ButtonType.NO);
-        alert.setHeaderText("Déconnextion"); 
+        alert.setHeaderText("Déconnexion"); 
         alert.setContentText("êtes vous sur de vous déconnecter?"); 
         Optional<ButtonType> reponse = alert.showAndWait();
             if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){
