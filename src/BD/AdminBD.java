@@ -1,7 +1,9 @@
 package BD;
 import java.sql.*;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import app.App;
 import modele.Client;
@@ -401,8 +403,198 @@ public class AdminBD {
         return false;
     }
 
-
-
+    //------------------ POUR LES GRAPHIQUES ------------------
     
+    /**
+     * Calcul le chiffre d'affaire total par an
+     * @return le chiffre d'affaire total par an
+     */
+    public ArrayList<Map.Entry<String,Integer>> chiffreDAffaireTotalParAnsGraphique(){
+        ArrayList<Map.Entry<String, Integer>> lstResult = new ArrayList<>();
+        String annee;
+        Integer CA;
+        try(PreparedStatement ps = laConnexion.prepareStatement("SELECT YEAR(datecom) annee, SUM(qte * prixvente) CA FROM DETAILCOMMANDE natural join COMMANDE GROUP BY annee ORDER BY annee;")){
+            ResultSet result = ps.executeQuery();
+            while(result.next()){
+                annee = "" + result.getInt(1);
+                CA = result.getInt(2);
+                lstResult.add(new AbstractMap.SimpleEntry<>(annee, CA));
+            }
+            return lstResult;
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    
+    /**
+     * Calcul le chiffre d'affaire total par an
+     * @return le chiffre d'affaire total par an
+     */
+    public ArrayList<Map.Entry<String,Integer>> chiffreDAffaireTotalParMagasinGraphique(){
+        ArrayList<Map.Entry<String, Integer>> lstResult = new ArrayList<>();
+        String magasin;
+        Integer CA;
+        try(PreparedStatement ps = laConnexion.prepareStatement("SELECT nommag, SUM(qte * prixvente) CA FROM DETAILCOMMANDE natural join COMMANDE natural join MAGASIN GROUP BY nommag ORDER BY nommag")){
+            ResultSet result = ps.executeQuery();
+            while(result.next()){
+                magasin = result.getString(1);
+                CA = result.getInt(2);
+                lstResult.add(new AbstractMap.SimpleEntry<>(magasin, CA));
+            }
+            return lstResult;
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Affiche les 10 livres les plus vendus pour une année donnée
+     * @param annee 
+     * @return une chaîne de caractères contenant les 10 livres les plus vendus pour l'année donnée
+     */
+    public ArrayList<Map.Entry<String,Integer>> livresLesPlusVendusTotalParAnsGraphique(Integer annee){
+        ArrayList<Map.Entry<String, Integer>> lstResult = new ArrayList<>();
+        String livre;
+        Integer qte;
+        try(PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn, titre, SUM(qte) qte FROM LIVRE NATURAL JOIN DETAILCOMMANDE NATURAL JOIN COMMANDE WHERE YEAR(datecom) = ? GROUP BY isbn, titre ORDER BY qte DESC LIMIT 10;")){
+            ps.setInt(1, annee);
+            ResultSet result = ps.executeQuery();
+            while(result.next()){
+                String titre = result.getString(2);
+                if (titre.length() > 16){
+                    livre = /*result.getString(1) + " - " + */titre.substring(0, 15);
+                } else {
+                    livre = /*result.getString(1) + " - " +*/ titre;
+                }
+                qte = result.getInt(3);
+                lstResult.add(new AbstractMap.SimpleEntry<>(livre, qte));
+            }
+            return lstResult;
+
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Affiche les 10 livres les plus vendus pour une année donnée
+     * @param annee 
+     * @return une chaîne de caractères contenant les 10 livres les plus vendus pour l'année donnée
+     */
+    public ArrayList<Map.Entry<String,Integer>> livresLesPlusVendusTotalParMagasinGraphique(String magasin){
+        ArrayList<Map.Entry<String, Integer>> lstResult = new ArrayList<>();
+        String livre;
+        Integer qte;
+        try(PreparedStatement ps = laConnexion.prepareStatement("SELECT titre, SUM(qte) qte FROM LIVRE NATURAL JOIN DETAILCOMMANDE NATURAL JOIN COMMANDE natural join MAGASIN WHERE nommag = ? GROUP BY titre ORDER BY qte DESC LIMIT 10;")){
+            ps.setString(1, magasin);
+            ResultSet result = ps.executeQuery();
+            while(result.next()){
+                String titre = result.getString(1);
+                if (titre.length() > 16){
+                    livre = /*result.getString(1) + " - " + */titre.substring(0, 15);
+                } else {
+                    livre = /*result.getString(1) + " - " +*/ titre;
+                }
+                qte = result.getInt(2);
+                lstResult.add(new AbstractMap.SimpleEntry<>(livre, qte));
+            }
+            return lstResult;
+
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    
+    /**
+     * Affiche les ventes en ligne contre les ventes en magasin par magasin pour une année donnée
+     * @param annee l'année pour laquelle on veut les ventes
+     * @return une chaîne de caractères contenant les ventes en ligne contre en magasin par magasin pour l'année donnée
+     */
+    public ArrayList<Map.Entry<String,Integer>> ventesLigneContreMagasinParMagasinParAnsGraphique(Integer annee){
+        ArrayList<Map.Entry<String, Integer>> lstResult = new ArrayList<>();
+        String modeachat = "";
+        Integer CA;
+        try(PreparedStatement ps = laConnexion.prepareStatement("SELECT enligne, SUM(qte * prixvente) CA FROM DETAILCOMMANDE NATURAL JOIN COMMANDE NATURAL JOIN MAGASIN WHERE YEAR(datecom) = ? GROUP BY enligne")){
+            ps.setInt(1, annee); 
+            ResultSet result = ps.executeQuery();
+            while(result.next()){
+                CA = result.getInt(2);
+                switch (result.getString(1)) {
+                    case "O":
+                        modeachat = "En ligne (" + CA + " € de CA)";
+                        break;
+                    case "N":
+                        modeachat = "En magasin (" + CA + " € de CA)";
+                        break;
+                    default:
+                        break;
+                }
+                lstResult.add(new AbstractMap.SimpleEntry<>(modeachat, CA));
+            }
+            return lstResult;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    
+    /**
+     * Affiche les ventes en ligne contre les ventes en magasin par magasin pour une année donnée
+     * @param annee l'année pour laquelle on veut les ventes
+     * @return une chaîne de caractères contenant les ventes en ligne contre en magasin par magasin pour l'année donnée
+     */
+    public ArrayList<Map.Entry<String,Integer>> ventesLigneContreMagasinParMagasinParMagasinGraphique(String magasin){
+        ArrayList<Map.Entry<String, Integer>> lstResult = new ArrayList<>();
+        String modeachat = "";
+        Integer CA;
+        try(PreparedStatement ps = laConnexion.prepareStatement("SELECT enligne, SUM(qte * prixvente) CA FROM DETAILCOMMANDE NATURAL JOIN COMMANDE NATURAL JOIN MAGASIN WHERE nommag = ? GROUP BY enligne")){
+            ps.setString(1, magasin); 
+            ResultSet result = ps.executeQuery();
+            while(result.next()){
+                CA = result.getInt(2);
+                switch (result.getString(1)) {
+                    case "O":
+                        modeachat = "En ligne (" + CA + " € de CA)";
+                        break;
+                    case "N":
+                        modeachat = "En magasin (" + CA + " € de CA)";
+                        break;
+                    default:
+                        break;
+                }
+                lstResult.add(new AbstractMap.SimpleEntry<>(modeachat, CA));
+            }
+            return lstResult;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Calcule la valeur du stock de chaque magasin
+     * @return une chaîne de caractères contenant la valeur du stock par magasin
+     */
+    public ArrayList<Map.Entry<String,Integer>> valeurStockParMagasinGraphique(){
+        ArrayList<Map.Entry<String, Integer>> lstResult = new ArrayList<>();
+        String nommag;
+        Integer valeur;
+        try(PreparedStatement ps = laConnexion.prepareStatement("SELECT nommag, SUM(qte * prix) stock FROM POSSEDER NATURAL JOIN MAGASIN NATURAL JOIN LIVRE GROUP BY nommag ORDER BY nommag")){
+            ResultSet result = ps.executeQuery();
+            while(result.next()){
+                nommag = result.getString(1);
+                valeur = result.getInt(2);
+                lstResult.add(new AbstractMap.SimpleEntry<>(nommag, valeur));
+            }
+            return lstResult;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }
 
