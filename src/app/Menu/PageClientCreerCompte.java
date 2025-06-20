@@ -55,6 +55,7 @@ public class PageClientCreerCompte {
                     if(mdp.getText().equals(mdpconfirmation.getText())){
                         try {
                             App.clientBD.insererClient(prenom.getText(), nom.getText(), adresse.getText(), codepostal.getText(), ville.getText(), nomcompte.getText(), mdp.getText());
+                            alertReussi().showAndWait();
                             app.sceneConnexion("client");
                         } 
                         catch (IOException e1) {System.out.println(e1.getMessage());} 
@@ -81,7 +82,7 @@ public class PageClientCreerCompte {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Livre Express");
         alert.setHeaderText("Erreur création compte"); 
-        alert.setContentText("Mot de passe ne sont pas identique");     
+        alert.setContentText("Mot de passe ne sont pas identique.");     
         return alert;
     }
 
@@ -89,7 +90,7 @@ public class PageClientCreerCompte {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Livre Express");
         alert.setHeaderText("Erreur création compte"); 
-        alert.setContentText("Nom de compte déja utilisé");     
+        alert.setContentText("Nom de compte déja utilisé.");     
         return alert;
     }
 
@@ -98,6 +99,14 @@ public class PageClientCreerCompte {
             alert.setTitle("Livre Express");
             alert.setHeaderText("Erreur création compte");
             alert.setContentText("Tous les champs doivent être remplis.");
+            return alert;
+    }
+
+    public Alert alertReussi(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Livre Express");
+            alert.setHeaderText("Création compte");
+            alert.setContentText("Le compte a été créé avec succès.");
             return alert;
     }
 
