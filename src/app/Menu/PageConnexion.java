@@ -48,6 +48,16 @@ public class PageConnexion {
         this.titre = (Label) this.scene.lookup("#titre");
         titre.setText(titre.getText() + utilisateur);
 
+        this.scene.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case ENTER:
+                    new ControleurConnexion(app, this).handle(null);
+                    break;
+                default:
+                    break;
+            }
+        });
+
         Button con = (Button) this.scene.lookup("#connexion");
         con.setOnAction(new ControleurConnexion(app,this));
 
