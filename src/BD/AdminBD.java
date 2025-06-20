@@ -82,27 +82,6 @@ public class AdminBD {
             return "Pas de chiffre d'affaire";
         }
     }
-    /**
-     * Calcul le chiffre d'affaire total par an
-     * @return le chiffre d'affaire total par an
-     */
-    public ArrayList<Map.Entry<String,Integer>> chiffreDAffaireTotalParAnsGraphique(){
-        ArrayList<Map.Entry<String, Integer>> lstResult = new ArrayList<>();
-        String annee;
-        Integer CA;
-        try(PreparedStatement ps = laConnexion.prepareStatement("SELECT YEAR(datecom) annee, SUM(qte * prixvente) CA FROM DETAILCOMMANDE natural join COMMANDE GROUP BY annee ORDER BY annee;")){
-            ResultSet result = ps.executeQuery();
-            while(result.next()){
-                annee = "" + result.getInt(1);
-                CA = result.getInt(2);
-                lstResult.add(new AbstractMap.SimpleEntry<>(annee, CA));
-            }
-            return lstResult;
-        } catch(SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
 
     /**
      * Calcul le chiffre d'affaire total pour un magasin à une année donnée
@@ -424,8 +403,58 @@ public class AdminBD {
         return false;
     }
 
-
-
+    //------------------ POUR LES GRAPHIQUES ------------------
     
+    /**
+     * Calcul le chiffre d'affaire total par an
+     * @return le chiffre d'affaire total par an
+     */
+    public ArrayList<Map.Entry<String,Integer>> chiffreDAffaireTotalParAnsGraphique(){
+        ArrayList<Map.Entry<String, Integer>> lstResult = new ArrayList<>();
+        String annee;
+        Integer CA;
+        try(PreparedStatement ps = laConnexion.prepareStatement("SELECT YEAR(datecom) annee, SUM(qte * prixvente) CA FROM DETAILCOMMANDE natural join COMMANDE GROUP BY annee ORDER BY annee;")){
+            ResultSet result = ps.executeQuery();
+            while(result.next()){
+                annee = "" + result.getInt(1);
+                CA = result.getInt(2);
+                lstResult.add(new AbstractMap.SimpleEntry<>(annee, CA));
+            }
+            return lstResult;
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Affiche les 10 livres les plus vendus pour une année donnée
+     * @param annee 
+     * @return une chaîne de caractères contenant les 10 livres les plus vendus pour l'année donnée
+     */
+    public ArrayList<Map.Entry<String,Integer>> livresLesPlusVendusTotalParAnsGraphique(Integer annee){
+        ArrayList<Map.Entry<String, Integer>> lstResult = new ArrayList<>();
+        String livre;
+        Integer qte;
+        try(PreparedStatement ps = laConnexion.prepareStatement("SELECT isbn, titre, SUM(qte) qte FROM LIVRE NATURAL JOIN DETAILCOMMANDE NATURAL JOIN COMMANDE WHERE YEAR(datecom) = ? GROUP BY isbn, titre ORDER BY qte DESC LIMIT 10;")){
+            ps.setInt(1, annee);
+            ResultSet result = ps.executeQuery();
+            while(result.next()){
+                String titre = result.getString(2);
+                if (titre.length() > 21){
+                    livre = /*result.getString(1) + " - " + */titre.substring(0, 20);
+                } else {
+                    livre = /*result.getString(1) + " - " +*/ titre;
+                }
+                qte = result.getInt(3);
+                lstResult.add(new AbstractMap.SimpleEntry<>(livre, qte));
+            }
+            return lstResult;
+
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }
 

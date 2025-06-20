@@ -12,8 +12,11 @@ import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -28,7 +31,10 @@ public class PageAdminConsulterStat {
     private ComboBox<String> parMagasin;
     private ComboBox<String> parAnnee;
     private VBox espaceGraphiques;
+
     private BarChart<String, Number> graphiqueCA;
+    private BarChart<String, Number> graphiqueVenteLivres;
+    private PieChart graphiqueVentesLigne;
 
     public PageAdminConsulterStat(App app){
         try {
@@ -101,7 +107,10 @@ public class PageAdminConsulterStat {
         consulter.setOnAction(e -> this.appuiBouton());
 
         this.creerGraphiqueChiffreDAffaire();
+        this.creerGraphiqueVenteLivres();
     }
+
+    // ------------------- Graphique pour CA -------------------
 
     public void creerGraphiqueChiffreDAffaire(){
         CategoryAxis xAxis = new CategoryAxis();
@@ -129,6 +138,43 @@ public class PageAdminConsulterStat {
         this.espaceGraphiques.getChildren().add(this.graphiqueCA);
     }
 
+    // ------------------- Graphique pour livres les plus vendus -------------------
+
+    public void creerGraphiqueVenteLivres(){
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Titre et ISBN du livre");
+
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Quantité vendue");
+
+        // Création du graphique
+        this.graphiqueVenteLivres = new BarChart<>(xAxis, yAxis);
+        this.graphiqueVenteLivres.setTitle("Les 10 livres les plus vendus pour l'année...");
+    }
+
+    public void setGraphiqueVenteLivres(){
+        this.espaceGraphiques.getChildren().clear();
+        this.graphiqueVenteLivres.getData().clear();
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+        try{
+            Integer annee = Integer.parseInt(this.parAnnee.getValue());
+            this.graphiqueVenteLivres.setTitle("Les 10 livres les plus vendus pour l'année " + annee);
+
+            // Série de données
+            for (Map.Entry<String,Integer> entree : App.adminBD.livresLesPlusVendusTotalParAnsGraphique(annee)){
+                series.getData().add(new XYChart.Data<>(entree.getKey(),entree.getValue()));
+            }
+        } catch (NumberFormatException e){
+            System.out.println("Toutes les années choisies");
+        }
+
+        // Ajout de la série au graphique
+        this.graphiqueVenteLivres.getData().add(series);
+        this.espaceGraphiques.getChildren().add(this.graphiqueVenteLivres);
+    }
+
     public void appuiBouton(){
         String stat = this.typeStat.getValue();
         switch (stat) {
@@ -138,6 +184,7 @@ public class PageAdminConsulterStat {
                 break;
             case "Livre les plus vendus":
                 System.out.println(stat);
+                this.setGraphiqueVenteLivres();
                 break;
             case "Comparer ventes en ligne et ventes en magasin":
                 System.out.println(stat);
@@ -149,6 +196,13 @@ public class PageAdminConsulterStat {
                 System.err.println("Problème dans la sélection du ComboBox typeStat");
                 break;
         }
+    }
+
+    private void popUpValeursNonValides(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Erreur : Veuillez sélectionner tous les filtres", ButtonType.OK);
+        alert.setTitle("Valeurs non valides");
+        alert.setHeaderText("Valeurs non valides");
+        alert.showAndWait();
     }
 
     public Scene getScene(){
