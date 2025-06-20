@@ -41,7 +41,7 @@ public class PageAdminGererStock{
                 deconnexion.setScaleX(1.0);
                 deconnexion.setScaleY(1.0);
             });
-        deconnexion.setOnAction(e -> app.sceneAcceuil());
+        deconnexion.setOnAction(e -> app.popUpMessageDeconnexion());
 
         // Bouton Transférer un livre
         Button transfererLivre = (Button) this.scene.lookup("#transfererLivre");

@@ -59,9 +59,9 @@
             </HBox>
          </left>
          <center>
-            <Label prefHeight="80.0" prefWidth="200.0" text="Admin" BorderPane.alignment="CENTER">
+            <Label prefHeight="80.0" prefWidth="157.0" text="Admin" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Caladea" size="50.0" />
+                  <Font name="Caladea Regular" size="49.0" />
                </font>
                <BorderPane.margin>
                   <Insets bottom="25.0" />
@@ -101,7 +101,7 @@
                      <top>
                         <Label alignment="CENTER" prefHeight="54.0" prefWidth="633.0" style="-fx-background-color: a6897e; -fx-background-radius: 30;" text="Rentrez les informations du magasin" textAlignment="CENTER" textFill="#e8e4df" BorderPane.alignment="CENTER">
                            <font>
-                              <Font size="37.0" />
+                              <Font name="Caladea Regular" size="37.0" />
                            </font>
                         </Label>
                      </top>

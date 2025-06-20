@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: /../../img/Fond.jpg;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: /../../img/Fond.jpg;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <BorderPane prefHeight="150.0" prefWidth="1200.0" style="-fx-background-color: #e8e4df;" BorderPane.alignment="CENTER">
          <left>
@@ -264,12 +264,12 @@
                                     <Font name="Caladea Regular" size="25.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="creer" mnemonicParsing="false" prefHeight="56.0" prefWidth="172.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Creer">
+                              <Button fx:id="creer" mnemonicParsing="false" prefHeight="66.0" prefWidth="172.0" style="-fx-background-color: e8e4df; -fx-background-radius: 20;" text="Creer">
                                  <HBox.margin>
                                     <Insets left="10.0" />
                                  </HBox.margin>
                                  <font>
-                                    <Font size="31.0" />
+                                    <Font name="Caladea Regular" size="33.0" />
                                  </font>
                               </Button>
                            </children>
@@ -281,7 +281,7 @@
                      <top>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="619.0" style="-fx-background-color: a6897e; -fx-background-radius: 20;" text="Veuillez renseignez les information suivante" textFill="#e8e4df" BorderPane.alignment="CENTER">
                            <font>
-                              <Font name="Caladea" size="32.0" />
+                              <Font name="Caladea Regular" size="32.0" />
                            </font>
                            <BorderPane.margin>
                               <Insets bottom="10.0" />

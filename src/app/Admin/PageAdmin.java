@@ -58,10 +58,26 @@ public class PageAdmin {
         });
 
         Button ajouterLibrairie = (Button)scene.lookup("#ajouterLibrairie");
+        ajouterLibrairie.setOnMouseEntered(e -> {
+                ajouterLibrairie.setScaleX(1.1);
+                ajouterLibrairie.setScaleY(1.1);
+            });
+            ajouterLibrairie.setOnMouseExited(e -> {
+                ajouterLibrairie.setScaleX(1.0);
+                ajouterLibrairie.setScaleY(1.0);
+            });
         ajouterLibrairie.setOnAction(e -> app.sceneAjouterMagasin());
 
         Button statistiques = (Button)scene.lookup("#statistiques");
         statistiques.setOnAction(e -> app.scenePageAdminConsulterStat());
+        statistiques.setOnMouseEntered(e -> {
+                statistiques.setScaleX(1.1);
+                statistiques.setScaleY(1.1);
+            });
+            statistiques.setOnMouseExited(e -> {
+                statistiques.setScaleX(1.0);
+                statistiques.setScaleY(1.0);
+            });
     }
 
     public Scene getScene(){

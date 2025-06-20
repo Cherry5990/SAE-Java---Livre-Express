@@ -88,3 +88,24 @@ Si javafx est dans un autre dossier que celui recommandé alors:
     ```
 
 3. Remplacez `/usr/share/openjfx/lib/` par le nom de **votre** dossier ou est stocké votre javafx.
+
+---
+
+###  Exemple de d'identifiant et de mot de passe pour se connecter au comptes
+
+
+
+# Client
+
+identifiant : fat
+mot de passe: rodri
+
+# Vendeur
+
+identifiant : erik
+mot de passe : portugal
+
+# Admin
+
+identifiant : livre
+mot de passe : admin
